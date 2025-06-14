@@ -8,23 +8,41 @@ interface PreviewGridProps {
 
 const componentsData = {
   graphs: [
-    {
-      title: "GitHub Stats",
-      description: "Display your GitHub statistics with a beautiful card",
-      imageUrl: "https://github-readme-stats.vercel.app/api?username=mayur-pagote&show_icons=true&theme=radical",
-      codeSnippet: "![GitHub Stats](https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&theme=radical)"
-    },
-    {
+   {
       title: "Contribution Graph",
-      description: "Show your contribution activity over time",
-      imageUrl: "https://github-readme-activity-graph.vercel.app/graph?username=mayur-pagote&theme=react-dark",
-      codeSnippet: "![Contribution Graph](https://github-readme-activity-graph.vercel.app/graph?username={username}&theme=react-dark)"
+      description: "Simple GitHub contribution activity graph with dark theme",
+      imageUrl: "https://github-readme-activity-graph.vercel.app/graph?username=Mayur-Pagote&theme=react-dark&hide_border=false",
+      codeSnippet: "![Contribution Graph](https://github-readme-activity-graph.vercel.app/graph?username={username}&theme=react-dark&hide_border=false)"
+    },
+     {
+      title: "Profile Summary Graph",
+      description: "Profile details summary from GitHub Profile Summary Cards",
+      imageUrl: "https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=Mayur-Pagote&theme=radical",
+      codeSnippet: "![Contribution Graph](https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username={username}&theme=radical)"
     },
     {
-      title: "Streak Stats",
-      description: "Display your GitHub streak statistics",
-      imageUrl: "https://github-readme-streak-stats.herokuapp.com/?user=mayur-pagote&theme=radical",
-      codeSnippet: "![GitHub Streak](https://github-readme-streak-stats.herokuapp.com/?user={username}&theme=radical)"
+      title: "Gradient 3D Animated Graph",
+      description: "3D bar graph with animated contributions and gradient in purple theme",
+      imageUrl: "https://ssr-contributions-svg.vercel.app/_/Mayur-Pagote?chart=3dbar&gap=0.6&scale=2&gradient=true&flatten=0&animation=mess&animation_duration=6&animation_loop=true&format=svg&weeks=50&theme=purple&widget_size=large&colors=FF6F61,FF9671,FFC15E,72F2EB,1282A2,FCE2DB,FAD4D8,DBDFFD&dark=true",
+      codeSnippet: "![Contribution Graph](https://ssr-contributions-svg.vercel.app/_/{username}?chart=3dbar&gap=0.6&scale=2&gradient=true&flatten=0&animation=mess&animation_duration=6&animation_loop=true&format=svg&weeks=50&theme=purple&widget_size=large&colors=FF6F61,FF9671,FFC15E,72F2EB,1282A2,FCE2DB,FAD4D8,DBDFFD&dark=true)"
+    },
+    {
+      title: "Responsive 3D Wave Graph",
+      description: "Responsive 3D bar graph with wave animation and light/dark mode support",
+      imageUrl: "https://ssr-contributions-svg.vercel.app/_/Mayur-Pagote?chart=3dbar&gap=0.6&scale=2&flatten=2&animation=wave&animation_duration=4&animation_delay=0.06&animation_amplitude=24&animation_frequency=0.1&animation_wave_center=0_3&format=svg&weeks=34&theme=native",
+      codeSnippet: "![Contribution Graph](https://ssr-contributions-svg.vercel.app/_/{username}?chart=3dbar&gap=0.6&scale=2&flatten=2&animation=wave&animation_duration=4&animation_delay=0.06&animation_amplitude=24&animation_frequency=0.1&animation_wave_center=0_3&format=svg&weeks=34&theme=native)"
+    },
+    {
+      title: "3D Wave Graph (Pink Theme)",
+      description: "3D bar GitHub contribution graph in pink theme with wave animation",
+      imageUrl: "https://ssr-contributions-svg.vercel.app/_/Mayur-Pagote?chart=3dbar&flatten=1&weeks=34&animation=wave&format=svg&gap=0.6&animation_frequency=0.2&animation_amplitude=20&theme=pink",
+      codeSnippet: "![Contribution Graph](https://ssr-contributions-svg.vercel.app/_/{username}?chart=3dbar&flatten=1&weeks=34&animation=wave&format=svg&gap=0.6&animation_frequency=0.2&animation_amplitude=20&theme=pink)"
+    },
+    {
+      title: "Area Activity Graph with Rounded Corners",
+      description: "Advanced activity graph with area fill, rounded corners, and custom title",
+      imageUrl: "https://github-readme-activity-graph.vercel.app/graph?username=Mayur-Pagote&radius=16&theme=react&area=true&order=5&custom_title=Contribution%20Graph",
+      codeSnippet: "![Contribution Graph](https://github-readme-activity-graph.vercel.app/graph?username={username}&radius=16&theme=react&area=true&order=5&custom_title=Contribution%20Graph)"
     }
   ],
   cards: [
