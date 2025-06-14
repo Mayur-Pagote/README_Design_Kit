@@ -1,17 +1,56 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
-  MousePointer, 
-  Clock,
-  ArrowLeft
+  ArrowLeft,
+  PanelLeft,
+  PanelRight,
+  Sparkles,
 } from 'lucide-react';
+import { ElementPalette } from '@/components/ElementPalette';
+import { EditorCanvas } from '@/components/EditorCanvas';
+import { ReadmePreview } from '@/components/ReadmePreview';
+import { ElementEditor } from '@/components/ElementEditor';
+import { demoElements } from '@/data/demo';
+import type { ElementType } from '@/types/elements';
 
 export default function DragDropEditor() {
+  const [elements, setElements] = useState<ElementType[]>([]);
+  const [editingElement, setEditingElement] = useState<ElementType | null>(null);
+  const [showPalette, setShowPalette] = useState(true);
+  const [showPreview, setShowPreview] = useState(true);
+
+  const handleAddElement = (element: ElementType) => {
+    setElements(prev => [...prev, element]);
+  };
+
+  const handleEditElement = (element: ElementType) => {
+    setEditingElement(element);
+  };
+
+  const handleSaveElement = (editedElement: ElementType) => {
+    setElements(prev => 
+      prev.map(el => el.id === editedElement.id ? editedElement : el)
+    );
+    setEditingElement(null);
+  };
+  const handleElementsChange = (newElements: ElementType[]) => {
+    setElements(newElements);
+  };
+
+  const loadDemo = () => {
+    setElements([...demoElements]);
+  };
+
+  const clearAll = () => {
+    setElements([]);
+  };
+
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background flex flex-col">
       {/* Editor Header */}
-      <div className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <div className="border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 z-10">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -22,41 +61,79 @@ export default function DragDropEditor() {
                 </Link>
               </Button>
               <span className="text-muted-foreground">•</span>
-              <h1 className="text-xl font-semibold">Drag & Drop Editor</h1>
-              <Badge variant="secondary">Coming Soon</Badge>
+              <h1 className="text-xl font-semibold">Drag & Drop README Editor</h1>
+              <Badge variant="default">Beta</Badge>
+            </div>            <div className="flex items-center gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={loadDemo}
+                className="flex items-center gap-2"
+              >
+                <Sparkles className="h-4 w-4" />
+                Load Demo
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={clearAll}
+                disabled={elements.length === 0}
+              >
+                Clear All
+              </Button>
+              <span className="text-muted-foreground mx-2">•</span>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowPalette(!showPalette)}
+                className="flex items-center gap-2"
+              >
+                <PanelLeft className="h-4 w-4" />
+                {showPalette ? 'Hide' : 'Show'} Elements
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowPreview(!showPreview)}
+                className="flex items-center gap-2"
+              >
+                <PanelRight className="h-4 w-4" />
+                {showPreview ? 'Hide' : 'Show'} Preview
+              </Button>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Coming Soon Content */}
-      <div className="min-h-[60vh] flex items-center justify-center">
-        <div className="text-center px-6">
-          <div className="mb-8">
-            <div className="relative inline-flex items-center justify-center">
-              <MousePointer className="h-16 w-16 text-primary animate-pulse" />
-              <div className="absolute -top-2 -right-2">
-                <Clock className="h-6 w-6 text-yellow-500 animate-bounce" />
-              </div>
-            </div>
-          </div>
-          
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-            Drag & Drop Editor
-            <br />
-            <span className="text-primary">Coming Soon</span>
-          </h1>
-          
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            We're building an amazing drag & drop editor for creating README files visually.
-            This feature will be available in the next update!
-          </p>
+      {/* Editor Layout */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Elements Palette */}
+        {showPalette && (
+          <ElementPalette onAddElement={handleAddElement} />
+        )}
 
-          <div className="text-sm text-muted-foreground">
-            <p>🚧 Under Development | Next PR Coming Soon</p>
+        {/* Main Editor Canvas */}
+        <EditorCanvas
+          elements={elements}
+          onElementsChange={handleElementsChange}
+          onEditElement={handleEditElement}
+        />
+
+        {/* README Preview */}
+        {showPreview && (
+          <div className="w-1/2 border-l border-border">
+            <ReadmePreview elements={elements} />
           </div>
-        </div>
+        )}
       </div>
+
+      {/* Element Editor Dialog */}
+      <ElementEditor
+        element={editingElement}
+        isOpen={editingElement !== null}
+        onClose={() => setEditingElement(null)}
+        onSave={handleSaveElement}
+      />
     </div>
   );
 }
