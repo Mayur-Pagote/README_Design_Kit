@@ -1,30 +1,37 @@
-# 🔒 Security Policy
+# 🔐 Security Policy
 
-We take security seriously and appreciate your efforts to responsibly disclose vulnerabilities and help us improve the safety and reliability of this project.
+## 📢 Reporting a Vulnerability
 
-## 📅 Supported Versions
+If you discover a security issue in this project, we kindly request that you _report it responsibly_. Please do not open public issues or disclose the vulnerability before we’ve had a chance to review and address it.
 
-| Version | Supported              |
-| ------- | ---------------------- |
-| Main    | ✅ Actively Maintained |
+You can _contact the project maintainer at_:  
+📧 *shikhamaurya987373@gmail.com*
 
-## 🚨 Reporting a Vulnerability
+We take all vulnerabilities seriously and will respond as quickly as possible.
 
-If you discover a security issue or potential vulnerability in this project, please help us by reporting it in a responsible manner.
+---
 
-### 🔐 How to Report:
+## 📌 Scope of Security Considerations
 
-- Do _not_ open a public issue on GitHub.
-- Instead, send a detailed email to *owais.codes24@gmail.com* with:
-  - A clear and concise description of the issue
-  - Steps to reproduce it
-  - Any relevant screenshots or logs
-  - Suggested fixes (if any)
+This security policy applies to:
 
-We will acknowledge your report within _48 hours_ and aim to resolve all valid issues promptly, depending on severity.
+- 🧠 The model architecture and training files
+- 🖼 Any uploaded images or file handling logic
+- 🕸 Web interface and API (if applicable)
+- 🔐 Dependency and package vulnerabilities
 
-## 🙌 Responsible Disclosure
+---
 
-We greatly appreciate security researchers and contributors who help keep our project safe by following responsible disclosure practices.
+## 🪛 What to Include in Your Report
 
-Thank you for helping us maintain the integrity of this project. 💚
+Please include:
+
+- 📋 _Description_ of the vulnerability
+- 🔁 _Steps to reproduce_
+- 📸 _Screenshots or logs_ (if any)
+- 💡 Any potential fix (optional)
+
+---
+
+> We truly appreciate your help in improving this project!  
+> 🙌 Thank you for acting responsibly and supporting open-source security.
