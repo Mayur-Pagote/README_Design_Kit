@@ -1,0 +1,66 @@
+/* Glowing Neon Border */
+.glowing-neon-border {
+  position: relative;
+  padding: 1.5rem; /* space for the border glow */
+  border-radius: 12px;
+  background-color: #0a0a0a; /* dark background to enhance glow */
+  color: #fff;
+  overflow: hidden;
+  z-index: 0;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Neon border glow animation */
+.glowing-neon-border::before {
+  content: "";
+  position: absolute;
+  top: -3px; 
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border-radius: 15px;
+  background: linear-gradient(270deg, 
+    #ff00cc, 
+    #3333ff, 
+    #00ffff, 
+    #ff00cc);
+  background-size: 600% 600%;
+  animation: neonGlow 12s ease infinite;
+  filter: drop-shadow(0 0 6px #ff00cc)
+          drop-shadow(0 0 10px #3333ff)
+          drop-shadow(0 0 20px #00ffff);
+  z-index: -1;
+}
+
+/* Optional hover effect to intensify glow */
+.glowing-neon-border:hover::before {
+  animation-duration: 6s;
+  filter: drop-shadow(0 0 12px #ff00cc)
+          drop-shadow(0 0 20px #3333ff)
+          drop-shadow(0 0 40px #00ffff);
+}
+
+/* Neon glow keyframes */
+@keyframes neonGlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .glowing-neon-border {
+    padding: 1rem;
+    border-radius: 8px;
+  }
+
+  .glowing-neon-border::before {
+    border-radius: 10px;
+  }
+}
