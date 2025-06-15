@@ -8,6 +8,8 @@ import Elements from "./pages/Elements";
 import DragDropEditor from "./pages/DragDropEditor";
 import ComingSoon from "./pages/ComingSoon";
 import NotFound from "./pages/NotFound";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 import { ThemeProvider } from "./components/theme-provider";
 import { Toaster } from './components/ui/sonner'
 
@@ -25,6 +27,8 @@ export default function App(){
               <Route path="/elements" element={<Layout><Elements /></Layout>} />
               <Route path="/drag-drop" element={<Layout><DragDropEditor /></Layout>} />
               <Route path="/coming-soon" element={<Layout><ComingSoon /></Layout>} />
+              <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
+              <Route path="/terms" element={<Layout><TermsOfService /></Layout>} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="*" element={<Layout><NotFound /></Layout>} />
             </Routes>
