@@ -196,3 +196,16 @@
     transform: scale(1);
   }
 }
+
+/* Dark mode styles */
+
+body {
+  background-color: white;
+  color: black;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dark body {
+  background-color: #121212;
+  color: white;
+}
