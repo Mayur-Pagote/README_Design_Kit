@@ -111,8 +111,6 @@ export default function Footer() {
     }
   ];
 
-  
-
   return (
     <footer className="relative bg-gradient-to-br from-background via-background to-muted/20 border-t border-border/50 overflow-hidden">
       {/* Animated background elements */}
@@ -175,12 +173,7 @@ export default function Footer() {
                   whileHover={{ scale: 1.05 }}
                   className="flex flex-col"
                 >
-                  <span className="font-bold text-xl bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                  
-                  </span>
-                  <span className="text-xs text-muted-foreground">
-                    
-                  </span>
+                 
                 </motion.div>
               </Link>
             </motion.div>
