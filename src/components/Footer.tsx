@@ -1,6 +1,7 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { motion, AnimatePresence } from 'framer-motion';
 import logg from './rdk.svg';
 import { 
   Github, 
@@ -12,14 +13,13 @@ import {
   Layers,
   MousePointer,
   Clock,
-  Code,
+   Code,
   Sparkles,
   ExternalLink,
   Shield,
   FileText
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Footer() {
   const location = useLocation();
@@ -225,7 +225,7 @@ export default function Footer() {
         </div>
 
         {/* Additional Info */}
-         <motion.div
+          <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.6 }}
@@ -271,9 +271,8 @@ export default function Footer() {
             </motion.div>
           </div>
         </motion.div>
-      </div>
 
-      
+      </div>
     </footer>
   );
 }
