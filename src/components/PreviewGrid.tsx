@@ -134,12 +134,6 @@ const componentsData = {
       codeSnippet: "![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=F75C7E&width=435&lines=Hello+World!;I'm+{username};Welcome+to+my+Profile!)"
     },
     {
-      title: "Snake Game",
-      description: "Animated snake eating your contributions",
-      imageUrl: "https://github.com/mayur-pagote/mayur-pagote/blob/output/github-contribution-grid-snake.svg",
-      codeSnippet: "![Snake animation](https://github.com/{username}/{username}/blob/output/github-contribution-grid-snake.svg)"
-    },
-    {
       title: "Hand Waving",
       description: "Animated waving hand GIF",
       imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Hand%20Waving.gif?raw=true",
@@ -746,7 +740,7 @@ const PreviewGrid = ({ selectedCategory, username, repo }: PreviewGridProps) => 
               codeSnippet={component.codeSnippet.replace(/{username}/g, username).replace(/{repo}/g, repo)} 
               username={username}
               repo={repo}
-          />
+            />
           ))}
         </div>
       </div>
