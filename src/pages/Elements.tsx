@@ -60,6 +60,13 @@ export default function Elements() {
         defaultRepo="README_Design_Kit" 
       />
 
+      {/* Mobile Menu Toggle */}
+      <div className="md:hidden px-4 py-2">
+        <Button variant="outline" onClick={() => setSidebarOpen(!sidebarOpen)}>
+          <Menu className="h-5 w-5" />
+        </Button>
+      </div>
+
       <div className="flex relative">
         {/* Sidebar */}
         <div
@@ -84,6 +91,7 @@ export default function Elements() {
             repo={repo}
           />
         </div>
+
       </div>
     </div>
   );
