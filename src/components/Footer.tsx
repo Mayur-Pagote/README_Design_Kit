@@ -3,11 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import logg from './rdk.svg';
 import loggd from './rdkd.svg';
-import { 
-  Github, 
-  Twitter, 
-  Linkedin, 
-  Mail, 
+import {  
   Heart,
   Home,
   Layers,
@@ -50,13 +46,6 @@ export default function Footer() {
       { name: 'Contact', href: '#' },
     ],
   };
-
-  const socialLinks = [
-    { name: 'GitHub', icon: Github, href: 'https://github.com/Mayur-Pagote/README_Design_Kit' },
-    { name: 'Twitter', icon: Twitter, href: '#' },
-    { name: 'LinkedIn', icon: Linkedin, href: '#' },
-    { name: 'Email', icon: Mail, href: 'mailto:contact@readmedesignkit.com' },
-  ];
 
   const handleLegalLinkClick = (path: string) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -105,28 +94,6 @@ export default function Footer() {
               Create stunning README files with our comprehensive design toolkit. 
               Beautiful components, drag-and-drop editor, and endless possibilities for your documentation.
             </p>
-            
-            {/* Social Links */}
-            <div className="flex gap-3">
-              {socialLinks.map((social) => (
-                <Button
-                  key={social.name}
-                  variant="ghost"
-                  size="sm"
-                  className="h-9 w-9 p-0 transition-all hover:scale-110 focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                  asChild
-                >
-                  <a
-                    href={social.href}
-                    target={social.href.startsWith('http') ? '_blank' : undefined}
-                    rel={social.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    aria-label={social.name}
-                  >
-                    <social.icon className="h-4 w-4" />
-                  </a>
-                </Button>
-              ))}
-            </div>
           </div>
 
           {/* Navigation Links */}
