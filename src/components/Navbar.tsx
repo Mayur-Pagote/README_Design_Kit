@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Badge } from '@/components/ui/badge';
 import logg from './rdk.svg';
+import loggd from './rdkd.svg';
 import {
   Menu,
   Home,
@@ -75,10 +76,17 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
-              <img
+              
+              <img 
+                src={loggd}
+                alt="Logo Light" 
+                className="h-8 object-contain block dark:hidden"
+              />
+              
+              <img 
                 src={logg}
-                alt="README Design Ki"
-                className="h-8 object-contain"
+                alt="Logo Dark" 
+                className="h-8 object-contain hidden dark:block"
               />
             </Link>
           </div>
@@ -109,10 +117,17 @@ export default function Navbar() {
               <SheetContent side="right" className="w-80">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
-                    <img
-                      src={logg}
-                      alt="README Design Kitt"
-                      className="h-8 object-contain ml-5 mt-3"
+                    {/* Light Mode Logo */}
+                    <img 
+                      src={loggd} 
+                      alt="README Design Kit - Light Logo" 
+                      className="h-8 object-contain block dark:hidden"
+                    />
+                    {/* Dark Mode Logo */}
+                    <img 
+                      src={logg} 
+                      alt="README Design Kit - Dark Logo" 
+                      className="h-8 object-contain hidden dark:block"
                     />
                   </div>
                 </div>
