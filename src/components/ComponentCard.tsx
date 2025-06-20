@@ -10,15 +10,15 @@ interface ComponentCardProps {
   imageUrl: string;
   codeSnippet: string;
   username: string;
+  repo: string;
 }
 
-export default function ComponentCard({ title, description, imageUrl, codeSnippet, username }: ComponentCardProps) {
+export default function ComponentCard({ title, description, imageUrl, codeSnippet, username, repo}: ComponentCardProps) {
 
   const handleCopyLink = async () => {
     try {
-      const formattedCode = codeSnippet.replace(/\{username\}/g, username);
+      const formattedCode = codeSnippet.replace(/\{username\}/g, username).replace(/\{repo\}/g, repo);
       await navigator.clipboard.writeText(formattedCode);
-      toast
       toast(
         `Copied to clipboard!, ${title} code has been copied to your clipboard.`,
       );
@@ -29,16 +29,18 @@ export default function ComponentCard({ title, description, imageUrl, codeSnippe
     }
   };
 
-  return (
-    <div className="bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105">
-      <div className="aspect-video bg-muted flex items-center justify-center p-4">
-        <img
-          src={imageUrl}
-          alt={title}
-          className="max-w-full max-h-full object-contain rounded"
-        />
-      </div>
-      <div className="p-4">
+const finalImageUrl = imageUrl.replace(/\{username\}/g, username).replace(/\{repo\}/g, repo);
+
+return (
+  <div className="bg-card border border-border rounded-lg overflow-hidden hover:shadow-lg transition-all duration-300 hover:scale-105">
+    <div className="aspect-video bg-muted flex items-center justify-center p-4">
+      <img
+        src={finalImageUrl}
+        alt={title}
+        className="max-w-full max-h-full object-contain rounded"
+      />
+    </div>
+    <div className="p-4">
         <h3 className="font-semibold text-foreground mb-2">{title}</h3>
         <p className="text-sm text-muted-foreground mb-4">{description}</p>
         <Button

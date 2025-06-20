@@ -11,12 +11,16 @@ import ThemeToggler from '../theme/toggler';
 
 export default function Dashboard(){
   const [username, setUsername] = useState('Mayur-Pagote');
+  const [repo, setRepo] = useState("README_Design_Kit");
   const [selectedCategory, setSelectedCategory] = useState('graphs');
   const navigate = useNavigate();
 
-  const handleUsernameChange = (newUsername: string) => {
+  function handleUsernameChange(newUsername: string) {
     setUsername(newUsername);
-  };
+  }
+  function handleRepoChange(newRepo: string) {
+  setRepo(newRepo);
+}
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
@@ -43,7 +47,9 @@ export default function Dashboard(){
       <Header />
       <UserInput 
         onUsernameChange={handleUsernameChange}
+        onRepoChange={handleRepoChange}
         defaultUsername="Mayur-Pagote"
+        defaultRepo="README_Design_Kit"
       />
       <div className="flex flex-1">
         <Sidebar 
@@ -53,6 +59,7 @@ export default function Dashboard(){
         <PreviewGrid 
           selectedCategory={selectedCategory}
           username={username}
+          repo={repo}
         />
       </div>
     </div>

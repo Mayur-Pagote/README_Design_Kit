@@ -4,6 +4,7 @@ import ComponentCard from './ComponentCard';
 interface PreviewGridProps {
   selectedCategory: string;
   username: string;
+  repo: string;
 }
 
 const componentsData = {
@@ -223,7 +224,37 @@ const componentsData = {
       description: "Track profile visits with a counter",
       imageUrl: "https://komarev.com/ghpvc/?username={username}&color=blueviolet&style=flat-square&label=Profile+Views",
       codeSnippet: "![Profile Views](https://komarev.com/ghpvc/?username={username}&color=blueviolet&style=flat-square&label=Profile+Views)"
-    }
+    },
+    {
+    title: "Views Counter - Glitch",
+    description: "Simple visitor badge using profile-counter from Glitch.",
+    imageUrl: "https://profile-counter.glitch.me/{username}/count.svg",
+    codeSnippet: `<img src="https://profile-counter.glitch.me/{username}/count.svg" alt="visitor badge"/>`
+  },
+  {
+    title: "Views Counter - Komarev (Short)",
+    description: "Compact GitHub profile view counter using Komarev badge.",
+    imageUrl: "https://komarev.com/ghpvc/?username={username}&abbreviated=true",
+    codeSnippet: `<img src="https://komarev.com/ghpvc/?username={username}&abbreviated=true"/>`
+  },
+  {
+    title: "Views Counter - Komarev Badge",
+    description: "Komarev badge-styled counter for profile visitors.",
+    imageUrl: "https://komarev.com/ghpvc/?username={username}&style=for-the-badge",
+    codeSnippet: `<img src="https://komarev.com/ghpvc/?username={username}&style=for-the-badge"/>`
+  },
+  {
+    title: "Views Counter - GetLoli",
+    description: "Profile visitor counter with fun GetLoli themes.",
+    imageUrl: "https://count.getloli.com/get/@{username}?theme=rule34",
+    codeSnippet: `<img src="https://count.getloli.com/get/@{username}?theme=rule34"/>`
+  },
+  {
+    title: "Views Counter - Hits.sh",
+    description: "Advanced visitor badge with GitHub integration and styling.",
+    imageUrl: "https://hits.sh/github.com/{username}/hits.svg?style=plastic&label=Visitors&color=purple&labelColor=indigo&logo=github",
+    codeSnippet: `<img src="https://hits.sh/github.com/{username}/hits.svg?style=plastic&label=Visitors&color=purple&labelColor=indigo&logo=github"/>`
+  }
   ],
   emojis: [
     {
@@ -379,45 +410,327 @@ const componentsData = {
   ],
   quotes: [
     {
-      title: "Dev Quotes",
+      title: "Motivational Quote",
       description: "Inspirational quotes for developers",
       imageUrl: "https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical",
       codeSnippet: "![Dev Quotes](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)"
+    },
+    {
+      title: "Random Quote (Samuel Layout)",
+      description: "Inspirational quote in dark theme with grow-out animation.",
+      imageUrl: "https://github-readme-quotes-bay.vercel.app/quote?theme=dark&layout=churchill&font=Gabrielle&animation=grow_out_in",
+      codeSnippet: `<img height="180em" src="https://github-readme-quotes-bay.vercel.app/quote?theme=dark&layout=churchill&font=Gabrielle&animation=grow_out_in"/>`
+    },
+    {
+      title: "Horizontal Quote Card",
+      description: "Random quote with Samuel layout in dark theme.",
+      imageUrl: "https://github-readme-quotes-bay.vercel.app/quote?theme=dark&animation=default&layout=samuel&font=default&quoteType=random&bgColor=black",
+      codeSnippet: `<img height="180em" src="https://github-readme-quotes-bay.vercel.app/quote?theme=dark&animation=default&layout=samuel&font=default&quoteType=random&bgColor=black"/>`
+    },
+    {
+      title: "Random Quote (Zeus Layout)",
+      description: "Random Zeus layout quote in dark theme.",
+      imageUrl: "https://github-readme-quotes-bay.vercel.app/quote?theme=dark&animation=default&layout=zues&font=default&quoteType=random&bgColor=black",
+      codeSnippet: `<img height="180em" src="https://github-readme-quotes-bay.vercel.app/quote?theme=dark&animation=default&layout=zues&font=default&quoteType=random&bgColor=black"/>`
+    },
+    {
+      title: "Funny Dev Joke",
+      description: "Displays a random developer joke with dark theme styling.",
+      imageUrl: "https://readme-jokes.vercel.app/api?hideBorder&theme=dark&qColor=%23944bcc&aColor=%23bbdb51",
+      codeSnippet: `<img height="180em" src="https://readme-jokes.vercel.app/api?hideBorder&theme=dark&qColor=%23944bcc&aColor=%23bbdb51"/>`
     }
   ],
   languages: [
     {
-      title: "Language Stats Donut",
-      description: "Programming languages in donut chart format",
-      imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&theme=radical&layout=donut",
-      codeSnippet: "![Languages](https://github-readme-stats.vercel.app/api/top-langs/?username={username}&theme=radical&layout=donut)"
-    }
+    title: "Most Used Language Card 1",
+    description: "Displays top 5 most used languages.",
+    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&langs_count=5",
+    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&langs_count=5"/>`
+  },
+  {
+    title: "Most Used Language Card 2",
+    description: "Compact layout of most used languages.",
+    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact",
+    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact"/>`
+  },
+  {
+    title: "Most Used Language Card 3",
+    description: "Donut-vertical layout with dark theme.",
+    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=donut-vertical&theme=dark",
+    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=donut-vertical&theme=dark"/>`
+  },
+  {
+    title: "Most Used Language Card 4",
+    description: "Pie chart layout with merko theme.",
+    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=pie&theme=merko",
+    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=pie&theme=merko"/>`
+  },
+  {
+    title: "Most Used Language Card 5",
+    description: "Minimal language card without progress bar.",
+    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&hide_progress=true",
+    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&hide_progress=true"/>`
+  },
+  {
+    title: "Top Language By Repo",
+    description: "Languages used based on repository count.",
+    imageUrl: "https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username={username}&theme=transparent",
+    codeSnippet: `<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username={username}&theme=transparent"/>`
+  },
+  {
+    title: "Most Commit Language",
+    description: "Languages with the highest number of commits.",
+    imageUrl: "https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username={username}&theme=transparent",
+    codeSnippet: `<img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username={username}&theme=transparent"/>`
+  }
   ],
   repos: [
-    {
-      title: "Repository Stats",
-      description: "Detailed repository information card",
-      imageUrl: "https://github-readme-stats.vercel.app/api/pin/?username=mayur-pagote&repo=readme-design-kit&theme=radical",
-      codeSnippet: "![Repo Stats](https://github-readme-stats.vercel.app/api/pin/?username={username}&repo=your-repo-name&theme=radical)"
-    }
+   {
+  title: "Repository Stats",
+  description: "Detailed repository information card",
+  imageUrl: "https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=radical",
+  codeSnippet: `![Repo Stats](https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=radical)`
+},
+{
+  title: "Top Contributed Repo",
+  description: "Displays top contributed repositories of the user.",
+  imageUrl: "https://github-contributor-stats.vercel.app/api?username={username}&limit=5&theme=transparent&hide_border=true&combine_all_yearly_contributions=true",
+  codeSnippet: `<img height="180em" src="https://github-contributor-stats.vercel.app/api?username={username}&limit=5&theme=transparent&hide_border=true&combine_all_yearly_contributions=true"/>`
+},
+{
+  title: "Repo Details",
+  description: "Shows a styled pinned GitHub repository card.",
+  imageUrl: "https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=dark&title_color=C2FFC7&icon_color=CB9DF0&text_color=ffffff&bg_color=000000",
+  codeSnippet: `<img src="https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=dark&title_color=C2FFC7&icon_color=CB9DF0&text_color=ffffff&bg_color=000000"/>`
+},
+{
+  title: "Contributors",
+  description: "Displays contributors of a GitHub repository as avatars.",
+  imageUrl: "https://contributors-img.web.app/image?repo={username}/{repo}",
+  codeSnippet: `<img src="https://contributors-img.web.app/image?repo={username}/{repo}"/>`
+},
+{
+  title: "Stargazers - Light",
+  description: "Shows stargazers of a repo in light mode.",
+  imageUrl: "https://reporoster.com/stars/{username}/{repo}",
+  codeSnippet: `<img src="https://reporoster.com/stars/{username}/{repo}"/>`
+},
+{
+  title: "Stargazers - Dark",
+  description: "Stargazers card with dark theme.",
+  imageUrl: "https://reporoster.com/stars/dark/{username}/{repo}",
+  codeSnippet: `<img src="https://reporoster.com/stars/dark/{username}/{repo}"/>`
+},
+{
+  title: "Forkers - Light",
+  description: "Shows users who forked the repository (light mode).",
+  imageUrl: "https://reporoster.com/forks/{username}/{repo}",
+  codeSnippet: `<img src="https://reporoster.com/forks/{username}/{repo}"/>`
+},
+{
+  title: "Forkers - Dark",
+  description: "Forkers in dark theme style.",
+  imageUrl: "https://reporoster.com/forks/dark/${username}/${repo}",
+  codeSnippet: `<img src="https://reporoster.com/forks/dark/{username}/{repo}"/>`
+},
+{
+  title: "Contributor List",
+  description: "Visual list of contributors to a specific repo.",
+  imageUrl: "https://api.vaunt.dev/v1/github/entities/{username}/repositories/{repo}/contributors?format=svg&limit=54",
+  codeSnippet: `<img src="https://api.vaunt.dev/v1/github/entities/{username}/repositories/{repo}/contributors?format=svg&limit=54" width="700" height="250" />`
+}
+
   ],
   dividers: [
+  {
+    title: "RGB Line Thin",
+    description: "A thin animated RGB divider line.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/ff67bec3b85c96bfeb4406e7d9d4b593147d16c5/Assets/RGB%20Line%20Thin.gif?raw=true",
+    codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/ff67bec3b85c96bfeb4406e7d9d4b593147d16c5/Assets/RGB%20Line%20Thin.gif" width="1000" height="2" />`
+  },
+  {
+    title: "RGB Line Medium",
+    description: "A medium-thick animated RGB divider line.",
+    imageUrl: "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/aa28326300247d989c9f7c2eeb177f59577d785b/Assets/RGB%20Line%20Medium.gif?raw=true",
+    codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/aa28326300247d989c9f7c2eeb177f59577d785b/Assets/RGB%20Line%20Medium.gif?raw=true" width="100%">`
+ },
+  {
+    title: "RGB Line Thick",
+    description: "A thick animated RGB divider line.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/730d340c8008758ac291ebc555f818f851feda0f/Assets/RGB%20Line%20Thick.gif?raw=true",
+    codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/730d340c8008758ac291ebc555f818f851feda0f/Assets/RGB%20Line%20Thick.gif" width="100%" />`
+  },
+  {
+    title: "Blue Line",
+    description: "A thin animated blue divider line.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/ddf2e61e40a672d5148927e186f409efbda38ef5/Assets/Blue%20Line.gif?raw=true",
+    codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/ddf2e61e40a672d5148927e186f409efbda38ef5/Assets/Blue%20Line.gif" width="100%" height="2px" />`
+  },
+  {
+    title: "Blue Line Thick",
+    description: "A thick blue line for dividing sections.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/ddf2e61e40a672d5148927e186f409efbda38ef5/Assets/Blue%20Line.gif?raw=true",
+    codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/ddf2e61e40a672d5148927e186f409efbda38ef5/Assets/Blue%20Line.gif" width="100%">`
+  },
+  {
+    title: "Blue Pink Line",
+    description: "A colorful line combining blue and pink hues.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/4c8a729bb53e68ad274c9a854060a273949a6d35/Assets/Blue%20Pink%20Line.gif?raw=true",
+    codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/4c8a729bb53e68ad274c9a854060a273949a6d35/Assets/Blue%20Pink%20Line.gif" width="100%">`
+  },
+  {
+    title: "Starlight Line",
+    description: "A shimmering starlight line to add visual flair.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/45123f007c79aa8d0c8d9b11b3ff72d6bf4744c7/Assets/Star%20Light%20Line.gif?raw=true",
+    codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/45123f007c79aa8d0c8d9b11b3ff72d6bf4744c7/Assets/Star%20Light%20Line.gif" width="100%">`
+  },
+  {
+    title: "Multicolor Static Line",
+    description: "A colorful static line divider.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/1bb0f2254d2034e5769544f497e47f01b3b9b571/Assets/Multicolor%20Static%20Line.png?raw=true",
+    codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/1bb0f2254d2034e5769544f497e47f01b3b9b571/Assets/Multicolor%20Static%20Line.png" width="100%">`
+  },
+  {
+    title: "Multicolor Segregated Line",
+    description: "A colorful segmented static divider line.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/1bb0f2254d2034e5769544f497e47f01b3b9b571/Assets/Multicolor%20Segregated%20Line.png?raw=true",
+    codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/1bb0f2254d2034e5769544f497e47f01b3b9b571/Assets/Multicolor%20Segregated%20Line.png" width="100%">`
+  },
+  {
+    title: "Wave Header",
+    description: "A decorative wave for the top of your README.",
+    imageUrl: "https://capsule-render.vercel.app/api?type=waving&color=gradient&height=90&section=header",
+    codeSnippet: `<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=90&section=header" width="100%"/>`
+  },
+  {
+    title: "Wave Footer",
+    description: "A decorative wave for the bottom of your README.",
+    imageUrl: "https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer",
+    codeSnippet: `<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" width="100%"/>`
+  }
+  ],
+  coding: [
     {
-      title: "Multicolor Segregated Line",
-      description: "Colorful segmented divider line",
-      imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Multicolor%20Segregated%20Line.png?raw=true",
-      codeSnippet: "![Multicolor Segregated Line](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Multicolor%20Segregated%20Line.png)"
+      title: "Leetcode Dark theme with Heatmap",
+      description: "Displays Leetcode profile with dark theme and heatmap.",
+      imageUrl: "https://leetcard.jacoblin.cool/{username}?theme=dark&font=Josefin%20Slab&ext=heatmap",
+      codeSnippet: `<img height="180em" src="https://leetcard.jacoblin.cool/{username}?theme=dark&font=Josefin%20Slab&ext=heatmap"/>`
     },
     {
-      title: "Multicolor Static Line",
-      description: "Static colorful divider line",
-      imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Multicolor%20Static%20Line.png?raw=true",
-      codeSnippet: "![Multicolor Static Line](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Multicolor%20Static%20Line.png)"
+      title: "Leetcode Problem Stats",
+      description: "Leetcode stats with contest details in dark mode.",
+      imageUrl: "https://leetcard.jacoblin.cool/{username}?ext=contest&theme=dark",
+      codeSnippet: `<img height="180em" src="https://leetcard.jacoblin.cool/{username}?ext=contest&theme=dark"/>`
+    },
+    {
+      title: "Leetcode Light Heatmap",
+      description: "Custom styled Leetcode card with heatmap and rounded borders.",
+      imageUrl: "https://leetcard.jacoblin.cool/{username}?ext=heatmap&theme=wtf&font=M+PLUS+Rounded+1c&border=2&radius=20",
+      codeSnippet: `<img height="180em" src="https://leetcard.jacoblin.cool/{username}?ext=heatmap&theme=wtf&font=M+PLUS+Rounded+1c&border=2&radius=20"/>`
+    },
+    {
+      title: "GFG Stats",
+      description: "GeeksForGeeks profile statistics card.",
+      imageUrl: "https://geeks-for-geeks-stats-card.vercel.app/?username={username}",
+      codeSnippet: `<img height="180em" src="https://geeks-for-geeks-stats-card.vercel.app/?username={username}"/>`
+    },
+    {
+      title: "Codeforces Stats",
+      description: "Codeforces rating and contest stats card.",
+      imageUrl: "https://codeforces-readme-stats.vercel.app/api/card?username={username}",
+      codeSnippet: `<img height="180em" src="https://codeforces-readme-stats.vercel.app/api/card?username={username}"/>`
     }
-  ]
+],
+gitanimals: [
+    {
+      title: "GitAnimals - Line Mode",
+      description: "Displays a GitAnimal in line mode for your GitHub profile.",
+      imageUrl: "https://render.gitanimals.org/lines/{username}",
+      codeSnippet: `<a href="https://www.gitanimals.org/en_US?utm_medium=image&utm_source={username}&utm_content=line">
+      <img src="https://render.gitanimals.org/lines/{username}" width="600" height="120"/></a>`
+    },
+    {
+      title: "GitAnimals - Farm Mode",
+      description: "Shows your GitAnimal farm with your GitHub activity.",
+      imageUrl: "https://render.gitanimals.org/farms/{username}",
+      codeSnippet: `<a href="https://www.gitanimals.org/en_US?utm_medium=image&utm_source={username}&utm_content=farm">
+      <img src="https://render.gitanimals.org/farms/{username}" width="600" height="300"/></a>`
+    },
+    {
+      title: "GitAnimals - Guild Mode",
+      description: "Renders a static view of the guild with the specified guild ID.",
+      imageUrl: "https://render.gitanimals.org/guilds/673932991743754174/draw",
+      codeSnippet: `<a href="https://www.gitanimals.org/">
+      <img src="https://render.gitanimals.org/guilds/673932991743754174/draw" width="600" height="300" alt="gitanimals"/></a>`
+    }
+],
+ decorations: [
+  {
+    title: "Wing Left",
+    description: "A decorative left wing image for aesthetic enhancement.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/04381e30cf956503e49302a2b1feff0abe3066ec/Assets/Wing%20Left.png?raw=true",
+    codeSnippet: `<img height="150" width="150" src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/04381e30cf956503e49302a2b1feff0abe3066ec/Assets/Wing%20Left.png">`
+  },
+  {
+    title: "Wing Right",
+    description: "A decorative right wing image to pair with the left wing.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/04381e30cf956503e49302a2b1feff0abe3066ec/Assets/Wing%20Right.png?raw=true",
+    codeSnippet: `<img height="150" width="150" src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/04381e30cf956503e49302a2b1feff0abe3066ec/Assets/Wing%20Right.png">`
+  }
+],
+socials: [
+  {
+    title: "Animated LinkedIn",
+    description: "Animated LinkedIn icon for profile headers or footers.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/linkedin.gif?raw=true",
+    codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/linkedin.gif" width="100">`
+  },
+  {
+    title: "Animated Instagram",
+    description: "Animated Instagram icon for social sections.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/instagram.gif?raw=true",
+    codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/instagram.gif" width="100">`
+  },
+  {
+    title: "Animated Discord",
+    description: "Animated Discord icon for gaming and community links.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/discord.gif?raw=true",
+    codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/discord.gif" width="100">`
+  },
+  {
+    title: "Animated Facebook",
+    description: "Animated Facebook icon for classic social media presence.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook.gif?raw=true",
+    codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook.gif" width="100">`
+  },
+  {
+    title: "LinkedIn",
+    description: "Static LinkedIn logo.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/linkedin-1.png?raw=true",
+    codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/linkedin-1.png" width="100">`
+  },
+  {
+    title: "Instagram",
+    description: "Static Instagram logo.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/instagram-1.webp?raw=true",
+    codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/instagram-1.webp" width="100">`
+  },
+  {
+    title: "Discord",
+    description: "Static Discord logo.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/discord-1.png?raw=true",
+    codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/discord-1.png" width="100">`
+  },
+  {
+    title: "Facebook",
+    description: "Static Facebook logo.",
+    imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook-1.png?raw=true",
+    codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook-1.png" width="100">`
+  }
+]
 };
 
-const PreviewGrid = ({ selectedCategory, username }: PreviewGridProps) => {
+const PreviewGrid = ({ selectedCategory, username, repo }: PreviewGridProps) => {
   const components = componentsData[selectedCategory as keyof typeof componentsData] || componentsData.graphs;
 
   return (
@@ -429,9 +742,10 @@ const PreviewGrid = ({ selectedCategory, username }: PreviewGridProps) => {
               key={`${selectedCategory}-${index}`}
               title={component.title}
               description={component.description}
-              imageUrl={component.imageUrl.replace(/{username}/g, username)}
-              codeSnippet={component.codeSnippet.replace(/{username}/g, username)}
+              imageUrl={component.imageUrl.replace(/{username}/g, username).replace(/{repo}/g, repo)}
+              codeSnippet={component.codeSnippet.replace(/{username}/g, username).replace(/{repo}/g, repo)} 
               username={username}
+              repo={repo}
             />
           ))}
         </div>
