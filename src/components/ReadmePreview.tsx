@@ -66,17 +66,16 @@ ${element.technologies.reduce((acc, tech, index) => {
         
         case 'code-block':
           return `\`\`\`${element.language}\n${element.content}\n\`\`\`\n\n`;
-        
-        case 'badge':
+          case 'badge':
           return `![${element.content}](https://img.shields.io/badge/-${element.content.replace(/\s+/g, '%20')}-brightgreen)\n\n`;
         
-        case 'table':
+        case 'table': {
           const headers = `| ${element.headers.join(' | ')} |`;
           const separator = `| ${element.headers.map(() => '---').join(' | ')} |`;
           const rows = element.rows.map(row => `| ${row.join(' | ')} |`).join('\n');
           return `${headers}\n${separator}\n${rows}\n\n`;
-        
-        case 'divider':
+        }
+          case 'divider': {
           switch (element.dividerStyle) {
             case 'dots':
               return `<div align="center">• • •</div>\n\n`;
@@ -85,6 +84,7 @@ ${element.technologies.reduce((acc, tech, index) => {
             default:
               return `---\n\n`;
           }
+        }
         
         default:
           return '';

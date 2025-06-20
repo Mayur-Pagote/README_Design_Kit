@@ -35,12 +35,11 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
       onSave(editedElement);
       onClose();
     }
-  };
-  const updateElement = (updates: Partial<any>) => {
+  };  const updateElement = (updates: Partial<ElementType>) => {
     setEditedElement(prev => prev ? { ...prev, ...updates } as ElementType : null);
   };
 
-  const updateStyle = (styleUpdates: Record<string, any>) => {
+  const updateStyle = (styleUpdates: Record<string, string | number>) => {
     setEditedElement(prev => prev ? {
       ...prev,
       style: { ...prev.style, ...styleUpdates }

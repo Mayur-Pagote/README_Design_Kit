@@ -66,9 +66,9 @@ export default function LiquidChrome({
     if (!ctnDom.current) return;
     const ctn = ctnDom.current;
     const renderer = new Renderer();
-    const gl = renderer.gl;
-    gl.clearColor(1, 1, 1, 1);
+    const gl = renderer.gl;    gl.clearColor(1, 1, 1, 1);
 
+    // eslint-disable-next-line prefer-const
     let program: Program;
 
     function resize() {

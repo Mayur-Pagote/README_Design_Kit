@@ -43,70 +43,71 @@
 
 :root {
   --radius: 0.65rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.141 0.005 285.823);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.141 0.005 285.823);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.141 0.005 285.823);
+  /* Paper-like light theme */
+  --background: oklch(0.975 0.003 45);
+  --foreground: oklch(0.12 0.008 270);
+  --card: oklch(0.985 0.002 45);
+  --card-foreground: oklch(0.12 0.008 270);
+  --popover: oklch(0.985 0.002 45);
+  --popover-foreground: oklch(0.12 0.008 270);
   --primary: oklch(0.606 0.25 292.717);
-  --primary-foreground: oklch(0.969 0.016 293.756);
-  --secondary: oklch(0.967 0.001 286.375);
-  --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(0.967 0.001 286.375);
-  --muted-foreground: oklch(0.552 0.016 285.938);
-  --accent: oklch(0.967 0.001 286.375);
-  --accent-foreground: oklch(0.21 0.006 285.885);
+  --primary-foreground: oklch(0.98 0.003 45);
+  --secondary: oklch(0.94 0.004 45);
+  --secondary-foreground: oklch(0.18 0.008 270);
+  --muted: oklch(0.94 0.004 45);
+  --muted-foreground: oklch(0.45 0.012 270);
+  --accent: oklch(0.94 0.004 45);
+  --accent-foreground: oklch(0.18 0.008 270);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.92 0.004 286.32);
-  --input: oklch(0.92 0.004 286.32);
+  --border: oklch(0.88 0.006 45);
+  --input: oklch(0.88 0.006 45);
   --ring: oklch(0.606 0.25 292.717);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
   --chart-4: oklch(0.828 0.189 84.429);
   --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.141 0.005 285.823);
+  --sidebar: oklch(0.985 0.002 45);
+  --sidebar-foreground: oklch(0.12 0.008 270);
   --sidebar-primary: oklch(0.606 0.25 292.717);
-  --sidebar-primary-foreground: oklch(0.969 0.016 293.756);
-  --sidebar-accent: oklch(0.967 0.001 286.375);
-  --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
-  --sidebar-border: oklch(0.92 0.004 286.32);
+  --sidebar-primary-foreground: oklch(0.98 0.003 45);
+  --sidebar-accent: oklch(0.94 0.004 45);
+  --sidebar-accent-foreground: oklch(0.18 0.008 270);
+  --sidebar-border: oklch(0.88 0.006 45);
   --sidebar-ring: oklch(0.606 0.25 292.717);
 }
 
 .dark {
-  --background: oklch(0.141 0.005 285.823);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.21 0.006 285.885);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.21 0.006 285.885);
-  --popover-foreground: oklch(0.985 0 0);
+  --background: oklch(0.08 0.005 285.823);
+  --foreground: oklch(0.95 0.002 286.38);
+  --card: oklch(0.12 0.006 285.885);
+  --card-foreground: oklch(0.95 0.002 286.38);
+  --popover: oklch(0.12 0.006 285.885);
+  --popover-foreground: oklch(0.95 0.002 286.38);
   --primary: oklch(0.541 0.281 293.009);
   --primary-foreground: oklch(0.969 0.016 293.756);
-  --secondary: oklch(0.274 0.006 286.033);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.274 0.006 286.033);
-  --muted-foreground: oklch(0.705 0.015 286.067);
-  --accent: oklch(0.274 0.006 286.033);
-  --accent-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.18 0.006 286.033);
+  --secondary-foreground: oklch(0.95 0.002 286.38);
+  --muted: oklch(0.18 0.006 286.033);
+  --muted-foreground: oklch(0.65 0.015 286.067);
+  --accent: oklch(0.18 0.006 286.033);
+  --accent-foreground: oklch(0.95 0.002 286.38);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
+  --border: oklch(0.25 0.005 286.32);
+  --input: oklch(0.22 0.005 286.32);
   --ring: oklch(0.541 0.281 293.009);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.21 0.006 285.885);
-  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar: oklch(0.12 0.006 285.885);
+  --sidebar-foreground: oklch(0.95 0.002 286.38);
   --sidebar-primary: oklch(0.541 0.281 293.009);
   --sidebar-primary-foreground: oklch(0.969 0.016 293.756);
-  --sidebar-accent: oklch(0.274 0.006 286.033);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-accent: oklch(0.18 0.006 286.033);
+  --sidebar-accent-foreground: oklch(0.95 0.002 286.38);
+  --sidebar-border: oklch(0.25 0.005 286.32);
   --sidebar-ring: oklch(0.541 0.281 293.009);
 }
 
@@ -159,9 +160,33 @@
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  body:not(.dark) {
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+    background-size: 20px 20px;
+  }
+  /* Smooth theme transitions */
+  *, *::before, *::after {
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+  }
+
+  /* View Transition API styles for theme switching */
+  @supports (view-transition-name: none) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 0.4s;
+      animation-timing-function: ease-in-out;
+    }
   }
 }
 
@@ -172,6 +197,36 @@
   
   .animate-scale-in {
     animation: scale-in 0.2s ease-out;
+  }
+
+  /* Reduced motion animations */
+  @media (prefers-reduced-motion: reduce) {
+    .animate-pulse {
+      animation: none;
+    }
+    
+    .animate-fade-in {
+      animation: none;
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .animate-scale-in {
+      animation: none;
+      opacity: 1;
+      transform: scale(1);
+    }
+    
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  
+  /* Gentle pulse animation */
+  .animate-pulse {
+    animation: gentle-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }
 
@@ -194,5 +249,14 @@
   to {
     opacity: 1;
     transform: scale(1);
+  }
+}
+
+@keyframes gentle-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
   }
 }

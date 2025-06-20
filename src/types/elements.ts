@@ -1,10 +1,12 @@
+// Base
 export interface BaseElement {
   id: string;
   type: string;
   content?: string;
-  style?: Record<string, any>;
+  style?: Record<string, string | number>;
 }
 
+// Textual elements
 export interface TextElement extends BaseElement {
   type: 'text';
   content: string;
@@ -14,6 +16,16 @@ export interface TextElement extends BaseElement {
     textAlign: 'left' | 'center' | 'right';
     color: string;
   };
+}
+
+export interface TitleElement extends BaseElement {
+  type: 'title';
+  content: string;
+}
+
+export interface DescriptionElement extends BaseElement {
+  type: 'description';
+  content: string;
 }
 
 export interface HeaderElement extends BaseElement {
@@ -72,20 +84,31 @@ export interface DividerElement extends BaseElement {
   dividerStyle: 'line' | 'dots' | 'stars';
 }
 
-export type ElementType = 
-  | TextElement 
-  | HeaderElement 
-  | BannerElement 
-  | GitContributionElement 
-  | TechStackElement 
-  | ImageElement 
-  | CodeBlockElement 
-  | TableElement 
-  | BadgeElement 
-  | DividerElement;
+export interface InstallationElement extends BaseElement {
+  type: 'installation';
+  content: string;
+  instructions?: string[];
+}
 
+// Strong union type with all known element types
+export type ElementType =
+  | TextElement
+  | TitleElement
+  | DescriptionElement
+  | HeaderElement
+  | BannerElement
+  | GitContributionElement
+  | TechStackElement
+  | ImageElement
+  | CodeBlockElement
+  | TableElement
+  | BadgeElement
+  | DividerElement
+  | InstallationElement;
+
+// Optional config metadata
 export interface ElementConfig {
-  type: string;
+  type: ElementType['type'];
   name: string;
   icon: string;
   description: string;

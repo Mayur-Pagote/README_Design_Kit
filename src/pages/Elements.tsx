@@ -1,12 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import UserInput from '@/components/UserInput';
 import Sidebar from '@/components/Sidebar';
 import PreviewGrid from '@/components/PreviewGrid';
+import { Menu } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
-export default function Elements(){
+export default function Elements() {
   const [username, setUsername] = useState('Mayur-Pagote');
   const [repo, setRepo] = useState('README_Design_Kit');
   const [selectedCategory, setSelectedCategory] = useState('graphs');
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setSidebarOpen(true);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const handleUsernameChange = (newUsername: string) => {
     setUsername(newUsername);
@@ -16,6 +29,11 @@ export default function Elements(){
   };
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
+
+    // Close sidebar on mobile with animation
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false);
+    }
   };
 
   return (
@@ -41,17 +59,32 @@ export default function Elements(){
         onRepoChange={handleRepoChange}  
         defaultRepo="README_Design_Kit" 
       />
-      <div className="flex">
-        <Sidebar 
-          selectedCategory={selectedCategory}
-          onCategorySelect={handleCategorySelect}
-        />
-        <PreviewGrid 
-          selectedCategory={selectedCategory}
-          username={username}
-          repo={repo}
-        />
+
+      <div className="flex relative">
+        {/* Sidebar */}
+        <div
+          className={`
+            transition-all duration-300 ease-in-out
+            transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+            absolute md:relative z-20 bg-background border-r border-border w-64 
+            md:translate-x-0 md:block
+          `}
+        >
+          <Sidebar 
+            selectedCategory={selectedCategory}
+            onCategorySelect={handleCategorySelect}
+          />
+        </div>
+
+        {/* Main Content */}
+        <div className="flex-1 ml-0 md:ml-0 p-4">
+          <PreviewGrid 
+            selectedCategory={selectedCategory}
+            username={username}
+            repo={repo}
+          />
+        </div>
       </div>
     </div>
   );
-};
+}
