@@ -19,6 +19,7 @@ import { demoElements } from '@/data/demo';
 import { TemplateUtils } from '@/utils/templateUtils';
 import type { ElementType } from '@/types/elements';
 import type { Template } from '@/types/templates';
+import ScrollToTop from '@/components/ScrollToTop';
 
 export default function DragDropEditor() {
   const [elements, setElements] = useState<ElementType[]>([]);
@@ -26,7 +27,18 @@ export default function DragDropEditor() {
   const [showPalette, setShowPalette] = useState(true);
   const [showPreview, setShowPreview] = useState(true);
   const [loadedTemplateName, setLoadedTemplateName] = useState<string | null>(null);
+  const [backToTopVisible, setBackToTopVisible] = useState(false);
   const location = useLocation();
+
+  // Scroll listener for BackToTop visibility
+  useEffect(() => {
+    const toggleVisibility = () => {
+      setBackToTopVisible(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
+
   // Load template if one was selected
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -197,7 +209,9 @@ export default function DragDropEditor() {
         elements={elements}
         isEditorActive={elements.length > 0}
         onApplySuggestion={handleBrandingSuggestion}
+        backToTopVisible={backToTopVisible}
       />
+      <ScrollToTop isVisible={backToTopVisible} />
 
       {/* Element Editor */}
       <ElementEditor

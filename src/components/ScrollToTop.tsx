@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from 'react';
 
-const ScrollToTop: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
+interface ScrollToTopProps {
+  isVisible?: boolean;
+}
 
-  // Show button when page is scrolled down
+const ScrollToTop: React.FC<ScrollToTopProps> = ({ isVisible: isVisibleProp }) => {
+  const [internalIsVisible, setInternalIsVisible] = useState(false);
+
+  // Show button when page is scrolled down, only if not controlled by parent
   useEffect(() => {
+    if (isVisibleProp !== undefined) return; // Controlled by parent, do nothing
+
     const toggleVisibility = () => {
-      setIsVisible(window.scrollY > 300);
+      setInternalIsVisible(window.scrollY > 300);
     };
 
     window.addEventListener('scroll', toggleVisibility);
+    toggleVisibility(); // Check on mount
     return () => window.removeEventListener('scroll', toggleVisibility);
-  }, []);
+  }, [isVisibleProp]);
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  const isVisible = isVisibleProp !== undefined ? isVisibleProp : internalIsVisible;
 
   return (
     <>
@@ -24,7 +33,7 @@ const ScrollToTop: React.FC = () => {
           onClick={scrollToTop}
           aria-label="Scroll to top"
           className={`fixed bottom-8 right-8 w-12 h-12 text-xl text-white bg-[#7f23fe] rounded-full shadow-xl z-[9999] group overflow-hidden cursor-pointer transition-all duration-300 ease-in-out
-          ${isVisible ? 'opacity-100 scale-100' : 'opacity-0 scale-75'} 
+          opacity-100 scale-100
           hover:bg-[#5c1cc4] hover:scale-110`}
         >
           ↑

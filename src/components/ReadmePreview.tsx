@@ -6,6 +6,7 @@ import { ElementRenderer } from './ElementRenderer';
 import { Copy, Download, Eye } from 'lucide-react';
 import type { ElementType } from '@/types/elements';
 import { ExportImageTool } from './ExportImageTool';
+import { useTheme } from '@/components/theme-provider';
 
 interface ReadmePreviewProps {
   elements: ElementType[];
@@ -15,6 +16,8 @@ export function ReadmePreview({ elements }: ReadmePreviewProps) {
   const [copied, setCopied] = useState(false);
   const [backgroundColor, setBackgroundColor] = useState<string>('#ffffff');
   const previewRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
+  const isDark = theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
   const generateMarkdown = (): string =>
     elements.map((element) => {
@@ -155,9 +158,14 @@ ${element.technologies
               ref={previewRef}
               className="p-10 rounded-2xl shadow-xl max-w-4xl mx-auto border"
               style={{
-                background: backgroundColor,
+                background:
+                  backgroundColor === 'transparent'
+                    ? 'transparent'
+                    : isDark
+                    ? '#18181b'
+                    : backgroundColor,
                 fontFamily: 'Inter, sans-serif',
-                color: '#1e293b',
+                color: isDark ? '#f3f4f6' : '#1e293b',
                 lineHeight: '1.75',
               }}
             >

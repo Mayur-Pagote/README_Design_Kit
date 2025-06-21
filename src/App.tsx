@@ -1,6 +1,6 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Layout from "./components/Layout";
@@ -21,16 +21,27 @@ import { Toaster } from "./components/ui/sonner";
 
 const queryClient = new QueryClient();
 
+// A new component to conditionally render ScrollToTop
+const ConditionalScrollToTop = () => {
+  const location = useLocation();
+  // Don't render on the drag-drop editor page
+  if (location.pathname === '/drag-drop') {
+    return null;
+  }
+  return <ScrollToTop />;
+};
+
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <ThemeProvider defaultTheme="system" storageKey="readme-design-kit-theme">
           <BrowserRouter>
-            <ScrollToTop />
+            <ConditionalScrollToTop />
             <Routes>
               {/* Routes with Layout (navbar + footer) */}
-              <Route path="/" element={<Layout><Home /></Layout>} />              <Route path="/elements" element={<Layout><Elements /></Layout>} />
+              <Route path="/" element={<Layout><Home /></Layout>} />
+              <Route path="/elements" element={<Layout><Elements /></Layout>} />
               <Route path="/templates" element={<Layout><TemplateLibraryPage /></Layout>} />
               <Route path="/showcase" element={<Layout><Hero /></Layout>} />
               <Route path="/projects" element={<Layout><ProjectsSection /></Layout>} />
