@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 
 export default function Elements() {
   const [username, setUsername] = useState('Mayur-Pagote');
+  const [repo, setRepo] = useState('README_Design_Kit');
   const [selectedCategory, setSelectedCategory] = useState('graphs');
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
@@ -23,7 +24,9 @@ export default function Elements() {
   const handleUsernameChange = (newUsername: string) => {
     setUsername(newUsername);
   };
-
+  const handleRepoChange = (newRepo: string) => { 
+    setRepo(newRepo);
+  };
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
 
@@ -53,6 +56,8 @@ export default function Elements() {
       <UserInput 
         onUsernameChange={handleUsernameChange}
         defaultUsername="Mayur-Pagote"
+        onRepoChange={handleRepoChange}  
+        defaultRepo="README_Design_Kit" 
       />
 
       {/* Mobile Menu Toggle */}
@@ -83,8 +88,10 @@ export default function Elements() {
           <PreviewGrid 
             selectedCategory={selectedCategory}
             username={username}
+            repo={repo}
           />
         </div>
+
       </div>
     </div>
   );
