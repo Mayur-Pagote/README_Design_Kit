@@ -34,16 +34,17 @@ const navigation = [
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showSubMenu, setShowSubMenu] = useState(false);
   const location = useLocation();
 
   const NavLink = ({ item, mobile = false }: { item: typeof navigation[0], mobile?: boolean }) => {
     const isActive = location.pathname === item.href;
 
-    // Dropdown for desktop
     if (item.submenu && !mobile) {
       return (
-        <div className="relative group">
+        <div className="relative">
           <button
+            onClick={() => setShowSubMenu(!showSubMenu)}
             className={cn(
               "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
               "text-foreground hover:bg-accent hover:text-accent-foreground"
@@ -52,22 +53,25 @@ export default function Navbar() {
             <item.icon className="h-4 w-4" />
             {item.name}
           </button>
-          <div className="absolute top-full mt-2 hidden group-hover:block bg-background border border-border rounded-md shadow-md z-50">
-            {item.submenu.map((sub) => (
-              <Link
-                key={sub.name}
-                to={sub.href}
-                className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
-              >
-                {sub.name}
-                {sub.badge && (
-                  <Badge variant="secondary" className="ml-2 text-xs">
-                    {sub.badge}
-                  </Badge>
-                )}
-              </Link>
-            ))}
-          </div>
+          {showSubMenu && (
+            <div className="absolute top-full mt-2 bg-background border border-border rounded-md shadow-md z-50 min-w-[180px]">
+              {item.submenu.map((sub) => (
+                <Link
+                  key={sub.name}
+                  to={sub.href}
+                  onClick={() => setShowSubMenu(false)}
+                  className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+                >
+                  {sub.name}
+                  {sub.badge && (
+                    <Badge variant="secondary" className="ml-2 text-xs">
+                      {sub.badge}
+                    </Badge>
+                  )}
+                </Link>
+              ))}
+            </div>
+          )}
         </div>
       );
     }
@@ -187,9 +191,6 @@ export default function Navbar() {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2"
                       >
-                        <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                          <path d="..." />
-                        </svg>
                         View on GitHub
                       </a>
                     </Button>
