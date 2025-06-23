@@ -9,10 +9,6 @@ import {
   Menu,
   Home,
   Layers,
-  MousePointer,
-  Clock,
-  Github,
-  Star,
   Sparkles,
   Upload,
   Library
@@ -23,21 +19,18 @@ import { ModeToggle } from '@/components/mode-toggle';
 
 const navigation = [
   { name: 'Home', href: '/', icon: Home },
-  { name: 'Templates', href: '/templates', icon: Library, badge: 'New' },
   { name: 'Elements', href: '/elements', icon: Layers },
   {
-    name: 'Showcase',
-    href: '/showcase',
+    name: 'More',
+    href: '#',
     icon: Sparkles,
-    submenu: [ // ✅ Nested navigation
-      { name: 'Projects', href: '/projects', icon: Layers },
-      { name: 'Submit Project', href: '/submit', icon: Upload },
+    submenu: [
+      { name: 'Templates', href: '/templates', icon: Library, badge: 'New' },
+      { name: 'Showcase', href: '/showcase', icon: Sparkles },
+      { name: 'Others', href: '/others', icon: Upload }
     ]
-  },
-  { name: 'Drag & Drop Editor', href: '/drag-drop', icon: MousePointer, badge: 'Beta' },
-  { name: 'Coming Soon', href: '/coming-soon', icon: Clock },
+  }
 ];
-
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -45,6 +38,39 @@ export default function Navbar() {
 
   const NavLink = ({ item, mobile = false }: { item: typeof navigation[0], mobile?: boolean }) => {
     const isActive = location.pathname === item.href;
+
+    // Dropdown for desktop
+    if (item.submenu && !mobile) {
+      return (
+        <div className="relative group">
+          <button
+            className={cn(
+              "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+              "text-foreground hover:bg-accent hover:text-accent-foreground"
+            )}
+          >
+            <item.icon className="h-4 w-4" />
+            {item.name}
+          </button>
+          <div className="absolute top-full mt-2 hidden group-hover:block bg-background border border-border rounded-md shadow-md z-50">
+            {item.submenu.map((sub) => (
+              <Link
+                key={sub.name}
+                to={sub.href}
+                className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
+              >
+                {sub.name}
+                {sub.badge && (
+                  <Badge variant="secondary" className="ml-2 text-xs">
+                    {sub.badge}
+                  </Badge>
+                )}
+              </Link>
+            ))}
+          </div>
+        </div>
+      );
+    }
 
     return (
       <Link
@@ -76,13 +102,11 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
-              
               <img 
                 src={loggd}
                 alt="Logo Light" 
                 className="h-8 object-contain block dark:hidden"
               />
-              
               <img 
                 src={logg}
                 alt="Logo Dark" 
@@ -96,7 +120,9 @@ export default function Navbar() {
             {navigation.map((item) => (
               <NavLink key={item.name} item={item} />
             ))}
-          </div>          {/* Desktop Actions */}
+          </div>
+
+          {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-3">
             <ModeToggle />
             <GitHubStarsButton username="Mayur-Pagote" repo="README_Design_Kit" />
@@ -105,7 +131,7 @@ export default function Navbar() {
             </Button>
           </div>
 
-          {/* Mobile menu button */}
+          {/* Mobile Menu */}
           <div className="md:hidden flex items-center">
             <Sheet open={isOpen} onOpenChange={setIsOpen}>
               <SheetTrigger asChild>
@@ -117,16 +143,14 @@ export default function Navbar() {
               <SheetContent side="right" className="w-80">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
-                    {/* Light Mode Logo */}
                     <img 
                       src={loggd} 
-                      alt="README Design Kit - Light Logo" 
+                      alt="Light Logo" 
                       className="h-8 object-contain block dark:hidden"
                     />
-                    {/* Dark Mode Logo */}
                     <img 
                       src={logg} 
-                      alt="README Design Kit - Dark Logo" 
+                      alt="Dark Logo" 
                       className="h-8 object-contain hidden dark:block"
                     />
                   </div>
@@ -134,21 +158,27 @@ export default function Navbar() {
 
                 {/* Mobile Navigation */}
                 <div className="flex flex-col gap-2 mb-6">
-                  {navigation.map((item) => (
-                    <div key={item.name} className="px-4"> {/* Add left and right padding */}
-                      <NavLink item={item} mobile />
-                    </div>
-                  ))}
+                  {navigation.map((item) =>
+                    item.submenu ? (
+                      item.submenu.map((subItem) => (
+                        <div key={subItem.name} className="px-4">
+                          <NavLink item={subItem} mobile />
+                        </div>
+                      ))
+                    ) : (
+                      <div key={item.name} className="px-4">
+                        <NavLink item={item} mobile />
+                      </div>
+                    )
+                  )}
                 </div>
 
+                {/* Mobile Footer */}
                 <div className="flex flex-col gap-3 pt-6 border-t border-border">
-                  {/* Theme Label with horizontal spacing */}
                   <div className="flex items-center justify-between mb-2 px-4">
                     <span className="text-sm font-medium">Theme</span>
                     <ModeToggle />
                   </div>
-
-                  {/* Buttons with horizontal spacing */}
                   <div className="px-4">
                     <Button variant="outline" className="w-full justify-start" asChild>
                       <a
@@ -157,26 +187,19 @@ export default function Navbar() {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2"
                       >
-                        <Github className="h-4 w-4" />
+                        <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="..." />
+                        </svg>
                         View on GitHub
                       </a>
                     </Button>
                   </div>
-
-                  <div className="px-4">
-                    <Button variant="outline" className="w-full justify-start">
-                      <Star className="h-4 w-4 mr-2" />
-                      Star Project
-                    </Button>
-                  </div>
-
                   <div className="px-4">
                     <Button className="w-full" asChild>
                       <Link to="/elements">Get Started</Link>
                     </Button>
                   </div>
                 </div>
-
               </SheetContent>
             </Sheet>
           </div>
@@ -185,6 +208,3 @@ export default function Navbar() {
     </nav>
   );
 }
-
-
-
