@@ -148,6 +148,21 @@ Are you participating in **SSoC Season 4**? Here's how you can contribute:
    ```bash
     cd README_Design_Kit
    ```
+3. **Download necessay packages**
+   ```bash
+    npm install 
+   ```
+   or 
+   <br>
+   **Use Docker to run project locally**
+   - Build the image
+   ```
+   docker build -t readme-design-kit .
+   ```
+   - Run image locally
+   ```
+   docker -it -p 5173:5173 readme-desing-kit
+   ```
 3. **Create a new branch** for your changes
     ```bash
     git checkout -b your_branch_name
