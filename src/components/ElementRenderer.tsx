@@ -5,14 +5,74 @@ import { Card } from '@/components/ui/card';
 interface ElementRendererProps {
   element: ElementType;
   isPreview?: boolean;
+  viewMode?: 'developer' | 'recruiter' | 'client';
+  showVisibilityIndicator?: boolean;
 }
 
-export function ElementRenderer({ element, isPreview = false }: ElementRendererProps) {
+const visibilityMap: Record<string, string[]> = {
+  header: ['developer', 'recruiter', 'client'],
+  description: ['developer', 'recruiter', 'client'],
+  badges: ['developer', 'recruiter'],
+  installation: ['developer'],
+  usage: ['developer', 'client'],
+  codeblock: ['developer'],
+  features: ['developer', 'recruiter', 'client'],
+  screenshot: ['recruiter', 'client'],
+  demo: ['recruiter', 'client'],
+  api: ['developer'],
+  contributing: ['developer'],
+  license: ['developer', 'recruiter'],
+  contact: ['developer', 'recruiter', 'client'],
+  changelog: ['developer'],
+  roadmap: ['developer', 'recruiter'],
+  acknowledgments: ['developer'],
+  faq: ['client'],
+  support: ['client'],
+  sponsors: ['recruiter', 'client'],
+  stats: ['recruiter'],
+  skills: ['recruiter'],
+  tech: ['developer', 'recruiter'],
+  highlights: ['recruiter', 'client'],
+  branding: ['client'],
+  banner: ['client', 'recruiter'],
+  logo: ['client', 'recruiter'],
+};
+
+export function ElementRenderer({ element, isPreview = false, viewMode, showVisibilityIndicator = false }: ElementRendererProps) {
   const baseClasses = isPreview ? "pointer-events-none" : "";
 
-  switch (element.type) {    case 'header':
+  const isVisible = viewMode ? (() => {
+    const allowedModes = visibilityMap[element.type] || ['developer', 'recruiter', 'client'];
+    return allowedModes.includes(viewMode);
+  })() : true;
+
+  const getPersonaLabel = (mode: string) => {
+    switch (mode) {
+      case 'developer': return 'Developer';
+      case 'recruiter': return 'Recruiter';
+      case 'client': return 'Client';
+      default: return mode;
+    }
+  };
+
+  const wrapperClass = `${!isVisible && showVisibilityIndicator ? 'opacity-50 relative' : ''}`;
+  const hiddenBadge = showVisibilityIndicator && !isVisible && viewMode ? (
+    <div className="absolute top-0 right-0 z-10">
+      <Badge 
+        variant="secondary" 
+        className="bg-red-100 text-red-700 border-red-200 text-xs"
+        title={`Hidden in ${getPersonaLabel(viewMode)} mode`}
+      >
+        Hidden in {getPersonaLabel(viewMode)} mode
+      </Badge>
+    </div>
+  ) : null;
+
+  switch (element.type) {
+    case 'header':
       return (
-        <div className={`font-bold mb-4 ${baseClasses}`}>
+        <div className={`font-bold mb-4 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           {element.level === 1 && <h1 className="text-4xl">{element.content}</h1>}
           {element.level === 2 && <h2 className="text-3xl">{element.content}</h2>}
           {element.level === 3 && <h3 className="text-2xl">{element.content}</h3>}
@@ -24,41 +84,34 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'text':
       return (
-        <p 
-          className={`
-            mb-4 
-            ${element.style?.fontSize === 'sm' ? 'text-sm' : ''}
-            ${element.style?.fontSize === 'lg' ? 'text-lg' : ''}
-            ${element.style?.fontSize === 'xl' ? 'text-xl' : ''}
-            ${element.style?.fontSize === '2xl' ? 'text-2xl' : ''}
-            ${element.style?.fontSize === '3xl' ? 'text-3xl' : ''}
-            ${element.style?.fontWeight === 'bold' ? 'font-bold' : ''}
-            ${element.style?.fontWeight === 'semibold' ? 'font-semibold' : ''}
-            ${element.style?.textAlign === 'center' ? 'text-center' : ''}
-            ${element.style?.textAlign === 'right' ? 'text-right' : ''}
-            ${baseClasses}
-          `}
-        >
+        <p className={`mb-4 ${baseClasses} ${wrapperClass} ${
+          element.style?.fontSize ? `text-${element.style.fontSize}` : ''
+        } ${
+          element.style?.fontWeight ? `font-${element.style.fontWeight}` : ''
+        } ${
+          element.style?.textAlign ? `text-${element.style.textAlign}` : ''
+        }`}>
+          {hiddenBadge}
           {element.content}
         </p>
       );
 
     case 'banner':
       return (
-        <div className={`
-          p-6 rounded-lg mb-6 text-center
-          ${element.variant === 'gradient' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white' : ''}
-          ${element.variant === 'colored' ? `bg-${element.color}-100 text-${element.color}-800 border border-${element.color}-200` : ''}
-          ${element.variant === 'default' ? 'bg-muted text-foreground border' : ''}
-          ${baseClasses}
-        `}>
+        <div className={`p-6 rounded-lg mb-6 text-center ${baseClasses} ${wrapperClass} ${
+          element.variant === 'gradient' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white' :
+          element.variant === 'colored' ? `bg-${element.color}-100 text-${element.color}-800 border border-${element.color}-200` :
+          'bg-muted text-foreground border'
+        }`}>
+          {hiddenBadge}
           <h2 className="text-2xl font-bold">{element.content}</h2>
         </div>
       );
 
     case 'git-contribution':
       return (
-        <Card className={`p-6 mb-6 ${baseClasses}`}>
+        <Card className={`p-6 mb-6 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           <h3 className="text-xl font-semibold mb-4">🤝 How to Contribute</h3>
           <div className="space-y-3 text-sm">
             <p>1. Fork the repository</p>
@@ -73,7 +126,8 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'tech-stack':
       return (
-        <div className={`mb-6 ${baseClasses}`}>
+        <div className={`mb-6 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           <h3 className="text-xl font-semibold mb-4">⚡ Tech Stack</h3>
           {element.layout === 'badges' && (
             <div className="flex flex-wrap gap-2">
@@ -103,7 +157,9 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'image':
       return (
-        <div className={`mb-6 ${baseClasses}`}>          <img 
+        <div className={`mb-6 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
+          <img 
             src={element.src} 
             alt={element.alt}
             style={{ 
@@ -118,7 +174,8 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'code-block':
       return (
-        <div className={`mb-6 ${baseClasses}`}>
+        <div className={`mb-6 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
             <code className={`language-${element.language}`}>
               {element.content}
@@ -129,7 +186,8 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'badge':
       return (
-        <div className={`mb-4 ${baseClasses}`}>
+        <div className={`mb-4 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           <Badge 
             variant={
               element.variant === 'success' ? 'default' :
@@ -145,7 +203,8 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'table':
       return (
-        <div className={`mb-6 overflow-x-auto ${baseClasses}`}>
+        <div className={`mb-6 overflow-x-auto ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           <table className="w-full border-collapse border border-border">
             <thead>
               <tr className="bg-muted">
@@ -173,7 +232,8 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'divider':
       return (
-        <div className={`my-8 ${baseClasses}`}>
+        <div className={`my-8 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           {element.dividerStyle === 'line' && <hr className="border-border" />}
           {element.dividerStyle === 'dots' && (
             <div className="text-center text-muted-foreground">• • •</div>
@@ -185,6 +245,6 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
       );
 
     default:
-      return <div className={`p-4 bg-muted rounded ${baseClasses}`}>Unknown element type</div>;
+      return <div className={`p-4 bg-muted rounded ${baseClasses} ${wrapperClass}`}>{hiddenBadge}Unknown element type</div>;
   }
 }
