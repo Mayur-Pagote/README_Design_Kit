@@ -10,12 +10,13 @@ interface ComponentCardProps {
   imageUrl: string;
   codeSnippet: string;
   username: string;
+  repo: string;
 }
 
-export default function ComponentCard({ title, description, imageUrl, codeSnippet, username }: ComponentCardProps) {
+export default function ComponentCard({ title, description, imageUrl, codeSnippet, username, repo}: ComponentCardProps) {
 
   const handleCopyLink = async () => {    try {
-      const formattedCode = codeSnippet.replace(/\{username\}/g, username);
+      const formattedCode = codeSnippet.replace(/\{username\}/g, username).replace(/\{repo\}/g, repo);
       await navigator.clipboard.writeText(formattedCode);
       toast(
         `Copied to clipboard!, ${title} code has been copied to your clipboard.`,
@@ -28,11 +29,12 @@ export default function ComponentCard({ title, description, imageUrl, codeSnippe
     }
   };
 
+  const finalImageUrl = imageUrl.replace(/\{username\}/g, username).replace(/\{repo\}/g, repo);
   return (
     <div className="relative bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden backdrop-blur-lg  opacity-80 hover:opacity-100 hover:shadow-lg  hover:shadow-purple-700/40  hover:border-x-purple-600 hover:border-y-purple-600  cursor-text transition-all duration-500 hover:scale-105 group max-w-sm">
       <div className="aspect-video bg-muted flex items-center justify-center p-4">
         <img
-          src={imageUrl}
+          src={finalImageUrl}
           alt={title}
           className="max-w-full max-h-full object-contain rounded"
         />

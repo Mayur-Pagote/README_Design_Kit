@@ -1,8 +1,26 @@
-# 📘 README Design Kit
 
-[![MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)]()
-[![SSoC](https://img.shields.io/badge/SSoC-S4-blueviolet)]()
+
+<div align="center">
+  <picture>
+    <source srcset="./rdk.svg" media="(prefers-color-scheme: dark)">
+    <source srcset="./rdkd.svg" media="(prefers-color-scheme: light)">
+    <img src="./rdkd.svg" alt="README Design Kit Logo" height="100">
+  </picture>
+</div>
+
+---
+<p align="center">
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">
+  </a>
+  <a href="#">
+    <img src="https://img.shields.io/badge/SSoC-S4-blueviolet" alt="SSoC">
+  </a>
+</p>
+
 
 Welcome to the **README Design Kit** — your one-stop starter pack for writing clean, organized, and beginner-friendly README files for your GitHub projects!
 
@@ -92,6 +110,20 @@ This helps you identify which parts are hidden or missing for each type of user.
 
 ---
 
+## 📝 Feature Requests Page  
+
+The Feature Requests Page allows users to:  
+- 🚀 Submit new ideas via a structured form (`FeatureRequestForm.tsx`).  
+- 🔼 Vote on existing requests using an interactive system (`FeatureCard.tsx`).  
+- 💾 Persist votes across sessions using LocalStorage (`useLocalStorage.ts`).  
+- 🔍 Sort requests by **Most Votes, Newest, and Trending**.  
+- 🏷️ Track feature statuses like `"Planned"`, `"Under Review"`, and `"Rejected"`.  
+
+Users can now **actively participate in shaping future improvements** by submitting and voting
+
+
+---
+
 <h2 style="font-family: Helvetica, sans-serif;">� Documentation</h2>
 
 Comprehensive documentation is available to help you understand and contribute to the project:
@@ -134,6 +166,21 @@ Are you participating in **SSoC Season 4**? Here's how you can contribute:
 3. **Move into the project directory**
    ```bash
     cd README_Design_Kit
+   ```
+3. **Download necessay packages**
+   ```bash
+    npm install 
+   ```
+   or 
+   <br>
+   **Use Docker to run project locally**
+   - Build the image
+   ```
+   docker build -t readme-design-kit .
+   ```
+   - Run image locally
+   ```
+   docker -it -p 5173:5173 readme-desing-kit
    ```
 3. **Create a new branch** for your changes
     ```bash

@@ -2,45 +2,30 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Clock, Bell, Rocket, Star, ArrowRight } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // ✅ Added navigation
 
 export default function ComingSoon() {
-  const upcomingFeatures = [
-    {
-      title: "Advanced Template Library",
-      description: "Pre-built README templates for different project types",
-      eta: "Q3 2025",
-      priority: "high"
-    },
-    {
-      title: "Real-time Collaboration",
-      description: "Work together with your team on README files",
-      eta: "Q4 2025",
-      priority: "medium"
-    },
-    {
-      title: "GitHub Integration",
-      description: "Direct integration with GitHub repositories",
-      eta: "Q3 2025",
-      priority: "high"
-    },
-    {
-      title: "Custom Components",
-      description: "Create and save your own reusable components",
-      eta: "Q4 2025",
-      priority: "low"
-    },
-    {
-      title: "AI-Powered Suggestions",
-      description: "Get intelligent suggestions for your README content",
-      eta: "Q1 2026",
-      priority: "medium"
-    },
-    {
-      title: "Export Formats",
-      description: "Export to PDF, HTML, and other formats",
-      eta: "Q3 2025",
-      priority: "medium"
+  const [email, setEmail] = useState("");
+  const navigate = useNavigate(); // ✅ Enable page transitions
+
+  const handleNotifyClick = () => {
+    if (!email || !email.includes("@")) {
+      alert("Please enter a valid email address");
+      return;
     }
+    
+    console.log("Notify request sent for:", email);
+    alert("You'll be notified when new features are released!");
+  };
+
+  const upcomingFeatures = [
+    { title: "Advanced Template Library", description: "Pre-built README templates", eta: "Q3 2025", priority: "high" },
+    { title: "Real-time Collaboration", description: "Work together on README files", eta: "Q4 2025", priority: "medium" },
+    { title: "GitHub Integration", description: "Direct sync with repositories", eta: "Q3 2025", priority: "high" },
+    { title: "Custom Components", description: "Reusable components for docs", eta: "Q4 2025", priority: "low" },
+    { title: "AI-Powered Suggestions", description: "Smart README content recommendations", eta: "Q1 2026", priority: "medium" },
+    { title: "Export Formats", description: "Export README as PDF, HTML, etc.", eta: "Q3 2025", priority: "medium" }
   ];
 
   const getPriorityColor = (priority: string) => {
@@ -67,24 +52,31 @@ export default function ComingSoon() {
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-            Exciting Features
-            <br />
+            Exciting Features <br /> 
             <span className="text-primary">Coming Soon</span>
           </h1>
           
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            We're constantly working to improve README Design Kit. 
-            Here's what's coming next to make your documentation even better.
+            We're constantly improving README Design Kit. Here's what's next.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="text-lg px-8">
+            <Button size="lg" className="text-lg px-8" onClick={() => document.getElementById("stay-in-loop")?.scrollIntoView({ behavior: 'smooth' })}>
               <Bell className="mr-2 h-5 w-5" />
               Get Notified
             </Button>
             <Button variant="outline" size="lg" className="text-lg px-8">
               <Star className="mr-2 h-5 w-5" />
               Follow Progress
+            </Button>
+            {/* ✅ Navigation Button to Feature Requests */}
+            <Button 
+              onClick={() => navigate('/feature-requests')} 
+              size="lg" 
+              className="text-lg px-8 bg-purple-600 text-white hover:bg-purple-700"
+            >
+              <ArrowRight className="mr-2 h-5 w-5" />
+              View Feature Requests
             </Button>
           </div>
 
@@ -98,9 +90,7 @@ export default function ComingSoon() {
       {/* Features Roadmap */}
       <section className="py-16 px-6 bg-muted/50">
         <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Feature Roadmap
-          </h2>
+          <h2 className="text-3xl font-bold text-center mb-12">Feature Roadmap</h2>
           
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {upcomingFeatures.map((feature, index) => (
@@ -112,9 +102,7 @@ export default function ComingSoon() {
                       {feature.priority}
                     </Badge>
                   </div>
-                  <CardDescription>
-                    {feature.description}
-                  </CardDescription>
+                  <CardDescription>{feature.description}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="flex items-center justify-between">
@@ -122,22 +110,8 @@ export default function ComingSoon() {
                       <Clock className="h-4 w-4" />
                       <span>ETA: {feature.eta}</span>
                     </div>
-                    <Button variant="ghost" size="sm">
-                      <ArrowRight className="h-4 w-4" />
-                    </Button>
                   </div>
                 </CardContent>
-                
-                {/* Progress indicator */}
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-muted">
-                  <div 
-                    className="h-full bg-primary transition-all duration-1000"
-                    style={{ 
-                      width: feature.priority === 'high' ? '60%' : 
-                             feature.priority === 'medium' ? '30%' : '10%' 
-                    }}
-                  />
-                </div>
               </Card>
             ))}
           </div>
@@ -145,14 +119,12 @@ export default function ComingSoon() {
       </section>
 
       {/* Newsletter Signup */}
-      <section className="py-20 px-6">
+      <section id="stay-in-loop" className="py-20 px-6">
         <div className="container mx-auto">
           <Card className="max-w-2xl mx-auto text-center">
             <CardHeader>
               <CardTitle className="text-2xl">Stay in the Loop</CardTitle>
-              <CardDescription>
-                Be the first to know when new features are released
-              </CardDescription>
+              <CardDescription>Be the first to know when new features are released</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
@@ -160,8 +132,10 @@ export default function ComingSoon() {
                   type="email"
                   placeholder="Enter your email"
                   className="flex-1 px-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
-                <Button>
+                <Button onClick={handleNotifyClick}>
                   <Bell className="mr-2 h-4 w-4" />
                   Notify Me
                 </Button>

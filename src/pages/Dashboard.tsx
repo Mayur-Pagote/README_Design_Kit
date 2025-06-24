@@ -7,16 +7,20 @@ import Sidebar from '@/components/Sidebar';
 import PreviewGrid from '@/components/PreviewGrid';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
-import ThemeToggler from '../theme/toggler';
+import { ModeToggle } from '@/components/mode-toggle';
 
 export default function Dashboard(){
   const [username, setUsername] = useState('Mayur-Pagote');
+  const [repo, setRepo] = useState("README_Design_Kit");
   const [selectedCategory, setSelectedCategory] = useState('graphs');
   const navigate = useNavigate();
 
-  const handleUsernameChange = (newUsername: string) => {
+  function handleUsernameChange(newUsername: string) {
     setUsername(newUsername);
-  };
+  }
+  function handleRepoChange(newRepo: string) {
+  setRepo(newRepo);
+}
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
@@ -36,14 +40,15 @@ export default function Dashboard(){
           className="flex items-center gap-2"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to Home
-        </Button>
-        <ThemeToggler />
+          Back to Home        </Button>
+        <ModeToggle />
       </div>
       <Header />
       <UserInput 
         onUsernameChange={handleUsernameChange}
+        onRepoChange={handleRepoChange}
         defaultUsername="Mayur-Pagote"
+        defaultRepo="README_Design_Kit"
       />
       <div className="flex flex-1">
         <Sidebar 
@@ -53,6 +58,7 @@ export default function Dashboard(){
         <PreviewGrid 
           selectedCategory={selectedCategory}
           username={username}
+          repo={repo}
         />
       </div>
     </div>

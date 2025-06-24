@@ -4,92 +4,21 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:
 
 jobs:
-  vite-build:
-    name: Vite Build Check
+  build:
     runs-on: ubuntu-latest
 
-    steps:      - name: ⬇️ Checkout code
-        uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: 🔧 Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 20
-          cache: 'npm'      - name: 📦 Install dependencies
-        run: npm ci
+          node-version: '20'
+      - name: Install dependencies
+        run: npm install
 
-      - name: 🔨 Build Vite App
-        id: vite_build
-        run: |
-          echo "🔍 Starting Vite build..."
-          if npm run build; then
-            echo "✅ Vite build completed successfully."
-            echo "build_status=success" >> $GITHUB_OUTPUT
-          else
-            echo "❌ Vite build failed. Please check the logs above."
-            echo "build_status=failure" >> $GITHUB_OUTPUT
-            exit 1
-          fi
-
-      - name: ✅ Output Result
-        if: success()
-        run: |
-          echo "🎉 Build succeeded and no errors were found."
-
-      - name: ❌ Output Result
-        if: failure()
-        run: |
-          echo "🚨 Build failed. Please check the output and fix the issue."
-
-      - name: 💬 Comment on PR tagging repo owner and PR author
-        if: success()
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            // Get PR info
-            const pr = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number
-            });
-            const prAuthor = pr.data.user.login;
-            // Get repo owner
-            const repoOwner = context.repo.owner;
-            // Compose comment
-            const message = `✅ Vite build passed!\n\nThanks @${prAuthor} for your contribution!\n@${repoOwner}, this PR is ready for review.`;
-            // Post comment
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              body: message
-            });
-
-      - name: 💬 Comment on PR about build failure
-        if: failure()
-        uses: actions/github-script@v7
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            // Get PR info
-            const pr = await github.rest.pulls.get({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.payload.pull_request.number
-            });
-            const prAuthor = pr.data.user.login;
-            // Get repo owner
-            const repoOwner = context.repo.owner;
-            // Compose comment
-            const message = `❌ Vite build failed!\n\n@${prAuthor}, please check the build logs and fix the issues.\n@${repoOwner}, this PR needs attention.`;
-            // Post comment
-            await github.rest.issues.createComment({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.payload.pull_request.number,
-              body: message
-            });
+      - name: Run build
+        run: npm run build
