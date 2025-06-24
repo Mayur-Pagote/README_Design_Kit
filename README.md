@@ -74,6 +74,24 @@ Click “Apply Fix” to update the content instantly.
 
 ---
 
+## 🧪 Persona Preview Mode
+
+Crafting a README for multiple audiences? Try out our new **Persona Mode**:
+
+- 👨‍💻 **Developer Mode** – Shows setup instructions, code blocks, and contribution guidelines
+- 🔍 **Recruiter Mode** – Highlights project description, impact, and summary
+- 📦 **Client Mode** – Focuses on visuals, branding, and use-case clarity
+
+🎯 You can **toggle modes from the editor toolbar** to see what each audience sees, without affecting your actual content.
+
+### 🆚 Compare Personas View
+
+Want to compare all at once?  
+Click **"Compare"** to see a split-screen layout of what each persona sees.  
+This helps you identify which parts are hidden or missing for each type of user.
+
+---
+
 <h2 style="font-family: Helvetica, sans-serif;">� Documentation</h2>
 
 Comprehensive documentation is available to help you understand and contribute to the project:
