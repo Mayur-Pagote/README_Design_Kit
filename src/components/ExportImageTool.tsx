@@ -10,6 +10,7 @@ import {
   Linkedin,
   Check,
 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 export interface ExportSize {
   name: string;
@@ -116,14 +117,16 @@ export function ExportImageTool({
   return (
     <div className={`relative ${className}`}>
       <div className="relative" ref={menuRef}>
-        <button
+        <Button
+          variant="outline"
+          size="sm"
           onClick={() => setIsMenuOpen((v) => !v)}
           disabled={isExporting}
-          className="inline-flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+          className="flex items-center gap-2"
         >
           {isExporting ? <Loader2 className="h-4 w-4 animate-spin" /> : <ImageIcon className="h-4 w-4" />}
           Export PNG
-        </button>
+        </Button>
 
         {isMenuOpen && (
           <div className="absolute right-0 top-full mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50 p-4 space-y-4">

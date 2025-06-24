@@ -7,12 +7,14 @@ interface AssistantLauncherProps {
   elements: ElementType[];
   isEditorActive: boolean;
   onApplySuggestion: (elementId: string, newContent: string) => void;
+  backToTopVisible?: boolean;
 }
 
 export function AssistantLauncher({
   elements,
   isEditorActive,
   onApplySuggestion,
+  backToTopVisible = false,
 }: AssistantLauncherProps) {
   const [open, setOpen] = useState(false);
 
@@ -20,7 +22,7 @@ export function AssistantLauncher({
     <>
       {/* Floating button */}
       <button
-        className="fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:bg-primary/90"
+        className={`fixed ${backToTopVisible ? 'bottom-24' : 'bottom-6'} right-8 z-50 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:bg-primary/90`}
         onClick={() => setOpen(true)}
         title="Open Branding Assistant"
         aria-label="Open Branding Assistant"

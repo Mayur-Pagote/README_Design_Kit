@@ -8,14 +8,18 @@ interface SidebarProps {
 
 const categories = [
   { id: 'graphs', name: 'Graphs', icon: '📊' },
-  { id: 'cards', name: 'Cards', icon: '🎴' },
-  { id: 'counter', name: 'Counter', icon: '🔢' },
-  { id: 'animation', name: 'Animation', icon: '✨' },
+  { id: 'stats', name: 'Stats Cards', icon: '🎴' },
+  { id: 'counter', name: 'Profile Views Counter', icon: '🔢' },
+  { id: 'animation', name: 'Animations', icon: '✨' },
   { id: 'emojis', name: 'Emojis', icon: '😊' },
-  { id: 'quotes', name: 'Quotes', icon: '💭' },
+  { id: 'quotes', name: 'Quotes & Jokes', icon: '💭' },
   { id: 'languages', name: 'Languages', icon: '🌐' },
   { id: 'repos', name: 'Repositories', icon: '📁' },
-  { id: 'dividers', name: 'Dividers', icon: '➖' },
+  { id: 'dividers', name: 'Lines & Waves', icon: '➖' },
+  { id: 'gitanimals', name: 'GitAnimals', icon: '🐙' },
+  { id: 'decorations', name: 'Decorations', icon: '🎉' },
+  { id: 'socials', name: 'Socials', icon: '🔗' },
+  { id: 'coding', name: 'Coding Platform Stats', icon: '🧠' }
 ];
 
 const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) => {
