@@ -7,20 +7,36 @@ import {
   PanelLeft,
   PanelRight,
   Sparkles,
+  ChevronDown,
+  User,
+  Search,
+  Package,
+  Info,
 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { ElementPalette } from '@/components/ElementPalette';
 import { EditorCanvas } from '@/components/EditorCanvas';
 import { ReadmePreview } from '@/components/ReadmePreview';
 import { ElementEditor } from '@/components/ElementEditor';
 import { AssistantLauncher } from '@/components/AssistantLauncher';
+import { PersonaComparisonModal } from '@/components/PersonaComparisonModal';
 import { demoElements } from '@/data/demo';
 import type { ElementType } from '@/types/elements';
+
+type ViewMode = 'developer' | 'recruiter' | 'client';
 
 export default function DragDropEditor() {
   const [elements, setElements] = useState<ElementType[]>([]);
   const [editingElement, setEditingElement] = useState<ElementType | null>(null);
   const [showPalette, setShowPalette] = useState(true);
   const [showPreview, setShowPreview] = useState(true);
+  const [viewMode, setViewMode] = useState<ViewMode>('developer');
+  const [showComparisonModal, setShowComparisonModal] = useState(false);
 
   const handleAddElement = (element: ElementType) => {
     setElements(prev => [...prev, element]);
@@ -53,6 +69,32 @@ export default function DragDropEditor() {
 
   const clearAll = () => {
     setElements([]);
+  };
+
+  const getPersonaIcon = (mode: ViewMode) => {
+    switch (mode) {
+      case 'developer':
+        return <User className="h-4 w-4" />;
+      case 'recruiter':
+        return <Search className="h-4 w-4" />;
+      case 'client':
+        return <Package className="h-4 w-4" />;
+      default:
+        return <User className="h-4 w-4" />;
+    }
+  };
+
+  const getPersonaLabel = (mode: ViewMode) => {
+    switch (mode) {
+      case 'developer':
+        return '👨‍💻 Developer';
+      case 'recruiter':
+        return '🔍 Recruiter';
+      case 'client':
+        return '📦 Client';
+      default:
+        return '👨‍💻 Developer';
+    }
   };
 
   return (
@@ -91,6 +133,61 @@ export default function DragDropEditor() {
                 Clear All
               </Button>
               <span className="text-muted-foreground mx-2">•</span>
+
+              {/* Persona Preview Mode Dropdown */}
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="flex items-center gap-2 min-w-[140px] justify-between"
+                  >
+                    <span className="flex items-center gap-2">
+                      {getPersonaIcon(viewMode)}
+                      <span className="hidden sm:inline">
+                        {getPersonaLabel(viewMode).split(' ')[1]}
+                      </span>
+                    </span>
+                    <ChevronDown className="h-4 w-4 opacity-50" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem
+                    onClick={() => setViewMode('developer')}
+                    className={viewMode === 'developer' ? 'bg-accent' : ''}
+                  >
+                    <User className="h-4 w-4 mr-2" />
+                    👨‍💻 Developer
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => setViewMode('recruiter')}
+                    className={viewMode === 'recruiter' ? 'bg-accent' : ''}
+                  >
+                    <Search className="h-4 w-4 mr-2" />
+                    🔍 Recruiter
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                    onClick={() => setViewMode('client')}
+                    className={viewMode === 'client' ? 'bg-accent' : ''}
+                  >
+                    <Package className="h-4 w-4 mr-2" />
+                    📦 Client
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+
+              {/* Persona Comparison Button */}
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowComparisonModal(true)}
+                className="flex items-center gap-2"
+                title="View persona visibility comparison"
+              >
+                <Info className="h-4 w-4" />
+                <span className="hidden sm:inline">Compare</span>
+              </Button>
+
               <Button
                 variant="outline"
                 size="sm"
@@ -128,11 +225,12 @@ export default function DragDropEditor() {
           elements={elements}
           onElementsChange={handleElementsChange}
           onEditElement={handleEditElement}
+          viewMode={viewMode}
         />
 
         {showPreview && (
           <div className="border-l border-border w-1/2">
-            <ReadmePreview elements={elements} />
+            <ReadmePreview elements={elements} viewMode={viewMode} />
           </div>
         )}
       </div>
@@ -150,6 +248,12 @@ export default function DragDropEditor() {
         isOpen={editingElement !== null}
         onClose={() => setEditingElement(null)}
         onSave={handleSaveElement}
+      />
+
+      {/* Persona Comparison Modal */}
+      <PersonaComparisonModal
+        isOpen={showComparisonModal}
+        onClose={() => setShowComparisonModal(false)}
       />
     </div>
   );

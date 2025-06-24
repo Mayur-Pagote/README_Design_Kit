@@ -24,11 +24,12 @@ interface EditorCanvasProps {
   elements: ElementType[];
   onElementsChange: (elements: ElementType[]) => void;
   onEditElement: (element: ElementType) => void;
+  viewMode?: 'developer' | 'recruiter' | 'client';
 }
 
-export function EditorCanvas({ elements, onElementsChange, onEditElement }: EditorCanvasProps) {
+export function EditorCanvas({ elements, onElementsChange, onEditElement, viewMode }: EditorCanvasProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
-  
+
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
@@ -37,25 +38,23 @@ export function EditorCanvas({ elements, onElementsChange, onEditElement }: Edit
     }),
     useSensor(KeyboardSensor, {
       coordinateGetter: sortableKeyboardCoordinates,
-    })  );
-  const handleDragStart = (event: DragStartEvent) => {
-    console.log('Drag started:', event.active.id);
-    setActiveId(event.active.id as string);
-  };    const handleDragEnd = (event: DragEndEvent) => {
-    console.log('Drag ended:', event.active.id, 'over:', event.over?.id);
-    const { active, over } = event;
+    })
+  );
 
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveId(event.active.id as string);
+  };
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
     if (active.id !== over?.id && over) {
       const oldIndex = elements.findIndex(element => element.id === active.id);
       const newIndex = elements.findIndex(element => element.id === over.id);
-
-      console.log('Moving from index', oldIndex, 'to', newIndex);
 
       if (oldIndex !== -1 && newIndex !== -1) {
         onElementsChange(arrayMove(elements, oldIndex, newIndex));
       }
     }
-    
     setActiveId(null);
   };
 
@@ -71,7 +70,8 @@ export function EditorCanvas({ elements, onElementsChange, onEditElement }: Edit
           <p className="text-sm text-muted-foreground">
             Drag and drop elements to reorder them. Click the edit button to customize each element.
           </p>
-        </div>        <DndContext
+        </div>
+        <DndContext
           sensors={sensors}
           collisionDetection={closestCenter}
           onDragStart={handleDragStart}
@@ -80,38 +80,43 @@ export function EditorCanvas({ elements, onElementsChange, onEditElement }: Edit
           <SortableContext
             items={elements.map(el => el.id)}
             strategy={verticalListSortingStrategy}
-          >            <div className="space-y-4">
+          >
+            <div className="space-y-4">
               {elements.length === 0 ? (
                 <Card className="p-12 border-2 border-dashed border-border bg-background/50">
                   <div className="text-center text-muted-foreground">
                     <Plus className="h-12 w-12 mx-auto mb-4 opacity-50" />
                     <h3 className="text-lg font-medium mb-2">Start Building Your README</h3>
                     <p className="text-sm max-w-md mx-auto mb-4">
-                      Add elements from the sidebar to create your README. 
+                      Add elements from the sidebar to create your README.
                       You can drag and drop to reorder them.
                     </p>
                     <p className="text-xs text-muted-foreground">
                       💡 Try clicking "Load Demo" to see example content!
                     </p>
                   </div>
-                </Card>              ) : (
+                </Card>
+              ) : (
                 elements.map(element => (
                   <SimpleDraggableElement
                     key={element.id}
                     element={element}
                     onEdit={onEditElement}
                     onDelete={handleDeleteElement}
+                    viewMode={viewMode}
                   />
                 ))
-              )}</div>
+              )}
+            </div>
           </SortableContext>
-            <DragOverlay>
+          <DragOverlay>
             {activeId ? (
               <div className="opacity-75 rotate-1 scale-105">
                 <SimpleDraggableElement
                   element={elements.find(el => el.id === activeId)!}
                   onEdit={() => {}}
                   onDelete={() => {}}
+                  viewMode={viewMode}
                 />
               </div>
             ) : null}
