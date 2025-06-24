@@ -50,75 +50,66 @@ export function ReadmePreview({ elements, viewMode = 'developer' }: ReadmePrevie
   }, [elements, viewMode]);
 
   const generateMarkdown = () => {
-  return filteredElements.map(element => {
-    switch (element.type) {
-      case 'header':
-        return `# ${element.content}\n\n`;
-      case 'text':
-        return `${element.content}\n\n`;
-      case 'banner':
-        return `<div align="center">\n  <h1>${element.content}</h1>\n</div>\n\n`;
-      case 'git-contribution':
-        return `## 🤝 How to Contribute
-
-1. Fork the repository  
-2. Clone your fork: \`git clone https://github.com/${element.username}/${element.repository}.git\`  
-3. Create a feature branch: \`git checkout -b feature-name\`  
-4. Make your changes and commit: \`git commit -m "Add feature"\`  
-5. Push to your fork: \`git push origin feature-name\`  
-6. Create a Pull Request
-
-\n\n`;
-      case 'tech-stack':
-        if (element.layout === 'badges') {
-          return `## ⚡ Tech Stack\n\n${element.technologies
-            .map(
-              (tech) =>
-                `![${tech}](https://img.shields.io/badge/-${tech}-05122A?style=flat&logo=${tech.toLowerCase()})`
-            )
-            .join(' ')}\n\n`;
-        } else if (element.layout === 'list') {
-          return `## ⚡ Tech Stack\n\n${element.technologies.map((tech) => `- ${tech}`).join('\n')}\n\n`;
-        } else {
-          return `## ⚡ Tech Stack\n\n| | | |\n|---|---|---|\n${element.technologies
-            .reduce((acc, tech, index) => {
-              if (index % 3 === 0) {
-                acc.push([tech]);
-              } else {
-                acc[acc.length - 1].push(tech);
-              }
-              return acc;
-            }, [] as string[][])
-            .map((row) => `| ${row.join(' | ')} |`)
-            .join('\n')}\n\n`;
-        }
-      case 'image':
-        return `![${element.alt}](${element.src})\n\n`;
-      case 'code-block':
-        return `\`\`\`${element.language || 'javascript'}\n${element.content}\n\`\`\`\n\n`;
-      case 'badge':
-        return `![${element.content}](https://img.shields.io/badge/-${element.content.replace(/\s+/g, '%20')}-brightgreen)\n\n`;
-      case 'table':
-        const headers = `| ${element.headers.join(' | ')} |`;
-        const separator = `| ${element.headers.map(() => '---').join(' | ')} |`;
-        const rows = element.rows.map((row) => `| ${row.join(' | ')} |`).join('\n');
-        return `${headers}\n${separator}\n${rows}\n\n`;
-      case 'divider':
-        switch (element.dividerStyle) {
-          case 'dots':
-            return `<div align="center">• • •</div>\n\n`;
-          case 'stars':
-            return `<div align="center">⭐ ⭐ ⭐</div>\n\n`;
-          default:
-            return `---\n\n`;
-        }
-      case 'installation':
-        return `## Installation\n\n\`\`\`bash\n${element.content}\n\`\`\`\n\n`;
-      default:
-        return '';
-    }
-  }).join('');
-};
+    return filteredElements.map(element => {
+      switch (element.type) {
+        case 'header':
+          return `# ${element.content}\n\n`;
+        case 'text':
+          return `${element.content}\n\n`;
+        case 'banner':
+          return `<div align="center">\n  <h1>${element.content}</h1>\n</div>\n\n`;
+        case 'git-contribution':
+          return `## 🤝 How to Contribute\n\n1. Fork the repository  \n2. Clone your fork: \`git clone https://github.com/${element.username}/${element.repository}.git\`  \n3. Create a feature branch: \`git checkout -b feature-name\`  \n4. Make your changes and commit: \`git commit -m "Add feature"\`  \n5. Push to your fork: \`git push origin feature-name\`  \n6. Create a Pull Request\n\n`;
+        case 'tech-stack':
+          if (element.layout === 'badges') {
+            return `## ⚡ Tech Stack\n\n${element.technologies
+              .map(
+                (tech) =>
+                  `![${tech}](https://img.shields.io/badge/-${tech}-05122A?style=flat&logo=${tech.toLowerCase()})`
+              )
+              .join(' ')}\n\n`;
+          } else if (element.layout === 'list') {
+            return `## ⚡ Tech Stack\n\n${element.technologies.map((tech) => `- ${tech}`).join('\n')}\n\n`;
+          } else {
+            return `## ⚡ Tech Stack\n\n| | | |\n|---|---|---|\n${element.technologies
+              .reduce((acc, tech, index) => {
+                if (index % 3 === 0) {
+                  acc.push([tech]);
+                } else {
+                  acc[acc.length - 1].push(tech);
+                }
+                return acc;
+              }, [] as string[][])
+              .map((row) => `| ${row.join(' | ')} |`)
+              .join('\n')}\n\n`;
+          }
+        case 'image':
+          return `![${element.alt}](${element.src})\n\n`;
+        case 'code-block':
+          return `\`\`\`${element.language || 'javascript'}\n${element.content}\n\`\`\`\n\n`;
+        case 'badge':
+          return `![${element.content}](https://img.shields.io/badge/-${element.content.replace(/\s+/g, '%20')}-brightgreen)\n\n`;
+        case 'table':
+          const headers = `| ${element.headers.join(' | ')} |`;
+          const separator = `| ${element.headers.map(() => '---').join(' | ')} |`;
+          const rows = element.rows.map((row) => `| ${row.join(' | ')} |`).join('\n');
+          return `${headers}\n${separator}\n${rows}\n\n`;
+        case 'divider':
+          switch (element.dividerStyle) {
+            case 'dots':
+              return `<div align="center">• • •</div>\n\n`;
+            case 'stars':
+              return `<div align="center">⭐ ⭐ ⭐</div>\n\n`;
+            default:
+              return `---\n\n`;
+          }
+        case 'installation':
+          return `## Installation\n\n\`\`\`bash\n${element.content}\n\`\`\`\n\n`;
+        default:
+          return '';
+      }
+    }).join('');
+  };
 
   const copyToClipboard = async () => {
     const markdown = generateMarkdown();
