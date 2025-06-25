@@ -37,7 +37,13 @@ export default function Navbar() {
   const [showSubMenu, setShowSubMenu] = useState(false);
   const location = useLocation();
 
-  const NavLink = ({ item, mobile = false }: { item: typeof navigation[0], mobile?: boolean }) => {
+  const NavLink = ({
+    item,
+    mobile = false
+  }: {
+    item: any;
+    mobile?: boolean;
+  }) => {
     const isActive = location.pathname === item.href;
 
     if (item.submenu && !mobile) {
@@ -46,8 +52,8 @@ export default function Navbar() {
           <button
             onClick={() => setShowSubMenu(!showSubMenu)}
             className={cn(
-              "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
-              "text-foreground hover:bg-accent hover:text-accent-foreground"
+              'flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors',
+              'text-foreground hover:bg-accent hover:text-accent-foreground'
             )}
           >
             <item.icon className="h-4 w-4" />
@@ -63,7 +69,7 @@ export default function Navbar() {
                   className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
                 >
                   {sub.name}
-                  {sub.badge && (
+                  {'badge' in sub && sub.badge && (
                     <Badge variant="secondary" className="ml-2 text-xs">
                       {sub.badge}
                     </Badge>
@@ -80,17 +86,17 @@ export default function Navbar() {
       <Link
         to={item.href}
         className={cn(
-          "flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors",
+          'flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors',
           isActive
-            ? "bg-primary text-primary-foreground"
-            : "text-foreground hover:bg-accent hover:text-accent-foreground",
-          mobile && "w-full justify-start"
+            ? 'bg-primary text-primary-foreground'
+            : 'text-foreground hover:bg-accent hover:text-accent-foreground',
+          mobile && 'w-full justify-start'
         )}
         onClick={() => mobile && setIsOpen(false)}
       >
         <item.icon className="h-4 w-4" />
         {item.name}
-        {item.badge && (
+        {'badge' in item && item.badge && (
           <Badge variant="secondary" className="ml-1 text-xs">
             {item.badge}
           </Badge>
@@ -106,14 +112,14 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
-              <img 
+              <img
                 src={loggd}
-                alt="Logo Light" 
+                alt="Logo Light"
                 className="h-8 object-contain block dark:hidden"
               />
-              <img 
+              <img
                 src={logg}
-                alt="Logo Dark" 
+                alt="Logo Dark"
                 className="h-8 object-contain hidden dark:block"
               />
             </Link>
@@ -129,7 +135,10 @@ export default function Navbar() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-3">
             <ModeToggle />
-            <GitHubStarsButton username="Mayur-Pagote" repo="README_Design_Kit" />
+            <GitHubStarsButton
+              username="Mayur-Pagote"
+              repo="README_Design_Kit"
+            />
             <Button size="sm" asChild>
               <Link to="/elements">Get Started</Link>
             </Button>
@@ -147,14 +156,14 @@ export default function Navbar() {
               <SheetContent side="right" className="w-80">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
-                    <img 
-                      src={loggd} 
-                      alt="Light Logo" 
+                    <img
+                      src={loggd}
+                      alt="Light Logo"
                       className="h-8 object-contain block dark:hidden"
                     />
-                    <img 
-                      src={logg} 
-                      alt="Dark Logo" 
+                    <img
+                      src={logg}
+                      alt="Dark Logo"
                       className="h-8 object-contain hidden dark:block"
                     />
                   </div>
@@ -184,7 +193,11 @@ export default function Navbar() {
                     <ModeToggle />
                   </div>
                   <div className="px-4">
-                    <Button variant="outline" className="w-full justify-start" asChild>
+                    <Button
+                      variant="outline"
+                      className="w-full justify-start"
+                      asChild
+                    >
                       <a
                         href="https://github.com/Mayur-Pagote/README_Design_Kit"
                         target="_blank"
