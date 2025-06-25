@@ -31,7 +31,7 @@ export default function ComponentCard({ title, description, imageUrl, codeSnippe
 
   const finalImageUrl = imageUrl.replace(/\{username\}/g, username).replace(/\{repo\}/g, repo);
   return (
-    <div className="relative bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden backdrop-blur-lg  opacity-80 hover:opacity-100 hover:shadow-lg  hover:shadow-purple-700/40  hover:border-x-purple-600 hover:border-y-purple-600  cursor-text transition-all duration-500 hover:scale-105 group max-w-sm">
+    <div className="relative bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden backdrop-blur-lg opacity-90 group transform-gpu transition-all duration-200 ease-out delay-100 hover:-translate-y-2 hover:scale-[1.04] shadow-md hover:shadow-2xl hover:shadow-purple-500/40 hover:opacity-100 hover:border-purple-600 cursor-pointer max-w-sm">
       <div className="aspect-video bg-muted flex items-center justify-center p-4">
         <img
           src={finalImageUrl}
@@ -44,7 +44,7 @@ export default function ComponentCard({ title, description, imageUrl, codeSnippe
         <p className="text-sm text-muted-foreground mb-4">{description}</p>
         <Button
           onClick={handleCopyLink}
-          className="w-full bg-primary hover:bg-primary/60 hover:scale-102 cursor-pointer text-primary-foreground"
+          className="w-full bg-primary hover:bg-primary/60 text-primary-foreground transform-gpu transition-transform duration-200 ease-out delay-75 hover:-translate-y-0.5 hover:scale-[1.03]"
         >
           <Copy className="w-4 h-4 mr-2" />
           Copy Code

@@ -76,9 +76,8 @@ export default function Home() {
             className="flex flex-col sm:flex-row gap-4 mt-8"
           >
             <Button asChild size="lg" className="flex items-center gap-2">
-              <Link to="/templates">
-                <Sparkles className="h-5 w-5" />
-                Browse Templates
+              <Link to="/elements">
+                Get Started
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>

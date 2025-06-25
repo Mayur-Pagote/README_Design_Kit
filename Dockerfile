@@ -1,7 +1,7 @@
 # Development Dockerfile for Readme Design Kit
 
-
 FROM node:20-alpine
+
 
 WORKDIR /app
 
