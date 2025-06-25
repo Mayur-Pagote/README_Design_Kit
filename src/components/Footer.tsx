@@ -2,7 +2,8 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Separator } from '@/components/ui/separator';
 import logg from './rdk.svg';
 import loggd from './rdkd.svg';
-import {  
+
+import {
   Heart,
   Home,
   Layers,
@@ -10,8 +11,17 @@ import {
   Clock,
   ExternalLink,
   Shield,
-  FileText
+  FileText,
+  Github,
+  MessageCircle,
+  GitPullRequest,
+  Bug,
+  BookOpen,
+  GraduationCap,
+  LayoutTemplate,
+  Code2,
 } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
 
 export default function Footer() {
@@ -27,16 +37,36 @@ export default function Footer() {
       { name: 'Coming Soon', href: '/coming-soon', icon: Clock },
     ],
     resources: [
-      { name: 'Documentation', href: '#', external: true },
-      { name: 'Tutorials', href: '#', external: true },
-      { name: 'Templates', href: '#', external: true },
-      { name: 'API Reference', href: '#', external: true },
+      { name: 'Documentation', href: '#', external: true, icon: BookOpen },
+      { name: 'Tutorials', href: '#', external: true, icon: GraduationCap },
+      { name: 'Templates', href: '#', external: true, icon: LayoutTemplate },
+      { name: 'API Reference', href: '#', external: true, icon: Code2 },
     ],
     community: [
-      { name: 'GitHub Discussions', href: 'https://github.com/Mayur-Pagote/README_Design_Kit/discussions', external: true },
-      { name: 'Discord Server', href: 'https://discord.gg/wnF5jG7U', external: true },
-      { name: 'Feature Requests', href: 'https://github.com/Mayur-Pagote/README_Design_Kit/issues', external: true },
-      { name: 'Bug Reports', href: 'https://github.com/Mayur-Pagote/README_Design_Kit/issues', external: true },
+      {
+        name: 'GitHub Discussions',
+        href: 'https://github.com/Mayur-Pagote/README_Design_Kit/discussions',
+        external: true,
+        icon: Github,
+      },
+      {
+        name: 'Discord Server',
+        href: 'https://discord.gg/wnF5jG7U',
+        external: true,
+        icon: MessageCircle,
+      },
+      {
+        name: 'Feature Requests',
+        href: 'https://github.com/Mayur-Pagote/README_Design_Kit/issues',
+        external: true,
+        icon: GitPullRequest,
+      },
+      {
+        name: 'Bug Reports',
+        href: 'https://github.com/Mayur-Pagote/README_Design_Kit/issues',
+        external: true,
+        icon: Bug,
+      },
     ],
     company: [
       { name: 'About', href: '#' },
@@ -56,14 +86,14 @@ export default function Footer() {
       name: 'Privacy Policy',
       href: '/privacy',
       icon: Shield,
-      description: 'Learn about our data collection and privacy practices'
+      description: 'Learn about our data collection and privacy practices',
     },
     {
       name: 'Terms of Service',
       href: '/terms',
       icon: FileText,
-      description: 'Read our terms of service and usage guidelines'
-    }
+      description: 'Read our terms of service and usage guidelines',
+    },
   ];
 
   return (
@@ -73,24 +103,24 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <div className="lg:col-span-2">
-            <Link 
-              to="/" 
+            <Link
+              to="/"
               className="flex items-center gap-3 mb-4 transition-transform hover:scale-105"
               aria-label="README Design Kit Home"
             >
-              <img 
+              <img
                 src={loggd}
-                alt="README Design Kit Logo - Light Mode" 
+                alt="README Design Kit Logo - Light Mode"
                 className="h-8 object-contain block dark:hidden"
               />
-              <img 
+              <img
                 src={logg}
-                alt="README Design Kit Logo - Dark Mode" 
+                alt="README Design Kit Logo - Dark Mode"
                 className="h-8 object-contain hidden dark:block"
               />
             </Link>
             <p className="text-muted-foreground mb-6 max-w-md">
-              Create stunning README files with our comprehensive design toolkit. 
+              Create stunning README files with our comprehensive design toolkit.
               Beautiful components, drag-and-drop editor, and endless possibilities for your documentation.
             </p>
           </div>
@@ -104,9 +134,9 @@ export default function Footer() {
                   <Link
                     to={item.href}
                     className={cn(
-                      "text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm",
-                      "hover:underline",
-                      location.pathname === item.href && "text-foreground font-medium"
+                      'text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm',
+                      'hover:underline',
+                      location.pathname === item.href && 'text-foreground font-medium'
                     )}
                     aria-current={location.pathname === item.href ? 'page' : undefined}
                   >
@@ -118,6 +148,7 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Resources Section with Icons */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Resources</h3>
             <ul className="space-y-3">
@@ -129,6 +160,7 @@ export default function Footer() {
                     rel={item.external ? 'noopener noreferrer' : undefined}
                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm hover:underline"
                   >
+                    {item.icon && <item.icon className="h-4 w-4" />}
                     {item.name}
                     {item.external && <ExternalLink className="h-3 w-3" />}
                   </a>
@@ -137,6 +169,7 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Community Section with Icons */}
           <div>
             <h3 className="font-semibold text-foreground mb-4">Community</h3>
             <ul className="space-y-3">
@@ -148,6 +181,7 @@ export default function Footer() {
                     rel={item.external ? 'noopener noreferrer' : undefined}
                     className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm hover:underline"
                   >
+                    {item.icon && <item.icon className="h-4 w-4" />}
                     {item.name}
                     {item.external && <ExternalLink className="h-3 w-3" />}
                   </a>
@@ -169,10 +203,10 @@ export default function Footer() {
                 <button
                   onClick={() => handleLegalLinkClick(link.href)}
                   className={cn(
-                    "text-muted-foreground hover:text-foreground transition-all",
-                    "hover:underline",
-                    "flex items-center gap-1.5 group",
-                    location.pathname === link.href && "text-foreground font-medium"
+                    'text-muted-foreground hover:text-foreground transition-all',
+                    'hover:underline',
+                    'flex items-center gap-1.5 group',
+                    location.pathname === link.href && 'text-foreground font-medium'
                   )}
                   aria-label={link.description}
                 >
@@ -185,7 +219,7 @@ export default function Footer() {
               </div>
             ))}
           </div>
-          
+
           <div className="flex items-center gap-1 text-sm text-muted-foreground">
             <span>Made with</span>
             <Heart className="h-4 w-4 text-red-500 fill-current animate-pulse" />
@@ -199,14 +233,14 @@ export default function Footer() {
             <div>
               <h4 className="font-medium text-foreground mb-2">Contributing to SSOC 2025</h4>
               <p>
-                This project is part of Social Summer of Code 2025. 
+                This project is part of Social Summer of Code 2025.
                 We welcome contributions from the community to make README creation easier for everyone.
               </p>
             </div>
             <div>
               <h4 className="font-medium text-foreground mb-2">Open Source</h4>
               <p>
-                README Design Kit is open source and available on GitHub. 
+                README Design Kit is open source and available on GitHub.
                 Feel free to star the repository, report issues, or contribute new features.
               </p>
             </div>
