@@ -6,6 +6,7 @@ export const demoElements: ElementType[] = [
     type: 'header',
     content: '🚀 Awesome Project',
     level: 1,
+    hiddenFor: [],
   },
   {
     id: 'demo-text-1',
@@ -17,6 +18,7 @@ export const demoElements: ElementType[] = [
       textAlign: 'left',
       color: 'text-foreground',
     },
+    hiddenFor: ['recruiter'], // example
   },
   {
     id: 'demo-banner-1',
@@ -24,18 +26,21 @@ export const demoElements: ElementType[] = [
     content: '⭐ Give us a star if you like this project!',
     variant: 'gradient',
     color: 'blue',
+    hiddenFor: [],
   },
   {
     id: 'demo-tech-stack-1',
     type: 'tech-stack',
     technologies: ['React', 'TypeScript', 'Vite', 'Tailwind CSS', 'Radix UI'],
     layout: 'badges',
+    hiddenFor: ['client'],
   },
   {
     id: 'demo-header-2',
     type: 'header',
     content: '📋 Features',
     level: 2,
+    hiddenFor: [],
   },
   {
     id: 'demo-table-1',
@@ -47,23 +52,27 @@ export const demoElements: ElementType[] = [
       ['📱 Mobile Ready', '✅ Complete', 'Works perfectly on all devices'],
       ['🚀 Fast Performance', '🚧 In Progress', 'Optimized for speed'],
     ],
+    hiddenFor: [],
   },
   {
     id: 'demo-divider-1',
     type: 'divider',
     dividerStyle: 'stars',
+    hiddenFor: [],
   },
   {
     id: 'demo-git-contribution-1',
     type: 'git-contribution',
     username: 'your-username',
     repository: 'awesome-project',
+    hiddenFor: ['client'],
   },
   {
     id: 'demo-header-3',
     type: 'header',
     content: '📝 Installation',
     level: 2,
+    hiddenFor: [],
   },
   {
     id: 'demo-code-1',
@@ -80,11 +89,13 @@ npm install
 # Start development server
 npm run dev`,
     language: 'bash',
+    hiddenFor: [],
   },
   {
     id: 'demo-badge-1',
     type: 'badge',
     content: 'MIT License',
     variant: 'default',
+    hiddenFor: [],
   },
 ];

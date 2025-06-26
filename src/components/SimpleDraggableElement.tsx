@@ -10,6 +10,7 @@ interface SimpleDraggableElementProps {
   element: ElementType;
   onEdit: (element: ElementType) => void;
   onDelete: (id: string) => void;
+  viewMode?: 'developer' | 'recruiter' | 'client';
 }
 
 export function SimpleDraggableElement({ element, onEdit, onDelete }: SimpleDraggableElementProps) {

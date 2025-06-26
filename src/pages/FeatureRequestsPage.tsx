@@ -101,7 +101,7 @@ const FeatureRequestsPage: React.FC = () => {
                   placeholder="Search feature requests..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-10 bg-background border-input focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-200 flex-grow p-3 border rounded-md focus:ring-purple-500 dark:bg-background dark:text-foreground dark:border-border"
+                  className="pl-10 bg-background border-input focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-200 flex-grow border rounded-md focus:ring-purple-500 dark:bg-background dark:text-foreground dark:border-border"
                 />
               </div>
 
