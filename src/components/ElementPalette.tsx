@@ -1,6 +1,13 @@
-import React from 'react';
-import { Plus } from 'lucide-react';
+import { useState } from 'react';
+import { Plus, Code2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs";
+import { TechStackDialog } from './TechStackDialog';
 import type { ElementType } from '@/types/elements';
 
 interface ElementPaletteProps {
@@ -8,7 +15,11 @@ interface ElementPaletteProps {
 }
 
 export function ElementPalette({ onAddElement }: ElementPaletteProps) {
-  const elementTypes: {
+  const [activeTab, setActiveTab] = useState("basic");
+  const [showTechStackDialog, setShowTechStackDialog] = useState(false);
+  
+  // Basic element types
+  const basicElementTypes: {
     type: ElementType['type'];
     label: string;
     icon: React.ReactNode;
@@ -25,11 +36,65 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
     { type: 'banner', label: 'Banner', icon: '📢' },
     { type: 'image', label: 'Image', icon: '🖼️' },
   ];
+  
+  // Advanced element types (GitHub API elements)
+  const advancedElementTypes: {
+    type: string;
+    label: string;
+    icon: React.ReactNode;
+    category: string;
+    template: string;
+  }[] = [
+    { 
+      type: 'github-contribution-graph', 
+      label: 'Contribution Graph', 
+      icon: '📊', 
+      category: 'graphs',
+      template: 'https://github-readme-activity-graph.vercel.app/graph?username={username}&theme=react-dark&hide_border=false'
+    },
+    { 
+      type: 'github-profile-summary', 
+      label: 'Profile Summary', 
+      icon: '📋', 
+      category: 'graphs',
+      template: 'https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username={username}&theme=radical'
+    },
+    { 
+      type: 'github-stats-card', 
+      label: 'Stats Card', 
+      icon: '🎴', 
+      category: 'stats',
+      template: 'https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&locale=en&theme=tokyonight'
+    },
+    { 
+      type: 'github-language-stats', 
+      label: 'Language Stats', 
+      icon: '🌐', 
+      category: 'languages',
+      template: 'https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact&theme=radical'
+    },
+    { 
+      type: 'github-streak-stats', 
+      label: 'Streak Stats', 
+      icon: '🔥', 
+      category: 'stats',
+      template: 'https://github-readme-streak-stats.herokuapp.com/?user={username}&theme=dark&hide_border=true'
+    },
+    { 
+      type: 'github-trophy', 
+      label: 'GitHub Trophy', 
+      icon: '🏆', 
+      category: 'stats',
+      template: 'https://github-profile-trophy.vercel.app/?username={username}&theme=onedark'
+    },
+  ];
 
+  // The handleAddElement function stays mostly the same
   const handleAddElement = (type: ElementType['type'], label: string) => {
     const baseId = `${type}-${Date.now()}`;
     let newElement: ElementType;
 
+    // ... existing code for creating basic elements ...
     switch (type) {
       case 'text':
         newElement = {
@@ -45,6 +110,7 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
           hiddenFor: [],
         };
         break;
+      // ... existing element cases ...
       case 'header':
         newElement = {
           id: baseId,
@@ -142,6 +208,24 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
 
     onAddElement(newElement);
   };
+  
+  // Handler for advanced GitHub elements
+  const handleAddAdvancedElement = (type: string, label: string, template: string) => {
+    const baseId = `${type}-${Date.now()}`;
+    
+    // For advanced elements, we'll create them as image elements with GitHub API URLs
+    const newElement: ElementType = {
+      id: baseId,
+      type: 'image',
+      src: template.replace('{username}', 'your-username'),
+      alt: label,
+      width: '100%',
+      height: 'auto',
+      hiddenFor: [],
+    };
+    
+    onAddElement(newElement);
+  };
 
   return (
     <div className="w-80 border-r border-border bg-muted/50 p-4 overflow-auto">
@@ -151,25 +235,79 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
           Drag elements to build your README
         </p>
       </div>
+      
+      {/* Tech Stack Dialog */}
+      <TechStackDialog 
+        isOpen={showTechStackDialog}
+        onClose={() => setShowTechStackDialog(false)}
+        onAddElement={onAddElement}
+      />
 
-      <div className="space-y-2">
-        {elementTypes.map(({ type, label, icon }) => (
+      <Tabs defaultValue="basic" value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <TabsList className="grid grid-cols-2 w-full mb-4">
+          <TabsTrigger value="basic">Basic</TabsTrigger>
+          <TabsTrigger value="advanced">Advanced</TabsTrigger>
+        </TabsList>
+        
+        {/* Basic Elements Tab */}
+        <TabsContent value="basic" className="space-y-2">
+          {basicElementTypes.map(({ type, label, icon }) => (
+            <Button
+              key={type}
+              variant="outline"
+              size="sm"
+              onClick={() => handleAddElement(type, label)}
+              className="w-full justify-start gap-3 h-auto py-3"
+            >
+              <span className="text-lg">{icon}</span>
+              <div className="flex-1 text-left">
+                <div className="font-medium">{label}</div>
+                <div className="text-xs text-muted-foreground capitalize">{type}</div>
+              </div>
+              <Plus className="h-4 w-4 opacity-50" />
+            </Button>
+          ))}
+        </TabsContent>
+        
+        {/* Advanced Elements Tab */}
+        <TabsContent value="advanced" className="space-y-2">
+          {/* Advanced Tech Stack Creator */}
           <Button
-            key={type}
-            variant="outline"
+            variant="default"
             size="sm"
-            onClick={() => handleAddElement(type, label)}
-            className="w-full justify-start gap-3 h-auto py-3"
+            onClick={() => setShowTechStackDialog(true)}
+            className="w-full justify-start gap-3 h-auto py-3 mb-4"
           >
-            <span className="text-lg">{icon}</span>
+            <span className="text-lg">⚡</span>
             <div className="flex-1 text-left">
-              <div className="font-medium">{label}</div>
-              <div className="text-xs text-muted-foreground capitalize">{type}</div>
+              <div className="font-medium">Advanced Tech Stack</div>
+              <div className="text-xs text-muted-foreground">Custom tech badges & styles</div>
             </div>
-            <Plus className="h-4 w-4 opacity-50" />
+            <Code2 className="h-4 w-4 opacity-80" />
           </Button>
-        ))}
-      </div>
+
+          <div className="text-sm font-medium text-muted-foreground my-2 pt-2 border-t">
+            GitHub Elements
+          </div>
+          
+          {advancedElementTypes.map(({ type, label, icon, template }) => (
+            <Button
+              key={type}
+              variant="outline"
+              size="sm"
+              onClick={() => handleAddAdvancedElement(type, label, template)}
+              className="w-full justify-start gap-3 h-auto py-3"
+            >
+              <span className="text-lg">{icon}</span>
+              <div className="flex-1 text-left">
+                <div className="font-medium">{label}</div>
+                <div className="text-xs text-muted-foreground">GitHub API Element</div>
+              </div>
+              <Plus className="h-4 w-4 opacity-50" />
+            </Button>
+          ))}
+        </TabsContent>
+      </Tabs>
     </div>
   );
 }
