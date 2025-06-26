@@ -16,12 +16,14 @@ export const BackgroundLines = ({
   return (
     <div
       className={cn(
-        "h-[20rem] md:h-screen w-full bg-white dark:bg-black",
+        "relative w-full h-full min-h-[500px] bg-white dark:bg-black",
         className
       )}
     >
       <SVG svgOptions={svgOptions} />
-      {children}
+      <div className="absolute inset-0">
+        {children}
+      </div>
     </div>
   );
 };
@@ -92,12 +94,14 @@ const SVG = ({
   return (
     <motion.svg
       viewBox="0 0 1440 900"
+      preserveAspectRatio="xMidYMid slice"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
-      className="absolute inset-0 w-full h-full"
+      className="absolute top-0 left-0 w-full h-full"
+      style={{ transform: 'scale(1.5)' }}
     >
       {paths.map((path, idx) => (
         <motion.path

@@ -1,4 +1,5 @@
 import {Link} from 'react-router-dom'
+import { BackgroundLines } from './backgroundlines'
 
 const links = [
     {
@@ -29,8 +30,14 @@ const links = [
 
 export default function Footer() {
     return (
-        <footer className="py-8 md:py-32">
-            <div className="mx-auto max-w-5xl px-6">
+        <div className="relative w-full overflow-hidden">
+            <div className="absolute inset-0 -z-10 h-full min-h-[500px]">
+                <BackgroundLines className="h-1/2 w-full">
+                    <div className="absolute inset-0 " />
+                </BackgroundLines>
+            </div>
+            <footer className="relative z-10 py-12 md:py-16">
+                <div className="container mx-auto px-6">
                 
                 <Link
                     to="/"
@@ -158,8 +165,11 @@ export default function Footer() {
                         </svg>
                     </Link>
                 </div>
-                <span className="text-muted-foreground block text-center text-sm"> © {new Date().getFullYear()} README DESIGN KIT, All rights reserved</span>
-            </div>
-        </footer>
+                    <span className="text-muted-foreground block text-center text-sm">
+                        © {new Date().getFullYear()} README DESIGN KIT, All rights reserved
+                    </span>
+                </div>
+            </footer>
+        </div>
     )
 }
