@@ -17,7 +17,15 @@ import { cn } from '@/lib/utils';
 import { GitHubStarsButton } from '@/components/CustomComps/buttons/github-stars';
 import { ModeToggle } from '@/components/mode-toggle';
 
-const navigation = [
+type NavItem = {
+  name: string;
+  href: string;
+  icon: React.ElementType;
+  badge?: string;
+  submenu?: NavItem[];
+};
+
+const navigation: NavItem[] = [
   { name: 'Home', href: '/', icon: Home },
   { name: 'Elements', href: '/elements', icon: Layers },
   {
@@ -41,7 +49,7 @@ export default function Navbar() {
     item,
     mobile = false
   }: {
-    item: any;
+    item: NavItem;
     mobile?: boolean;
   }) => {
     const isActive = location.pathname === item.href;
@@ -61,7 +69,7 @@ export default function Navbar() {
           </button>
           {showSubMenu && (
             <div className="absolute top-full mt-2 bg-background border border-border rounded-md shadow-md z-50 min-w-[180px]">
-              {item.submenu.map((sub) => (
+              {item.submenu.map((sub: NavItem) => (
                 <Link
                   key={sub.name}
                   to={sub.href}
@@ -69,7 +77,7 @@ export default function Navbar() {
                   className="block px-4 py-2 text-sm hover:bg-accent hover:text-accent-foreground"
                 >
                   {sub.name}
-                  {'badge' in sub && sub.badge && (
+                  {sub.badge && (
                     <Badge variant="secondary" className="ml-2 text-xs">
                       {sub.badge}
                     </Badge>
@@ -96,7 +104,7 @@ export default function Navbar() {
       >
         <item.icon className="h-4 w-4" />
         {item.name}
-        {'badge' in item && item.badge && (
+        {item.badge && (
           <Badge variant="secondary" className="ml-1 text-xs">
             {item.badge}
           </Badge>
@@ -173,7 +181,7 @@ export default function Navbar() {
                 <div className="flex flex-col gap-2 mb-6">
                   {navigation.map((item) =>
                     item.submenu ? (
-                      item.submenu.map((subItem) => (
+                      item.submenu.map((subItem: NavItem) => (
                         <div key={subItem.name} className="px-4">
                           <NavLink item={subItem} mobile />
                         </div>
