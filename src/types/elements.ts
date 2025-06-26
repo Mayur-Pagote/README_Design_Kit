@@ -1,9 +1,12 @@
 // Base
+import type { ViewMode } from '@/types/view-mode';
+
 export interface BaseElement {
   id: string;
   type: string;
   content?: string;
   style?: Record<string, string | number>;
+  hiddenFor?: ViewMode[]; // ✅ Added to support persona filtering
 }
 
 // Textual elements
@@ -50,7 +53,9 @@ export interface GitContributionElement extends BaseElement {
 export interface TechStackElement extends BaseElement {
   type: 'tech-stack';
   technologies: string[];
-  layout: 'grid' | 'list' | 'badges';
+  layout: 'grid' | 'list' | 'badges' | 'inline' | 'grouped';
+  badgeStyle?: string;
+  theme?: string;
 }
 
 export interface ImageElement extends BaseElement {
@@ -76,7 +81,8 @@ export interface TableElement extends BaseElement {
 export interface BadgeElement extends BaseElement {
   type: 'badge';
   content: string;
-  variant: 'default' | 'success' | 'warning' | 'error' | 'info';
+  variant?: 'default' | 'success' | 'warning' | 'error' | 'info';
+  hiddenFor?: ('developer' | 'recruiter' | 'client')[];
 }
 
 export interface DividerElement extends BaseElement {

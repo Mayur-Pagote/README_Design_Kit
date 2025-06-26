@@ -92,6 +92,24 @@ Click “Apply Fix” to update the content instantly.
 
 ---
 
+## 🧪 Persona Preview Mode
+
+Crafting a README for multiple audiences? Try out our new **Persona Mode**:
+
+- 👨‍💻 **Developer Mode** – Shows setup instructions, code blocks, and contribution guidelines
+- 🔍 **Recruiter Mode** – Highlights project description, impact, and summary
+- 📦 **Client Mode** – Focuses on visuals, branding, and use-case clarity
+
+🎯 You can **toggle modes from the editor toolbar** to see what each audience sees, without affecting your actual content.
+
+### 🆚 Compare Personas View
+
+Want to compare all at once?  
+Click **"Compare"** to see a split-screen layout of what each persona sees.  
+This helps you identify which parts are hidden or missing for each type of user.
+
+---
+
 ## 📝 Feature Requests Page  
 
 The Feature Requests Page allows users to:  
@@ -102,6 +120,7 @@ The Feature Requests Page allows users to:
 - 🏷️ Track feature statuses like `"Planned"`, `"Under Review"`, and `"Rejected"`.  
 
 Users can now **actively participate in shaping future improvements** by submitting and voting
+
 
 ---
 
@@ -147,6 +166,21 @@ Are you participating in **SSoC Season 4**? Here's how you can contribute:
 3. **Move into the project directory**
    ```bash
     cd README_Design_Kit
+   ```
+3. **Download necessay packages**
+   ```bash
+    npm install 
+   ```
+   or 
+   <br>
+   **Use Docker to run project locally**
+   - Build the image
+   ```
+   docker build -t readme-design-kit .
+   ```
+   - Run image locally
+   ```
+   docker -it -p 5173:5173 readme-desing-kit
    ```
 3. **Create a new branch** for your changes
     ```bash

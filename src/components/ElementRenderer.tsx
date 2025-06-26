@@ -5,14 +5,74 @@ import { Card } from '@/components/ui/card';
 interface ElementRendererProps {
   element: ElementType;
   isPreview?: boolean;
+  viewMode?: 'developer' | 'recruiter' | 'client';
+  showVisibilityIndicator?: boolean;
 }
 
-export function ElementRenderer({ element, isPreview = false }: ElementRendererProps) {
+const visibilityMap: Record<string, string[]> = {
+  header: ['developer', 'recruiter', 'client'],
+  description: ['developer', 'recruiter', 'client'],
+  badges: ['developer', 'recruiter'],
+  installation: ['developer'],
+  usage: ['developer', 'client'],
+  codeblock: ['developer'],
+  features: ['developer', 'recruiter', 'client'],
+  screenshot: ['recruiter', 'client'],
+  demo: ['recruiter', 'client'],
+  api: ['developer'],
+  contributing: ['developer'],
+  license: ['developer', 'recruiter'],
+  contact: ['developer', 'recruiter', 'client'],
+  changelog: ['developer'],
+  roadmap: ['developer', 'recruiter'],
+  acknowledgments: ['developer'],
+  faq: ['client'],
+  support: ['client'],
+  sponsors: ['recruiter', 'client'],
+  stats: ['recruiter'],
+  skills: ['recruiter'],
+  tech: ['developer', 'recruiter'],
+  highlights: ['recruiter', 'client'],
+  branding: ['client'],
+  banner: ['client', 'recruiter'],
+  logo: ['client', 'recruiter'],
+};
+
+export function ElementRenderer({ element, isPreview = false, viewMode, showVisibilityIndicator = false }: ElementRendererProps) {
   const baseClasses = isPreview ? "pointer-events-none" : "";
 
-  switch (element.type) {    case 'header':
+  const isVisible = viewMode ? (() => {
+    const allowedModes = visibilityMap[element.type] || ['developer', 'recruiter', 'client'];
+    return allowedModes.includes(viewMode);
+  })() : true;
+
+  const getPersonaLabel = (mode: string) => {
+    switch (mode) {
+      case 'developer': return 'Developer';
+      case 'recruiter': return 'Recruiter';
+      case 'client': return 'Client';
+      default: return mode;
+    }
+  };
+
+  const wrapperClass = `${!isVisible && showVisibilityIndicator ? 'opacity-50 relative' : ''}`;
+  const hiddenBadge = showVisibilityIndicator && !isVisible && viewMode ? (
+    <div className="absolute top-0 right-0 z-10">
+      <Badge 
+        variant="secondary" 
+        className="bg-red-100 text-red-700 border-red-200 text-xs"
+        title={`Hidden in ${getPersonaLabel(viewMode)} mode`}
+      >
+        Hidden in {getPersonaLabel(viewMode)} mode
+      </Badge>
+    </div>
+  ) : null;
+
+  switch (element.type) {
+    case 'header':
       return (
-        <div className={`font-bold mb-4 ${baseClasses}`}>
+        <div className={`font-bold mb-4 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           {element.level === 1 && <h1 className="text-4xl">{element.content}</h1>}
           {element.level === 2 && <h2 className="text-3xl">{element.content}</h2>}
           {element.level === 3 && <h3 className="text-2xl">{element.content}</h3>}
@@ -24,41 +84,34 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'text':
       return (
-        <p 
-          className={`
-            mb-4 
-            ${element.style?.fontSize === 'sm' ? 'text-sm' : ''}
-            ${element.style?.fontSize === 'lg' ? 'text-lg' : ''}
-            ${element.style?.fontSize === 'xl' ? 'text-xl' : ''}
-            ${element.style?.fontSize === '2xl' ? 'text-2xl' : ''}
-            ${element.style?.fontSize === '3xl' ? 'text-3xl' : ''}
-            ${element.style?.fontWeight === 'bold' ? 'font-bold' : ''}
-            ${element.style?.fontWeight === 'semibold' ? 'font-semibold' : ''}
-            ${element.style?.textAlign === 'center' ? 'text-center' : ''}
-            ${element.style?.textAlign === 'right' ? 'text-right' : ''}
-            ${baseClasses}
-          `}
-        >
+        <p className={`mb-4 ${baseClasses} ${wrapperClass} ${
+          element.style?.fontSize ? `text-${element.style.fontSize}` : ''
+        } ${
+          element.style?.fontWeight ? `font-${element.style.fontWeight}` : ''
+        } ${
+          element.style?.textAlign ? `text-${element.style.textAlign}` : ''
+        }`}>
+          {hiddenBadge}
           {element.content}
         </p>
       );
 
     case 'banner':
       return (
-        <div className={`
-          p-6 rounded-lg mb-6 text-center
-          ${element.variant === 'gradient' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white' : ''}
-          ${element.variant === 'colored' ? `bg-${element.color}-100 text-${element.color}-800 border border-${element.color}-200` : ''}
-          ${element.variant === 'default' ? 'bg-muted text-foreground border' : ''}
-          ${baseClasses}
-        `}>
+        <div className={`p-6 rounded-lg mb-6 text-center ${baseClasses} ${wrapperClass} ${
+          element.variant === 'gradient' ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white' :
+          element.variant === 'colored' ? `bg-${element.color}-100 text-${element.color}-800 border border-${element.color}-200` :
+          'bg-muted text-foreground border'
+        }`}>
+          {hiddenBadge}
           <h2 className="text-2xl font-bold">{element.content}</h2>
         </div>
       );
 
     case 'git-contribution':
       return (
-        <Card className={`p-6 mb-6 ${baseClasses}`}>
+        <Card className={`p-6 mb-6 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           <h3 className="text-xl font-semibold mb-4">🤝 How to Contribute</h3>
           <div className="space-y-3 text-sm">
             <p>1. Fork the repository</p>
@@ -72,16 +125,247 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
       );
 
     case 'tech-stack':
+      const techElement = element as ElementType & { badgeStyle?: string; theme?: string };
+      
+      // Helper function to get the badge style URL based on style type
+      const getBadgeUrl = (tech: string): string => {
+        // Get theme color based on theme setting
+        let themeColor = '05122A'; // default dark color
+        if (techElement.theme === 'light') themeColor = 'f8f8f8';
+        if (techElement.theme === 'blue') themeColor = '0366D6';
+        if (techElement.theme === 'purple') themeColor = '6F42C1';
+        if (techElement.theme === 'green') themeColor = '2EA44F';
+        if (techElement.theme === 'orange') themeColor = 'F97316';
+        
+        // Process the technology name
+        const cleanTechName = tech.toLowerCase().replace(/\s+/g, '-');
+        
+        // Handle various badge styles
+        if (techElement.badgeStyle === 'simple-icons') {
+          // Simple Icons style - uses shields.io with logo parameter
+          return `https://img.shields.io/badge/${tech}-${themeColor}?style=flat&logo=${cleanTechName}`;
+        }
+        else if (techElement.badgeStyle === 'for-the-badge-colored') {
+          return `https://img.shields.io/badge/${tech}-${themeColor}?style=for-the-badge&logoColor=white`;
+        }
+        else if (techElement.badgeStyle === 'flat-colored') {
+          return `https://img.shields.io/badge/${tech}-${themeColor}?style=flat&logoColor=white`;
+        }
+        else if (techElement.badgeStyle === 'badge-card') {
+          return `https://img.shields.io/static/v1?label=&message=${tech}&color=${themeColor}&style=for-the-badge`;
+        }
+        else if (techElement.badgeStyle === 'badge-glow') {
+          return `https://img.shields.io/badge/${tech}-${themeColor}?style=for-the-badge&logoColor=white&labelColor=${themeColor}`;
+        }
+        else if (techElement.badgeStyle === 'skill-icons') {
+          // Skill Icons - uses skillicons.dev
+          return `https://skillicons.dev/icons?i=${cleanTechName}`;
+        }
+        else if (techElement.badgeStyle === 'flat-icons') {
+          // Flat Icons - uses flaticon.com with common technology mappings
+          const flatIconMappings: { [key: string]: string } = {
+            'javascript': '5968292', 'typescript': '5968381', 'python': '5968350',
+            'react': '1183672', 'node.js': '5968322', 'java': '5968282',
+            'html': '1051277', 'css': '732190', 'git': '2111288'
+          };
+          const iconId = flatIconMappings[cleanTechName] || '4248443'; // Default icon if not found
+          return `https://cdn-icons-png.flaticon.com/128/${iconId.slice(0, -3)}/${iconId}.png`;
+        }
+        else if (techElement.badgeStyle === 'material-icons') {
+          // Material Design Icons - uses Google's Material Icons
+          const materialIconMappings: { [key: string]: string } = {
+            'javascript': 'code', 'typescript': 'code', 'python': 'code',
+            'react': 'web', 'node.js': 'dns', 'java': 'code',
+            'html': 'html', 'css': 'css', 'git': 'merge_type'
+          };
+          const iconName = materialIconMappings[cleanTechName] || 'code'; // Default to code icon
+          return `https://fonts.gstatic.com/s/i/materialicons/${iconName}/v12/24px.svg`;
+        }
+        else if (techElement.badgeStyle === 'github-icons') {
+          // GitHub File Icons - uses GitHub's repository explore icons
+          return `https://github.com/github/explore/raw/main/topics/${cleanTechName}/${cleanTechName}.png`;
+        }
+        else if (techElement.badgeStyle === 'icons8') {
+          // Icons8 - uses Icons8 service with color icons
+          const icon8Mappings: { [key: string]: string } = {
+            'javascript': 'javascript', 'typescript': 'typescript', 'python': 'python',
+            'react': 'react', 'node.js': 'nodejs', 'java': 'java',
+            'html': 'html-5', 'css': 'css3', 'git': 'git'
+          };
+          const iconName = icon8Mappings[cleanTechName] || cleanTechName;
+          return `https://img.icons8.com/color/48/000000/${iconName}.png`;
+        }
+        else if (techElement.badgeStyle === 'svg-badges') {
+          // Custom SVG Badges - inline SVG with dynamic technology name
+          // Use a data URI to embed the SVG directly
+          const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="30"><rect width="120" height="30" rx="15" fill="#${themeColor}"/><text x="60" y="20" font-family="Arial" font-size="14" fill="white" text-anchor="middle">${tech}</text></svg>`;
+          const encodedSvg = encodeURIComponent(svgContent);
+          return `data:image/svg+xml;utf8,${encodedSvg}`;
+        }
+        else if (techElement.badgeStyle === 'animated-badges') {
+          // Animated Badges - uses readme-typing-svg for simple animation
+          return `https://readme-typing-svg.herokuapp.com?font=Fira+Code&duration=1000&pause=500&color=${themeColor}&center=true&vCenter=true&width=100&height=30&lines=${tech}`;
+        }
+        else if (techElement.badgeStyle === 'devto-badges') {
+          // Dev.to style badges
+          return `https://img.shields.io/badge/${tech}-0A0A0A?style=for-the-badge&logo=${cleanTechName}&logoColor=white`;
+        }
+        else if (techElement.badgeStyle === 'edge-icons') {
+          // Edge Icons - modern icon style
+          // This would typically require a real service, using devicon as fallback
+          const savedStyle = techElement.badgeStyle;
+          // @ts-ignore - We need to temporarily modify the badge style
+          techElement.badgeStyle = 'devicon';
+          const fallbackIcon = getBadgeUrl(tech);
+          // @ts-ignore - Restore the original badge style
+          techElement.badgeStyle = savedStyle;
+          return fallbackIcon;
+        }
+        else if (techElement.badgeStyle === 'devicon-with-text') {
+          // For devicon-with-text, we need the devicon URL
+          const savedStyle = techElement.badgeStyle;
+          // @ts-ignore - We need to temporarily modify the badge style
+          techElement.badgeStyle = 'devicon';
+          const iconPath = getBadgeUrl(tech);
+          // @ts-ignore - Restore the original badge style
+          techElement.badgeStyle = savedStyle;
+          return iconPath;
+        }
+        else if (techElement.badgeStyle === 'devicon') {
+          // Map of special cases for technologies that need custom handling
+          const techMappings: { [key: string]: string } = {
+            // Languages
+            'javascript': 'javascript/javascript',
+            'typescript': 'typescript/typescript',
+            'python': 'python/python',
+            'java': 'java/java',
+            'c#': 'csharp/csharp',
+            'c++': 'cplusplus/cplusplus',
+            'go': 'go/go',
+            'ruby': 'ruby/ruby',
+            'php': 'php/php',
+            'swift': 'swift/swift',
+            'kotlin': 'kotlin/kotlin',
+            'rust': 'rust/rust',
+            'dart': 'dart/dart',
+            'html': 'html5/html5',
+            'html5': 'html5/html5',
+            'css': 'css3/css3',
+            'css3': 'css3/css3',
+            'sql': 'postgresql/postgresql', // Placeholder for general SQL
+            'bash': 'bash/bash',
+            'scala': 'scala/scala',
+            'haskell': 'haskell/haskell',
+            'r': 'r/r',
+            
+            // Frameworks & Libraries
+            'react': 'react/react',
+            'angular': 'angularjs/angularjs',
+            'vue': 'vuejs/vuejs',
+            'next.js': 'nextjs/nextjs',
+            'nextjs': 'nextjs/nextjs',
+            'node.js': 'nodejs/nodejs',
+            'nodejs': 'nodejs/nodejs',
+            'express': 'express/express',
+            'svelte': 'svelte/svelte',
+            'tailwindcss': 'tailwindcss/tailwindcss',
+            'tailwind': 'tailwindcss/tailwindcss',
+            'bootstrap': 'bootstrap/bootstrap',
+            'jquery': 'jquery/jquery',
+            'flask': 'flask/flask',
+            'django': 'django/django',
+            'laravel': 'laravel/laravel',
+            'spring': 'spring/spring',
+            'dotnet': 'dot-net/dot-net',
+            '.net': 'dot-net/dot-net',
+            'flutter': 'flutter/flutter',
+            'electron': 'electron/electron',
+            
+            // Databases
+            'mongodb': 'mongodb/mongodb',
+            'mysql': 'mysql/mysql',
+            'postgresql': 'postgresql/postgresql',
+            'postgres': 'postgresql/postgresql',
+            'firebase': 'firebase/firebase',
+            'redis': 'redis/redis',
+            'sqlite': 'sqlite/sqlite',
+            
+            // Tools & Platforms
+            'docker': 'docker/docker',
+            'kubernetes': 'kubernetes/kubernetes',
+            'git': 'git/git',
+            'github': 'github/github',
+            'aws': 'amazonwebservices/amazonwebservices',
+            'azure': 'azure/azure',
+            'gcp': 'googlecloud/googlecloud',
+            'vscode': 'vscode/vscode',
+            'visualstudio': 'visualstudio/visualstudio',
+            'npm': 'npm/npm',
+            'yarn': 'yarn/yarn',
+            'webpack': 'webpack/webpack',
+            'babel': 'babel/babel',
+            'jest': 'jest/jest',
+            'figma': 'figma/figma',
+          };
+          
+          // Process the technology name
+          const cleanTech = tech.toLowerCase().replace(/\s+/g, '').replace(/\.js$/, 'js');
+          
+          // Use the mapping if available, otherwise use the cleaned tech name
+          const techPath = techMappings[cleanTech] || `${cleanTech}/${cleanTech}`;
+          
+          return `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${techPath}-original.svg`;
+        } else {
+          const style = techElement.badgeStyle || 'flat';
+          // Get theme color based on selected theme
+          let themeColor = '05122A'; // default dark color
+          if (techElement.theme === 'light') themeColor = 'f8f8f8';
+          if (techElement.theme === 'blue') themeColor = '0366D6';
+          if (techElement.theme === 'purple') themeColor = '6F42C1';
+          if (techElement.theme === 'green') themeColor = '2EA44F';
+          if (techElement.theme === 'orange') themeColor = 'F97316';
+          
+          return `https://img.shields.io/badge/-${tech}-${themeColor}?style=${style}`;
+        }
+      };
+      
       return (
-        <div className={`mb-6 ${baseClasses}`}>
+        <div className={`mb-6 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           <h3 className="text-xl font-semibold mb-4">⚡ Tech Stack</h3>
+          
+          {/* Badges layout with style options */}
           {element.layout === 'badges' && (
             <div className="flex flex-wrap gap-2">
               {element.technologies.map((tech, index) => (
-                <Badge key={index} variant="secondary">{tech}</Badge>
+                techElement.badgeStyle ? (
+                  <img 
+                    key={index} 
+                    src={getBadgeUrl(tech)} 
+                    alt={tech} 
+                    className="h-6 mr-1"
+                    onError={(e) => {
+                      // Fallback to a text badge if image fails to load
+                      const target = e.target as HTMLImageElement;
+                      target.onerror = null; // Prevent infinite loop
+                      const style = techElement.badgeStyle || 'flat';
+                      let themeColor = '05122A';
+                      if (techElement.theme === 'light') themeColor = 'f8f8f8';
+                      if (techElement.theme === 'blue') themeColor = '0366D6';
+                      if (techElement.theme === 'purple') themeColor = '6F42C1';
+                      if (techElement.theme === 'green') themeColor = '2EA44F';
+                      if (techElement.theme === 'orange') themeColor = 'F97316';
+                      target.src = `https://img.shields.io/badge/-${tech}-${themeColor}?style=${style}`;
+                    }}
+                  />
+                ) : (
+                  <Badge key={index} variant="secondary">{tech}</Badge>
+                )
               ))}
             </div>
           )}
+          
+          {/* List layout */}
           {element.layout === 'list' && (
             <ul className="list-disc list-inside space-y-1">
               {element.technologies.map((tech, index) => (
@@ -89,13 +373,152 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
               ))}
             </ul>
           )}
+          
+          {/* Grid layout */}
           {element.layout === 'grid' && (
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {element.technologies.map((tech, index) => {
+                const bgClass = techElement.theme ? 
+                  `bg-${techElement.theme === 'dark' ? 'muted' : techElement.theme}-50` : 'bg-muted';
+                
+                return (
+                  <div key={index} className={`p-3 rounded-lg text-center ${bgClass}`}>
+                    {techElement.badgeStyle ? (
+                      <div className="flex flex-col items-center justify-center">
+                        <img 
+                          src={getBadgeUrl(tech)} 
+                          alt={tech} 
+                          className={`
+                            mb-2
+                            ${['devicon', 'flat-icons', 'material-icons', 'github-icons', 
+                              'icons8', 'edge-icons', 'devicon-with-text'].includes(techElement.badgeStyle || '') ? 'h-10' : 'h-6'}
+                            ${techElement.badgeStyle === 'skill-icons' ? 'w-auto' : ''}
+                            ${techElement.badgeStyle === 'svg-badges' || techElement.badgeStyle === 'animated-badges' ? 'h-8' : ''}
+                          `}
+                          onError={(e) => {
+                            // Fallback to a text badge if image fails to load
+                            const target = e.target as HTMLImageElement;
+                            target.onerror = null; // Prevent infinite loop
+                            let themeColor = '05122A';
+                            if (techElement.theme === 'light') themeColor = 'f8f8f8';
+                            if (techElement.theme === 'blue') themeColor = '0366D6';
+                            if (techElement.theme === 'purple') themeColor = '6F42C1';
+                            if (techElement.theme === 'green') themeColor = '2EA44F';
+                            if (techElement.theme === 'orange') themeColor = 'F97316';
+                            target.src = `https://img.shields.io/badge/-${tech}-${themeColor}?style=flat`;
+                          }}
+                        />
+                        <div className="text-sm">{tech}</div>
+                      </div>
+                    ) : (
+                      <div className="text-sm">{tech}</div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+          )}
+          
+          {/* Inline layout */}
+          {element.layout === 'inline' && (
+            <div className="inline-flex flex-wrap gap-1 items-center">
               {element.technologies.map((tech, index) => (
-                <div key={index} className="p-3 bg-muted rounded-lg text-center">
-                  {tech}
-                </div>
+                <span key={index}>
+                  {techElement.badgeStyle ? (
+                    <img 
+                      src={getBadgeUrl(tech)} 
+                      alt={tech} 
+                      className="h-6 inline-block"
+                      onError={(e) => {
+                        // Fallback to a text badge if image fails to load
+                        const target = e.target as HTMLImageElement;
+                        target.onerror = null; // Prevent infinite loop
+                        const style = techElement.badgeStyle || 'flat';
+                        let themeColor = '05122A';
+                        if (techElement.theme === 'light') themeColor = 'f8f8f8';
+                        if (techElement.theme === 'blue') themeColor = '0366D6';
+                        if (techElement.theme === 'purple') themeColor = '6F42C1';
+                        if (techElement.theme === 'green') themeColor = '2EA44F';
+                        if (techElement.theme === 'orange') themeColor = 'F97316';
+                        target.src = `https://img.shields.io/badge/-${tech}-${themeColor}?style=${style}`;
+                      }}
+                    />
+                  ) : (
+                    <Badge key={index} variant="outline" className="mr-1">{tech}</Badge>
+                  )}
+                  {index < element.technologies.length - 1 && !techElement.badgeStyle && ' • '}
+                </span>
               ))}
+            </div>
+          )}
+          
+          {/* Grouped layout */}
+          {element.layout === 'grouped' && (
+            <div className="space-y-4">
+              <div>
+                <h4 className="text-sm font-medium mb-2">Languages</h4>
+                <div className="flex flex-wrap gap-2">
+                  {element.technologies.filter(t => 
+                    ['JavaScript', 'TypeScript', 'Python', 'Java', 'C#', 'C++'].includes(t)
+                  ).map((tech, index) => (
+                    techElement.badgeStyle ? (
+                      <img 
+                        key={index} 
+                        src={getBadgeUrl(tech)} 
+                        alt={tech}
+                        className="h-6"
+                        onError={(e) => {
+                          // Fallback to a text badge if image fails to load
+                          const target = e.target as HTMLImageElement;
+                          target.onerror = null; // Prevent infinite loop
+                          const style = techElement.badgeStyle || 'flat';
+                          let themeColor = '05122A';
+                          if (techElement.theme === 'light') themeColor = 'f8f8f8';
+                          if (techElement.theme === 'blue') themeColor = '0366D6';
+                          if (techElement.theme === 'purple') themeColor = '6F42C1';
+                          if (techElement.theme === 'green') themeColor = '2EA44F';
+                          if (techElement.theme === 'orange') themeColor = 'F97316';
+                          target.src = `https://img.shields.io/badge/-${tech}-${themeColor}?style=${style}`;
+                        }}
+                      />
+                    ) : (
+                      <Badge key={index} variant="secondary">{tech}</Badge>
+                    )
+                  ))}
+                </div>
+              </div>
+              <div>
+                <h4 className="text-sm font-medium mb-2">Frameworks</h4>
+                <div className="flex flex-wrap gap-2">
+                  {element.technologies.filter(t => 
+                    ['React', 'Angular', 'Vue', 'Next.js', 'Node.js', 'Express'].includes(t)
+                  ).map((tech, index) => (
+                    techElement.badgeStyle ? (
+                      <img 
+                        key={index} 
+                        src={getBadgeUrl(tech)} 
+                        alt={tech}
+                        className="h-6"
+                        onError={(e) => {
+                          // Fallback to a text badge if image fails to load
+                          const target = e.target as HTMLImageElement;
+                          target.onerror = null; // Prevent infinite loop
+                          const style = techElement.badgeStyle || 'flat';
+                          let themeColor = '05122A';
+                          if (techElement.theme === 'light') themeColor = 'f8f8f8';
+                          if (techElement.theme === 'blue') themeColor = '0366D6';
+                          if (techElement.theme === 'purple') themeColor = '6F42C1';
+                          if (techElement.theme === 'green') themeColor = '2EA44F';
+                          if (techElement.theme === 'orange') themeColor = 'F97316';
+                          target.src = `https://img.shields.io/badge/-${tech}-${themeColor}?style=${style}`;
+                        }}
+                      />
+                    ) : (
+                      <Badge key={index} variant="secondary">{tech}</Badge>
+                    )
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -103,7 +526,9 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'image':
       return (
-        <div className={`mb-6 ${baseClasses}`}>          <img 
+        <div className={`mb-6 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
+          <img 
             src={element.src} 
             alt={element.alt}
             style={{ 
@@ -118,7 +543,8 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'code-block':
       return (
-        <div className={`mb-6 ${baseClasses}`}>
+        <div className={`mb-6 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
             <code className={`language-${element.language}`}>
               {element.content}
@@ -129,7 +555,8 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'badge':
       return (
-        <div className={`mb-4 ${baseClasses}`}>
+        <div className={`mb-4 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           <Badge 
             variant={
               element.variant === 'success' ? 'default' :
@@ -145,7 +572,8 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'table':
       return (
-        <div className={`mb-6 overflow-x-auto ${baseClasses}`}>
+        <div className={`mb-6 overflow-x-auto ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           <table className="w-full border-collapse border border-border">
             <thead>
               <tr className="bg-muted">
@@ -173,7 +601,8 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
 
     case 'divider':
       return (
-        <div className={`my-8 ${baseClasses}`}>
+        <div className={`my-8 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
           {element.dividerStyle === 'line' && <hr className="border-border" />}
           {element.dividerStyle === 'dots' && (
             <div className="text-center text-muted-foreground">• • •</div>
@@ -185,6 +614,6 @@ export function ElementRenderer({ element, isPreview = false }: ElementRendererP
       );
 
     default:
-      return <div className={`p-4 bg-muted rounded ${baseClasses}`}>Unknown element type</div>;
+      return <div className={`p-4 bg-muted rounded ${baseClasses} ${wrapperClass}`}>{hiddenBadge}Unknown element type</div>;
   }
 }
