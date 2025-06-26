@@ -1,7 +1,7 @@
 "use client";
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Sparkles, Layout } from 'lucide-react';
+import { ArrowRight, Layout } from 'lucide-react';
 import { QuickStartGuide } from '@/components/QuickStartGuide';
 
 import { motion } from "motion/react";
