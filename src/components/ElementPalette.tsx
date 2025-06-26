@@ -7,6 +7,12 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { TechStackDialog } from './TechStackDialog';
 import type { ElementType } from '@/types/elements';
 
@@ -228,13 +234,14 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
   };
 
   return (
-    <div className="w-80 border-r border-border bg-muted/50 p-4 overflow-auto">
-      <div className="mb-4">
-        <h2 className="font-semibold text-lg mb-2">Element Palette</h2>
-        <p className="text-sm text-muted-foreground">
-          Drag elements to build your README
-        </p>
-      </div>
+    <TooltipProvider>
+      <div className="w-80 border-r border-border bg-muted/50 p-4 overflow-auto">
+        <div className="mb-4">
+          <h2 className="font-semibold text-lg mb-2">Element Palette</h2>
+          <p className="text-sm text-muted-foreground">
+            Drag elements to build your README
+          </p>
+        </div>
       
       {/* Tech Stack Dialog */}
       <TechStackDialog 
@@ -252,62 +259,92 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
         {/* Basic Elements Tab */}
         <TabsContent value="basic" className="space-y-2">
           {basicElementTypes.map(({ type, label, icon }) => (
-            <Button
-              key={type}
-              variant="outline"
-              size="sm"
-              onClick={() => handleAddElement(type, label)}
-              className="w-full justify-start gap-3 h-auto py-3"
-            >
-              <span className="text-lg">{icon}</span>
-              <div className="flex-1 text-left">
-                <div className="font-medium">{label}</div>
-                <div className="text-xs text-muted-foreground capitalize">{type}</div>
-              </div>
-              <Plus className="h-4 w-4 opacity-50" />
-            </Button>
+            <Tooltip key={type}>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleAddElement(type, label)}
+                  className={`w-full justify-start gap-3 h-auto py-3 ${
+                    type === 'tech-stack' ? 'ring-2 ring-primary/50 bg-primary/5' : ''
+                  }`}
+                >
+                  <span className="text-lg">{icon}</span>
+                  <div className="flex-1 text-left">
+                    <div className="font-medium">{label}</div>
+                    <div className="text-xs text-muted-foreground capitalize">{type}</div>
+                  </div>
+                  <Plus className="h-4 w-4 opacity-50" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <div className="text-sm">
+                  {type === 'tech-stack' 
+                    ? 'Add a basic tech stack list - for advanced features use the Advanced tab' 
+                    : `Click to add a ${label.toLowerCase()} element`}
+                </div>
+              </TooltipContent>
+            </Tooltip>
           ))}
         </TabsContent>
         
         {/* Advanced Elements Tab */}
         <TabsContent value="advanced" className="space-y-2">
           {/* Advanced Tech Stack Creator */}
-          <Button
-            variant="default"
-            size="sm"
-            onClick={() => setShowTechStackDialog(true)}
-            className="w-full justify-start gap-3 h-auto py-3 mb-4"
-          >
-            <span className="text-lg">⚡</span>
-            <div className="flex-1 text-left">
-              <div className="font-medium">Advanced Tech Stack</div>
-              <div className="text-xs text-muted-foreground">Custom tech badges & styles</div>
-            </div>
-            <Code2 className="h-4 w-4 opacity-80" />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                variant="default"
+                size="sm"
+                onClick={() => setShowTechStackDialog(true)}
+                className="w-full justify-start gap-3 h-auto py-3 mb-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              >
+                <span className="text-lg">⚡</span>
+                <div className="flex-1 text-left">
+                  <div className="font-medium">Advanced Tech Stack</div>
+                  <div className="text-xs text-white/80">Custom tech badges & styles</div>
+                </div>
+                <Code2 className="h-4 w-4 opacity-80" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>
+              <div className="text-sm">
+                Create a tech stack with custom badge styles, themes, and layouts
+              </div>
+            </TooltipContent>
+          </Tooltip>
 
           <div className="text-sm font-medium text-muted-foreground my-2 pt-2 border-t">
             GitHub Elements
           </div>
           
           {advancedElementTypes.map(({ type, label, icon, template }) => (
-            <Button
-              key={type}
-              variant="outline"
-              size="sm"
-              onClick={() => handleAddAdvancedElement(type, label, template)}
-              className="w-full justify-start gap-3 h-auto py-3"
-            >
-              <span className="text-lg">{icon}</span>
-              <div className="flex-1 text-left">
-                <div className="font-medium">{label}</div>
-                <div className="text-xs text-muted-foreground">GitHub API Element</div>
-              </div>
-              <Plus className="h-4 w-4 opacity-50" />
-            </Button>
+            <Tooltip key={type}>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleAddAdvancedElement(type, label, template)}
+                  className="w-full justify-start gap-3 h-auto py-3"
+                >
+                  <span className="text-lg">{icon}</span>
+                  <div className="flex-1 text-left">
+                    <div className="font-medium">{label}</div>
+                    <div className="text-xs text-muted-foreground">GitHub API Element</div>
+                  </div>
+                  <Plus className="h-4 w-4 opacity-50" />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <div className="text-sm">
+                  Click to add a {label.toLowerCase()} element (GitHub API)
+                </div>
+              </TooltipContent>
+            </Tooltip>
           ))}
         </TabsContent>
       </Tabs>
     </div>
+    </TooltipProvider>
   );
 }
