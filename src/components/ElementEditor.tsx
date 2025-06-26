@@ -19,9 +19,10 @@ interface ElementEditorProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (element: ElementType) => void;
+  globalGithubUsername?: string;
 }
 
-export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEditorProps) {
+export function ElementEditor({ element, isOpen, onClose, onSave, globalGithubUsername = 'your-username' }: ElementEditorProps) {
   const [editedElement, setEditedElement] = useState<ElementType | null>(null);
 
   useEffect(() => {
@@ -167,24 +168,41 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
 
           {/* Git Contribution fields */}
           {editedElement.type === 'git-contribution' && (
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="username">GitHub Username</Label>
-                <Input
-                  id="username"
-                  value={editedElement.username || ''}
-                  onChange={(e) => updateElement({ username: e.target.value })}
-                  placeholder="your-username"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="repository">Repository Name</Label>
-                <Input
-                  id="repository"
-                  value={editedElement.repository || ''}
-                  onChange={(e) => updateElement({ repository: e.target.value })}
-                  placeholder="your-repo"
-                />
+            <div className="space-y-4">
+              {/* Info about global username if different */}
+              {editedElement.username !== globalGithubUsername && (
+                <div className="bg-blue-50 text-blue-800 p-3 rounded-md text-sm">
+                  <p>There is a global GitHub username set to <strong>{globalGithubUsername}</strong>. You can use it for this element or set a custom username below.</p>
+                  <Button
+                    variant="outline" 
+                    size="sm"
+                    className="mt-2" 
+                    onClick={() => updateElement({ username: globalGithubUsername })}
+                  >
+                    Use Global Username
+                  </Button>
+                </div>
+              )}
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="username">GitHub Username</Label>
+                  <Input
+                    id="username"
+                    value={editedElement.username || ''}
+                    onChange={(e) => updateElement({ username: e.target.value })}
+                    placeholder={globalGithubUsername}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="repository">Repository Name</Label>
+                  <Input
+                    id="repository"
+                    value={editedElement.repository || ''}
+                    onChange={(e) => updateElement({ repository: e.target.value })}
+                    placeholder="your-repo"
+                  />
+                </div>
               </div>
             </div>
           )}
@@ -203,22 +221,145 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
                   placeholder="React, TypeScript, Node.js, Tailwind CSS"
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="layout">Layout</Label>
-                <Select
-                  value={editedElement.layout}
-                  onValueChange={(value) => updateElement({ layout: value as 'grid' | 'list' | 'badges' })}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Layout style" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="badges">Badges</SelectItem>
-                    <SelectItem value="list">List</SelectItem>
-                    <SelectItem value="grid">Grid</SelectItem>
-                  </SelectContent>
-                </Select>
+              
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="layout">Layout</Label>
+                  <Select
+                    value={editedElement.layout}
+                    onValueChange={(value) => updateElement({ 
+                      layout: value as 'grid' | 'list' | 'badges' | 'inline' | 'grouped'
+                    })}
+                  >
+                    <SelectTrigger id="layout">
+                      <SelectValue placeholder="Select layout" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="badges">Badges</SelectItem>
+                      <SelectItem value="list">List</SelectItem>
+                      <SelectItem value="grid">Grid</SelectItem>
+                      <SelectItem value="inline">Inline</SelectItem>
+                      <SelectItem value="grouped">Grouped by Category</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                
+                <div className="space-y-2">
+                  <Label htmlFor="badgeStyle">Badge Style</Label>
+                  <Select
+                    value={editedElement.badgeStyle || ''}
+                    onValueChange={(value) => updateElement({ badgeStyle: value })}
+                  >
+                    <SelectTrigger id="badgeStyle">
+                      <SelectValue placeholder="Select style (optional)" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="">Default (No Style)</SelectItem>
+                      <SelectItem value="flat">Flat Badges</SelectItem>
+                      <SelectItem value="flat-square">Flat Square</SelectItem>
+                      <SelectItem value="for-the-badge">For The Badge</SelectItem>
+                      <SelectItem value="plastic">Plastic</SelectItem>
+                      <SelectItem value="social">Social</SelectItem>
+                      <SelectItem value="devicon">Dev Icons</SelectItem>
+                      <SelectItem value="simple-icons">Simple Icons</SelectItem>
+                      <SelectItem value="skill-icons">Skill Icons</SelectItem>
+                      <SelectItem value="flat-icons">Flat Icons</SelectItem>
+                      <SelectItem value="material-icons">Material Icons</SelectItem>
+                      <SelectItem value="github-icons">GitHub Icons</SelectItem>
+                      <SelectItem value="icons8">Icons8</SelectItem>
+                      <SelectItem value="svg-badges">SVG Badges</SelectItem>
+                      <SelectItem value="animated-badges">Animated Badges</SelectItem>
+                      <SelectItem value="devto-badges">Dev.to Badges</SelectItem>
+                      <SelectItem value="edge-icons">Edge Icons</SelectItem>
+                      <SelectItem value="for-the-badge-colored">For The Badge (Colored)</SelectItem>
+                      <SelectItem value="flat-colored">Flat Colored</SelectItem>
+                      <SelectItem value="badge-card">Badge Card</SelectItem>
+                      <SelectItem value="badge-glow">Badge Glow</SelectItem>
+                      <SelectItem value="devicon-with-text">Dev Icon with Text</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
               </div>
+              
+              {(editedElement.badgeStyle || editedElement.layout === 'grid' || editedElement.layout === 'grouped') && (
+                <div className="space-y-2">
+                  <Label htmlFor="theme">Color Theme</Label>
+                  <Select
+                    value={editedElement.theme || 'dark'}
+                    onValueChange={(value) => updateElement({ theme: value })}
+                  >
+                    <SelectTrigger id="theme">
+                      <SelectValue placeholder="Select theme" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="dark">Dark</SelectItem>
+                      <SelectItem value="light">Light</SelectItem>
+                      <SelectItem value="blue">Blue</SelectItem>
+                      <SelectItem value="purple">Purple</SelectItem>
+                      <SelectItem value="green">Green</SelectItem>
+                      <SelectItem value="orange">Orange</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              )}
+              
+              {editedElement.badgeStyle && (
+                <div className="p-3 bg-muted/30 rounded-md">
+                  <p className="text-sm text-muted-foreground mb-2">Badge Style Preview:</p>
+                  <div className="flex gap-2">
+                    {(() => {
+                      const themeColor = editedElement.theme === 'light' ? 'f8f8f8' :
+                                        editedElement.theme === 'blue' ? '0366D6' :
+                                        editedElement.theme === 'purple' ? '6F42C1' :
+                                        editedElement.theme === 'green' ? '2EA44F' :
+                                        editedElement.theme === 'orange' ? 'F97316' : '05122A';
+                      
+                      const style = editedElement.badgeStyle;
+                      
+                      if (style === 'devicon') {
+                        return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" className="h-8" />;
+                      } else if (style === 'simple-icons') {
+                        return <img src="https://img.shields.io/badge/React-05122A?style=flat&logo=react" alt="React" />;
+                      } else if (style === 'skill-icons') {
+                        return <img src="https://skillicons.dev/icons?i=react" alt="React" />;
+                      } else if (style === 'flat-icons') {
+                        return <img src="https://cdn-icons-png.flaticon.com/128/1183/1183672.png" alt="React" className="h-8" />;
+                      } else if (style === 'material-icons') {
+                        return <img src="https://fonts.gstatic.com/s/i/materialicons/web/v12/24px.svg" alt="React" className="h-8" />;
+                      } else if (style === 'github-icons') {
+                        return <img src="https://github.com/github/explore/raw/main/topics/react/react.png" alt="React" className="h-8" />;
+                      } else if (style === 'icons8') {
+                        return <img src="https://img.icons8.com/color/48/000000/react.png" alt="React" className="h-8" />;
+                      } else if (style === 'svg-badges') {
+                        return <img src={`data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="120" height="30"><rect width="120" height="30" rx="15" fill="#${themeColor}"/><text x="60" y="20" font-family="Arial" font-size="14" fill="white" text-anchor="middle">React</text></svg>`)}`} alt="React" className="h-8" />;
+                      } else if (style === 'animated-badges') {
+                        return <img src={`https://readme-typing-svg.herokuapp.com?font=Fira+Code&duration=1000&pause=500&color=${themeColor}&center=true&vCenter=true&width=100&height=30&lines=React`} alt="React" />;
+                      } else if (style === 'devto-badges') {
+                        return <img src="https://img.shields.io/badge/React-0A0A0A?style=for-the-badge&logo=react&logoColor=white" alt="React" />;
+                      } else if (style === 'edge-icons') {
+                        return <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" className="h-8" />;
+                      } else if (style === 'for-the-badge-colored') {
+                        return <img src={`https://img.shields.io/badge/React-${themeColor}?style=for-the-badge&logoColor=white`} alt="React" />;
+                      } else if (style === 'flat-colored') {
+                        return <img src={`https://img.shields.io/badge/React-${themeColor}?style=flat&logoColor=white`} alt="React" />;
+                      } else if (style === 'badge-card') {
+                        return <img src={`https://img.shields.io/static/v1?label=&message=React&color=${themeColor}&style=for-the-badge`} alt="React" />;
+                      } else if (style === 'badge-glow') {
+                        return <img src={`https://img.shields.io/badge/React-${themeColor}?style=for-the-badge&logoColor=white&labelColor=${themeColor}`} alt="React" />;
+                      } else if (style === 'devicon-with-text') {
+                        return (
+                          <div className="text-center">
+                            <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" className="h-8 mx-auto" />
+                            <div className="text-xs mt-1">React</div>
+                          </div>
+                        );
+                      } else {
+                        return <img src={`https://img.shields.io/badge/-React-${themeColor}?style=${style}`} alt="React" />;
+                      }
+                    })()}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

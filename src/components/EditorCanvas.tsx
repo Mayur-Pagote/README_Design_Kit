@@ -26,7 +26,6 @@ interface EditorCanvasProps {
   onEditElement: (element: ElementType) => void;
   viewMode?: 'developer' | 'recruiter' | 'client';
 }
-
 export function EditorCanvas({ elements, onElementsChange, onEditElement, viewMode }: EditorCanvasProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
 
