@@ -26,9 +26,11 @@ const Hero = () => {
             speed={0.6}
           />
         )}
+
+        
       </div>
-      {/* Content */}
-      <div className="relative w-full">
+    {isDark?   
+     ( <div className="relative w-full">
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
           <div className="text-center">
             <motion.div
@@ -45,7 +47,7 @@ const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-xl md:text-2xl mb-8 text-white/90 font-light"
+              className="text-xl md:text-2xl sm:mt-5 mb-8 text-white/90 font-light"
             >
               Built with README Design Kit
             </motion.h2>
@@ -64,14 +66,66 @@ const Hero = () => {
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <button
                 onClick={() => window.location.href = "/projects"}
-                className="group bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border border-white/30 hover:border-white/50"
+                className="group bg-white/20 backdrop-blur-sm hover:bg-white/40 text-white px-8 py-4 rounded-full font-semibold cursor-pointer hover:scale-110 transition-all duration-400 flex items-center justify-center space-x-2 border border-white/30 hover:border-white/90"
               >
                 <span>Explore Projects</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
               <button
                 onClick={() => window.location.href = "/submit"}
-                className="group bg-white text-purple-600 hover:bg-gray-50 px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
+                className="group bg-white text-purple-600 hover:scale-110 cursor-pointer hover:bg-gray-200 hover:text-purple-600 px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
+              >
+                <span>Submit Your Project</span>
+                <TrendingUp className="w-5 h-5 group-hover:scale-110 transition-transform" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>):(
+        <div className="relative w-full">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+          <div className="text-center">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.8 }}
+              className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto"
+            >
+              <h1 className="text-center text-[25px] leading-none sm:text-[80px] lg:text-[70px] font-bold bg-gradient-to-r from-purple-950 to-purple-600 bg-clip-text text-transparent">
+                Exceptional <span className="text-purple-600 drop-shadow-sm">Projects</span>
+              </h1>
+            </motion.div>
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.8 }}
+              className="text-xl md:text-2xl sm:mt-5 mb-8 text-purple-950 font-light"
+            >
+              Built with README Design Kit
+            </motion.h2>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.8 }}
+              className="max-w-4xl mx-auto mb-12"
+            >
+              <p className="text-lg md:text-xl text-purple-950 leading-relaxed">
+                Discover a curated collection of outstanding projects showcasing the power of README Design Kit. 
+                See how developers are creating beautiful, professional documentation and project showcases.
+              </p>
+            </motion.div>
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+              <button
+                onClick={() => window.location.href = "/projects"}
+                className="group bg-purple-700/80 backdrop-blur-sm hover:bg-purple-950/40 text-white px-8 py-4 rounded-full font-semibold cursor-pointer hover:scale-110 transition-all duration-400 flex items-center justify-center space-x-2 border border-white/30 hover:border-white/90"
+              >
+                <span>Explore Projects</span>
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform " />
+              </button>
+              <button
+                onClick={() => window.location.href = "/submit"}
+                className="group bg-white text-purple-600 hover:scale-110 cursor-pointer hover:bg-gray-200 hover:text-purple-600 px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center justify-center space-x-2 shadow-lg hover:shadow-xl"
               >
                 <span>Submit Your Project</span>
                 <TrendingUp className="w-5 h-5 group-hover:scale-110 transition-transform" />
@@ -80,6 +134,9 @@ const Hero = () => {
           </div>
         </div>
       </div>
+      )
+
+      }
     </section>
   );
 };
