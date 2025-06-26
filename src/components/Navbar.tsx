@@ -80,13 +80,13 @@ export default function Navbar() {
               <img 
                 src={loggd}
                 alt="Logo Light" 
-                className="h-8 object-contain block dark:hidden"
+                className="h-8 pr-9 object-contain block dark:hidden"
               />
               
               <img 
                 src={logg}
                 alt="Logo Dark" 
-                className="h-8 object-contain hidden dark:block"
+                className="h-8 pr-9 object-contain hidden dark:block"
               />
             </Link>
           </div>
@@ -100,9 +100,9 @@ export default function Navbar() {
           <div className="hidden md:flex items-center gap-3">
             <ModeToggle />
             <GitHubStarsButton username="Mayur-Pagote" repo="README_Design_Kit" />
-            <Button size="sm" asChild>
+            {/* <Button size="sm" asChild>
               <Link to="/elements">Get Started</Link>
-            </Button>
+            </Button> */}
           </div>
 
           {/* Mobile menu button */}
@@ -171,9 +171,9 @@ export default function Navbar() {
                   </div>
 
                   <div className="px-4">
-                    <Button className="w-full" asChild>
+                    {/* <Button className="w-full" asChild>
                       <Link to="/elements">Get Started</Link>
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
 

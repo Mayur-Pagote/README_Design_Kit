@@ -16,6 +16,7 @@ import FeatureRequestsPage from "./pages/FeatureRequestsPage"; // ✅ Added Impo
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
+import AboutUs from "./components/_components/about";
 import { ThemeProvider } from "./components/theme-provider";
 import { Toaster } from "./components/ui/sonner";
 
@@ -49,6 +50,7 @@ export default function App() {
               <Route path="/drag-drop" element={<Layout><DragDropEditor /></Layout>} />
               <Route path="/coming-soon" element={<Layout><ComingSoon /></Layout>} />
               <Route path="/feature-requests" element={<Layout><FeatureRequestsPage /></Layout>} /> {/* ✅ Added Route */}
+              <Route path="/about" element={<Layout><AboutUs /></Layout>} />
               <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
               <Route path="/terms" element={<Layout><TermsOfService /></Layout>} />
               <Route path="/dashboard" element={<Dashboard />} />
