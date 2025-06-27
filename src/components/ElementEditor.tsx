@@ -10,7 +10,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
+import { AITextarea } from '@/components/ui/ai-textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { ElementType } from '@/types/elements';
 
@@ -62,11 +62,19 @@ export function ElementEditor({ element, isOpen, onClose, onSave, globalGithubUs
           {editedElement.type !== 'divider' && (
             <div className="space-y-2">
               <Label htmlFor="content">Content</Label>
-              <Textarea
+              <AITextarea
                 id="content"
                 value={editedElement.content || ''}
-                onChange={(e) => updateElement({ content: e.target.value })}
+                onValueChange={(value) => updateElement({ content: value })}
                 placeholder="Enter content..."
+                aiContext={`${editedElement.type} element`}
+                showGenerateOption={['text', 'description', 'title', 'header', 'banner'].includes(editedElement.type)}
+                generationType={
+                  editedElement.type === 'description' ? 'about' :
+                  editedElement.type === 'title' ? 'summary' :
+                  editedElement.type === 'text' ? 'custom' :
+                  'project'
+                }
               />
             </div>
           )}
@@ -212,13 +220,16 @@ export function ElementEditor({ element, isOpen, onClose, onSave, globalGithubUs
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="technologies">Technologies (comma-separated)</Label>
-                <Textarea
+                <AITextarea
                   id="technologies"
                   value={editedElement.technologies?.join(', ') || ''}
-                  onChange={(e) => updateElement({ 
-                    technologies: e.target.value.split(',').map(tech => tech.trim()).filter(Boolean)
+                  onValueChange={(value) => updateElement({ 
+                    technologies: value.split(',').map(tech => tech.trim()).filter(Boolean)
                   })}
                   placeholder="React, TypeScript, Node.js, Tailwind CSS"
+                  aiContext="technology stack for a software project"
+                  showGenerateOption={true}
+                  generationType="custom"
                 />
               </div>
               

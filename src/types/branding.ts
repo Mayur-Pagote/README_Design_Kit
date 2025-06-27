@@ -1,6 +1,6 @@
 export type BrandingTone = 'casual' | 'technical' | 'professional' | 'open-source';
 
-export type BrandingFixType = 'rephrase' | 'rewrite' | 'remove';
+export type BrandingFixType = 'grammar' | 'enhancement' | 'rewrite' | 'addition';
 
 export interface BrandingSuggestion {
   id?: string;
