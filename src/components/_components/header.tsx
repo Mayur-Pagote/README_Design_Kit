@@ -112,7 +112,11 @@ export const Header = () => {
                                     </button>
                                 </div>
                                 {/* </div> */}
-                                <GitHubStarsButton username="Mayur-Pagote" repo="README_Design_Kit" />
+                                <GitHubStarsButton 
+                                  username="Mayur-Pagote" 
+                                  repo="README_Design_Kit" 
+                                  isScrolled={isScrolled}
+                                />
                             </div>
                         </div>
                     </div>
