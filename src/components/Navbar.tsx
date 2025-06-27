@@ -120,14 +120,16 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center gap-3">
-              <img
-                src={loggd}
-                alt="Logo Light"
-                className="h-8 object-contain block dark:hidden"
-              <img
-                src={logg}
-                alt="Logo Dark"
-                className="h-8 object-contain hidden dark:block
+               <img
+                  src={loggd}
+                  alt="Logo Light"
+                  className="h-8 object-contain block dark:hidden"
+                />
+                <img
+                  src={logg}
+                  alt="Logo Dark"
+                  className="h-8 object-contain hidden dark:block"
+                />
             </Link>
           </div>
 
