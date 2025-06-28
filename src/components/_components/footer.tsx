@@ -1,5 +1,8 @@
 import {Link} from 'react-router-dom'
 import { BackgroundLines } from './backgroundlines'
+import loggd from '../rdkd.svg';
+import logg from '../rdk.svg';
+
 
 const links = [
     {
@@ -42,8 +45,19 @@ export default function Footer() {
                 <Link
                     to="/"
                     aria-label="go home"
-                    className="mx-auto block size-fit hover:text-primary duration-150 ease-in-out">
-                    README DESIGN KIT
+                    className="mx-auto block size-fit">
+                    {/* <Logo /> */}
+                    <img 
+                      src={loggd} 
+                      alt="README Design Kit - Light Logo" 
+                      className="h-8 object-contain block dark:hidden"
+                    />
+                     {/* Dark Mode Logo */}
+                    <img 
+                      src={logg} 
+                      alt="README Design Kit - Dark Logo" 
+                      className="h-8 object-contain hidden dark:block"
+                    />
                 </Link>
 
                 <div className="my-8 flex flex-wrap justify-center gap-6 text-sm">
