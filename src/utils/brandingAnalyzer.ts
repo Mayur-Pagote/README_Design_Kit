@@ -1,31 +1,12 @@
 import type { BrandingSuggestion, BrandingTone, BrandingAnalysis } from '@/types/branding';
 import type { ElementType } from '@/types/elements';
+import { geminiService } from '@/services/geminiService';
 
-const TONE_GUIDELINES: Record<BrandingTone, {
-  keywords: string[];
-  avoid: string[];
-  style: string;
-}> = {
-  casual: {
-    keywords: ['easy', 'simple', 'friendly', 'awesome', 'cool'],
-    avoid: ['utilize', 'facilitate', 'implement', 'leverage'],
-    style: 'conversational and approachable',
-  },
-  technical: {
-    keywords: ['implement', 'configure', 'optimize', 'architecture', 'framework'],
-    avoid: ['easy', 'simple', 'just', 'obviously'],
-    style: 'precise and detailed',
-  },
-  professional: {
-    keywords: ['streamlined', 'comprehensive', 'robust', 'enterprise-grade'],
-    avoid: ['awesome', 'cool', 'amazing', 'super'],
-    style: 'polished and confident',
-  },
-  'open-source': {
-    keywords: ['contribute', 'community', 'collaborative', 'maintainable'],
-    avoid: ['proprietary', 'exclusive', 'limited'],
-    style: 'welcoming and inclusive',
-  },
+const TONE_DESCRIPTIONS: Record<BrandingTone, string> = {
+  casual: 'Friendly and approachable, uses conversational language, relatable examples',
+  technical: 'Precise and detailed, focuses on technical accuracy and implementation details',
+  professional: 'Polished and confident, business-focused, formal language',
+  'open-source': 'Welcoming and inclusive, community-focused, collaborative language',
 };
 
 function getReadableContent(el: ElementType): string {
@@ -37,105 +18,162 @@ function getReadableContent(el: ElementType): string {
   return '';
 }
 
-function analyzeContent(elements: ElementType[], tone: BrandingTone): BrandingSuggestion[] {
-  const suggestions: BrandingSuggestion[] = [];
-  const guidelines = TONE_GUIDELINES[tone];
-
-  const weakWords = ['very', 'really', 'quite', 'pretty', 'somewhat'];
-  const passiveIndicators = ['was created', 'is built', 'can be used', 'will be'];
-  const vagueWords = ['things', 'stuff', 'nice', 'good', 'bad'];
-
-  for (const el of elements) {
-    const content = getReadableContent(el);
-    const contentLower = content?.toLowerCase();
-
-    if (!el.id || !contentLower) continue;
-
-    for (const word of weakWords) {
-      if (contentLower.includes(word)) {
-        suggestions.push({
-          elementId: el.id,
-          section: 'Content',
-          suggestion: `Remove the weak modifier "${word}" to make your writing stronger.`,
-          reason: `"${word}" can make your language sound uncertain.`,
-          severity: 'medium',
-          type: 'wording',
-          fixType: 'rephrase',
-          confidence: 0.7,
-          excerpt: content,
-        });
-      }
-    }
-
-    for (const phrase of passiveIndicators) {
-      if (contentLower.includes(phrase)) {
-        suggestions.push({
-          elementId: el.id,
-          section: 'Content',
-          suggestion: `Consider using active voice instead of "${phrase}".`,
-          reason: 'Active voice improves engagement and clarity.',
-          severity: 'low',
-          type: 'clarity',
-          fixType: 'rephrase',
-          confidence: 0.6,
-          excerpt: content,
-        });
-      }
-    }
-
-    for (const word of guidelines.avoid) {
-      if (guidelines.keywords.includes(word)) continue; // don't flag if also accepted
-      if (contentLower.includes(word)) {
-        const replacement = guidelines.keywords[Math.floor(Math.random() * guidelines.keywords.length)];
-        suggestions.push({
-          elementId: el.id,
-          section: 'Tone',
-          suggestion: `Replace "${word}" with "${replacement}" to better match a ${tone} tone.`,
-          reason: `"${word}" feels misaligned with a ${tone} voice, which aims to be ${guidelines.style}.`,
-          severity: 'medium',
-          type: 'tone',
-          fixType: 'rephrase',
-          confidence: 0.75,
-          excerpt: content,
-        });
-      }
-    }
-
-    for (const word of vagueWords) {
-      if (contentLower.includes(word)) {
-        suggestions.push({
-          elementId: el.id,
-          section: 'Clarity',
-          suggestion: `Avoid vague words like "${word}"—be more specific.`,
-          reason: 'Clear, specific language makes your message more credible.',
-          severity: 'high',
-          type: 'clarity',
-          fixType: 'rephrase',
-          confidence: 0.85,
-          excerpt: content,
-        });
-      }
-    }
-  }
-
-  return suggestions;
+function buildReadmeContent(elements: ElementType[]): string {
+  const content = elements
+    .map(el => {
+      const text = getReadableContent(el);
+      if (!text) return '';
+      return `[${el.type.toUpperCase()}]: ${text}`;
+    })
+    .filter(Boolean)
+    .join('\n\n');
+  
+  return content || 'No content available for analysis';
 }
 
-function analyzeStructure(elements: ElementType[]): BrandingSuggestion[] {
+async function analyzeWithAI(readmeContent: string, targetTone: BrandingTone): Promise<{
+  suggestions: BrandingSuggestion[];
+  overallScore: number;
+  toneConsistency: number;
+  detectedTone: BrandingTone;
+}> {
+  if (!geminiService.isConfigured()) {
+    // Fallback to basic analysis if AI is not configured
+    return {
+      suggestions: [{
+        section: 'AI Analysis',
+        suggestion: 'Configure Gemini API key to enable AI-powered README analysis',
+        reason: 'AI analysis provides deeper insights into your README quality and suggestions',
+        severity: 'medium' as const,
+        type: 'structure' as const,
+      }],
+      overallScore: 50,
+      toneConsistency: 50,
+      detectedTone: 'professional' as BrandingTone,
+    };
+  }
+
+  try {
+    const analysisPrompt = `You are a README analysis expert. Analyze the following README content and provide detailed feedback with specific implementable fixes.
+
+TARGET TONE: ${targetTone} (${TONE_DESCRIPTIONS[targetTone]})
+
+README CONTENT:
+${readmeContent}
+
+Please analyze and return a JSON object with the following structure:
+{
+  "overallScore": <number 0-100>,
+  "toneConsistency": <number 0-100>,
+  "detectedTone": "<casual|technical|professional|open-source>",
+  "suggestions": [
+    {
+      "section": "<section name>",
+      "suggestion": "<specific actionable suggestion>",
+      "reason": "<why this improvement is needed>",
+      "severity": "<low|medium|high>",
+      "type": "<structure|wording|tone|clarity>",
+      "confidence": <number 0-1>,
+      "excerpt": "<relevant text snippet if applicable>",
+      "elementId": "<element id if applicable>",
+      "fix": "<specific replacement text if applicable>",
+      "fixType": "<grammar|enhancement|rewrite|addition>"
+    }
+  ]
+}
+
+Analysis Guidelines:
+1. Overall Score: Rate completeness, clarity, professionalism (0-100)
+2. Tone Consistency: How well content matches target tone (0-100)
+3. Detected Tone: What tone the content currently has
+4. Suggestions: 3-8 specific, actionable improvements focusing on:
+   - Missing essential sections (installation, usage, etc.)
+   - Clarity and readability issues
+   - Tone alignment with target
+   - Grammar and spelling
+   - Structure and organization
+   - Technical accuracy
+
+For suggestions with fixable content:
+- Include "elementId" if you can identify which element needs fixing
+- Include "fix" with the exact replacement text
+- Include "fixType" to categorize the type of fix
+
+Provide specific, actionable feedback with implementable fixes where possible.`;
+
+    const model = geminiService['genAI']!.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const result = await model.generateContent(analysisPrompt);
+    const response = await result.response;
+    const text = response.text().trim();
+
+    // Clean up the response and extract JSON
+    let jsonStr = text;
+    if (jsonStr.includes('```json')) {
+      jsonStr = jsonStr.split('```json')[1].split('```')[0];
+    } else if (jsonStr.includes('```')) {
+      jsonStr = jsonStr.split('```')[1].split('```')[0];
+    }
+
+    const analysisResult = JSON.parse(jsonStr);
+    
+    // Validate and sanitize the response
+    return {
+      suggestions: (analysisResult.suggestions || []).slice(0, 8).map((s: any, index: number) => ({
+        id: `ai-suggestion-${index}`,
+        section: s.section || 'General',
+        suggestion: s.suggestion || 'No suggestion provided',
+        reason: s.reason || 'No reason provided',
+        severity: ['low', 'medium', 'high'].includes(s.severity) ? s.severity : 'medium',
+        type: ['structure', 'wording', 'tone', 'clarity'].includes(s.type) ? s.type : 'clarity',
+        confidence: typeof s.confidence === 'number' ? Math.max(0, Math.min(1, s.confidence)) : 0.7,
+        excerpt: s.excerpt ? s.excerpt.substring(0, 100) : undefined,
+        elementId: s.elementId || undefined,
+        fix: s.fix || undefined,
+        fixType: s.fixType || undefined,
+      })),
+      overallScore: Math.max(0, Math.min(100, analysisResult.overallScore || 50)),
+      toneConsistency: Math.max(0, Math.min(100, analysisResult.toneConsistency || 50)),
+      detectedTone: ['casual', 'technical', 'professional', 'open-source'].includes(analysisResult.detectedTone) 
+        ? analysisResult.detectedTone 
+        : 'professional',
+    };
+
+  } catch (error) {
+    console.error('Error in AI analysis:', error);
+    
+    // Fallback analysis
+    return {
+      suggestions: [{
+        section: 'AI Analysis',
+        suggestion: 'Unable to analyze README with AI at the moment',
+        reason: 'There was an error processing your README. Please try again later.',
+        severity: 'low' as const,
+        type: 'structure' as const,
+        confidence: 0.5,
+      }],
+      overallScore: 60,
+      toneConsistency: 60,
+      detectedTone: targetTone,
+    };
+  }
+}
+
+function performBasicAnalysis(elements: ElementType[]): BrandingSuggestion[] {
   const suggestions: BrandingSuggestion[] = [];
 
-  const hasTitle = elements.some((el) => el.type === 'title');
-  const hasDescription = elements.some((el) => el.type === 'description');
+  // Check for essential sections
+  const hasTitle = elements.some((el) => el.type === 'title' || el.type === 'header');
+  const hasDescription = elements.some((el) => el.type === 'description' || el.type === 'text');
   const hasInstallation = elements.some((el) => el.type === 'installation');
+  const hasTechStack = elements.some((el) => el.type === 'tech-stack');
 
   if (!hasTitle) {
     suggestions.push({
       section: 'Structure',
-      suggestion: 'Add a compelling title.',
-      reason: 'Titles help branding and searchability.',
+      suggestion: 'Add a compelling title or header',
+      reason: 'Titles help with branding and make your project discoverable',
       severity: 'high',
       type: 'structure',
-      fixType: 'rewrite',
       confidence: 0.9,
     });
   }
@@ -143,11 +181,10 @@ function analyzeStructure(elements: ElementType[]): BrandingSuggestion[] {
   if (!hasDescription) {
     suggestions.push({
       section: 'Structure',
-      suggestion: 'Include a brief project description.',
-      reason: 'Helps users quickly understand the purpose.',
+      suggestion: 'Include a project description',
+      reason: 'Helps users quickly understand what your project does',
       severity: 'high',
       type: 'structure',
-      fixType: 'rewrite',
       confidence: 0.9,
     });
   }
@@ -155,40 +192,66 @@ function analyzeStructure(elements: ElementType[]): BrandingSuggestion[] {
   if (!hasInstallation) {
     suggestions.push({
       section: 'Structure',
-      suggestion: 'Add installation steps.',
-      reason: 'Clear setup reduces user friction.',
+      suggestion: 'Add installation or setup instructions',
+      reason: 'Clear setup instructions reduce friction for new users',
       severity: 'medium',
       type: 'structure',
-      fixType: 'rewrite',
       confidence: 0.8,
+    });
+  }
+
+  if (!hasTechStack) {
+    suggestions.push({
+      section: 'Structure',
+      suggestion: 'Consider adding a tech stack section',
+      reason: 'Showcasing technologies helps developers understand your project',
+      severity: 'low',
+      type: 'structure',
+      confidence: 0.7,
     });
   }
 
   return suggestions;
 }
 
-function detectTone(elements: ElementType[]): BrandingTone {
-  const all = elements.map(getReadableContent).join(' ').toLowerCase();
-  if (all.includes('lol') || all.includes('awesome') || all.includes('yo')) return 'casual';
-  if (all.includes('framework') || all.includes('optimize')) return 'technical';
-  if (all.includes('community') || all.includes('pull request')) return 'open-source';
-  return 'professional';
-}
+export async function analyzeBranding(elements: ElementType[], tone: BrandingTone): Promise<BrandingAnalysis> {
+  const readmeContent = buildReadmeContent(elements);
+  
+  try {
+    // Perform AI analysis
+    const aiAnalysis = await analyzeWithAI(readmeContent, tone);
+    
+    // Combine with basic structural analysis
+    const basicSuggestions = performBasicAnalysis(elements);
+    
+    // Merge suggestions, prioritizing AI suggestions
+    const allSuggestions = [
+      ...aiAnalysis.suggestions,
+      ...basicSuggestions.filter(basic => 
+        !aiAnalysis.suggestions.some(ai => ai.section === basic.section)
+      )
+    ].slice(0, 8);
 
-export function analyzeBranding(elements: ElementType[], tone: BrandingTone): BrandingAnalysis {
-  const structureSuggestions = analyzeStructure(elements);
-  const contentSuggestions = analyzeContent(elements, tone);
-  const allSuggestions = [...structureSuggestions, ...contentSuggestions];
+    return {
+      suggestions: allSuggestions,
+      overallScore: aiAnalysis.overallScore,
+      toneConsistency: aiAnalysis.toneConsistency,
+      selectedTone: tone,
+      detectedTone: aiAnalysis.detectedTone,
+    };
 
-  const high = allSuggestions.filter((s) => s.severity === 'high').length;
-  const medium = allSuggestions.filter((s) => s.severity === 'medium').length;
-  const toneIssues = allSuggestions.filter((s) => s.type === 'tone').length;
-
-  return {
-    suggestions: allSuggestions.slice(0, 8),
-    overallScore: Math.max(0, 100 - (high * 20 + medium * 10)),
-    toneConsistency: Math.max(0, 100 - toneIssues * 15),
-    selectedTone: tone,
-    detectedTone: detectTone(elements),
-  };
+  } catch (error) {
+    console.error('Error in branding analysis:', error);
+    
+    // Fallback to basic analysis only
+    const basicSuggestions = performBasicAnalysis(elements);
+    
+    return {
+      suggestions: basicSuggestions,
+      overallScore: Math.max(0, 100 - basicSuggestions.filter(s => s.severity === 'high').length * 20),
+      toneConsistency: 70,
+      selectedTone: tone,
+      detectedTone: 'professional',
+    };
+  }
 }

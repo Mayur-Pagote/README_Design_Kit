@@ -12,6 +12,7 @@ import {
   Library,
   Github,
   Eye,
+  Settings,
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -26,6 +27,7 @@ import { ElementEditor } from '@/components/ElementEditor';
 import { SaveTemplateDialog } from '@/components/SaveTemplateDialog';
 import { AssistantLauncher } from '@/components/AssistantLauncher';
 import { PersonaComparisonModal } from '@/components/PersonaComparisonModal';
+import { AISettingsDialog } from '@/components/AISettingsDialog';
 import { demoElements } from '@/data/demo';
 import { TemplateUtils } from '@/utils/templateUtils';
 import type { ElementType, GitContributionElement } from '@/types/elements';
@@ -39,6 +41,7 @@ export default function DragDropEditor() {
   const [showPalette, setShowPalette] = useState(true);
   const [showPreview, setShowPreview] = useState(true);
   const [showComparisonModal, setShowComparisonModal] = useState(false);
+  const [showAISettings, setShowAISettings] = useState(false);
   const [loadedTemplateName, setLoadedTemplateName] = useState<string | null>(null);
   const [backToTopVisible, setBackToTopVisible] = useState(false);
   const [githubUsername, setGithubUsername] = useState<string>('your-username');
@@ -237,6 +240,13 @@ export default function DragDropEditor() {
                     Set GitHub: {githubUsername}
                   </DropdownMenuItem>
                   <DropdownMenuItem 
+                    onClick={() => setShowAISettings(true)}
+                    className="flex items-center gap-2"
+                  >
+                    <Settings className="h-4 w-4" />
+                    AI Settings
+                  </DropdownMenuItem>
+                  <DropdownMenuItem 
                     onClick={clearAll}
                     disabled={elements.length === 0}
                     className="flex items-center gap-2 text-destructive focus:text-destructive"
@@ -343,6 +353,12 @@ export default function DragDropEditor() {
           // Update any existing GitHub elements with the new username
           updateAllGithubUsernames(newUsername);
         }}
+      />
+
+      {/* AI Settings Dialog */}
+      <AISettingsDialog
+        isOpen={showAISettings}
+        onClose={() => setShowAISettings(false)}
       />
     </div>
   );
