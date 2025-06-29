@@ -53,7 +53,9 @@ export interface GitContributionElement extends BaseElement {
 export interface TechStackElement extends BaseElement {
   type: 'tech-stack';
   technologies: string[];
-  layout: 'grid' | 'list' | 'badges';
+  layout: 'grid' | 'list' | 'badges' | 'inline' | 'grouped';
+  badgeStyle?: string;
+  theme?: string;
 }
 
 export interface ImageElement extends BaseElement {

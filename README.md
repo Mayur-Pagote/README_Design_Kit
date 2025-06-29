@@ -70,6 +70,33 @@ The **Project Showcase Page** allows contributors to **explore high-quality READ
 - ✅ Advanced search & category-based organization  
 - ✅ Expandable project cards with README previews and GitHub links  
 - ✅ User submission form to showcase projects  
+- ✅ **🤖 AI-Powered Enhancement** - Generate and enhance content with Gemini API
+- ✅ **✨ Smart Text Generation** - Context-aware content creation for different element types
+- ✅ **🔧 One-Click Enhancement** - Improve existing text with AI suggestions
+
+---
+
+## 🤖 AI Enhancement Features
+
+Transform your README creation with powerful AI assistance powered by Google's Gemini API:
+
+### ✨ Smart Content Generation
+- **Auto-Generate Descriptions** - Create professional project descriptions, bios, and summaries
+- **Technology Stack Suggestions** - Smart recommendations for tech stacks and tools
+- **Context-Aware Writing** - AI understands different content types (projects, about sections, etc.)
+
+### 🚀 Text Enhancement
+- **Professional Polish** - Enhance existing text for clarity, engagement, and professionalism
+- **Tone Consistency** - Maintain consistent voice across your README
+- **One-Click Improvement** - Single button to upgrade any text field
+
+### 🔧 Easy Setup
+1. Get your free [Gemini API key](https://aistudio.google.com/apikey)
+2. Configure in **Actions → AI Settings**
+3. Look for the ✨ sparkle icon in text fields
+4. Generate or enhance content instantly!
+
+👉 **[Full AI Features Documentation](./AI_FEATURES.md)**  
 
 ---
 
