@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, FileCode, Component, Info, Box, GitBranch, LifeBuoy, Text, GithubIcon } from 'lucide-react';
+import { LayoutDashboard, FileCode, Component, Info, Box, GitBranch, Text, GithubIcon } from 'lucide-react';
 import {
   CommandDialog,
   CommandInput,
