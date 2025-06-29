@@ -26,7 +26,7 @@ export function QuickStartGuide({ onStartFromScratch }: QuickStartGuideProps) {
 
   return (
     <>
-      <Button variant="ghost" onClick={() => setIsOpen(true)} className="text-sm text-muted-foreground">
+      <Button variant="ghost" onClick={() => setIsOpen(true)} className="pt-3 text-sm text-muted-foreground">
         Need help getting started?
       </Button>
       
