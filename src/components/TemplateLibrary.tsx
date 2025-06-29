@@ -229,8 +229,8 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
             ))}
           </div>
         ) : (
-          <div className="space-y-4">
-            {filteredTemplates.map(template => (              <TemplateListItem
+          <div className="grid space-y-4">
+            {filteredTemplates.map(template => (<TemplateListItem
                 key={template.id}
                 template={template}
                 isFavorite={preferences.favorites.includes(template.id)}
@@ -254,7 +254,7 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
 
       {/* Template Preview Dialog */}
       <Dialog open={!!previewTemplate} onOpenChange={() => setPreviewTemplate(null)}>
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-y-auto">
+        <DialogContent className="template-scroll max-w-4xl max-h-[80vh] overflow-auto">
           <DialogHeader>
             <DialogTitle>{previewTemplate?.name}</DialogTitle>
           </DialogHeader>
