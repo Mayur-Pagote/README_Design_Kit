@@ -38,7 +38,7 @@ export default function Home() {
             )}
           </div>
 <Link to="Elements" className="inline-block">
-  <div className="group cursor-pointer">
+  <div className="group cursor-pointer pt-5 pb-8">
     <div className="relative rounded-xl bg-background/60 backdrop-blur-md border border-border px-5 py-2.5 transition-all duration-300 hover:bg-background/80 hover:border-primary/50 hover:scale-105 shadow-lg hover:shadow-xl">
       <div className="flex items-center gap-2.5">
         <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
