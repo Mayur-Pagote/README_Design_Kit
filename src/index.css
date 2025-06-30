@@ -295,3 +295,62 @@ div.template-scroll {
   scrollbar-width: thin;
   scrollbar-color: rgba(100, 116, 139, 0.5) transparent;
 }
+
+@keyframes priorityGlow {
+  0%, 100% { text-shadow: 0 0 10px currentColor; }
+  50% { text-shadow: 0 0 20px currentColor; }
+}
+
+/* top-left corner oscillation */
+.card-group:hover .accent-corner.top-left {
+  animation: topLeftOscillate 1.5s infinite ease-in-out, accentGlow 2s infinite ease-in-out;
+}
+@keyframes topLeftOscillate {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-4px, -4px); }
+  50% { transform: translate(-2px, -2px); }
+  75% { transform: translate(-4px, -4px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* top-right corner oscillation */
+.card-group:hover .accent-corner.top-right {
+  animation: topRightOscillate 1.5s infinite ease-in-out, accentGlow 2s infinite ease-in-out;
+}
+@keyframes topRightOscillate {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(4px, -4px); }
+  50% { transform: translate(2px, -2px); }
+  75% { transform: translate(4px, -4px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* bottom-left corner oscillation */
+.card-group:hover .accent-corner.bottom-left {
+  animation: bottomLeftOscillate 1.5s infinite ease-in-out, accentGlow 2s infinite ease-in-out;
+}
+@keyframes bottomLeftOscillate {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(-4px, 4px); }
+  50% { transform: translate(-2px, 2px); }
+  75% { transform: translate(-4px, 4px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* bottom-right corner oscillation */
+.card-group:hover .accent-corner.bottom-right {
+  animation: bottomRightOscillate 1.5s infinite ease-in-out, accentGlow 2s infinite ease-in-out;
+}
+@keyframes bottomRightOscillate {
+  0% { transform: translate(0, 0); }
+  25% { transform: translate(4px, 4px); }
+  50% { transform: translate(2px, 2px); }
+  75% { transform: translate(4px, 4px); }
+  100% { transform: translate(0, 0); }
+}
+
+/* glow reused */
+@keyframes accentGlow {
+  0%, 100% { filter: drop-shadow(0 0 2px rgba(8,253,216,0.7)); }
+  50% { filter: drop-shadow(0 0 8px rgba(8,253,216,1)); }
+}

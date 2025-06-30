@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Clock, Bell, Rocket, Star, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // ✅ Added navigation
+import { motion } from 'framer-motion';
 
 export default function ComingSoon() {
   const [email, setEmail] = useState("");
@@ -20,22 +20,13 @@ export default function ComingSoon() {
   };
 
   const upcomingFeatures = [
+    { title: "Export Formats", description: "Export README as PDF, HTML, etc.", eta: "Q3 2025", priority: "medium" },
     { title: "Advanced Template Library", description: "Pre-built README templates", eta: "Q3 2025", priority: "high" },
-    { title: "Real-time Collaboration", description: "Work together on README files", eta: "Q4 2025", priority: "medium" },
     { title: "GitHub Integration", description: "Direct sync with repositories", eta: "Q3 2025", priority: "high" },
     { title: "Custom Components", description: "Reusable components for docs", eta: "Q4 2025", priority: "low" },
-    { title: "AI-Powered Suggestions", description: "Smart README content recommendations", eta: "Q1 2026", priority: "medium" },
-    { title: "Export Formats", description: "Export README as PDF, HTML, etc.", eta: "Q3 2025", priority: "medium" }
+    { title: "Real-time Collaboration", description: "Work together on README files", eta: "Q4 2025", priority: "medium" },
+    { title: "AI-Powered Suggestions", description: "Smart README content recommendations", eta: "Q1 2026", priority: "medium" }
   ];
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'high': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
-      case 'low': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -82,37 +73,102 @@ export default function ComingSoon() {
 
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <Clock className="h-4 w-4" />
-            <span>Last updated: June 14, 2025</span>
+            <span>Last updated: June 30, 2025</span>
           </div>
         </div>
       </section>
 
       {/* Features Roadmap */}
-      <section className="py-16 px-6 bg-muted/50">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Feature Roadmap</h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <section className="relative py-20 px-6 overflow-hidden transition-colors duration-500 bg-background">
+        {/* animated cyber dots background */}
+        <div className="absolute inset-0 z-0 pointer-events-none
+          bg-[radial-gradient(circle,rgba(8,253,216,0.08)_1px,transparent_1px)]
+          dark:bg-[radial-gradient(circle,rgba(8,253,216,0.1)_1px,transparent_1px)]
+          bg-[size:40px_40px] animate-[pulse_8s_infinite]" />
+
+        <div className="container mx-auto relative z-10">
+          <h2 className="text-4xl font-bold text-center mb-12 text-primary glitch">
+            Feature Roadmap
+          </h2>
+
+          <div className="relative border-l-4 border-primary/30 ml-6">
             {upcomingFeatures.map((feature, index) => (
-              <Card key={index} className="relative overflow-hidden">
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-2">
-                    <CardTitle className="text-lg">{feature.title}</CardTitle>
-                    <Badge className={getPriorityColor(feature.priority)}>
-                      {feature.priority}
-                    </Badge>
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: index % 2 === 0 ? -80 : 80 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ type: "spring", stiffness: 100, damping: 12 }}
+                className={`mb-16 relative ${
+                  index % 2 === 0 ? "md:pl-20 md:-ml-4" : "md:pr-20 md:ml-4 md:text-right"
+                }`}
+              >
+                {/* milestone cyber dot */}
+                <div
+                  className={`absolute w-4 h-4 rounded-full bg-primary border-4 border-background top-2 animate-ping
+                  ${index % 2 === 0 ? "-left-8" : "-right-2"}`}
+                ></div>
+
+                {/* card */}
+                <div className="relative card-group p-6 rounded-none
+                  border border-primary/40
+                  backdrop-blur-md
+                  bg-gradient-to-br
+                    from-white/80
+                    via-background/50
+                    to-muted/30
+                  dark:from-[#0f0c29]/60
+                  dark:via-[#302b63]/40
+                  dark:to-[#24243e]/30
+                  shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]
+                  transition-transform duration-300"
+                >
+
+
+                  {/* corner accents on the border */}
+                  <span className="accent-corner top-left absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-primary" />
+                  <span className="accent-corner top-right absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-primary" />
+                  <span className="accent-corner bottom-left absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-primary" />
+                  <span className="accent-corner bottom-right absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-primary" />
+
+                  {/* subtle interior animated pattern */}
+                  <div className="absolute inset-0 opacity-5 pointer-events-none 
+                    bg-[radial-gradient(circle,rgba(8,253,216,0.3)_1px,transparent_1px)] 
+                    bg-[size:20px_20px] animate-[pulse_12s_infinite]" />
+
+                  {/* priority label */}
+                  <div
+                    className={`absolute top-2 ${
+                      index % 2 === 0 ? "left-4" : "right-4"
+                    } text-xs font-mono uppercase tracking-wider
+                    ${
+                      feature.priority === "high"
+                        ? "text-pink-500"
+                        : feature.priority === "medium"
+                        ? "text-yellow-500"
+                        : "text-green-500"
+                    }
+                    animate-[priorityGlow_3s_infinite]`}
+                  >
+                    <span className="relative z-10">{feature.priority.toUpperCase()}</span>
+                    <span className="absolute inset-0 blur-md opacity-50">{feature.priority.toUpperCase()}</span>
                   </div>
-                  <CardDescription>{feature.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Clock className="h-4 w-4" />
-                      <span>ETA: {feature.eta}</span>
+
+                  {/* feature title + desc */}
+                  <h3 className="text-xl font-bold text-foreground mb-2 mt-4">{feature.title}</h3>
+                  <p className="text-muted-foreground mb-4">{feature.description}</p>
+
+                  {/* ETA label */}
+                  <div className="relative inline-block font-mono text-primary text-sm tracking-widest">
+                    <div className="relative z-10 flex items-center gap-2">
+                      <Clock className="h-4 w-4 shrink-0" />
+                      <span>{`ETA: ${feature.eta}`}</span>
                     </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent
+                      animate-[shine_2s_infinite] blur-sm opacity-60"></div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </motion.div>
             ))}
           </div>
         </div>
