@@ -76,103 +76,92 @@ export default function ComingSoon() {
             <span>Last updated: June 30, 2025</span>
           </div>
         </div>
+        <hr className="my-5" />
       </section>
 
-      {/* Features Roadmap */}
-      <section className="relative py-20 px-6 overflow-hidden transition-colors duration-500 bg-background">
-        {/* animated cyber dots background */}
-        <div className="absolute inset-0 z-0 pointer-events-none
-          bg-[radial-gradient(circle,rgba(8,253,216,0.08)_1px,transparent_1px)]
-          dark:bg-[radial-gradient(circle,rgba(8,253,216,0.1)_1px,transparent_1px)]
-          bg-[size:40px_40px] animate-[pulse_8s_infinite]" />
+      {/*Feature Roadmap*/}
+      <section className="relative px-6 overflow-hidden">
 
-        <div className="container mx-auto relative z-10">
-          <h2 className="text-4xl font-bold text-center mb-12 text-primary glitch">
-            Feature Roadmap
-          </h2>
+      <h2 className="text-4xl font-bold text-center mb-12 text-primary tracking-tight">
+        Feature Roadmap
+      </h2>
 
-          <div className="relative border-l-4 border-primary/30 ml-6">
-            {upcomingFeatures.map((feature, index) => (
+      <div className="relative mx-auto max-w-4xl">
+        {/*Central Vertical Line */}
+        <div className="absolute left-1/2 max-[700px]:left-auto max-[700px]:right-30 w-1 bg-gradient-to-b via-primary rounded-full h-full z-0 animate-pulse"/>
+
+        <div className="space-y-24 relative z-10">
+          {upcomingFeatures.map((feature, index) => {
+            const alignLeft = index % 2 === 0;
+
+            // Time check for current feature
+            let isCurrent = false;
+            if (feature.eta === "Q3 2025") {
+              isCurrent = true;
+            }
+
+            return (
               <motion.div
                 key={index}
-                initial={{ opacity: 0, x: index % 2 === 0 ? -80 : 80 }}
                 whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ type: "spring", stiffness: 100, damping: 12 }}
-                className={`mb-16 relative ${
-                  index % 2 === 0 ? "md:pl-20 md:-ml-4" : "md:pr-20 md:ml-4 md:text-right"
-                }`}
+                viewport={{once: true}}
+                initial={{ opacity: 0, x: alignLeft ? -100 : 100 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 120,
+                  damping: 15,
+                  delay: index * 0.1,
+              }}
+                className={`relative w-full flex ${alignLeft ? "justify-start" : "justify-end"} max-[700px]:justify-start`}
               >
-                {/* milestone cyber dot */}
-                <div
-                  className={`absolute w-4 h-4 rounded-full bg-primary border-4 border-background top-2 animate-ping
-                  ${index % 2 === 0 ? "-left-8" : "-right-2"}`}
-                ></div>
+                {/*Card*/}
+                <div className="w-80 p-4 bg-white/5 border border-primary-500/30 shadow-lg relative -top-5">
+                  <h3 className="text-lg font-semibold text-primary mt-4">{feature.title}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{feature.description}</p>
 
-                {/* card */}
-                <div className="relative card-group p-6 rounded-none
-                  border border-primary/40
-                  backdrop-blur-md
-                  bg-gradient-to-br
-                    from-white/80
-                    via-background/50
-                    to-muted/30
-                  dark:from-[#0f0c29]/60
-                  dark:via-[#302b63]/40
-                  dark:to-[#24243e]/30
-                  shadow-[inset_0_0_20px_rgba(0,0,0,0.1)]
-                  transition-transform duration-300"
-                >
-
-
-                  {/* corner accents on the border */}
-                  <span className="accent-corner top-left absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-primary" />
-                  <span className="accent-corner top-right absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-primary" />
-                  <span className="accent-corner bottom-left absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-primary" />
-                  <span className="accent-corner bottom-right absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-primary" />
-
-                  {/* subtle interior animated pattern */}
-                  <div className="absolute inset-0 opacity-5 pointer-events-none 
-                    bg-[radial-gradient(circle,rgba(8,253,216,0.3)_1px,transparent_1px)] 
-                    bg-[size:20px_20px] animate-[pulse_12s_infinite]" />
-
-                  {/* priority label */}
+                  {/* Priority Badge */}
                   <div
                     className={`absolute top-2 ${
-                      index % 2 === 0 ? "left-4" : "right-4"
-                    } text-xs font-mono uppercase tracking-wider
-                    ${
+                      alignLeft ? "left-4" : "right-4"
+                    } text-xs font-mono uppercase tracking-wider ${
                       feature.priority === "high"
-                        ? "text-pink-500"
+                        ? "text-red-500"
                         : feature.priority === "medium"
                         ? "text-yellow-500"
                         : "text-green-500"
-                    }
-                    animate-[priorityGlow_3s_infinite]`}
+                    } animate-[priorityGlow_3s_infinite]`}
                   >
                     <span className="relative z-10">{feature.priority.toUpperCase()}</span>
                     <span className="absolute inset-0 blur-md opacity-50">{feature.priority.toUpperCase()}</span>
                   </div>
 
-                  {/* feature title + desc */}
-                  <h3 className="text-xl font-bold text-foreground mb-2 mt-4">{feature.title}</h3>
-                  <p className="text-muted-foreground mb-4">{feature.description}</p>
+                  {/* L-shaped corners — might refactor these into a <Corners /> comp later */}
+                  <span className="border-corner absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-primary" />
+                  <span className="corner-top-right absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-primary" />
+                  <span className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-primary" />
+                  <span className="bottom-right absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-primary" />
 
-                  {/* ETA label */}
-                  <div className="relative inline-block font-mono text-primary text-sm tracking-widest">
-                    <div className="relative z-10 flex items-center gap-2">
-                      <Clock className="h-4 w-4 shrink-0" />
-                      <span>{`ETA: ${feature.eta}`}</span>
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent
-                      animate-[shine_2s_infinite] blur-sm opacity-60"></div>
+                  {/* Only show at time */}
+                  {isCurrent && (
+                    <div
+                      className={`absolute w-4 h-4 rounded-full bg-primary border-4 border-background top-2 animate-ping ${
+                        alignLeft ? "left-73" : "right-73"
+                      }`}
+                    ></div>
+                  )}
+
+                  {/* ETA row */}
+                  <div className="flex items-center gap-1 text-x text-primary mt-2">
+                    <Clock className="w-4 h-4" />
+                    ETA: {feature.eta}
                   </div>
                 </div>
               </motion.div>
-            ))}
-          </div>
+            );
+          })}
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Newsletter Signup */}
       <section id="stay-in-loop" className="py-20 px-6">
