@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -143,11 +144,16 @@ export default function AboutUs() {
                     Create beautiful, professional README files in minutes with our open-source design system and editor.
                 </p>
                 <div className="flex justify-center gap-4">
-                    <Button size="lg" className="gap-2">
-                        <Zap className="w-4 h-4" /> Get Started
+                    <Button asChild size="lg" className="gap-2 ">
+                        <Link to="/elements">
+                            <Zap className="w-4 h-4" /> Get Started
+                        </Link>
                     </Button>
-                    <Button variant="outline" size="lg" className="gap-2">
-                        <Github className="w-4 h-4" /> GitHub
+                    <Button asChild variant="outline" size="lg" className="gap-2">
+                        <a href="https://github.com/Mayur-Pagote/README_Design_Kit" target="_blank">
+                            <Github className="w-4 h-4" /> GitHub
+                        </a>
+                            
                     </Button>
                 </div>
             </section>
@@ -211,7 +217,7 @@ export default function AboutUs() {
                         Want to see your face here? Contribute to our project on GitHub!
                     </p>
                     <Button asChild variant="outline" className="gap-2">
-                        <a href="https://github.com/Code-writter/README_Design_Kit" target="_blank" rel="noopener noreferrer">
+                        <a href="https://github.com/Mayur-Pagote/README_Design_Kit" target="_blank">
                             <Github className="w-4 h-4" /> Contribute Now
                         </a>
                     </Button>
@@ -225,11 +231,15 @@ export default function AboutUs() {
                     Join thousands of developers who are creating beautiful README files with our tools.
                 </p>
                 <div className="flex justify-center gap-4">
-                    <Button size="lg" className="gap-2">
-                        <Code className="w-4 h-4" /> Start Building
+                    <Button asChild size="lg" className="gap-2">
+                        <Link to="/drag-drop">
+                            <Code className="w-4 h-4" /> Start Building
+                        </Link>
                     </Button>
-                    <Button variant="outline" size="lg" className="gap-2">
-                        <BookOpen className="w-4 h-4" /> View Documentation
+                    <Button asChild variant="outline" size="lg" className="gap-2">
+                        <a href="https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/README.md" target="_blank">
+                            <BookOpen className="w-4 h-4" /> View Documentation
+                        </a>   
                     </Button>
                 </div>
             </section>
