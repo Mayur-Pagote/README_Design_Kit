@@ -4,7 +4,7 @@ import { Copy, Download, RefreshCw, Share2, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import { GeneratorState } from './Readme-generator';
+import type { GeneratorState } from './Readme-generator';
 
 interface FinalPageProps {
   state: GeneratorState;

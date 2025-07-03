@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
-import { GeneratorState } from '@/pages/Index';
+import type { GeneratorState } from './Readme-generator';
 import ProgressIndicator from './ProgressIndicator';
 
 interface AdditionalStuffPageProps {
