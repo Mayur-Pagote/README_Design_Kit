@@ -33,7 +33,7 @@ export function TemplateThumbnail({ template, className = "" }: TemplateThumbnai
   }
 
   return (
-    <div className={`relative overflow-hidden border rounded-lg bg-white aspect-video ${className}`}>
+    <div className={`relative overflow-hidden border rounded-t-lg bg-white aspect-video ${className}`}>
       <img
         src={iconPath}
         alt={`${template.category} icon`}

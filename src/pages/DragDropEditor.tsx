@@ -303,12 +303,12 @@ export default function DragDropEditor() {
       {/* Editor Layout */}
       <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
         {showPalette && (
-          <div className="md:w-1/4 w-full border-b md:border-b-0 md:border-r border-border">
+          <div className="basis-1/4 min-w-[220px] max-w-[320px] md:border-r overflow-y-scroll">
             <ElementPalette onAddElement={handleAddElement} />
           </div>
         )}
 
-        <div className="flex-1 w-full">
+        <div className="flex-1 overflow-y-scroll">
           <EditorCanvas
             elements={elements}
             onElementsChange={handleElementsChange}
@@ -317,12 +317,11 @@ export default function DragDropEditor() {
         </div>
 
         {showPreview && (
-          <div className="md:w-1/2 w-full border-t md:border-t-0 md:border-l border-border">
+          <div className="basis-1/2 max-w-[600px] md:border-l overflow-y-scroll">
             <ReadmePreview elements={elements} />
           </div>
         )}
       </div>
-
 
       <AssistantLauncher
         elements={elements}
