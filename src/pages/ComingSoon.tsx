@@ -56,7 +56,7 @@ export default function ComingSoon() {
               <Bell className="mr-2 h-5 w-5" />
               Get Notified
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8">
+            <Button variant="outline" size="lg" className="text-lg px-8" onClick={() => document.getElementById("feature-roadmap")?.scrollIntoView({ behavior: 'smooth' })}>
               <Star className="mr-2 h-5 w-5" />
               Follow Progress
             </Button>
@@ -80,7 +80,7 @@ export default function ComingSoon() {
       </section>
 
       {/*Feature Roadmap*/}
-      <section className="relative px-6 overflow-hidden">
+      <section id="feature-roadmap" className="relative px-6 overflow-hidden">
 
       <h2 className="text-4xl font-bold text-center mb-12 text-primary tracking-tight">
         Feature Roadmap
