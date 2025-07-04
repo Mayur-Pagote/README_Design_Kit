@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Sparkles, X } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { ReadmeAnalysis } from "@/components/ReadmeAnalysis";
 import type { ElementType } from "@/types/elements";
 
