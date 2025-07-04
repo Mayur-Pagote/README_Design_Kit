@@ -35,6 +35,7 @@ import type { ElementType, GitContributionElement } from '@/types/elements';
 import type { Template } from '@/types/templates';
 import ScrollToTop from '@/components/ScrollToTop';
 import { GithubUsernameDialog } from '@/components/GithubUsernameDialog';
+import { toast } from 'sonner';
 
 export default function DragDropEditor() {
   const [elements, setElements] = useState<ElementType[]>([]);
@@ -116,6 +117,67 @@ export default function DragDropEditor() {
     setElements(prev => prev.map(el => (el.id === id ? { ...el, content: newContent } : el)));
   };
 
+  // Enhanced action handlers for AI suggestions
+  const handleRemoveElement = (elementId: string) => {
+    setElements(prev => prev.filter(el => el.id !== elementId));
+    toast.success('Element removed successfully');
+  };
+
+  const handleReorderElement = (elementId: string, direction: 'up' | 'down') => {
+    setElements(prev => {
+      const currentIndex = prev.findIndex(el => el.id === elementId);
+      if (currentIndex === -1) return prev;
+      
+      const newIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+      if (newIndex < 0 || newIndex >= prev.length) return prev;
+      
+      const newElements = [...prev];
+      [newElements[currentIndex], newElements[newIndex]] = [newElements[newIndex], newElements[currentIndex]];
+      toast.success(`Element moved ${direction}`);
+      return newElements;
+    });
+  };
+
+  const handleEnhancedAction = (action: import('@/types/branding').SuggestionAction) => {
+    switch (action.type) {
+      case 'edit':
+        if (action.elementId && action.newContent) {
+          handleBrandingSuggestion(action.elementId, action.newContent);
+          toast.success('Content updated successfully');
+        }
+        break;
+      case 'add':
+        if (action.elementToAdd) {
+          const validatedElement = validateElementForEditor(action.elementToAdd);
+          if (validatedElement) {
+            handleAddElement(validatedElement);
+            toast.success('New element added to README');
+          } else {
+            toast.error('Invalid element - could not add to README');
+            console.error('Failed to validate element:', action.elementToAdd);
+          }
+        }
+        break;
+      case 'remove':
+        if (action.elementId) {
+          handleRemoveElement(action.elementId);
+        }
+        break;
+      case 'reorder':
+        if (action.elementId && action.direction) {
+          handleReorderElement(action.elementId, action.direction);
+        }
+        break;
+      case 'enhance':
+        // For enhance actions, we might want to trigger AI enhancement
+        if (action.elementId && action.newContent) {
+          handleBrandingSuggestion(action.elementId, action.newContent);
+          toast.success('Content enhanced with AI');
+        }
+        break;
+    }
+  };
+
   const loadDemo = () => {
     const demoWithUsername = demoElements.map(element => {
       if (element.type === 'git-contribution' && element.username === 'your-username') {
@@ -157,6 +219,94 @@ export default function DragDropEditor() {
         return el;
       })
     );
+  };
+
+  // Helper function to validate and sanitize elements before adding
+  const validateElementForEditor = (element: any): ElementType | null => {
+    if (!element || !element.type || !element.id) {
+      console.warn('Invalid element: missing type or id', element);
+      return null;
+    }
+
+    const validTypes = [
+      'text', 'title', 'description', 'header', 'banner', 'git-contribution',
+      'tech-stack', 'image', 'code-block', 'table', 'badge', 'divider', 'installation'
+    ];
+
+    if (!validTypes.includes(element.type)) {
+      console.warn('Invalid element type:', element.type);
+      return null;
+    }
+
+    // Ensure required properties exist for each element type
+    try {
+      switch (element.type) {
+        case 'text':
+          if (!element.content) return null;
+          return {
+            ...element,
+            style: element.style || {
+              fontSize: 'md' as const,
+              fontWeight: 'normal' as const,
+              textAlign: 'left' as const,
+              color: 'inherit'
+            }
+          } as ElementType;
+        case 'header':
+          if (!element.content) return null;
+          return {
+            ...element,
+            level: element.level || 2
+          } as ElementType;
+        case 'tech-stack':
+          return {
+            ...element,
+            technologies: element.technologies || ['JavaScript'],
+            layout: element.layout || 'badges'
+          } as ElementType;
+        case 'code-block':
+          if (!element.content) return null;
+          return {
+            ...element,
+            language: element.language || 'bash'
+          } as ElementType;
+        case 'banner':
+          if (!element.content) return null;
+          return {
+            ...element,
+            variant: element.variant || 'default',
+            color: element.color || 'blue'
+          } as ElementType;
+        case 'git-contribution':
+          return {
+            ...element,
+            username: element.username || 'your-username',
+            repository: element.repository || 'your-repo'
+          } as ElementType;
+        case 'image':
+          return {
+            ...element,
+            src: element.src || 'https://via.placeholder.com/300x200',
+            alt: element.alt || 'Image description'
+          } as ElementType;
+        case 'table':
+          return {
+            ...element,
+            headers: element.headers || ['Column 1', 'Column 2'],
+            rows: element.rows || [['Row 1 Col 1', 'Row 1 Col 2']]
+          } as ElementType;
+        case 'divider':
+          return {
+            ...element,
+            dividerStyle: element.dividerStyle || 'line'
+          } as ElementType;
+        default:
+          return element as ElementType;
+      }
+    } catch (error) {
+      console.warn('Error validating element:', error);
+      return null;
+    }
   };
 
   return (
@@ -328,6 +478,10 @@ export default function DragDropEditor() {
         elements={elements}
         isEditorActive={elements.length > 0}
         onApplySuggestion={handleBrandingSuggestion}
+        onApplyAction={handleEnhancedAction}
+        onAddElement={handleAddElement}
+        onRemoveElement={handleRemoveElement}
+        onReorderElement={handleReorderElement}
         backToTopVisible={backToTopVisible}
       />
       <ScrollToTop isVisible={backToTopVisible} />

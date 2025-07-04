@@ -2,11 +2,16 @@ import { useState } from "react";
 import { Sparkles, X } from "lucide-react";
 import { ReadmeAnalysis } from "@/components/ReadmeAnalysis";
 import type { ElementType } from "@/types/elements";
+import type { SuggestionAction } from "@/types/branding";
 
 interface AssistantLauncherProps {
   elements: ElementType[];
   isEditorActive: boolean;
   onApplySuggestion: (elementId: string, newContent: string) => void;
+  onApplyAction?: (action: SuggestionAction) => void;
+  onAddElement?: (element: ElementType) => void;
+  onRemoveElement?: (elementId: string) => void;
+  onReorderElement?: (elementId: string, direction: 'up' | 'down') => void;
   backToTopVisible?: boolean;
 }
 
@@ -14,6 +19,10 @@ export function AssistantLauncher({
   elements,
   isEditorActive,
   onApplySuggestion,
+  onApplyAction,
+  onAddElement,
+  onRemoveElement,
+  onReorderElement,
   backToTopVisible = false,
 }: AssistantLauncherProps) {
   const [open, setOpen] = useState(false);
@@ -37,6 +46,10 @@ export function AssistantLauncher({
             elements={elements}
             isEditorActive={isEditorActive}
             onApplySuggestion={onApplySuggestion}
+            onApplyAction={onApplyAction}
+            onAddElement={onAddElement}
+            onRemoveElement={onRemoveElement}
+            onReorderElement={onReorderElement}
           />
           <div className="flex justify-end border-t px-4 py-2">
             <button
