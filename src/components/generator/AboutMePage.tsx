@@ -3,8 +3,8 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, User, Telescope, Users, HelpCircle, Lightbulb, MessageCircle, Zap } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { GeneratorState } from '@/components/generator/Readme-generator';
-import ProgressIndicator from '@/components/generator/ProgressIndicator';
+import type { GeneratorState } from './Readme-generator';
+import ProgressIndicator from './ProgressIndicator';
 
 interface AboutMePageProps {
   state: GeneratorState;

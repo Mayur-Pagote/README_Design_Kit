@@ -5,8 +5,8 @@ import { ArrowLeft, ArrowRight, Code, Search, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { GeneratorState } from '@/pages/Index';
-import ProgressIndicator from './ProgressIndicator';
+import type { GeneratorState } from './Readme-generator';
+import ProgressIndicator from "./ProgressIndicator";
 
 interface TechStackPageProps {
   state: GeneratorState;

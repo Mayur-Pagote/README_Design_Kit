@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
-import { GeneratorState } from '@/components/generator/Readme-generator';
-import ProgressIndicator from '@/components/generator/ProgressIndicator';
+import type { GeneratorState } from './Readme-generator';
+import ProgressIndicator from './ProgressIndicator';
 
 interface GitHubStatsPageProps {
   state: GeneratorState;

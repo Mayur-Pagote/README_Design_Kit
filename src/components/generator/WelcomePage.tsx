@@ -4,14 +4,21 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Github, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import type { GeneratorState } from './Readme-generator';
 
+interface WelcomePageProps {
+  state: GeneratorState;
+  setState: (state: GeneratorState) => void;
+  nextPage: () => void;
+}
 
-const WelcomePage = () => {
-  const [username, setUsername] = useState('');
+const WelcomePage = ({ state, setState, nextPage }: WelcomePageProps) => {
+  const [username, setUsername] = useState(state.username);
 
   const handleNext = () => {
     if (username.trim()) {
-      
+      setState({ ...state, username: username.trim() }); 
+      nextPage();
     }
   };
 

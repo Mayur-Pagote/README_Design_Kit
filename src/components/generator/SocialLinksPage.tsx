@@ -4,8 +4,8 @@ import { ArrowLeft, ArrowRight, Share2, Github, Linkedin, Twitter, Instagram, Yo
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { GeneratorState } from '@/components/generator/Readme-generator';
-import ProgressIndicator from '@/components/generator/ProgressIndicator';
+import type { GeneratorState } from './Readme-generator';
+import ProgressIndicator from './ProgressIndicator';
 
 interface SocialLinksPageProps {
   state: GeneratorState;
