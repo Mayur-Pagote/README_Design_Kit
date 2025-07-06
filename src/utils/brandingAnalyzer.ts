@@ -61,6 +61,21 @@ TARGET TONE: ${targetTone} (${TONE_DESCRIPTIONS[targetTone]})
 README CONTENT:
 ${readmeContent}
 
+VALID ELEMENT TYPES AND REQUIRED PROPERTIES:
+- text: requires content, style: { fontSize: 'sm'|'md'|'lg'|'xl'|'2xl'|'3xl', fontWeight: 'normal'|'bold'|'semibold', textAlign: 'left'|'center'|'right', color: string }
+- title: requires content
+- description: requires content  
+- header: requires content, level: 1|2|3|4|5|6
+- banner: requires content, variant: 'default'|'gradient'|'colored', color: string
+- git-contribution: requires username, repository
+- tech-stack: requires technologies: string[], layout: 'grid'|'list'|'badges'|'inline'|'grouped'
+- image: requires src, alt
+- code-block: requires content, language
+- table: requires headers: string[], rows: string[][]
+- badge: requires content
+- divider: requires dividerStyle: 'line'|'dots'|'stars'
+- installation: requires content
+
 Please analyze and return a JSON object with the following structure:
 {
   "overallScore": <number 0-100>,
@@ -77,7 +92,19 @@ Please analyze and return a JSON object with the following structure:
       "excerpt": "<relevant text snippet if applicable>",
       "elementId": "<element id if applicable>",
       "fix": "<specific replacement text if applicable>",
-      "fixType": "<grammar|enhancement|rewrite|addition>"
+      "fixType": "<grammar|enhancement|rewrite|addition>",
+      "action": {
+        "type": "<edit|add|remove|reorder|enhance>",
+        "elementId": "<target element id if applicable>",
+        "newContent": "<new content for edit/enhance actions>",
+        "elementToAdd": {
+          "id": "<unique-id>",
+          "type": "<valid-element-type>",
+          "content": "<element-content>",
+          "<additional-required-properties>": "<based-on-element-type>"
+        },
+        "direction": "<up|down for reorder actions>"
+      }
     }
   ]
 }
@@ -94,10 +121,16 @@ Analysis Guidelines:
    - Structure and organization
    - Technical accuracy
 
-For suggestions with fixable content:
+For suggestions with actionable improvements:
 - Include "elementId" if you can identify which element needs fixing
 - Include "fix" with the exact replacement text
 - Include "fixType" to categorize the type of fix
+- Include "action" object with specific action details:
+  * "edit": Modify existing content (include elementId and newContent)
+  * "add": Add new element (include elementToAdd object)
+  * "remove": Remove existing element (include elementId)
+  * "reorder": Move element up/down (include elementId and direction)
+  * "enhance": AI-enhance existing content (include elementId and newContent)
 
 Provide specific, actionable feedback with implementable fixes where possible.`;
 
@@ -116,6 +149,79 @@ Provide specific, actionable feedback with implementable fixes where possible.`;
 
     const analysisResult = JSON.parse(jsonStr);
     
+    // Helper function to validate and sanitize element objects
+    const validateElement = (elementToAdd: any): any => {
+      if (!elementToAdd || !elementToAdd.type) return null;
+      
+      const validTypes = [
+        'text', 'title', 'description', 'header', 'banner', 'git-contribution',
+        'tech-stack', 'image', 'code-block', 'table', 'badge', 'divider', 'installation'
+      ];
+      
+      if (!validTypes.includes(elementToAdd.type)) return null;
+      
+      // Apply default required properties based on element type
+      switch (elementToAdd.type) {
+        case 'text':
+          return {
+            ...elementToAdd,
+            style: elementToAdd.style || {
+              fontSize: 'md',
+              fontWeight: 'normal',
+              textAlign: 'left',
+              color: 'inherit'
+            }
+          };
+        case 'header':
+          return {
+            ...elementToAdd,
+            level: elementToAdd.level || 2
+          };
+        case 'banner':
+          return {
+            ...elementToAdd,
+            variant: elementToAdd.variant || 'default',
+            color: elementToAdd.color || 'blue'
+          };
+        case 'tech-stack':
+          return {
+            ...elementToAdd,
+            technologies: elementToAdd.technologies || ['JavaScript'],
+            layout: elementToAdd.layout || 'badges'
+          };
+        case 'code-block':
+          return {
+            ...elementToAdd,
+            language: elementToAdd.language || 'bash'
+          };
+        case 'divider':
+          return {
+            ...elementToAdd,
+            dividerStyle: elementToAdd.dividerStyle || 'line'
+          };
+        case 'git-contribution':
+          return {
+            ...elementToAdd,
+            username: elementToAdd.username || 'your-username',
+            repository: elementToAdd.repository || 'your-repo'
+          };
+        case 'image':
+          return {
+            ...elementToAdd,
+            src: elementToAdd.src || 'https://via.placeholder.com/300x200',
+            alt: elementToAdd.alt || 'Image description'
+          };
+        case 'table':
+          return {
+            ...elementToAdd,
+            headers: elementToAdd.headers || ['Column 1', 'Column 2'],
+            rows: elementToAdd.rows || [['Row 1 Col 1', 'Row 1 Col 2']]
+          };
+        default:
+          return elementToAdd;
+      }
+    };
+    
     // Validate and sanitize the response
     return {
       suggestions: (analysisResult.suggestions || []).slice(0, 8).map((s: any, index: number) => ({
@@ -130,7 +236,14 @@ Provide specific, actionable feedback with implementable fixes where possible.`;
         elementId: s.elementId || undefined,
         fix: s.fix || undefined,
         fixType: s.fixType || undefined,
-      })),
+        action: s.action ? {
+          type: s.action.type,
+          elementId: s.action.elementId,
+          newContent: s.action.newContent,
+          elementToAdd: s.action.elementToAdd ? validateElement(s.action.elementToAdd) : undefined,
+          direction: s.action.direction
+        } : undefined,
+      })).filter((s: any) => !s.action || s.action.type !== 'add' || s.action.elementToAdd), // Filter out invalid add actions
       overallScore: Math.max(0, Math.min(100, analysisResult.overallScore || 50)),
       toneConsistency: Math.max(0, Math.min(100, analysisResult.toneConsistency || 50)),
       detectedTone: ['casual', 'technical', 'professional', 'open-source'].includes(analysisResult.detectedTone) 
@@ -175,6 +288,15 @@ function performBasicAnalysis(elements: ElementType[]): BrandingSuggestion[] {
       severity: 'high',
       type: 'structure',
       confidence: 0.9,
+      action: {
+        type: 'add',
+        elementToAdd: {
+          id: 'header-' + Date.now(),
+          type: 'header',
+          content: 'Your Project Title',
+          level: 1
+        }
+      }
     });
   }
 
@@ -186,6 +308,20 @@ function performBasicAnalysis(elements: ElementType[]): BrandingSuggestion[] {
       severity: 'high',
       type: 'structure',
       confidence: 0.9,
+      action: {
+        type: 'add',
+        elementToAdd: {
+          id: 'description-' + Date.now(),
+          type: 'text',
+          content: 'A brief description of what your project does and why it\'s useful.',
+          style: {
+            fontSize: 'md',
+            fontWeight: 'normal',
+            textAlign: 'left',
+            color: 'inherit'
+          }
+        }
+      }
     });
   }
 
@@ -197,6 +333,15 @@ function performBasicAnalysis(elements: ElementType[]): BrandingSuggestion[] {
       severity: 'medium',
       type: 'structure',
       confidence: 0.8,
+      action: {
+        type: 'add',
+        elementToAdd: {
+          id: 'installation-' + Date.now(),
+          type: 'code-block',
+          language: 'bash',
+          content: '# Install with npm\nnpm install your-package\n\n# Or with yarn\nyarn add your-package'
+        }
+      }
     });
   }
 
@@ -208,8 +353,51 @@ function performBasicAnalysis(elements: ElementType[]): BrandingSuggestion[] {
       severity: 'low',
       type: 'structure',
       confidence: 0.7,
+      action: {
+        type: 'add',
+        elementToAdd: {
+          id: 'tech-stack-' + Date.now(),
+          type: 'tech-stack',
+          technologies: ['JavaScript', 'Node.js', 'React'],
+          layout: 'badges'
+        }
+      }
     });
   }
+
+  // Check for content quality issues
+  elements.forEach((element) => {
+    // Check for empty content
+    if (element.type === 'text' && element.content && element.content.length < 10) {
+      suggestions.push({
+        section: 'Content Quality',
+        suggestion: 'Expand this text section with more details',
+        reason: 'Short descriptions may not provide enough context for users',
+        severity: 'medium',
+        type: 'wording',
+        confidence: 0.7,
+        elementId: element.id,
+        action: {
+          type: 'enhance',
+          elementId: element.id,
+          newContent: element.content + ' [Add more details about this section]'
+        }
+      });
+    }
+
+    // Check for very long content that might need breaking up
+    if (element.type === 'text' && element.content && element.content.length > 500) {
+      suggestions.push({
+        section: 'Content Structure',
+        suggestion: 'Consider breaking this long text into smaller sections',
+        reason: 'Long paragraphs can be difficult to read and scan',
+        severity: 'low',
+        type: 'structure',
+        confidence: 0.6,
+        elementId: element.id
+      });
+    }
+  });
 
   return suggestions;
 }

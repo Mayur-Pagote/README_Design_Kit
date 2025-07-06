@@ -283,9 +283,9 @@ interface TemplateCardProps {
 
 function TemplateCard({ template, isFavorite, onSelect, onPreview, onToggleFavorite }: TemplateCardProps) {
   return (
-    <Card className="group hover:shadow-lg transition-all duration-200 cursor-pointer">
+    <Card className="group hover:shadow-lg transition-all duration-200 cursor-pointer p-0 pb-6">
       <div className="aspect-video bg-muted rounded-t-lg overflow-hidden">
-        <TemplateThumbnail template={template} className="w-full h-full" />
+        <TemplateThumbnail template={template} className="w-full h-full object-cover" />
       </div>
       
       <CardHeader className="pb-3">

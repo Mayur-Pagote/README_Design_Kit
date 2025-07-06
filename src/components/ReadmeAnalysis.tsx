@@ -8,6 +8,11 @@ import {
   RefreshCw,
   Bot,
   Wand2,
+  Plus,
+  Trash2,
+  ArrowUp,
+  ArrowDown,
+  Edit3,
 } from "lucide-react";
 
 import { Badge } from "@/components/ui/badge";
@@ -26,13 +31,30 @@ import {
 } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
 import { analyzeBranding } from "@/utils/brandingAnalyzer";
-import type { BrandingTone, BrandingAnalysis } from "@/types/branding";
+import type { BrandingTone, BrandingAnalysis, SuggestionAction } from "@/types/branding";
 import type { ElementType } from "@/types/elements";
+
+// Enhanced action types for suggestions
+export type SuggestionActionType = 'edit' | 'add' | 'remove' | 'reorder' | 'enhance';
+
+export interface EnhancedSuggestionAction {
+  type: SuggestionActionType;
+  elementId?: string;
+  newContent?: string;
+  elementToAdd?: Partial<ElementType>;
+  targetPosition?: number;
+  direction?: 'up' | 'down';
+}
 
 interface ReadmeAnalysisProps {
   elements: ElementType[];
   isEditorActive: boolean;
   onApplySuggestion: (elementId: string, newContent: string) => void;
+  // Enhanced callback for complex actions
+  onApplyAction?: (action: SuggestionAction) => void;
+  onAddElement?: (element: ElementType) => void;
+  onRemoveElement?: (elementId: string) => void;
+  onReorderElement?: (elementId: string, direction: 'up' | 'down') => void;
 }
 
 const TONE_DESCRIPTIONS: Record<BrandingTone, string> = {
@@ -58,6 +80,10 @@ export function ReadmeAnalysis({
   elements,
   isEditorActive,
   onApplySuggestion,
+  onApplyAction,
+  onAddElement,
+  onRemoveElement,
+  onReorderElement,
 }: ReadmeAnalysisProps) {
   const [selectedTone, setSelectedTone] = useState<BrandingTone>("professional");
   const [analysis, setAnalysis] = useState<BrandingAnalysis | null>(null);
@@ -287,6 +313,70 @@ export function ReadmeAnalysis({
                               >
                                 Apply fix
                               </button>
+                            )}
+
+                            {/* Enhanced action handling */}
+                            {s.action && onApplyAction && (
+                              <div className="mt-2 flex flex-wrap gap-1">
+                                {s.action.type === 'edit' && (
+                                  <button
+                                    onClick={() => onApplyAction(s.action!)}
+                                    className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded hover:bg-blue-200"
+                                  >
+                                    <Edit3 className="h-3 w-3" />
+                                    Edit Content
+                                  </button>
+                                )}
+                                
+                                {s.action.type === 'add' && onAddElement && (
+                                  <button
+                                    onClick={() => onAddElement && onAddElement(s.action!.elementToAdd as ElementType)}
+                                    className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-green-100 text-green-700 rounded hover:bg-green-200"
+                                  >
+                                    <Plus className="h-3 w-3" />
+                                    Add Element
+                                  </button>
+                                )}
+                                
+                                {s.action.type === 'remove' && onRemoveElement && s.action.elementId && (
+                                  <button
+                                    onClick={() => onRemoveElement && onRemoveElement(s.action!.elementId!)}
+                                    className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-red-100 text-red-700 rounded hover:bg-red-200"
+                                  >
+                                    <Trash2 className="h-3 w-3" />
+                                    Remove
+                                  </button>
+                                )}
+                                
+                                {s.action.type === 'reorder' && onReorderElement && s.action.elementId && (
+                                  <div className="flex gap-1">
+                                    <button
+                                      onClick={() => onReorderElement && onReorderElement(s.action!.elementId!, 'up')}
+                                      className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded hover:bg-purple-200"
+                                    >
+                                      <ArrowUp className="h-3 w-3" />
+                                      Move Up
+                                    </button>
+                                    <button
+                                      onClick={() => onReorderElement && onReorderElement(s.action!.elementId!, 'down')}
+                                      className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded hover:bg-purple-200"
+                                    >
+                                      <ArrowDown className="h-3 w-3" />
+                                      Move Down
+                                    </button>
+                                  </div>
+                                )}
+                                
+                                {s.action.type === 'enhance' && (
+                                  <button
+                                    onClick={() => onApplyAction(s.action!)}
+                                    className="inline-flex items-center gap-1 px-2 py-1 text-xs bg-yellow-100 text-yellow-700 rounded hover:bg-yellow-200"
+                                  >
+                                    <Wand2 className="h-3 w-3" />
+                                    Enhance
+                                  </button>
+                                )}
+                              </div>
                             )}
                           </div>
                         </div>

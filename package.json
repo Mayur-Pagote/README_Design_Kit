@@ -49,6 +49,7 @@
     "date-fns": "^4.1.0",
     "dom-to-image-more": "^3.6.0",
     "embla-carousel-react": "^8.6.0",
+    "framer-motion": "^12.19.2",
     "html2canvas": "^1.4.1",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.513.0",
