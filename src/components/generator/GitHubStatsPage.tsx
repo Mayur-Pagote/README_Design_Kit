@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, BarChart3, Settings, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Switch } from '@/components/ui/switch';
+
 import { Label } from '@/components/ui/label';
 import type { GeneratorState } from './Readme-generator';
 import ProgressIndicator from './ProgressIndicator';
@@ -20,7 +20,7 @@ interface GitHubStatsPageProps {
 
 const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, prevPage }: GitHubStatsPageProps) => {
   const [loading, setLoading] = useState(false);
-  const [githubData, setGithubData] = useState<any>(null);
+  const [ setGithubData] = useState<any>(null);
 
   useEffect(() => {
     if (state.username) {
