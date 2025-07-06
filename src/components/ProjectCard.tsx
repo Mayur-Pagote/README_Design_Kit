@@ -16,11 +16,29 @@ interface ProjectCardProps {
     gradient?: string;
     icon?: React.ComponentType<{ className?: string }>; // ✅ Ensure `icon` is optional
     featured?: boolean;
+    githubUrl?: string;
+    websiteUrl?: string;
   };
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const Icon = project.icon || Sparkles; // ✅ Use a fallback icon if `undefined`
+
+  const handleGitClick = () => {
+    if(project.githubUrl) {
+      window.open(project.githubUrl, "_blank", "noopener noreferrer");
+    } else {
+      alert("Github Repo not available yet");
+    }
+  };
+
+  const handleWebsiteClick = () => {
+    if(project.websiteUrl) {
+      window.open(project.websiteUrl, "_blank", "noopener noreferrer");
+    } else {
+      alert("Website not deployed yet");
+    }
+  }
 
   return (
     <Card className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300 overflow-hidden hover:bg-card/80">
@@ -95,6 +113,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               size="sm"
               className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-all duration-200"
               aria-label="View on GitHub"
+              onClick={handleGitClick}
             >
               <Github className="w-4 h-4" />
             </Button>
@@ -103,6 +122,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               size="sm"
               className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-all duration-200"
               aria-label="View project"
+              onClick= {handleWebsiteClick}
             >
               <ExternalLink className="w-4 h-4" />
             </Button>

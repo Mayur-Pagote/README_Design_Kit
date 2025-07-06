@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Search, Plus, Sparkles } from 'lucide-react';
 import ProjectCard from './ProjectCard';
 import { Link } from 'react-router-dom';
@@ -13,6 +13,42 @@ const ProjectsSection: React.FC = () => {
     const savedProjects = localStorage.getItem("submittedProjects");
     return savedProjects ? JSON.parse(savedProjects) : [];
   });
+  const [stars, setStars] = useState<number | null>(null);
+  const [forks, setForks] = useState<number | null>(null);
+
+  useEffect(() => {
+    const fetchRepoStats = async () => {
+      try {
+        const response = await fetch("https://api.github.com/repos/Mayur-Pagote/README_Design_Kit");
+        if(!response.ok) {
+          throw new Error("GitHub API Error");
+        }
+        const data = await response.json();
+        setStars(data.stargazers_count);
+        setForks(data.forks_count);
+      } catch(error) {
+        console.error("Error fetching GitHub stars: ", error);
+      }
+    };
+
+    fetchRepoStats();
+  },[])
+
+  //Demo Project if no project is available
+
+  const demoProject = {
+    id: 1,
+    title: "README Design Kit",
+    description: "README_Design_Kit is an open-source template project meant to help developers and contributors create high-quality, consistent, and appealing README.md files for any type of GitHub project — whether you're building a Python CLI tool, a web app, or participating in open-source programs like SSoC.",
+    category: "DevTools",
+    tags: ["React", "TypeScript", "Open Source", "Documentation"],
+    stars: stars !== null ? stars: 0,
+    forks: forks !== null ? forks: 0,
+    gradient: "from-purple-600 to-blue-600",
+    featured: true,
+    githubUrl: "https://github.com/Mayur-Pagote/README_Design_Kit",
+    websiteUrl: "https://readme-design-kit.vercel.app/"
+  }
 
   const filteredProjects = useMemo(() => {
     let filtered = Array.isArray(submittedProjects) ? [...submittedProjects] : []; 
@@ -62,31 +98,24 @@ const ProjectsSection: React.FC = () => {
           </div>
         </div>
 
-        {/* If No Projects Exist, Show Submit Button */}
+        {/* If No Projects Exist, Show demo project */}
         {filteredProjects.length === 0 && (
-          <div className="text-center py-16 animate-in fade-in duration-700 delay-400">
-            <Card className="max-w-md mx-auto bg-background/50 backdrop-blur-sm border-border/50">
-              <CardContent className="p-8 space-y-6">
-                <div className="w-16 h-16 mx-auto bg-gradient-to-br from-primary/20 to-primary/10 rounded-full flex items-center justify-center">
-                  <Plus className="w-8 h-8 text-primary" />
-                </div>
-                <div className="space-y-2">
-                  <h3 className="text-xl font-semibold text-foreground">No projects added yet</h3>
-                  <p className="text-muted-foreground">Be the first to showcase your work!</p>
-                </div>
-                <Link to="/submit">
-                  <Button 
-                    size="lg" 
-                    className="w-full bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary text-primary-foreground shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Submit Your Project
-                  </Button>
+          <div className="text-center py-5 animate-in fade-in duration-700 delay-400 space-y-8">
+             <h3 className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+                No projects available,&nbsp;
+                <Link to="/submit" className="text-primary hover:underline hover:text-primary/80 transition-colors">
+                  submit one
                 </Link>
-              </CardContent>
-            </Card>
+                ! Here’s a demo project:
+            </h3>
+
+            {/* demo project card */}
+            <div className="max-w-md mx-auto">
+              <ProjectCard project={demoProject} />
+            </div>
           </div>
         )}
+
 
         {/* Projects Grid */}
         {filteredProjects.length > 0 && (
