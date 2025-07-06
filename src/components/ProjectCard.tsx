@@ -1,16 +1,14 @@
-import React from 'react';
-import { Star, GitBranch, Sparkles, ExternalLink, Github } from 'lucide-react';
+import React, { useState } from 'react';
+import { Star, GitBranch, Sparkles, ExternalLink, Github, Heart, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { Textarea } from './ui/textarea';
 
 
 interface ProjectCardProps {
@@ -27,10 +25,18 @@ interface ProjectCardProps {
     featured?: boolean;
     githubUrl?: string;
     websiteUrl?: string;
+    features?: string[];
+    author?: string;
+    lastUpdated?: string;
   };
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedback, setFeedback] = useState('');
+  const [feedbackType, setFeedbackType] = useState<'positive' | 'negative' | null>(null);
+  const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
+
   const Icon = project.icon || Sparkles; // ✅ Use a fallback icon if `undefined`
 
   const handleGitClick = () => {
@@ -48,7 +54,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       alert("Website not deployed yet");
     }
   }
-
+  const handleFeedbackSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (feedback.trim()) {
+      setFeedbackSubmitted(true);
+      setFeedback('');
+      setFeedbackType(null);
+      
+      // Reset after 3 seconds
+      setTimeout(() => {
+        setFeedbackSubmitted(false);
+        setShowFeedback(false);
+      }, 3000);
+    }
+  }
   return (
     <Card className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300 overflow-hidden hover:bg-card/80">
       {/* Gradient Header */}
@@ -142,51 +161,159 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
               <Button
                 variant="ghost"
                 size="sm"
-                className=''
+                className='text-muted-foreground'
                 aria-label="More info"
               >
                 More Info
               </Button>
             </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <h2 className="text-2xl font-bold">{project.title}</h2>
-                <DialogDescription>
-                  {project.category}
-                </DialogDescription>
-              </DialogHeader>
-              <div className="space-y-2 text-foreground text-sm">
-                <p><strong>Description:</strong> {project.description}</p>
-                {project.tags?.length ? (
-                  <p><strong>Tags:</strong> {project.tags.join(', ')}</p>
-                ) : (
-                  <p><strong>Tags:</strong> None</p>
-                )}
-                <p><strong>Stars:</strong> {project.stars || 0}</p>
-                <p><strong>Forks:</strong> {project.forks || 0}</p>
-                {project.githubUrl && (
-                  <p>
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline text-primary"
+            <DialogContent className="template-scroll max-w-4xl max-h-[80vh] overflow-auto">
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 mb-5">
+                  <h2 className="text-2xl font-bold">{project.title}</h2>
+                  {project.featured && (
+                    <Badge variant="default" className="text-xs ml-1 mt-1 pointer-events-none">
+                      <Star className="h-3 w-3 mr-1" />
+                      Featured
+                    </Badge>
+                  )}
+                </div>
+                <h3>About this Project</h3>
+                <p className="text-muted-foreground">{project.description}</p>
+              </div>
+              <hr></hr>
+              {/* Features */}
+              {project.features && project.features.length > 0 && (
+                <div className="space-y-2">
+                  <h4 className="font-semibold text-foreground">Key Features</h4>
+                  <ul className="space-y-1">
+                    {project.features.map((feature, index) => (
+                      <li key={index} className="flex items-start space-x-2 text-muted-foreground">
+                        <Sparkles className="w-4 h-4 text-primary mt-0.5" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {/* Tags */}
+              {project.tags && project.tags.length > 0 && (
+              <div className="space-y-2">
+                <h4 className="font-semibold text-foreground">Tags</h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.tags.map((tag) => (
+                    <Badge
+                      key={tag}
+                      variant="outline"
+                      className="bg-primary/5 text-primary border-primary/20"
                     >
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+              {/* External Links */}
+              <div className="space-y-2">
+                <h4 className="font-semibold text-foreground">Project Links</h4>
+                <div className="flex flex-wrap gap-2">
+                  {project.githubUrl && (
+                    <Button variant="outline" size="sm" className="gap-2" onClick={handleGitClick}>
+                      <Github className="w-4 h-4" />
                       View on GitHub
-                    </a>
-                  </p>
+                    </Button>
+                  )}
+                  {project.websiteUrl && (
+                    <Button variant="outline" size="sm" className="gap-2" onClick={handleWebsiteClick}>
+                      <ExternalLink className="w-4 h-4" />
+                      Live Demo
+                    </Button>
+                  )}
+                </div>
+              </div>
+              {/* Project Stats */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-muted-foreground">
+                {project.author && (
+                  <div>
+                    <span className="font-medium">Author:</span> {project.author}
+                  </div>
                 )}
-                {project.websiteUrl && (
-                  <p>
-                    <a
-                      href={project.websiteUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="underline text-primary"
-                    >
-                      Visit Website
-                    </a>
-                  </p>
+                {project.lastUpdated && (
+                  <div>
+                    <span className="font-medium">Last Updated:</span> {project.lastUpdated}
+                  </div>
+                )}
+              </div>
+              <hr></hr>
+              {/* Feedback Section */}
+              <div className="space-y-4 pt-4">
+                <div className="flex items-center justify-between">
+                  <h4 className="font-semibold text-foreground">Feedback</h4>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowFeedback(!showFeedback)}
+                    className="text-muted-foreground hover:text-foreground"
+                  >
+                    {showFeedback ? 'Hide' : 'Add Feedback'}
+                  </Button>
+                </div>
+
+                {showFeedback && (
+                  <div className="space-y-4 animate-in slide-in-from-top-5 duration-300">
+                    {feedbackSubmitted ? (
+                      <div className="text-center py-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                        <Heart className="w-6 h-6 text-green-600 mx-auto mb-2" />
+                        <p className="text-green-700 dark:text-green-300 font-medium">Thank you for your feedback!</p>
+                      </div>
+                    ) : (
+                      <form onSubmit={handleFeedbackSubmit} className="space-y-4">
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-foreground">Feedback Type</label>
+                          <div className="flex gap-2">
+                            <Button
+                              type="button"
+                              variant={feedbackType === 'positive' ? 'default' : 'outline'}
+                              size="sm"
+                              onClick={() => setFeedbackType('positive')}
+                              className="gap-2"
+                            >
+                              <ThumbsUp className="w-4 h-4" />
+                              Positive
+                            </Button>
+                            <Button
+                              type="button"
+                              variant={feedbackType === 'negative' ? 'default' : 'outline'}
+                              size="sm"
+                              onClick={() => setFeedbackType('negative')}
+                              className="gap-2"
+                            >
+                              <ThumbsDown className="w-4 h-4" />
+                              Negative
+                            </Button>
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium text-foreground">Your Feedback (Anonymous)</label>
+                          <Textarea
+                            value={feedback}
+                            onChange={(e) => setFeedback(e.target.value)}
+                            placeholder="Share your thoughts about this project..."
+                            className="min-h-[100px]"
+                            required
+                          />
+                        </div>
+
+                        <Button
+                          type="submit"
+                          className="w-full gap-2"
+                          disabled={!feedback.trim()}
+                        >
+                          Submit Feedback
+                        </Button>
+                      </form>
+                    )}
+                  </div>
                 )}
               </div>
             </DialogContent>

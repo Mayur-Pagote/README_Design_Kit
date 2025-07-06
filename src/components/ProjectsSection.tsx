@@ -39,13 +39,27 @@ const ProjectsSection: React.FC = () => {
     title: "README Design Kit",
     description: "README_Design_Kit is an open-source template project meant to help developers and contributors create high-quality, consistent, and appealing README.md files for any type of GitHub project — whether you're building a Python CLI tool, a web app, or participating in open-source programs like SSoC.",
     category: "DevTools",
-    tags: ["React", "TypeScript", "Open Source", "Documentation"],
+    tags: ["React", "TypeScript", "Open Source", "Documentation", "Tailwind CSS", "Shadcn","Framer Motion"],
     stars: stars !== null ? stars: 0,
     forks: forks !== null ? forks: 0,
     gradient: "from-purple-600 to-blue-600",
     featured: true,
     githubUrl: "https://github.com/Mayur-Pagote/README_Design_Kit",
-    websiteUrl: "https://readme-design-kit.vercel.app/"
+    websiteUrl: "https://readme-design-kit.vercel.app/",
+    features: [
+      "Scrollable Table of Contents",
+      "Clean sectioned layout with emojis and headers",
+      "Easy-to-use Markdown examples",
+      "Project Showcase Page for exploring and submitting README examples",
+      "Advanced search & category-based organization",
+      "Expandable project cards with README previews and GitHub links",
+      "User submission form to showcase projects",
+      "Generate and enhance content with Gemini API",
+      "Context-aware content creation for different element types",
+      "Improve existing text with AI suggestions"
+    ],
+    author: "README Design Kit Team",
+    lastUpdated: "July 2025"
   }
 
   const filteredProjects = useMemo(() => {
