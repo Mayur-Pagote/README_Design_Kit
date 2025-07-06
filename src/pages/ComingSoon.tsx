@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Clock, Bell, Rocket, Star, ArrowRight } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // ✅ Added navigation
+import { motion } from 'framer-motion';
 
 export default function ComingSoon() {
   const [email, setEmail] = useState("");
@@ -20,22 +20,13 @@ export default function ComingSoon() {
   };
 
   const upcomingFeatures = [
+    { title: "Export Formats", description: "Export README as PDF, HTML, etc.", eta: "Q3 2025", priority: "medium" },
     { title: "Advanced Template Library", description: "Pre-built README templates", eta: "Q3 2025", priority: "high" },
-    { title: "Real-time Collaboration", description: "Work together on README files", eta: "Q4 2025", priority: "medium" },
     { title: "GitHub Integration", description: "Direct sync with repositories", eta: "Q3 2025", priority: "high" },
     { title: "Custom Components", description: "Reusable components for docs", eta: "Q4 2025", priority: "low" },
-    { title: "AI-Powered Suggestions", description: "Smart README content recommendations", eta: "Q1 2026", priority: "medium" },
-    { title: "Export Formats", description: "Export README as PDF, HTML, etc.", eta: "Q3 2025", priority: "medium" }
+    { title: "Real-time Collaboration", description: "Work together on README files", eta: "Q4 2025", priority: "medium" },
+    { title: "AI-Powered Suggestions", description: "Smart README content recommendations", eta: "Q1 2026", priority: "medium" }
   ];
-
-  const getPriorityColor = (priority: string) => {
-    switch (priority) {
-      case 'high': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
-      case 'medium': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
-      case 'low': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
-    }
-  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -65,7 +56,7 @@ export default function ComingSoon() {
               <Bell className="mr-2 h-5 w-5" />
               Get Notified
             </Button>
-            <Button variant="outline" size="lg" className="text-lg px-8">
+            <Button variant="outline" size="lg" className="text-lg px-8" onClick={() => document.getElementById("feature-roadmap")?.scrollIntoView({ behavior: 'smooth' })}>
               <Star className="mr-2 h-5 w-5" />
               Follow Progress
             </Button>
@@ -82,41 +73,95 @@ export default function ComingSoon() {
 
           <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
             <Clock className="h-4 w-4" />
-            <span>Last updated: June 14, 2025</span>
+            <span>Last updated: June 30, 2025</span>
           </div>
         </div>
+        <hr className="my-5" />
       </section>
 
-      {/* Features Roadmap */}
-      <section className="py-16 px-6 bg-muted/50">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-12">Feature Roadmap</h2>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {upcomingFeatures.map((feature, index) => (
-              <Card key={index} className="relative overflow-hidden">
-                <CardHeader>
-                  <div className="flex items-start justify-between mb-2">
-                    <CardTitle className="text-lg">{feature.title}</CardTitle>
-                    <Badge className={getPriorityColor(feature.priority)}>
-                      {feature.priority}
-                    </Badge>
+      {/*Feature Roadmap*/}
+      <section id="feature-roadmap" className="relative px-6 overflow-hidden">
+
+      <h2 className="text-4xl font-bold text-center mb-12 text-primary tracking-tight">
+        Feature Roadmap
+      </h2>
+
+      <div className="relative mx-auto max-w-4xl">
+        {/*Central Vertical Line */}
+        <div className="absolute left-1/2 max-[700px]:left-auto max-[700px]:right-30 w-1 bg-gradient-to-b via-primary rounded-full h-full z-0 animate-pulse"/>
+
+        <div className="space-y-24 relative z-10">
+          {upcomingFeatures.map((feature, index) => {
+            const alignLeft = index % 2 === 0;
+
+            // Time check for current feature
+            let isCurrent = false;
+            if (feature.eta === "Q3 2025") {
+              isCurrent = true;
+            }
+
+            return (
+              <motion.div
+                key={index}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{once: true}}
+                initial={{ opacity: 0, x: alignLeft ? -100 : 100 }}
+                transition={{
+                  type: "spring",
+                  stiffness: 120,
+                  damping: 15,
+                  delay: index * 0.1,
+              }}
+                className={`relative w-full flex ${alignLeft ? "justify-start" : "justify-end"} max-[700px]:justify-start`}
+              >
+                {/*Card*/}
+                <div className="w-80 p-4 bg-white/5 border border-primary-500/30 shadow-lg relative -top-5">
+                  <h3 className="text-lg font-semibold text-primary mt-4">{feature.title}</h3>
+                  <p className="text-xs text-muted-foreground mt-1">{feature.description}</p>
+
+                  {/* Priority Badge */}
+                  <div
+                    className={`absolute top-2 ${
+                      alignLeft ? "left-4" : "right-4"
+                    } text-xs font-mono uppercase tracking-wider ${
+                      feature.priority === "high"
+                        ? "text-red-500"
+                        : feature.priority === "medium"
+                        ? "text-yellow-500"
+                        : "text-green-500"
+                    } animate-[priorityGlow_3s_infinite]`}
+                  >
+                    <span className="relative z-10">{feature.priority.toUpperCase()}</span>
+                    <span className="absolute inset-0 blur-md opacity-50">{feature.priority.toUpperCase()}</span>
                   </div>
-                  <CardDescription>{feature.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <Clock className="h-4 w-4" />
-                      <span>ETA: {feature.eta}</span>
-                    </div>
+
+                  {/* L-shaped corners — might refactor these into a <Corners /> comp later */}
+                  <span className="border-corner absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-primary" />
+                  <span className="corner-top-right absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-primary" />
+                  <span className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-primary" />
+                  <span className="bottom-right absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-primary" />
+
+                  {/* Only show at time */}
+                  {isCurrent && (
+                    <div
+                      className={`absolute w-4 h-4 rounded-full bg-primary border-4 border-background top-2 animate-ping ${
+                        alignLeft ? "left-73" : "right-73"
+                      }`}
+                    ></div>
+                  )}
+
+                  {/* ETA row */}
+                  <div className="flex items-center gap-1 text-x text-primary mt-2">
+                    <Clock className="w-4 h-4" />
+                    ETA: {feature.eta}
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Newsletter Signup */}
       <section id="stay-in-loop" className="py-20 px-6">
