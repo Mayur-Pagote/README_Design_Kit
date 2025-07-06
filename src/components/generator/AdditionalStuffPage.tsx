@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import type { GeneratorState } from './Readme-generator';
 import ProgressIndicator from './ProgressIndicator';
+import { toast } from '../ui/sonner';
 
 interface AdditionalStuffPageProps {
   state: GeneratorState;
@@ -18,6 +19,7 @@ interface AdditionalStuffPageProps {
 }
 
 const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPage, prevPage }: AdditionalStuffPageProps) => {
+
   const updateAdditional = (section: keyof typeof state.additional, field: string, value: any) => {
     setState({
       ...state,
@@ -28,6 +30,14 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
           [field]: value,
         },
       },
+    });
+  };
+
+  const handleComponentToggle = (componentKey: string, enabled: boolean) => {
+    updateAdditional(componentKey as any, 'enabled', enabled);
+    
+    toast(enabled ? 'Component Added' : 'Component Removed', {
+      description: `The component has been ${enabled ? 'added to' : 'removed from'} your README.`,
     });
   };
 
@@ -56,6 +66,7 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
       ]
     },
     {
+      
       key: 'visitorCount' as const,
       title: 'Visitor Count',
       icon: Eye,
@@ -172,12 +183,13 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
                         </div>
                       </div>
                       <Switch
-                        checked={state.additional[component.key].enabled}
-                        onCheckedChange={(checked) => updateAdditional(component.key, 'enabled', checked)}
+                        checked={state.additional[component.key]?.enabled || false}
+                        onCheckedChange={(checked) => handleComponentToggle(component.key, checked)}
+                        aria-label={`Toggle ${component.title}`}
                       />
                     </div>
 
-                    {state.additional[component.key].enabled && (
+                    {(state.additional[component.key]?.enabled) && (
                       <motion.div
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
@@ -194,7 +206,7 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
                               />
                             ) : (
                               <Select
-                                value={String(state.additional[component.key][option.key as keyof typeof state.additional[typeof component.key]])}
+                                value={String(state.additional[component.key]?.[option.key as keyof typeof state.additional[typeof component.key]] || '')}
                                 onValueChange={(value) => updateAdditional(component.key, option.key, value)}
                               >
                                 <SelectTrigger className="w-32 bg-slate-900/50 border-slate-600 text-white">

@@ -35,15 +35,7 @@ const SocialLinksPage = ({ state, setState, currentPage, totalPages, nextPage, p
     { key: 'facebook' as const, label: 'Facebook Username', icon: Facebook, placeholder: 'yourusername', color: 'from-blue-700 to-blue-600' },
     { key: 'discord' as const, label: 'Discord Invite Code', icon: MessageCircle, placeholder: 'yourinvitecode', color: 'from-indigo-600 to-indigo-500' },
     { key: 'medium' as const, label: 'Medium Username', icon: Github, placeholder: '@yourusername', color: 'from-slate-700 to-slate-600' },
-    { key: 'stackoverflow' as const, label: 'StackOverflow UserID', icon: Github, placeholder: '12345678', color: 'from-orange-600 to-orange-500' },
-    { key: 'codepen' as const, label: 'CodePen Username', icon: Github, placeholder: 'yourusername', color: 'from-emerald-600 to-emerald-500' },
-    { key: 'behance' as const, label: 'Behance Username', icon: Github, placeholder: 'yourusername', color: 'from-blue-600 to-purple-600' },
-    { key: 'bluesky' as const, label: 'Bluesky Username', icon: Github, placeholder: 'yourusername (without @)', color: 'from-sky-600 to-sky-500' },
-    { key: 'pinterest' as const, label: 'Pinterest Username', icon: Github, placeholder: 'yourusername', color: 'from-red-600 to-pink-500' },
-    { key: 'quora' as const, label: 'Quora Username', icon: Github, placeholder: 'yourusername', color: 'from-red-700 to-red-600' },
-    { key: 'reddit' as const, label: 'Reddit Username', icon: Github, placeholder: 'yourusername', color: 'from-orange-700 to-red-600' },
-    { key: 'tiktok' as const, label: 'TikTok Username', icon: Github, placeholder: 'yourusername', color: 'from-slate-800 to-slate-700' },
-    { key: 'twitch' as const, label: 'Twitch Username', icon: Github, placeholder: 'yourusername', color: 'from-purple-700 to-purple-600' },
+  
   ];
 
   return (

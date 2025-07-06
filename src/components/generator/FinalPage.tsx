@@ -4,6 +4,8 @@ import { Copy, Download, RefreshCw, Share2, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import { Card, CardContent } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import type { GeneratorState } from './Readme-generator';
 
 interface FinalPageProps {
@@ -98,15 +100,11 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
     setMarkdown(md);
   };
 
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(markdown);
-      setCopied(true);
-      toast.success('Markdown copied to clipboard!');
-      setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
-      toast.error('Failed to copy to clipboard');
-    }
+  const handleCopy = () => {
+    navigator.clipboard.writeText(markdown);
+    setCopied(true);
+    toast.success('Copied to clipboard!');
+    setTimeout(() => setCopied(false), 2000);
   };
 
   const downloadMarkdown = () => {
@@ -120,6 +118,22 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
     toast.success('README.md downloaded successfully!');
+  };
+
+  const renderMarkdownPreview = () => {
+    // Simple markdown rendering for preview
+    const html = markdown
+      .replace(/^# (.*$)/gm, '<h1 class="text-2xl font-bold my-4">$1</h1>')
+      .replace(/^## (.*$)/gm, '<h2 class="text-xl font-bold my-3">$1</h2>')
+      .replace(/^### (.*$)/gm, '<h3 class="text-lg font-bold my-2">$1</h3>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+      .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1" class="my-2 max-w-full h-auto" />')
+      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-400 hover:underline">$1</a>')
+      .replace(/`([^`]+)`/g, '<code class="bg-gray-700 px-1 rounded">$1</code>')
+      .replace(/\n\n/g, '<br/><br/>');
+    
+    return { __html: html };
   };
 
   return (
@@ -163,14 +177,20 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
               </div>
               
               <div className="relative">
-                <Textarea
-                  value={markdown}
-                  readOnly
-                  className="min-h-[500px] bg-slate-900/50 border-slate-600 text-white font-mono text-sm resize-none"
-                />
+                <Card>
+                  <CardContent>
+                    <ScrollArea className="h-[500px] w-full">
+                      <Textarea
+                        value={markdown}
+                        readOnly
+                        className="min-h-[500px] w-full bg-slate-900/50 border-slate-600 text-white font-mono text-sm resize-none"
+                      />
+                    </ScrollArea>
+                  </CardContent>
+                </Card>
                 <div className="absolute top-2 right-2 flex gap-2">
                   <Button
-                    onClick={copyToClipboard}
+                    onClick={handleCopy}
                     size="sm"
                     className={`${
                       copied 
@@ -186,7 +206,7 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
 
               <div className="flex gap-4">
                 <Button
-                  onClick={copyToClipboard}
+                  onClick={handleCopy}
                   className="flex-1 bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-600 hover:to-cyan-600"
                 >
                   <Copy className="w-4 h-4 mr-2" />
@@ -211,11 +231,8 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
               <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6">
                 <h3 className="text-xl font-semibold text-white mb-4">Preview</h3>
                 <div className="bg-slate-900/50 rounded-lg p-4 max-h-[400px] overflow-y-auto text-sm">
-                  <div className="prose prose-invert max-w-none">
-                    <div className="text-white whitespace-pre-wrap font-mono text-xs">
-                      {markdown.split('\n').slice(0, 30).join('\n')}
-                      {markdown.split('\n').length > 30 && '\n...'}
-                    </div>
+                  <div className="prose prose-invert max-w-none p-4">
+                    <div dangerouslySetInnerHTML={renderMarkdownPreview()} className="space-y-4" />
                   </div>
                 </div>
               </div>
