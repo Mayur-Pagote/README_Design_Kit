@@ -1,10 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, Plus, Sparkles } from 'lucide-react';
+import { Search, Sparkles } from 'lucide-react';
 import ProjectCard from './ProjectCard';
 import { Link } from 'react-router-dom';
 import { Input } from './ui/input';
-import { Button } from './ui/button';
-import { Card, CardContent } from './ui/card';
 
 const ProjectsSection: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');

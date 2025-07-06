@@ -3,6 +3,15 @@ import { Star, GitBranch, Sparkles, ExternalLink, Github } from 'lucide-react';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogTrigger,
+} from '@/components/ui/dialog';
+
 
 interface ProjectCardProps {
   project: {
@@ -96,38 +105,94 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
 
         {/* Stats and Actions */}
         <div className="flex items-center justify-between pt-2 border-t border-border/50">
-          <div className="flex items-center space-x-4 text-sm text-muted-foreground">
-            <div className="flex items-center space-x-1 hover:text-foreground transition-colors duration-200">
-              <Star className="w-4 h-4" />
-              <span className="font-medium">{project.stars?.toLocaleString() || "0"}</span> {/* ✅ Ensures stars exist */}
-            </div>
-            <div className="flex items-center space-x-1 hover:text-foreground transition-colors duration-200">
-              <GitBranch className="w-4 h-4" />
-              <span className="font-medium">{project.forks || "0"}</span> {/* ✅ Ensures forks exist */}
-            </div>
+        <div className="flex items-center space-x-4 text-sm text-muted-foreground">
+          <div className="flex items-center space-x-1 hover:text-foreground transition-colors duration-200">
+            <Star className="w-4 h-4" />
+            <span className="font-medium">{project.stars?.toLocaleString() || "0"}</span>
           </div>
-
-          <div className="flex items-center space-x-1">
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-all duration-200"
-              aria-label="View on GitHub"
-              onClick={handleGitClick}
-            >
-              <Github className="w-4 h-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-all duration-200"
-              aria-label="View project"
-              onClick= {handleWebsiteClick}
-            >
-              <ExternalLink className="w-4 h-4" />
-            </Button>
+          <div className="flex items-center space-x-1 hover:text-foreground transition-colors duration-200">
+            <GitBranch className="w-4 h-4" />
+            <span className="font-medium">{project.forks || "0"}</span>
           </div>
         </div>
+
+        <div className="flex items-center space-x-1">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-all duration-200"
+            aria-label="View on GitHub"
+            onClick={handleGitClick}
+          >
+            <Github className="w-4 h-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="h-8 w-8 p-0 text-muted-foreground hover:text-foreground hover:bg-primary/10 transition-all duration-200"
+            aria-label="View project"
+            onClick={handleWebsiteClick}
+          >
+            <ExternalLink className="w-4 h-4" />
+          </Button>
+
+          {/* More Info Button with Dialog */}
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button
+                variant="ghost"
+                size="sm"
+                className=''
+                aria-label="More info"
+              >
+                More Info
+              </Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <h2 className="text-2xl font-bold">{project.title}</h2>
+                <DialogDescription>
+                  {project.category}
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-2 text-foreground text-sm">
+                <p><strong>Description:</strong> {project.description}</p>
+                {project.tags?.length ? (
+                  <p><strong>Tags:</strong> {project.tags.join(', ')}</p>
+                ) : (
+                  <p><strong>Tags:</strong> None</p>
+                )}
+                <p><strong>Stars:</strong> {project.stars || 0}</p>
+                <p><strong>Forks:</strong> {project.forks || 0}</p>
+                {project.githubUrl && (
+                  <p>
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline text-primary"
+                    >
+                      View on GitHub
+                    </a>
+                  </p>
+                )}
+                {project.websiteUrl && (
+                  <p>
+                    <a
+                      href={project.websiteUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline text-primary"
+                    >
+                      Visit Website
+                    </a>
+                  </p>
+                )}
+              </div>
+            </DialogContent>
+          </Dialog>
+        </div>
+      </div>
       </CardContent>
     </Card>
   );
