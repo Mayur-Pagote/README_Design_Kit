@@ -216,7 +216,7 @@ Contains various graphics and icons used throughout the application:
 - **`VERCEL_TEST_RESULTS.md`** - Test results documentation
 
 ### Project Assets
-- **`rdk.svg`**, **`rdkf.svg`**, **`rdkt.svg`** - Project logo variants
+- **`rdk.svg`**, **`rdkd.svg`**, **`rdkf.svg`**, **`rdkt.svg`** - Project logo variants
 
 ---
 
