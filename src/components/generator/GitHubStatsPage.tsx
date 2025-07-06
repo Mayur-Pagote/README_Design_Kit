@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, BarChart3, Settings, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-
 import { Label } from '@/components/ui/label';
 import type { GeneratorState } from './Readme-generator';
 import ProgressIndicator from './ProgressIndicator';
