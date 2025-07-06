@@ -261,7 +261,7 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
                   
                   <Button
                     className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
-                    onClick={() => window.open('https://github.com', '_blank')}
+                    onClick={() => window.open(`https://github.com/${state.username}`, '_blank')}
                   >
                     <Share2 className="w-4 h-4 mr-2" />
                     Go to GitHub
