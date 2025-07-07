@@ -12,13 +12,16 @@ import SubmitSection from "./components/SubmitSection";
 import DragDropEditor from "./pages/DragDropEditor";
 import TemplateLibraryPage from "./pages/TemplateLibraryPage";
 import ComingSoon from "./pages/ComingSoon";
-import FeatureRequestsPage from "./pages/FeatureRequestsPage"; // ✅ Added Import
+import FeatureRequestsPage from "./pages/FeatureRequestsPage"; 
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import AboutUs from "./components/_components/about";
 import { ThemeProvider } from "./components/theme-provider";
 import { Toaster } from "./components/ui/sonner";
+import ReadmeGenerator from "./components/generator/Readme-generator";
+
+
 
 const queryClient = new QueryClient();
 
@@ -54,6 +57,7 @@ export default function App() {
               <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
               <Route path="/terms" element={<Layout><TermsOfService /></Layout>} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/readme-generator" element={<Layout><ReadmeGenerator /></Layout>} />
               <Route path="*" element={<Layout><NotFound /></Layout>} />
             </Routes>
           </BrowserRouter>
