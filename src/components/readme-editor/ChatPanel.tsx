@@ -112,7 +112,8 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
   return (
     <div className="h-full flex flex-col bg-background">
       {/* Chat Messages */}
-      <ScrollArea className="flex-1 p-4" ref={scrollAreaRef}>
+      <div className="flex-1 min-h-0">
+        <ScrollArea className="h-full w-full p-4" ref={scrollAreaRef}>
         <div className="space-y-4">
           {chatHistory.length === 0 && (
             <motion.div
@@ -236,7 +237,8 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
             </motion.div>
           )}
         </div>
-      </ScrollArea>
+        </ScrollArea>
+      </div>
 
       {/* Suggested Prompts */}
       {chatHistory.length === 0 && (
