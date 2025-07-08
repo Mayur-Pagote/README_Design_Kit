@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Star, GitBranch, Sparkles, ExternalLink, Github, Heart, ThumbsDown, ThumbsUp } from 'lucide-react';
+import { Star, GitBranch, Sparkles, ExternalLink, Github, Globe, Heart, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
@@ -28,6 +28,7 @@ interface ProjectCardProps {
     features?: string[];
     author?: string;
     lastUpdated?: string;
+    authorSocial: string;
   };
 }
 
@@ -54,6 +55,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
       alert("Website not deployed yet");
     }
   }
+
+  const handleSocialClick = () => {
+    if(project.authorSocial) {
+      window.open(project.authorSocial, "_blank", "noopener noreferrer");
+    } else {
+      alert("Socials not available");
+    }
+  }
+
   const handleFeedbackSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (feedback.trim()) {
@@ -215,7 +225,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             )}
               {/* External Links */}
               <div className="space-y-2">
-                <h4 className="font-semibold text-foreground">Project Links</h4>
+                <h4 className="font-semibold text-foreground">Links</h4>
                 <div className="flex flex-wrap gap-2">
                   {project.githubUrl && (
                     <Button variant="outline" size="sm" className="gap-2" onClick={handleGitClick}>
@@ -227,6 +237,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
                     <Button variant="outline" size="sm" className="gap-2" onClick={handleWebsiteClick}>
                       <ExternalLink className="w-4 h-4" />
                       Live Demo
+                    </Button>
+                  )}
+                  {project.authorSocial && (
+                    <Button variant="outline" size="sm" className="gap-2" onClick={handleSocialClick}>
+                      <Globe className="w-4 h-4" />
+                      Author's Social 
                     </Button>
                   )}
                 </div>

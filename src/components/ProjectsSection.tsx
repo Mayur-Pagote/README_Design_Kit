@@ -46,6 +46,7 @@ const ProjectsSection: React.FC = () => {
     featured: true,
     githubUrl: "https://github.com/Mayur-Pagote/README_Design_Kit",
     websiteUrl: "https://readme-design-kit.vercel.app/",
+    authorSocial: "https://github.com/Mayur-Pagote",
     features: [
       "Scrollable Table of Contents",
       "Clean sectioned layout with emojis and headers",
