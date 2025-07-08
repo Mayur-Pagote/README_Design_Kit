@@ -12,6 +12,7 @@ const SubmitSection: React.FC = () => {
     authorName: '',
     authorEmail: '',
     authorGithub: '',
+    authorSocial: '',
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -51,6 +52,7 @@ const SubmitSection: React.FC = () => {
         authorName: '',
         authorEmail: '',
         authorGithub: '',
+        authorSocial: '',
       });
     }, 3000);
   };
@@ -267,6 +269,54 @@ const SubmitSection: React.FC = () => {
                       />
                     </div>
                   </div>
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  GitHub Link
+                </label>
+                <div className="border border-border rounded-lg">
+                  <input
+                    type="text"
+                    name="githubUrl"
+                    value={formData.githubUrl}
+                    onChange={handleChange}
+                    placeholder="Link of your repository"
+                    className={`${commonInputClasses} rounded-lg -m-px`}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                  Website Link
+                </label>
+                <div className="border border-border rounded-lg">
+                  <input
+                    type="text"
+                    name="liveUrl"
+                    value={formData.liveUrl}
+                    onChange={handleChange}
+                    placeholder="Link of your deployed website"
+                    className={`${commonInputClasses} rounded-lg -m-px`}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-foreground mb-2">
+                 Social Link  
+                </label>
+                <div className="border border-border rounded-lg">
+                  <input
+                    type="text"
+                    name="authorSocial"
+                    value={formData.authorSocial}
+                    onChange={handleChange}
+                    placeholder="Any one of socials (LinkedIn, X, etc..)"
+                    className={`${commonInputClasses} rounded-lg -m-px`}
+                  />
                 </div>
               </div>
 
