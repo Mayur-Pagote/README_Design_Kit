@@ -11,7 +11,8 @@ import {
   Layers,
   Sparkles,
   Upload,
-  Library
+  Library,
+  Bot
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GitHubStarsButton } from '@/components/CustomComps/buttons/github-stars';
@@ -28,6 +29,7 @@ type NavItem = {
 const navigation: NavItem[] = [
   { name: 'Home', href: '/', icon: Home },
   { name: 'Elements', href: '/elements', icon: Layers },
+  { name: 'AI Editor', href: '/readme-editor', icon: Bot, badge: 'New' },
   {
     name: 'More',
     href: '#',
