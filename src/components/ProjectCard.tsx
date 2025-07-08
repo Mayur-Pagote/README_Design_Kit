@@ -28,7 +28,7 @@ interface ProjectCardProps {
     features?: string[];
     author?: string;
     lastUpdated?: string;
-    authorSocial: string;
+    authorSocial?: string;
   };
 }
 
