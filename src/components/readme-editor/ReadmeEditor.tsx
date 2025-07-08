@@ -47,7 +47,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
     // Clear current content first
     setMarkdownContent('');
     
-    // Type character by character with variable speed
+    // Type character by character with variable  d
     const lines = newContent.split('\n');
     let currentContent = '';
     
@@ -59,21 +59,15 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
         currentContent = lines.slice(0, i).join('\n') + (i > 0 ? '\n' : '') + line.slice(0, j);
         setMarkdownContent(currentContent);
         
-        // Variable typing speed - slower for special characters
-        const char = line[j];
-        let delay = 20;
-        if (char === '#' || char === '*' || char === '`') delay = 100;
-        else if (char === ' ') delay = 30;
-        else if (char === '\n') delay = 150;
-        
-        await new Promise(resolve => setTimeout(resolve, delay));
+        // Instant typing - minimal delay
+        await new Promise(resolve => setTimeout(resolve, 1));
       }
       
       // Add newline at end of each line (except last)
       if (i < lines.length - 1) {
         currentContent += '\n';
         setMarkdownContent(currentContent);
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 1));
       }
     }
     
@@ -83,7 +77,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
     setTimeout(() => {
       setActiveTab('preview');
       toast.success('Content applied! Switch to code tab to edit further.');
-    }, 500);
+    }, 100);
   };
 
   const handleChatMessage = async (message: string) => {
