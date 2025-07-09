@@ -148,14 +148,14 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <div className="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full mb-4 text-sm font-medium">
+            <div className="inline-flex items-center gap-2 bg-purple-500/20 text-foreground px-4 py-2 rounded-full mb-4 text-sm font-medium">
               <Plus className="w-4 h-4" />
               Additional Features
             </div>
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold mb-4 bg-primary bg-clip-text text-transparent">
               Additional Stuffs to add
             </h1>
-            <p className="text-slate-300 text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Enhance your profile with extra components like trophies, visitor counters, and inspiring quotes.
             </p>
           </motion.div>
@@ -171,15 +171,15 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
               >
                 <div className="relative">
                   <div className={`absolute inset-0 bg-gradient-to-r ${component.color} opacity-0 group-hover:opacity-5 rounded-xl blur-sm transition-opacity`}></div>
-                  <div className="relative bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-slate-600 transition-colors">
+                  <div className="relative bg-background/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-slate-600 transition-colors">
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-4">
                         <div className={`w-12 h-12 bg-gradient-to-r ${component.color} rounded-xl flex items-center justify-center`}>
                           <component.icon className="w-6 h-6 text-white" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-white text-lg">{component.title}</h3>
-                          <p className="text-slate-400 text-sm">{component.description}</p>
+                          <h3 className="font-semibold text-foreground text-lg">{component.title}</h3>
+                          <p className="text-muted-foreground text-sm">{component.description}</p>
                         </div>
                       </div>
                       <Switch
@@ -198,7 +198,7 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
                       >
                         {component.options.map((option) => (
                           <div key={option.key} className="flex items-center justify-between">
-                            <Label className="text-sm text-slate-300">{option.label}</Label>
+                            <Label className="text-sm text-muted-foreground">{option.label}</Label>
                             {option.type === 'switch' ? (
                               <Switch
                                 checked={state.additional[component.key][option.key as keyof typeof state.additional[typeof component.key]] as boolean}
@@ -209,7 +209,7 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
                                 value={String(state.additional[component.key]?.[option.key as keyof typeof state.additional[typeof component.key]] || '')}
                                 onValueChange={(value) => updateAdditional(component.key, option.key, value)}
                               >
-                                <SelectTrigger className="w-32 bg-slate-900/50 border-slate-600 text-white">
+                                <SelectTrigger className="w-32 bg-background/50 border-slate-600 text-muted-foreground">
                                   <SelectValue />
                                 </SelectTrigger>
                                 <SelectContent className="bg-slate-800 border-slate-700">
@@ -224,8 +224,8 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
                           </div>
                         ))}
 
-                        <div className="bg-slate-900/50 rounded-lg p-4 mt-4">
-                          <div className="text-sm text-slate-400 mb-2">Preview:</div>
+                        <div className="bg-background/50 rounded-lg p-4 mt-4">
+                          <div className="text-sm text-muted-foreground mb-2 font-medium">Preview:</div>
                           {component.key === 'trophies' && (
                             <div className="flex gap-2">
                               <div className="w-8 h-8 bg-yellow-500 rounded"></div>
@@ -234,17 +234,17 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
                             </div>
                           )}
                           {component.key === 'visitorCount' && (
-                            <div className="text-sm text-slate-300">
+                            <div className="text-sm text-muted-foreground">
                               Profile views: <span className="text-cyan-400">1,234</span>
                             </div>
                           )}
                           {component.key === 'devQuotes' && (
-                            <div className="text-sm text-slate-300 italic">
+                            <div className="text-sm text-muted-foreground italic">
                               "Code is like humor. When you have to explain it, it's bad." - Cory House
                             </div>
                           )}
                           {component.key === 'topRepos' && (
-                            <div className="text-sm text-slate-300">
+                            <div className="text-sm text-muted-foreground">
                               📊 Most contributed repositories with stats
                             </div>
                           )}
@@ -261,7 +261,7 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
             <Button
               onClick={prevPage}
               variant="outline"
-              className="flex items-center gap-2 border-slate-600 text-slate-300 hover:text-white hover:border-slate-500"
+              className="flex items-center gap-2 border-slate-600 text-foreground hover:text-foreground/90 hover:border-slate-500"
             >
               <ArrowLeft className="w-4 h-4" />
               Go Back

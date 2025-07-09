@@ -49,14 +49,14 @@ const SocialLinksPage = ({ state, setState, currentPage, totalPages, nextPage, p
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <div className="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full mb-4 text-sm font-medium">
+            <div className="inline-flex items-center gap-2 bg-purple-500/20 text-foreground px-4 py-2 rounded-full mb-4 text-sm font-medium">
               <Share2 className="w-4 h-4" />
               Social Links
             </div>
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold mb-4 bg-primary bg-clip-text text-transparent">
               Add Your Social Links
             </h1>
-            <p className="text-slate-300 text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Connect with your audience by adding your social media profiles and professional networks.
             </p>
           </motion.div>
@@ -72,18 +72,18 @@ const SocialLinksPage = ({ state, setState, currentPage, totalPages, nextPage, p
               >
                 <div className="relative">
                   <div className={`absolute inset-0 bg-gradient-to-r ${platform.color} opacity-0 group-hover:opacity-10 rounded-xl blur-sm transition-opacity`}></div>
-                  <div className="relative bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-4 hover:border-slate-600 transition-colors">
+                  <div className="relative bg-background/50 backdrop-blur-sm border border-slate-700 rounded-xl p-4 hover:border-slate-600 transition-colors">
                     <div className="flex items-center gap-3 mb-3">
                       <div className={`w-10 h-10 bg-gradient-to-r ${platform.color} rounded-full flex items-center justify-center`}>
                         <platform.icon className="w-5 h-5 text-white" />
                       </div>
-                      <Label className="font-medium text-white">{platform.label}</Label>
+                      <Label className="font-medium text-foreground">{platform.label}</Label>
                     </div>
                     <Input
                       placeholder={platform.placeholder}
                       value={state.socialLinks[platform.key]}
                       onChange={(e) => updateSocialLink(platform.key, e.target.value)}
-                      className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-purple-500 transition-colors"
+                      className="bg-background/50 border-slate-600 text-muted-foreground placeholder:text-slate-400 focus:border-purple-500 transition-colors"
                     />
                   </div>
                 </div>
@@ -95,7 +95,7 @@ const SocialLinksPage = ({ state, setState, currentPage, totalPages, nextPage, p
             <Button
               onClick={prevPage}
               variant="outline"
-              className="flex items-center gap-2 border-slate-600 text-slate-300 hover:text-white hover:border-slate-500"
+              className="flex items-center gap-2 border-slate-600 text-foreground hover:text-foreground/90 hover:border-slate-500"
             >
               <ArrowLeft className="w-4 h-4" />
               Go Back

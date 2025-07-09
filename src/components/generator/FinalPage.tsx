@@ -145,14 +145,14 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-8"
           >
-            <div className="inline-flex items-center gap-2 bg-green-500/20 text-green-300 px-4 py-2 rounded-full mb-4 text-sm font-medium">
+            <div className="inline-flex items-center gap-2 bg-green-500/20 text-foreground px-4 py-2 rounded-full mb-4 text-sm font-medium">
               <CheckCircle className="w-4 h-4" />
               Completed
             </div>
             <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-green-400 to-blue-400 bg-clip-text text-transparent">
               Your Awesome Profile is ready! 🎉
             </h1>
-            <p className="text-slate-300 text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Your personalized GitHub profile README has been generated. Copy the code below or download it as a file.
             </p>
           </motion.div>
@@ -164,12 +164,12 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
               className="space-y-4"
             >
               <div className="flex items-center gap-4 mb-4">
-                <h3 className="text-xl font-semibold text-white">Generated Markdown</h3>
+                <h3 className="text-xl font-semibold text-foreground">Generated Markdown</h3>
                 <Button
                   onClick={generateMarkdown}
                   variant="outline"
                   size="sm"
-                  className="border-slate-600 text-slate-300 hover:text-white hover:border-slate-500"
+                  className="border-slate-600 text-foreground hover:border-slate-500"
                 >
                   <RefreshCw className="w-4 h-4 mr-2" />
                   Refresh
@@ -183,7 +183,7 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
                       <Textarea
                         value={markdown}
                         readOnly
-                        className="min-h-[500px] w-full bg-slate-900/50 border-slate-600 text-white font-mono text-sm resize-none"
+                        className="min-h-[500px] w-full bg-background/50 border-slate-600 text-muted-foreground font-mono text-sm resize-none"
                       />
                     </ScrollArea>
                   </CardContent>
@@ -228,9 +228,9 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
               animate={{ opacity: 1, x: 0 }}
               className="space-y-6"
             >
-              <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6">
-                <h3 className="text-xl font-semibold text-white mb-4">Preview</h3>
-                <div className="bg-slate-900/50 rounded-lg p-4 max-h-[400px] overflow-y-auto text-sm">
+              <div className="bg-background/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6">
+                <h3 className="text-xl font-semibold text-foreground mb-4">Preview</h3>
+                <div className="bg-background/60 rounded-lg max-h-[400px] overflow-y-auto text-sm">
                   <div className="prose prose-invert max-w-none p-4">
                     <div dangerouslySetInnerHTML={renderMarkdownPreview()} className="space-y-4" />
                   </div>
@@ -238,10 +238,10 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
               </div>
 
               <div className="space-y-4">
-                <h3 className="text-lg font-semibold text-white">What's next?</h3>
+                <h3 className="text-lg font-semibold text-foreground">What's next?</h3>
                 
-                <div className="bg-slate-800/30 border border-slate-700 rounded-lg p-4">
-                  <ol className="list-decimal list-inside space-y-2 text-slate-300 text-sm">
+                <div className="bg-background/50 border border-slate-700 rounded-lg p-4">
+                  <ol className="list-decimal list-inside space-y-2 text-muted-foreground text-sm">
                     <li>Copy or download your README.md file</li>
                     <li>Go to your GitHub profile repository</li>
                     <li>Replace the content of your README.md</li>
@@ -254,7 +254,7 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
                   <Button
                     onClick={() => goToPage(0)}
                     variant="outline"
-                    className="flex-1 border-slate-600 text-slate-300 hover:text-white hover:border-slate-500"
+                    className="flex-1 border-slate-600 text-foreground hover:border-slate-500"
                   >
                     Create New
                   </Button>
