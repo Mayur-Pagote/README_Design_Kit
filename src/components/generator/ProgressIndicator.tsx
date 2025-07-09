@@ -12,8 +12,8 @@ const ProgressIndicator = ({ current, total }: ProgressIndicatorProps) => {
   return (
     <div className="mb-8">
       <div className="flex justify-between items-center mb-2">
-        <span className="text-sm text-slate-400">Progress</span>
-        <span className="text-sm text-slate-400">{current}/{total}</span>
+        <span className="text-sm text-muted-foreground">Progress</span>
+        <span className="text-sm text-muted-foreground">{current}/{total}</span>
       </div>
       <div className="w-full bg-slate-800 rounded-full h-2 overflow-hidden">
         <motion.div

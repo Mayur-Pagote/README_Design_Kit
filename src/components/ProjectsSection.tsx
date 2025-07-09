@@ -3,6 +3,9 @@ import { Search, Sparkles } from 'lucide-react';
 import ProjectCard from './ProjectCard';
 import { Link } from 'react-router-dom';
 import { Input } from './ui/input';
+import { useTheme } from '@/components/theme-provider'; 
+import logg from './rdk.svg';
+import loggd from './rdkd.svg';
 
 const ProjectsSection: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');
@@ -32,6 +35,8 @@ const ProjectsSection: React.FC = () => {
     fetchRepoStats();
   },[])
 
+  const { theme } = useTheme();
+
   //Demo Project if no project is available
 
   const demoProject = {
@@ -42,10 +47,10 @@ const ProjectsSection: React.FC = () => {
     tags: ["React", "TypeScript", "Open Source", "Documentation", "Tailwind CSS", "Shadcn","Framer Motion"],
     stars: stars !== null ? stars: 0,
     forks: forks !== null ? forks: 0,
-    gradient: "from-purple-600 to-blue-600",
     featured: true,
     githubUrl: "https://github.com/Mayur-Pagote/README_Design_Kit",
     websiteUrl: "https://readme-design-kit.vercel.app/",
+    imageUrl: theme === 'dark' ? logg : loggd,
     authorSocial: "https://github.com/Mayur-Pagote",
     features: [
       "Scrollable Table of Contents",

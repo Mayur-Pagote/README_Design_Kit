@@ -72,14 +72,14 @@ const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, p
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <div className="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full mb-4 text-sm font-medium">
+            <div className="inline-flex items-center gap-2 bg-purple-500/20 text-foreground px-4 py-2 rounded-full mb-4 text-sm font-medium">
               <BarChart3 className="w-4 h-4" />
               GitHub Stats
             </div>
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold mb-4 bg-primary bg-clip-text text-transparent">
               Flex your GitHub Stats
             </h1>
-            <p className="text-slate-300 text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Showcase your GitHub achievements with beautiful, customizable stat cards.
             </p>
           </motion.div>
@@ -90,20 +90,20 @@ const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, p
               animate={{ opacity: 1, x: 0 }}
               className="space-y-6"
             >
-              <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6">
+              <div className="bg-background/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6">
                 <div className="flex items-center gap-2 mb-4">
                   <Settings className="w-5 h-5 text-purple-400" />
-                  <h3 className="font-semibold text-white">Customization</h3>
+                  <h3 className="font-semibold text-foreground">Customization</h3>
                 </div>
                 
                 <div className="space-y-4">
                   <div>
-                    <Label className="text-sm text-slate-300 mb-2 block">Theme</Label>
+                    <Label className="text-sm text-muted-foreground mb-2 block">Theme</Label>
                     <Select
                       value={state.githubStats.theme}
                       onValueChange={(value) => updateGithubStats('theme', value)}
                     >
-                      <SelectTrigger className="bg-slate-900/50 border-slate-600 text-white">
+                      <SelectTrigger className="bg-background/50 border-slate-600 transition-colors text-muted-foreground">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-700">
@@ -117,9 +117,9 @@ const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, p
                   </div>
 
                   <div className="space-y-3">
-                  <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-600">
-                    <h4 className="font-medium text-white">Minimal Impact Card</h4>
-                    <p className="text-slate-300 text-sm">Simple stats card with minimal visual using GitHub Stats Alpha</p>
+                  <div className="bg-background/50 rounded-lg p-4 border border-slate-600">
+                    <h4 className="font-medium text-muted-foreground">Minimal Impact Card</h4>
+                    <p className="text-muted-foreground text-sm py-3">Simple stats card with minimal visual using GitHub Stats Alpha</p>
                     <img src={`https://github-stats-alpha.vercel.app/api/?username=${state.username}`} alt="Stats Card 6" />
                   </div>
                   </div>
@@ -142,16 +142,16 @@ const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, p
               className="space-y-6"
             >
               <div className="space-y-3">
-                  <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-600">
-                    <h4 className="font-medium text-white">Contribution Streak Card</h4>
-                    <p className="text-slate-300 text-sm">Tracks your GitHub streak stats in a clean and transparent style</p>
+                  <div className="bg-background/50 rounded-lg p-4 border border-slate-600">
+                    <h4 className="font-medium text-foreground">Contribution Streak Card</h4>
+                    <p className="text-muted-foreground text-sm">Tracks your GitHub streak stats in a clean and transparent style</p>
                     <img className='w-full h-64 object-contain' src={`https://github-readme-streak-stats.herokuapp.com?user=${state.username}&theme=transparent&hide_border=true`} alt="Stats Card 6" />
                   </div>
               </div>
               <div className="space-y-3">
-                  <div className="bg-slate-900/50 rounded-lg p-4 border border-slate-600">
-                    <h4 className="font-medium text-white">Most Used Languages</h4>
-                    <p className="text-slate-300 text-sm">Tracks your most used languages in a clean and transparent style</p>
+                  <div className="bg-background/50 rounded-lg p-4 border border-slate-600">
+                    <h4 className="font-medium text-foreground">Most Used Languages</h4>
+                    <p className="text-muted-foreground text-sm py-3">Tracks your most used languages in a clean and transparent style</p>
                     <img className='w-full h-64 object-contain' src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${state.username}&layout=compact`} alt="Stats Card 6" />
                   </div>
               </div>
@@ -162,7 +162,7 @@ const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, p
             <Button
               onClick={prevPage}
               variant="outline"
-              className="flex items-center gap-2 border-slate-600 text-slate-300 hover:text-white hover:border-slate-500"
+              className="flex items-center gap-2 border-slate-600 text-foreground hover:text-foreground/90 hover:border-slate-500"
             >
               <ArrowLeft className="w-4 h-4" />
               Go Back

@@ -82,14 +82,14 @@ const AboutMePage = ({ state, setState, currentPage, totalPages, nextPage, prevP
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-12"
           >
-            <div className="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full mb-4 text-sm font-medium">
+            <div className="inline-flex items-center gap-2 bg-purple-500/20 text-foreground px-4 py-2 rounded-full mb-4 text-sm font-medium">
               <User className="w-4 h-4" />
               About Me
             </div>
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold mb-4 bg-primary bg-clip-text text-transparent">
               Add a small introduction
             </h1>
-            <p className="text-slate-300 text-lg max-w-2xl mx-auto">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Tell the world about yourself! Share what you're working on, what you're passionate about, and what makes you unique.
             </p>
           </motion.div>
@@ -105,16 +105,16 @@ const AboutMePage = ({ state, setState, currentPage, totalPages, nextPage, prevP
               >
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-blue-500/10 rounded-xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="relative bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-slate-600 transition-colors">
+                  <div className="relative bg-background/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6 hover:border-slate-600 transition-colors">
                     <div className="flex items-center gap-3 mb-4">
                       <span className="text-2xl">{field.emoji}</span>
-                      <h3 className="font-semibold text-white">{field.label}</h3>
+                      <h3 className="font-semibold text-foreground">{field.label}</h3>
                     </div>
                     <Textarea
                       placeholder={field.placeholder}
                       value={state.aboutMe[field.key]}
                       onChange={(e) => updateAboutMe(field.key, e.target.value)}
-                      className="bg-slate-900/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-purple-500 transition-colors resize-none"
+                      className="bg-slate-100 border-slate-600 text-muted-foreground placeholder:text-foreground focus:border-purple-500 transition-colors resize-none"
                       rows={2}
                     />
                   </div>
@@ -127,7 +127,7 @@ const AboutMePage = ({ state, setState, currentPage, totalPages, nextPage, prevP
             <Button
               onClick={prevPage}
               variant="outline"
-              className="flex items-center gap-2 border-slate-600 text-slate-300 hover:text-white hover:border-slate-500"
+              className="flex items-center gap-2 border-slate-600 text-foreground hover:text-foreground/90 hover:border-slate-500"
             >
               <ArrowLeft className="w-4 h-4" />
               Go Back
