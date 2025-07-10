@@ -47,7 +47,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
     // Clear current content first
     setMarkdownContent('');
     
-    // Type character by character with variable  d
+    // Type character by character with variable  nd
     const lines = newContent.split('\n');
     let currentContent = '';
     
