@@ -1,7 +1,7 @@
 "use client";
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Layout } from 'lucide-react';
+import { ArrowRight, Layout, Bot } from 'lucide-react';
 import { QuickStartGuide } from '@/components/QuickStartGuide';
 
 import { motion } from "motion/react";
@@ -85,6 +85,12 @@ export default function Home() {
               <Link to="/drag-drop">
                 <Layout className="h-5 w-5" />
                 Start from Scratch
+              </Link>
+            </Button>
+            <Button asChild variant="secondary" size="lg" className="flex items-center gap-2">
+              <Link to="/readme-editor">
+                <Bot className="h-5 w-5" />
+                AI README Editor
               </Link>
             </Button>
           </motion.div>
