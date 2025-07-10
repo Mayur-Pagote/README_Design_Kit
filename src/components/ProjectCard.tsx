@@ -20,11 +20,11 @@ interface ProjectCardProps {
     tags?: string[]; // ✅ Make `tags` optional
     stars?: number;
     forks?: number;
-    gradient?: string;
     icon?: React.ComponentType<{ className?: string }>; // ✅ Ensure `icon` is optional
     featured?: boolean;
     githubUrl?: string;
     websiteUrl?: string;
+    imageUrl?: string;
     features?: string[];
     author?: string;
     lastUpdated?: string;
@@ -37,8 +37,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   const [feedback, setFeedback] = useState('');
   const [feedbackType, setFeedbackType] = useState<'positive' | 'negative' | null>(null);
   const [feedbackSubmitted, setFeedbackSubmitted] = useState(false);
-
-  const Icon = project.icon || Sparkles; // ✅ Use a fallback icon if `undefined`
 
   const handleGitClick = () => {
     if(project.githubUrl) {
@@ -79,27 +77,30 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
     }
   }
   return (
-    <Card className="group bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300 overflow-hidden hover:bg-card/80">
+    <Card className="group p-0 bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary/50 hover:shadow-xl transition-all duration-300 overflow-hidden hover:bg-card/80">
       {/* Gradient Header */}
-      <CardHeader className="p-0">
-        <div className={`h-32 bg-gradient-to-r ${project.gradient || 'from-primary/60 to-primary/80'} relative overflow-hidden`}>
-          <div className="absolute inset-0 bg-gradient-to-br from-background/10 to-background/20"></div>
+      <CardHeader className="p-0 overflow-hidden rounded-t-xl">
+        <div className="relative h-32 overflow-hidden flex">
+          {project.imageUrl ? (
+            <img src={project.imageUrl} alt={project.title} className="max-h-full max-w-full object-contain justify-center items-center"
+            />
+          ) : (
+            <div className={`h-full w-full bg-gradient-to-r from-purple-600 to-blue-600`}>
+              <div className="absolute inset-0 bg-gradient-to-br from-background/10 to-background/20"></div>
+            </div>
+          )}
+
           <div className="absolute top-4 right-4">
             {project.featured && (
-              <Badge variant="secondary" className="bg-background/20 backdrop-blur-sm text-primary-foreground border-0 shadow-sm">
+              <Badge variant="secondary" className="bg-background/20 backdrop-blur-sm text-foreground transition-colors border-0 shadow-sm">
                 <Sparkles className="w-3 h-3 mr-1" />
                 Featured
               </Badge>
             )}
           </div>
-          <div className="absolute bottom-4 left-4">
-            <div className="w-12 h-12 bg-background/20 backdrop-blur-sm rounded-xl flex items-center justify-center border border-background/30 group-hover:scale-110 transition-transform duration-200">
-              <Icon className="w-6 h-6 text-primary-foreground" />
-            </div>
-          </div>
         </div>
       </CardHeader>
-
+      <hr></hr>
       <CardContent className="p-6 space-y-4">
         <div className="space-y-2">
           <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200 line-clamp-1">

@@ -22,6 +22,10 @@ const links = [
         to: '/drag-drop',
     },
     {
+        title: 'Readme Generator',
+        to: '/readme-generator',
+    },
+    {
         title: 'Coming Soon',
         to: '/coming-soon',
     },

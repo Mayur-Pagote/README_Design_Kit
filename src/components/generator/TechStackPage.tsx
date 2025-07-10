@@ -110,14 +110,14 @@ const TechStackPage = ({ state, setState, currentPage, totalPages, nextPage, pre
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-8"
           >
-            <div className="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full mb-4 text-sm font-medium">
+            <div className="inline-flex items-center gap-2 bg-purple-500/20 text-foreground px-4 py-2 rounded-full mb-4 text-sm font-medium">
               <Code className="w-4 h-4" />
               Tech Stack
             </div>
-            <h1 className="text-4xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+            <h1 className="text-4xl font-bold mb-4 bg-primary bg-clip-text text-transparent">
               Add Tech that you use
             </h1>
-            <p className="text-slate-300 text-lg max-w-2xl mx-auto mb-6">
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-6">
               Showcase your technical skills and the technologies you work with.
             </p>
             
@@ -127,11 +127,11 @@ const TechStackPage = ({ state, setState, currentPage, totalPages, nextPage, pre
                 placeholder="Search tech..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-purple-500"
+                className="pl-10 bg-background/50 border-slate-600 text-muted-foreground placeholder:text-muted-foreground focus:border-purple-500"
               />
             </div>
 
-            <div className="text-sm text-slate-400">
+            <div className="text-sm text-muted-foreground">
               {getTotalSelected()} technologies selected
             </div>
           </motion.div>
@@ -143,12 +143,12 @@ const TechStackPage = ({ state, setState, currentPage, totalPages, nextPage, pre
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: categoryIndex * 0.1 }}
-                className="bg-slate-800/30 backdrop-blur-sm border border-slate-700 rounded-xl p-6"
+                className="bg-background/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6"
               >
                 <div className="flex items-center gap-3 mb-4">
                   <div className={`w-3 h-3 bg-gradient-to-r ${category.color} rounded-full`}></div>
-                  <h3 className="font-bold text-white text-lg">{category.title}</h3>
-                  <span className="text-sm text-slate-400">
+                  <h3 className="font-bold text-foreground text-lg">{category.title}</h3>
+                  <span className="text-sm text-muted-foreground">
                     ({state.techStack[category.key].length} selected)
                   </span>
                 </div>
@@ -161,7 +161,7 @@ const TechStackPage = ({ state, setState, currentPage, totalPages, nextPage, pre
                       className={`cursor-pointer transition-all duration-200 hover:scale-105 ${
                         isSelected(category.key, tech)
                           ? `bg-gradient-to-r ${category.color} hover:opacity-80 text-white border-0`
-                          : 'border-slate-600 text-slate-300 hover:border-slate-500 hover:bg-slate-700/50'
+                          : 'border-slate-600 text-muted-foreground hover:border-slate-500 hover:bg-primary hover:text-white'
                       }`}
                       onClick={() => toggleTech(category.key, tech)}
                     >
@@ -180,7 +180,7 @@ const TechStackPage = ({ state, setState, currentPage, totalPages, nextPage, pre
             <Button
               onClick={prevPage}
               variant="outline"
-              className="flex items-center gap-2 border-slate-600 text-slate-300 hover:text-white hover:border-slate-500"
+              className="flex items-center gap-2 border-slate-600 text-foreground hover:text-foreground/90 hover:border-slate-500"
             >
               <ArrowLeft className="w-4 h-4" />
               Go Back

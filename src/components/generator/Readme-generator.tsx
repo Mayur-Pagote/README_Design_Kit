@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import WelcomePage from '@/components/generator/WelcomePage';
 import AboutMePage from '@/components/generator/AboutMePage';
@@ -7,6 +7,9 @@ import SocialLinksPage from '@/components/generator/SocialLinksPage';
 import TechStackPage from '@/components/generator/TechStackPage';
 import AdditionalStuffPage from '@/components/generator/AdditionalStuffPage';
 import FinalPage from '@/components/generator/FinalPage';
+import LiquidChrome from '../LandingComponents/LiquidChrome';
+import Aurora from '../LandingComponents/Aurora';
+import { useTheme } from '../theme-provider';
 
 export interface GeneratorState {
   username: string;
@@ -78,6 +81,8 @@ export interface GeneratorState {
 
 const Index = () => {
   const [currentPage, setCurrentPage] = useState(0);
+  const [containerHeight, setContainerHeight] = useState('100vh');
+  const containerRef = useRef<HTMLDivElement>(null);
   const [generatorState, setGeneratorState] = useState<GeneratorState>({
     username: '',
     aboutMe: {
@@ -204,8 +209,61 @@ const Index = () => {
     }
   };
 
+  const { theme } = useTheme();
+  const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+
+  // Update background height based on content
+  useEffect(() => {
+    if (containerRef.current) {
+      const updateHeight = () => {
+        const contentHeight = containerRef.current?.scrollHeight || 0;
+        const viewportHeight = window.innerHeight;
+        const finalHeight = Math.max(contentHeight, viewportHeight);
+        setContainerHeight(`${finalHeight}px`);
+      };
+
+      updateHeight();
+      window.addEventListener('resize', updateHeight);
+      
+      // Use MutationObserver to detect content changes
+      const observer = new MutationObserver(updateHeight);
+      observer.observe(containerRef.current, { 
+        childList: true, 
+        subtree: true, 
+        attributes: true 
+      });
+
+      return () => {
+        window.removeEventListener('resize', updateHeight);
+        observer.disconnect();
+      };
+    }
+  }, [currentPage]);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white overflow-hidden">
+    <div ref={containerRef} className="relative overflow-hidden min-h-screen flex flex-col">
+      {/* Dynamic background that adapts to content height */}
+      <div 
+        className="absolute top-0 left-0 w-full -z-10 rounded-b-4xl overflow-hidden opacity-90"
+        style={{ height: containerHeight }}
+      >
+        {isDark ? (
+          // Dark mode: Flowing Aurora with vibrant purple gradients
+          <Aurora
+            colorStops={["#4338ca", "#6366f1", "#8b5cf6"]} 
+            amplitude={1.5}
+            speed={1.0}
+          />
+        ) : (
+          // Light mode: Subtle LiquidChrome with paper-like colors
+          <LiquidChrome
+            color={[0.96, 0.97, 0.98]}
+            mouseReact={true}
+            amplitude={0.08}
+            speed={0.6}
+          />
+        )}
+      </div>
       <AnimatePresence mode="wait">
         <motion.div
           key={currentPage}
@@ -213,7 +271,7 @@ const Index = () => {
           animate={{ opacity: 1, x: 0 }}
           exit={{ opacity: 0, x: -300 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
-          className="h-full"
+          className="h-full flex-1"
         >
             {/* @ts-ignore */}
           <CurrentPageComponent {...getPageProps()} />

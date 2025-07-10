@@ -5,6 +5,9 @@ import { ArrowRight, Github, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import type { GeneratorState } from './Readme-generator';
+import LiquidChrome from '../LandingComponents/LiquidChrome';
+import Aurora from '../LandingComponents/Aurora';
+import { useTheme } from '../theme-provider';
 
 interface WelcomePageProps {
   state: GeneratorState;
@@ -22,8 +25,29 @@ const WelcomePage = ({ state, setState, nextPage }: WelcomePageProps) => {
     }
   };
 
+  const { theme } = useTheme();
+  const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="relative overflow-hidden min-h-screen flex items-center justify-center">
+      <div className="absolute inset-0 -z-10 rounded-b-4xl overflow-hidden opacity-90">
+        {isDark ? (
+          // Dark mode: Flowing Aurora with vibrant purple gradients
+          <Aurora
+            colorStops={["#4338ca", "#6366f1", "#8b5cf6"]} 
+            amplitude={1.5}
+            speed={1.0}
+          />
+        ) : (
+          // Light mode: Subtle LiquidChrome with paper-like colors
+          <LiquidChrome
+            color={[0.96, 0.97, 0.98]}
+            mouseReact={true}
+            amplitude={0.08}
+            speed={0.6}
+          />
+        )}
+      </div>
       <div className="max-w-4xl w-full grid lg:grid-cols-2 gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -35,19 +59,19 @@ const WelcomePage = ({ state, setState, nextPage }: WelcomePageProps) => {
             initial={{ scale: 0.9 }}
             animate={{ scale: 1 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full mb-6 text-sm font-medium"
+            className="inline-flex items-center gap-2 bg-background/60 backdrop-blur-md text-foreground px-4 py-2 rounded-full mb-6 text-sm font-medium"
           >
             <Sparkles className="w-4 h-4" />
             Best Profile Generator
           </motion.div>
 
-          <h1 className="text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent leading-tight">
-            Create Your Perfect
-            <br />
-            GitHub Profile
+          <h1 className="leading-none sm:text-[70px] lg:text-[60px] font-bold bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
+            <span>Create Your</span>{" "}
+            Perfect {" "} <br />
+            <span className="text-primary drop-shadow-sm">GitHub</span> Profile
           </h1>
 
-          <p className="text-xl text-slate-300 mb-8 leading-relaxed">
+          <p className="px-4 text-lg md:text-xl text-muted-foreground my-10 max-w-2xl">
             Generate a stunning GitHub profile README in minutes. 
             Showcase your skills, stats, and personality with our intuitive builder.
           </p>
@@ -79,7 +103,7 @@ const WelcomePage = ({ state, setState, nextPage }: WelcomePageProps) => {
             </Button>
           </div>
 
-          <div className="mt-8 text-sm text-slate-400">
+          <div className="mt-8 text-muted-foreground">
             <p>✨ No sign-up required • Free forever • Open source</p>
           </div>
         </motion.div>
@@ -92,7 +116,7 @@ const WelcomePage = ({ state, setState, nextPage }: WelcomePageProps) => {
         >
           <div className="relative">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-3xl blur-3xl"></div>
-            <div className="relative bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-3xl p-8">
+            <div className="relative bg-background/60 backdrop-blur-md border border-slate-700 rounded-3xl p-8">
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center">
@@ -100,7 +124,7 @@ const WelcomePage = ({ state, setState, nextPage }: WelcomePageProps) => {
                   </div>
                   <div>
                     <h3 className="font-semibold">GitHub Integration</h3>
-                    <p className="text-sm text-slate-400">Real-time stats and data</p>
+                    <p className="text-sm text-muted-foreground">Real-time stats and data</p>
                   </div>
                 </div>
 
@@ -110,7 +134,7 @@ const WelcomePage = ({ state, setState, nextPage }: WelcomePageProps) => {
                   </div>
                   <div>
                     <h3 className="font-semibold">Beautiful Themes</h3>
-                    <p className="text-sm text-slate-400">Multiple customization options</p>
+                    <p className="text-sm text-muted-foreground">Multiple customization options</p>
                   </div>
                 </div>
 
@@ -120,7 +144,7 @@ const WelcomePage = ({ state, setState, nextPage }: WelcomePageProps) => {
                   </div>
                   <div>
                     <h3 className="font-semibold">One-Click Export</h3>
-                    <p className="text-sm text-slate-400">Copy or download instantly</p>
+                    <p className="text-sm text-muted-foreground">Copy or download instantly</p>
                   </div>
                 </div>
               </div>
