@@ -88,7 +88,7 @@ export default function Home() {
               </Link>
             </Button>
             <Button asChild variant="secondary" size="lg" className="flex items-center gap-2">
-              <Link to="/readme-editor">
+              <Link to="/ai-editor-intro">
                 <Bot className="h-5 w-5" />
                 AI README Editor
               </Link>
