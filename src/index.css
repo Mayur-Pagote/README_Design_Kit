@@ -300,3 +300,10 @@ div.template-scroll {
   0%, 100% { text-shadow: 0 0 10px currentColor; }
   50% { text-shadow: 0 0 20px currentColor; }
 }
+
+/* Preventing assistant message from overflowing */
+
+.assistant-message-content code {
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}

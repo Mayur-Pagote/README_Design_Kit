@@ -1,5 +1,3 @@
-
-
 <div align="center">
   <picture>
     <source srcset="./rdk.svg" media="(prefers-color-scheme: dark)">

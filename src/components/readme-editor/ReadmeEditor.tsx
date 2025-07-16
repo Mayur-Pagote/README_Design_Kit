@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ResizablePanelGroup, ResizablePanel, ResizableHandle } from '@/components/ui/resizable';
 import { Button } from '@/components/ui/button';
@@ -17,7 +18,11 @@ import {
   Copy, 
   Settings, 
   Sparkles,
-  Bot
+  Bot,
+  Home,
+  Check,
+  X,
+  RotateCcw
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -28,13 +33,19 @@ interface ReadmeEditorProps {
   className?: string;
 }
 
+const defaultMarkdown = '# My Awesome Project\n\nWelcome to my project! This README was generated with AI assistance.\n\n## 🚀 Features\n\n- Feature 1\n- Feature 2\n- Feature 3\n\n## 🛠️ Installation\n\n```bash\nnpm install\n```\n\n## 📝 Usage\n\n```javascript\nconst example = "Hello World";\nconsole.log(example);\n```\n\n## 🤝 Contributing\n\nContributions are welcome! Please feel free to submit a Pull Request.\n\n## 📄 License\n\nThis project is licensed under the MIT License.';
+
 export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
-  const [markdownContent, setMarkdownContent] = useState<string>('# My Awesome Project\n\nWelcome to my project! This README was generated with AI assistance.\n\n## 🚀 Features\n\n- Feature 1\n- Feature 2\n- Feature 3\n\n## 🛠️ Installation\n\n```bash\nnpm install\n```\n\n## 📝 Usage\n\n```javascript\nconst example = "Hello World";\nconsole.log(example);\n```\n\n## 🤝 Contributing\n\nContributions are welcome! Please feel free to submit a Pull Request.\n\n## 📄 License\n\nThis project is licensed under the MIT License.');
+  const [markdownContent, setMarkdownContent] = useState<string>(defaultMarkdown);
   const [activeTab, setActiveTab] = useState<'code' | 'preview'>('preview');
   const [isGenerating, setIsGenerating] = useState(false);
   const [chatHistory, setChatHistory] = useState<Array<{ role: 'user' | 'assistant'; content: string; timestamp: Date }>>([]);
   const [showSettings, setShowSettings] = useState(false);
   const [isAutoTyping, setIsAutoTyping] = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+
+  const autoTypingCancelled = useRef(false);
+  const generationCancelled = useRef(false);
 
   const handleMarkdownChange = (content: string) => {
     setMarkdownContent(content);
@@ -43,6 +54,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
   // Auto-typing effect for applying AI generated content - instant speed
   const autoTypeContent = async (newContent: string) => {
     setIsAutoTyping(true);
+    autoTypingCancelled.current = false;
     setActiveTab('code'); // Switch to code tab
     
     // Apply content instantly for better user experience
@@ -59,6 +71,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
 
   const handleChatMessage = async (message: string) => {
     setIsGenerating(true);
+    generationCancelled.current = false;
     const newUserMessage = { role: 'user' as const, content: message, timestamp: new Date() };
     setChatHistory(prev => [...prev, newUserMessage]);
 
@@ -120,6 +133,11 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
         aiResponse = await readmeAI.answerReadmeQuestion(message, markdownContent);
       }
 
+      if(generationCancelled.current) {
+        setIsGenerating(false);
+        return;
+      }
+
       const assistantMessage = {
         role: 'assistant' as const,
         content: aiResponse,
@@ -132,7 +150,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
       // Auto-apply and type the content if it's markdown
       if (aiResponse.includes('# ') && aiResponse.includes('## ')) {
         await autoTypeContent(aiResponse);
-        toast.success('Content automatically applied to editor!');
+        toast.success('Reset Successful');
       }
       
     } catch (error) {
@@ -215,6 +233,12 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
             <Button variant="outline" size="sm" onClick={() => setShowSettings(true)}>
               <Settings className="h-4 w-4" />
             </Button>
+
+            <Button variant="outline" size="sm">
+              <Link to="/">
+                <Home className="h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </div>
@@ -230,16 +254,60 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
                   <MessageSquare className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm font-medium">AI Assistant</span>
                 </div>
-                <div className="flex items-center space-x-1">
-                  <div className={cn(
-                    "h-2 w-2 rounded-full",
-                    isGenerating ? "bg-orange-500 animate-pulse" : "bg-green-500"
-                  )}></div>
-                  <span className="text-xs text-muted-foreground">
-                    {isGenerating ? "Generating..." : "Ready"}
-                  </span>
+                <div className="flex items-center space-x-2">
+                  <div className="relative">
+                    {!showResetConfirm ? (
+                      <motion.button className="px-2 py-1 text-sm border rounded-md bg-background flex items-center space-x-1"
+                        onClick={() => setShowResetConfirm(true)}
+                        initial={{ x: 0 }}
+                        animate={{ x: 0 }}
+                        exit={{ x: -20 }}
+                      >
+                        <RotateCcw className="h-4 w-4" />
+                        <span>Reset</span>
+                      </motion.button>
+                    ) : (
+                      <motion.div
+                        className="flex space-x-1"
+                        initial={{ x: 20, opacity: 0 }}
+                        animate={{ x: 0, opacity: 1 }}
+                      >
+                        <Button variant="outline" size="sm"className="px-2 py-1"
+                          onClick={() => {
+                            generationCancelled.current = true;
+                            autoTypingCancelled.current = true;
+                            setChatHistory([]);
+                            setMarkdownContent(defaultMarkdown);
+                            setShowResetConfirm(false);
+                            toast.success("Chat history cleared!");
+                          }}
+                        >
+                          <Check className="h-4 w-4" />
+                        </Button>
+                        <Button variant="outline" size="sm" className="px-2 py-1"
+                          onClick={() => setShowResetConfirm(false)}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </motion.div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center space-x-1">
+                    <div
+                      className={cn(
+                        "h-2 w-2 rounded-full",
+                        isGenerating ? "bg-orange-500 animate-pulse" : "bg-green-500"
+                      )}
+                    ></div>
+                    <span className="text-xs text-muted-foreground">
+                      {isGenerating ? "Generating..." : "Ready"}
+                    </span>
+                  </div>
                 </div>
               </div>
+
+
               
               <ChatPanel
                 onMessage={handleChatMessage}

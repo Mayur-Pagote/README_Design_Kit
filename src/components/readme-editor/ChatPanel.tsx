@@ -161,13 +161,13 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
                   "max-w-[85%] transition-colors",
                   message.role === 'user' 
                     ? "bg-primary text-primary-foreground" 
-                    : "bg-muted/50 hover:bg-muted/70"
+                    : "bg-muted/50 hover:bg-muted/70 w-full"
                 )}>
                   <CardContent className="p-3">
                     <div className="space-y-2">
-                      <div className="prose prose-sm dark:prose-invert max-w-none">
+                      <div className="prose prose-sm dark:prose-invert max-w-none w-full overflow-hidden">
                         {message.role === 'assistant' ? (
-                          <div className="text-sm leading-relaxed">
+                          <div className="text-sm leading-relaxed w-full overflow-hidden break-words hyphens-auto assistant-message-content">
                             <ReactMarkdown remarkPlugins={[remarkGfm]}>
                               {message.content}
                             </ReactMarkdown>
@@ -271,7 +271,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
 
       {/* Input Area */}
       <div className="p-4 border-t bg-background">
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} className="space-y-3 mb-10">
           <div className="relative">
             <Textarea
               ref={textareaRef}
@@ -296,7 +296,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
             </Button>
           </div>
           
-          <div className="text-xs text-muted-foreground">
+          <div className="text-xs text-muted-foreground text-center ">
             Tip: Be specific about what you want in your README for better results
           </div>
         </form>
