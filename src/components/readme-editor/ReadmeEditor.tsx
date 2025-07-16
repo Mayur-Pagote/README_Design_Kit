@@ -22,6 +22,7 @@ import {
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { readmeAI } from '@/services/readmeAIService';
+import { webSearchService } from '@/services/webSearchService';
 
 interface ReadmeEditorProps {
   className?: string;
@@ -39,45 +40,21 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
     setMarkdownContent(content);
   };
 
-  // Auto-typing effect for applying AI generated content
+  // Auto-typing effect for applying AI generated content - instant speed
   const autoTypeContent = async (newContent: string) => {
     setIsAutoTyping(true);
     setActiveTab('code'); // Switch to code tab
     
-    // Clear current content first
-    setMarkdownContent('');
-    
-    // Type character by character with variable  nd
-    const lines = newContent.split('\n');
-    let currentContent = '';
-    
-    for (let i = 0; i < lines.length; i++) {
-      const line = lines[i];
-      
-      // Add the line character by character
-      for (let j = 0; j <= line.length; j++) {
-        currentContent = lines.slice(0, i).join('\n') + (i > 0 ? '\n' : '') + line.slice(0, j);
-        setMarkdownContent(currentContent);
-        
-        // Instant typing - minimal delay
-        await new Promise(resolve => setTimeout(resolve, 1));
-      }
-      
-      // Add newline at end of each line (except last)
-      if (i < lines.length - 1) {
-        currentContent += '\n';
-        setMarkdownContent(currentContent);
-        await new Promise(resolve => setTimeout(resolve, 1));
-      }
-    }
+    // Apply content instantly for better user experience
+    setMarkdownContent(newContent);
     
     setIsAutoTyping(false);
     
-    // Auto-switch to preview after typing is complete
+    // Auto-switch to preview after content is applied
     setTimeout(() => {
       setActiveTab('preview');
       toast.success('Content applied! Switch to code tab to edit further.');
-    }, 100);
+    }, 50);
   };
 
   const handleChatMessage = async (message: string) => {
@@ -99,11 +76,38 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
         return;
       }
 
-      // Determine the type of request and use appropriate AI method
+      // Enhanced AI response generation with web search grounding
       let aiResponse: string;
       
-      if (message.toLowerCase().includes('create') || message.toLowerCase().includes('generate')) {
-        // Generate new content
+      // Check if the message mentions a username for profile-based generation
+      const usernameMatch = message.match(/(?:github\.com\/|@|user(?:name)?\s+)([a-zA-Z0-9-_]+)/i);
+      const mentionsProfile = message.toLowerCase().includes('profile') || 
+                            message.toLowerCase().includes('github') || 
+                            message.toLowerCase().includes('linkedin') ||
+                            usernameMatch;
+      
+      if (mentionsProfile && usernameMatch) {
+        // Use enhanced web search for profile-based README generation
+        const username = usernameMatch[1];
+        toast.info(`Searching for ${username}'s profile across platforms...`);
+        
+        try {
+          aiResponse = await webSearchService.generatePersonalizedReadme(message, username, true);
+          toast.success('Generated personalized README using profile data!');
+        } catch (error) {
+          console.warn('Enhanced search failed, falling back to standard generation:', error);
+          // Fallback to standard generation
+          if (message.toLowerCase().includes('create') || message.toLowerCase().includes('generate')) {
+            aiResponse = await readmeAI.generateReadmeContent(message, {
+              currentReadme: markdownContent,
+              projectType: 'web application'
+            });
+          } else {
+            aiResponse = await readmeAI.answerReadmeQuestion(message, markdownContent);
+          }
+        }
+      } else if (message.toLowerCase().includes('create') || message.toLowerCase().includes('generate')) {
+        // Standard content generation
         aiResponse = await readmeAI.generateReadmeContent(message, {
           currentReadme: markdownContent,
           projectType: 'web application'
@@ -178,7 +182,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
             </div>
             <Badge variant="secondary" className="text-xs">
               <Sparkles className="h-3 w-3 mr-1" />
-              Powered by Gemini
+              Powered by Gemini 2.5 Flash Lite
             </Badge>
           </div>
           

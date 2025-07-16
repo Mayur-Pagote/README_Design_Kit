@@ -44,187 +44,248 @@ export class ReadmeAIService {
     return this.apiKey !== null && this.genAI !== null;
   }
 
+  private cleanMarkdownResponse(text: string): string {
+    // Remove markdown code block wrapping (```markdown and ```)
+    let cleaned = text.trim();
+    
+    // Remove markdown code block markers
+    cleaned = cleaned.replace(/^```markdown\s*/i, '');
+    cleaned = cleaned.replace(/^```\s*/, '');
+    cleaned = cleaned.replace(/\s*```$/, '');
+    
+    // Remove any remaining markdown wrapper patterns
+    cleaned = cleaned.replace(/^markdown\s*/i, '');
+    
+    return cleaned.trim();
+  }
+
   async generateReadmeContent(userMessage: string, context: ReadmeContext = {}): Promise<string> {
     if (!this.isConfigured()) {
       throw new Error('Gemini API key not configured. Please set your API key first.');
     }
 
     try {
-      const model = this.genAI!.getGenerativeModel({ model: 'gemini-2.0-flash' });
+      const model = this.genAI!.getGenerativeModel({ 
+        model: 'gemini-2.0-flash-lite',
+        generationConfig: {
+          temperature: 0.8,
+          topP: 0.9,
+          topK: 40,
+          maxOutputTokens: 8192,
+        }
+      });
 
-      const contextInfo = this.buildContextString(context);
-      
-      const systemPrompt = `You are an expert README.md generator and technical writer. Your task is to help users create professional, comprehensive, and engaging README files.
+      // Build context information
+      let contextInfo = '';
+      if (context.projectName) contextInfo += `Project Name: ${context.projectName}\n`;
+      if (context.projectType) contextInfo += `Project Type: ${context.projectType}\n`;
+      if (context.technologies?.length) contextInfo += `Technologies: ${context.technologies.join(', ')}\n`;
+      if (context.features?.length) contextInfo += `Features: ${context.features.join(', ')}\n`;
+      if (context.description) contextInfo += `Description: ${context.description}\n`;
 
-${contextInfo}
+      const prompt = `You are an expert README generator that creates professional, comprehensive, and engaging README files for software projects.
 
-Guidelines:
-- Always respond with valid Markdown
-- Include emojis for better visual appeal
-- Use proper markdown syntax (headers, lists, code blocks, etc.)
-- Make content professional but engaging
-- Include relevant badges when appropriate
-- Structure content logically
-- When updating existing content, preserve good sections and improve others
-- For new content, create comprehensive sections as needed
-- Always include code examples when relevant
-- Use proper markdown table syntax for tech stacks
-- Include proper installation and usage instructions
-- Add contributing guidelines when appropriate
+${contextInfo ? `Context:\n${contextInfo}\n` : ''}
 
-Current user request: "${userMessage}"
+User Request: ${userMessage}
 
-Please generate the README content as requested. Return only the markdown content without additional explanations.`;
+Create a complete, professional README.md file that includes:
+- Clear project title and description
+- Features and benefits
+- Installation instructions
+- Usage examples with code snippets
+- Contributing guidelines
+- License information
+- Professional formatting with badges, emojis, and proper markdown
 
-      const result = await model.generateContent(systemPrompt);
-      const response = await result.response;
-      const content = response.text().trim();
+Make it engaging, informative, and follow modern README best practices. Use proper markdown formatting and include relevant sections based on the project type.
 
-      return this.cleanupMarkdownResponse(content);
+Generate ONLY the markdown content without any explanations or meta-commentary.`;
+
+      const result = await model.generateContent(prompt);
+      const response = result.response;
+      const text = response.text();
+
+      if (!text) {
+        throw new Error('No content generated');
+      }
+
+      // Clean the response from markdown code block wrapping
+      const cleanedText = this.cleanMarkdownResponse(text);
+      return cleanedText;
     } catch (error) {
       console.error('Error generating README content:', error);
-      throw new Error('Failed to generate README content. Please try again.');
+      throw new Error(`Failed to generate README content: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
 
-  async improveExistingReadme(currentReadme: string, userRequest: string): Promise<string> {
+  async improveExistingReadme(existingReadme: string, userSuggestions: string = ''): Promise<string> {
     if (!this.isConfigured()) {
       throw new Error('Gemini API key not configured. Please set your API key first.');
     }
 
     try {
-      const model = this.genAI!.getGenerativeModel({ model: 'gemini-2.0-flash' });
+      const model = this.genAI!.getGenerativeModel({ 
+        model: 'gemini-2.0-flash-lite',
+        generationConfig: {
+          temperature: 0.7,
+          topP: 0.8,
+          topK: 40,
+          maxOutputTokens: 8192,
+        }
+      });
 
-      const prompt = `You are an expert at improving README files. Here's the current README content:
+      const prompt = `You are an expert README editor. Analyze and improve this existing README file to make it more professional, comprehensive, and engaging.
 
+Current README:
 \`\`\`markdown
-${currentReadme}
+${existingReadme}
 \`\`\`
 
-User request: "${userRequest}"
+${userSuggestions ? `User suggestions: ${userSuggestions}\n` : ''}
 
-Please improve the README based on the user's request. Maintain the existing structure where it makes sense, but enhance, add, or modify content as requested. Return only the improved markdown content.
+Please improve this README by:
+1. Enhancing clarity and readability
+2. Adding missing sections (if needed)
+3. Improving formatting and structure
+4. Making descriptions more engaging
+5. Adding proper badges and visual elements
+6. Ensuring professional tone
+7. Following modern README best practices
 
-Focus on:
-- Better organization and structure
-- More engaging and professional language
-- Proper markdown formatting
-- Adding missing sections if needed
-- Improving existing content clarity
-- Adding relevant emojis and visual elements
-- Ensuring code examples are clear and correct
+Keep the existing project information but enhance the presentation and completeness.
 
-Return only the improved markdown content:`;
+Return ONLY the improved markdown content without any explanations.`;
 
       const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const content = response.text().trim();
+      const response = result.response;
+      const text = response.text();
 
-      return this.cleanupMarkdownResponse(content);
+      if (!text) {
+        throw new Error('No improved content generated');
+      }
+
+      // Clean the response from markdown code block wrapping
+      const cleanedText = this.cleanMarkdownResponse(text);
+      return cleanedText;
     } catch (error) {
       console.error('Error improving README:', error);
-      throw new Error('Failed to improve README. Please try again.');
+      throw new Error(`Failed to improve README: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
 
-  async answerReadmeQuestion(question: string, currentReadme: string = ''): Promise<string> {
+  async answerReadmeQuestion(question: string, readmeContent: string = ''): Promise<string> {
     if (!this.isConfigured()) {
       throw new Error('Gemini API key not configured. Please set your API key first.');
     }
 
     try {
-      const model = this.genAI!.getGenerativeModel({ model: 'gemini-2.0-flash' });
+      const model = this.genAI!.getGenerativeModel({ 
+        model: 'gemini-2.0-flash-lite',
+        generationConfig: {
+          temperature: 0.7,
+          topP: 0.8,
+          topK: 40,
+          maxOutputTokens: 4096,
+        }
+      });
 
-      const readmeContext = currentReadme ? `\n\nCurrent README content:\n\`\`\`markdown\n${currentReadme}\n\`\`\`` : '';
+      const prompt = `You are a helpful README assistant. Answer the user's question about README files, providing practical advice and examples when relevant.
 
-      const prompt = `You are a helpful assistant specializing in README files and documentation. Answer the user's question about README creation, best practices, or improvement.${readmeContext}
+${readmeContent ? `Current README context:\n\`\`\`markdown\n${readmeContent.substring(0, 1000)}...\n\`\`\`\n` : ''}
 
-User question: "${question}"
+User Question: ${question}
 
-Provide a helpful, informative response. If the question involves generating or modifying README content, include the markdown in your response. Be specific and actionable in your advice.`;
+Provide a helpful, informative response that:
+1. Directly answers the question
+2. Provides practical examples if relevant
+3. Suggests best practices
+4. Is clear and actionable
+
+If the question is about generating or improving content, provide specific markdown examples.`;
 
       const result = await model.generateContent(prompt);
-      const response = await result.response;
-      const content = response.text().trim();
+      const response = result.response;
+      const text = response.text();
 
-      return content;
+      if (!text) {
+        throw new Error('No response generated');
+      }
+
+      return text.trim();
     } catch (error) {
       console.error('Error answering README question:', error);
-      throw new Error('Failed to answer question. Please try again.');
+      throw new Error(`Failed to answer question: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
   }
 
-  private buildContextString(context: ReadmeContext): string {
-    const parts = [];
-    
-    if (context.projectName) {
-      parts.push(`Project Name: ${context.projectName}`);
-    }
-    
-    if (context.projectType) {
-      parts.push(`Project Type: ${context.projectType}`);
-    }
-    
-    if (context.technologies?.length) {
-      parts.push(`Technologies: ${context.technologies.join(', ')}`);
-    }
-    
-    if (context.features?.length) {
-      parts.push(`Features: ${context.features.join(', ')}`);
-    }
-    
-    if (context.description) {
-      parts.push(`Description: ${context.description}`);
-    }
-    
-    if (context.currentReadme) {
-      parts.push(`Current README:\n\`\`\`markdown\n${context.currentReadme}\n\`\`\``);
+  async enhanceWithWebSearch(userQuery: string, userProfile?: any): Promise<string> {
+    if (!this.isConfigured()) {
+      throw new Error('Gemini API key not configured. Please set your API key first.');
     }
 
-    return parts.length > 0 ? `Context:\n${parts.join('\n')}\n\n` : '';
-  }
+    try {
+      const model = this.genAI!.getGenerativeModel({ 
+        model: 'gemini-2.0-flash-lite',
+        generationConfig: {
+          temperature: 0.8,
+          topP: 0.9,
+          topK: 40,
+          maxOutputTokens: 8192,
+        }
+      });
 
-  private cleanupMarkdownResponse(response: string): string {
-    // Remove any markdown code block wrappers if present
-    let cleaned = response.replace(/^```markdown\n?/, '').replace(/\n?```$/, '');
-    
-    // Remove any explanation text that might have been added
-    cleaned = cleaned.replace(/^Here's.*?:\s*/i, '');
-    cleaned = cleaned.replace(/^I'll.*?:\s*/i, '');
-    cleaned = cleaned.replace(/^This.*?:\s*/i, '');
-    
-    // Ensure proper spacing between sections
-    cleaned = cleaned.replace(/\n{3,}/g, '\n\n');
-    
-    // Trim any extra whitespace
-    cleaned = cleaned.trim();
-    
-    return cleaned;
-  }
+      let profileContext = '';
+      if (userProfile) {
+        if (userProfile.github) {
+          profileContext += `GitHub Profile:\n`;
+          if (userProfile.github.bio) profileContext += `- Bio: ${userProfile.github.bio}\n`;
+          if (userProfile.github.location) profileContext += `- Location: ${userProfile.github.location}\n`;
+          if (userProfile.github.company) profileContext += `- Company: ${userProfile.github.company}\n`;
+          if (userProfile.github.repositories) {
+            profileContext += `- Recent Repositories: ${userProfile.github.repositories.slice(0, 3).map((r: any) => r.name).join(', ')}\n`;
+          }
+        }
+        
+        if (userProfile.linkedin) {
+          profileContext += `LinkedIn Profile:\n`;
+          if (userProfile.linkedin.headline) profileContext += `- Headline: ${userProfile.linkedin.headline}\n`;
+          if (userProfile.linkedin.skills) profileContext += `- Skills: ${userProfile.linkedin.skills.slice(0, 5).join(', ')}\n`;
+        }
+      }
 
-  // Template methods for common README patterns
-  async generateProjectTemplate(projectName: string, projectType: string, technologies: string[]): Promise<string> {
-    const context: ReadmeContext = {
-      projectName,
-      projectType,
-      technologies
-    };
+      const prompt = `You are an AI README generator with access to user profile information. Create a personalized and professional README based on the user's request and profile data.
 
-    const request = `Create a comprehensive README template for a ${projectType} project called "${projectName}" using ${technologies.join(', ')}. Include all standard sections like description, features, installation, usage, contributing, and license.`;
+${profileContext ? `User Profile Information:\n${profileContext}\n` : ''}
 
-    return this.generateReadmeContent(request, context);
-  }
+User Request: ${userQuery}
 
-  async addSection(currentReadme: string, sectionType: string, details: string = ''): Promise<string> {
-    const request = `Add a ${sectionType} section to the README. ${details ? `Details: ${details}` : ''}`;
-    return this.improveExistingReadme(currentReadme, request);
-  }
+Create a comprehensive README that:
+1. Incorporates relevant information from the user's profile
+2. Reflects their actual skills and experience
+3. Uses appropriate technologies from their background
+4. Maintains a professional tone that matches their career level
+5. Includes realistic project details based on their expertise
+6. Uses proper markdown formatting with badges and emojis
 
-  async improveSectionClarities(currentReadme: string, sectionName: string): Promise<string> {
-    const request = `Improve the "${sectionName}" section to make it clearer, more detailed, and more professional.`;
-    return this.improveExistingReadme(currentReadme, request);
+Generate ONLY the markdown content for the README file.`;
+
+      const result = await model.generateContent(prompt);
+      const response = result.response;
+      const text = response.text();
+
+      if (!text) {
+        throw new Error('No enhanced content generated');
+      }
+
+      // Clean the response from markdown code block wrapping
+      const cleanedText = this.cleanMarkdownResponse(text);
+      return cleanedText;
+    } catch (error) {
+      console.error('Error enhancing with web search:', error);
+      throw new Error(`Failed to enhance with web search: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
   }
 }
 
-// Singleton instance
 export const readmeAI = new ReadmeAIService();

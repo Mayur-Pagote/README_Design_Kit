@@ -78,7 +78,15 @@ class GeminiService {
     }
 
     try {
-      const model = this.genAI!.getGenerativeModel({ model: 'gemini-2.0-flash' });
+      const model = this.genAI!.getGenerativeModel({ 
+        model: 'gemini-2.5-flash-lite',
+        generationConfig: {
+          temperature: 0.7,
+          topP: 0.8,
+          topK: 40,
+          maxOutputTokens: 8192,
+        }
+      });
 
       const contextPrompt = context ? `Context: ${context}\n\n` : '';
       
@@ -123,7 +131,15 @@ Enhanced text:`;
     }
 
     try {
-      const model = this.genAI!.getGenerativeModel({ model: 'gemini-2.0-flash' });
+      const model = this.genAI!.getGenerativeModel({ 
+        model: 'gemini-2.5-flash-lite',
+        generationConfig: {
+          temperature: 0.8,
+          topP: 0.9,
+          topK: 40,
+          maxOutputTokens: 8192,
+        }
+      });
 
       const creativityInstructions = this.getCreativityInstructions();
       const styleInstructions = this.getStyleInstructions();
@@ -215,8 +231,8 @@ Generated content:`;
   }
 
   private cleanupAIResponse(response: string): string {
-    // Remove common AI response patterns
-    let cleaned = response.trim();
+    // Use the markdown cleaning first
+    let cleaned = this.cleanMarkdownResponse(response);
     
     // Remove quotes that might wrap the response
     cleaned = cleaned.replace(/^["']|["']$/g, '');
@@ -241,6 +257,21 @@ Generated content:`;
     // Remove any remaining markdown formatting for options
     cleaned = cleaned.replace(/\*\*Option \d+[^:]*:\*\*/g, '');
     cleaned = cleaned.replace(/^>\s*/gm, ''); // Remove quote markers
+    
+    return cleaned.trim();
+  }
+
+  private cleanMarkdownResponse(text: string): string {
+    // Remove markdown code block wrapping (```markdown and ```
+    let cleaned = text.trim();
+    
+    // Remove markdown code block markers
+    cleaned = cleaned.replace(/^```markdown\s*/i, '');
+    cleaned = cleaned.replace(/^```\s*/, '');
+    cleaned = cleaned.replace(/\s*```$/, '');
+    
+    // Remove any remaining markdown wrapper patterns
+    cleaned = cleaned.replace(/^markdown\s*/i, '');
     
     return cleaned.trim();
   }

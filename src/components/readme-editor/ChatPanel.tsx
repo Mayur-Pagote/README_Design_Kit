@@ -36,11 +36,15 @@ interface ChatPanelProps {
 
 const SUGGESTED_PROMPTS = [
   "Create a README for a React web application",
-  "Add installation and usage instructions",
-  "Generate a professional project description",
+  "Generate a personal GitHub profile README",
+  "Add installation and usage instructions", 
+  "Create a professional developer profile",
+  "Generate a project showcase README",
   "Add badges and tech stack section",
   "Create contributing guidelines",
-  "Add API documentation section"
+  "Add API documentation section",
+  "Generate profile based on GitHub username: [username]",
+  "Create a portfolio project README"
 ];
 
 export const ChatPanel: React.FC<ChatPanelProps> = ({

@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import Editor from '@monaco-editor/react';
-import { useTheme } from 'next-themes';
+import { useTheme } from '@/components/theme-provider';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { 
@@ -28,13 +28,15 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
   className,
   readOnly = false
 }) => {
-  const { theme, systemTheme } = useTheme();
+  const { theme } = useTheme();
   const editorRef = useRef<any>(null);
   const [isFullscreen, setIsFullscreen] = React.useState(false);
   const [showMinimap, setShowMinimap] = React.useState(false);
   const [fontSize, setFontSize] = React.useState(14);
 
-  const currentTheme = theme === 'system' ? systemTheme : theme;
+  const currentTheme = theme === 'system' 
+    ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    : theme;
 
   const handleEditorDidMount = (editor: any, monaco: any) => {
     editorRef.current = editor;
@@ -63,8 +65,8 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       }
     });
 
-    // Define custom colors for markdown elements
-    monaco.editor.defineTheme('markdown-dark', {
+    // Define enhanced dark theme for better visibility
+    monaco.editor.defineTheme('readme-dark', {
       base: 'vs-dark',
       inherit: true,
       rules: [
@@ -76,7 +78,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         { token: 'custom-h6', foreground: 'CE9178', fontStyle: 'bold' },
         { token: 'custom-list', foreground: '4FC1FF' },
         { token: 'custom-quote', foreground: '6A9955', fontStyle: 'italic' },
-        { token: 'custom-code-block', foreground: 'D4D4D4', background: '2D2D30' },
+        { token: 'custom-code-block', foreground: 'D4D4D4', background: '1E1E1E' },
         { token: 'custom-inline-code', foreground: 'F44747', background: '2D2D30' },
         { token: 'custom-bold', foreground: 'FFFFFF', fontStyle: 'bold' },
         { token: 'custom-italic', foreground: 'FFFFFF', fontStyle: 'italic' },
@@ -84,11 +86,26 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         { token: 'custom-link', foreground: '3794FF' },
       ],
       colors: {
-        'editor.background': '#1E1E1E',
+        'editor.background': '#0D1117',
+        'editor.foreground': '#E6EDF3',
+        'editorLineNumber.foreground': '#7D8590',
+        'editorLineNumber.activeForeground': '#E6EDF3',
+        'editor.selectionBackground': '#264F78',
+        'editor.lineHighlightBackground': '#161B22',
+        'editorCursor.foreground': '#E6EDF3',
+        'editorWhitespace.foreground': '#484F58',
+        'editorIndentGuide.background': '#21262D',
+        'editorIndentGuide.activeBackground': '#30363D',
+        'editor.findMatchBackground': '#264F78',
+        'editor.findMatchHighlightBackground': '#264F7866',
+        'scrollbarSlider.background': '#484F5833',
+        'scrollbarSlider.hoverBackground': '#484F5844',
+        'scrollbarSlider.activeBackground': '#484F5888',
       }
     });
 
-    monaco.editor.defineTheme('markdown-light', {
+    // Define enhanced light theme
+    monaco.editor.defineTheme('readme-light', {
       base: 'vs',
       inherit: true,
       rules: [
@@ -100,20 +117,34 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         { token: 'custom-h6', foreground: 'A31515', fontStyle: 'bold' },
         { token: 'custom-list', foreground: '0451A5' },
         { token: 'custom-quote', foreground: '008000', fontStyle: 'italic' },
-        { token: 'custom-code-block', foreground: '000000', background: 'F8F8F8' },
-        { token: 'custom-inline-code', foreground: 'E10E00', background: 'F8F8F8' },
-        { token: 'custom-bold', foreground: '000000', fontStyle: 'bold' },
-        { token: 'custom-italic', foreground: '000000', fontStyle: 'italic' },
+        { token: 'custom-code-block', foreground: '24292F', background: 'F6F8FA' },
+        { token: 'custom-inline-code', foreground: 'E10E00', background: 'F6F8FA' },
+        { token: 'custom-bold', foreground: '24292F', fontStyle: 'bold' },
+        { token: 'custom-italic', foreground: '24292F', fontStyle: 'italic' },
         { token: 'custom-image', foreground: 'D4A622' },
-        { token: 'custom-link', foreground: '0000EE' },
+        { token: 'custom-link', foreground: '0969DA' },
       ],
       colors: {
         'editor.background': '#FFFFFF',
+        'editor.foreground': '#24292F',
+        'editorLineNumber.foreground': '#656D76',
+        'editorLineNumber.activeForeground': '#24292F',
+        'editor.selectionBackground': '#ADD6FF',
+        'editor.lineHighlightBackground': '#F6F8FA',
+        'editorCursor.foreground': '#24292F',
+        'editorWhitespace.foreground': '#D1D9E0',
+        'editorIndentGuide.background': '#D1D9E0',
+        'editorIndentGuide.activeBackground': '#656D76',
+        'editor.findMatchBackground': '#FFDF5D',
+        'editor.findMatchHighlightBackground': '#FFDF5D66',
+        'scrollbarSlider.background': '#D1D9E033',
+        'scrollbarSlider.hoverBackground': '#D1D9E044',
+        'scrollbarSlider.activeBackground': '#D1D9E088',
       }
     });
 
-    // Set the custom theme
-    monaco.editor.setTheme(currentTheme === 'dark' ? 'markdown-dark' : 'markdown-light');
+    // Set the custom theme based on current theme
+    monaco.editor.setTheme(currentTheme === 'dark' ? 'readme-dark' : 'readme-light');
   };
 
   const handleEditorChange = (newValue: string | undefined) => {
@@ -143,6 +174,14 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
       editorRef.current.updateOptions({ fontSize });
     }
   }, [fontSize]);
+
+  // Update theme when it changes
+  useEffect(() => {
+    if (editorRef.current) {
+      const newTheme = currentTheme === 'dark' ? 'readme-dark' : 'readme-light';
+      editorRef.current.updateOptions({ theme: newTheme });
+    }
+  }, [currentTheme]);
 
   return (
     <div className={cn(
@@ -212,7 +251,7 @@ export const CodeEditor: React.FC<CodeEditorProps> = ({
         <Editor
           value={value}
           language={language}
-          theme={currentTheme === 'dark' ? 'markdown-dark' : 'markdown-light'}
+          theme={currentTheme === 'dark' ? 'readme-dark' : 'readme-light'}
           onChange={handleEditorChange}
           onMount={handleEditorDidMount}
           options={{
