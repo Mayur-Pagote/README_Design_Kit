@@ -134,7 +134,7 @@ For suggestions with actionable improvements:
 
 Provide specific, actionable feedback with implementable fixes where possible.`;
 
-    const model = geminiService['genAI']!.getGenerativeModel({ model: 'gemini-2.0-flash' });
+    const model = geminiService['genAI']!.getGenerativeModel({ model: 'gemini-2.5-flash-lite' });
     const result = await model.generateContent(analysisPrompt);
     const response = await result.response;
     const text = response.text().trim();

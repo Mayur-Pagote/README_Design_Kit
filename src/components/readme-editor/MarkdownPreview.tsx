@@ -5,7 +5,9 @@ import remarkGfm from 'remark-gfm';
 import rehypeHighlight from 'rehype-highlight';
 import rehypeRaw from 'rehype-raw';
 import { cn } from '@/lib/utils';
+import { useTheme } from '@/components/theme-provider';
 import 'highlight.js/styles/github-dark.css';
+import 'highlight.js/styles/github.css';
 
 interface MarkdownPreviewProps {
   content: string;
@@ -16,6 +18,30 @@ export const MarkdownPreview: React.FC<MarkdownPreviewProps> = ({
   content, 
   className 
 }) => {
+  const { theme } = useTheme();
+  
+  const currentTheme = theme === 'system' 
+    ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    : theme;
+
+  // Dynamic theme-based styles
+  React.useEffect(() => {
+    const link = document.querySelector('#highlight-theme') as HTMLLinkElement;
+    if (link) {
+      link.href = currentTheme === 'dark' 
+        ? 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'
+        : 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css';
+    } else {
+      const newLink = document.createElement('link');
+      newLink.id = 'highlight-theme';
+      newLink.rel = 'stylesheet';
+      newLink.href = currentTheme === 'dark' 
+        ? 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css'
+        : 'https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css';
+      document.head.appendChild(newLink);
+    }
+  }, [currentTheme]);
+
   return (
     <ScrollArea className={cn("h-full w-full", className)}>
       <div className="p-6 max-w-none">
