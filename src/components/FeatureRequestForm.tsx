@@ -1,18 +1,27 @@
 import React, { useState } from 'react';
-import { Send, X } from 'lucide-react';
+import { Send } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Label } from '@/components/ui/label';
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle, 
+  DialogDescription,
+  DialogFooter 
+} from '@/components/ui/dialog';
 import type { FeatureRequest } from '@/types/FeatureRequest';
 
 interface FeatureRequestFormProps {
   onSubmit: (feature: Omit<FeatureRequest, 'id' | 'votes' | 'userVote' | 'createdAt'>) => void;
   onClose: () => void;
+  open?: boolean;
 }
 
-const FeatureRequestForm: React.FC<FeatureRequestFormProps> = ({ onSubmit, onClose }) => {
+const FeatureRequestForm: React.FC<FeatureRequestFormProps> = ({ onSubmit, onClose, open = true }) => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
@@ -59,31 +68,18 @@ const FeatureRequestForm: React.FC<FeatureRequestFormProps> = ({ onSubmit, onClo
     }
   };
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-fade-in">
-      <div className="bg-background border border-border rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto animate-scale-in">
-        <div className="p-6 border-b border-border">
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-2xl font-bold text-foreground">
-                Submit Feature Request
-              </h2>
-              <p className="text-muted-foreground mt-1">
-                Share your ideas to help improve README Design Kit
-              </p>
-            </div>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={onClose}
-              className="h-8 w-8 p-0 hover:bg-muted focus:bg-muted transition-colors duration-200"
-              aria-label="Close dialog"
-            >
-              <X size={16} />
-            </Button>
-          </div>
-        </div>
+    <Dialog open={open} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle className="text-2xl font-bold">
+            Submit Feature Request
+          </DialogTitle>
+          <DialogDescription>
+            Share your ideas to help improve README Design Kit
+          </DialogDescription>
+        </DialogHeader>
         
-        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
             <Label htmlFor="author" className="text-sm font-medium text-foreground">
               Your Name *
@@ -151,7 +147,7 @@ const FeatureRequestForm: React.FC<FeatureRequestFormProps> = ({ onSubmit, onClo
             </p>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-border">
+          <DialogFooter>
             <Button
               type="button"
               variant="outline"
@@ -178,10 +174,10 @@ const FeatureRequestForm: React.FC<FeatureRequestFormProps> = ({ onSubmit, onClo
                 </>
               )}
             </Button>
-          </div>
+          </DialogFooter>
         </form>
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 };
 
