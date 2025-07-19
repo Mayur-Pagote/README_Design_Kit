@@ -279,7 +279,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Ask AI to help with your README... (Press Enter to send, Shift+Enter for new line)"
-              className="min-h-[60px] max-h-[120px] resize-none pr-12"
+              className="min-h-[53px] max-h-[120px] resize-none pr-12"
               disabled={isGenerating}
             />
             <Button
