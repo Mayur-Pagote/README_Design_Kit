@@ -56,6 +56,10 @@ export const APIKeySettings: React.FC<APIKeySettingsProps> = ({
       
       setIsConfigured(true);
       toast.success('API key saved and verified successfully!');
+      
+      // Dispatch custom event to notify other components
+      window.dispatchEvent(new CustomEvent('gemini-api-key-updated'));
+      
       onOpenChange(false);
     } catch (error) {
       console.error('API key test failed:', error);
