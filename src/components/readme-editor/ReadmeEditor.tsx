@@ -28,6 +28,7 @@ import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { readmeAI } from '@/services/readmeAIService';
 import { webSearchService } from '@/services/webSearchService';
+import { githubReadmeGenerator } from '@/services/githubReadmeGeneratorService';
 
 interface ReadmeEditorProps {
   className?: string;
@@ -46,6 +47,40 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
 
   const autoTypingCancelled = useRef(false);
   const generationCancelled = useRef(false);
+
+  // Configure GitHub README generator with API key
+  React.useEffect(() => {
+    const updateApiKey = () => {
+      const apiKey = localStorage.getItem('gemini_api_key');
+      if (apiKey) {
+        githubReadmeGenerator.setApiKey(apiKey);
+      }
+    };
+
+    // Initial setup
+    updateApiKey();
+
+    // Listen for storage changes (when API key is updated in settings)
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'gemini_api_key') {
+        updateApiKey();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also listen for custom events from the same window
+    const handleApiKeyUpdate = () => {
+      updateApiKey();
+    };
+    
+    window.addEventListener('gemini-api-key-updated', handleApiKeyUpdate);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('gemini-api-key-updated', handleApiKeyUpdate);
+    };
+  }, []);
 
   const handleMarkdownChange = (content: string) => {
     setMarkdownContent(content);
@@ -92,23 +127,19 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
       // Enhanced AI response generation with web search grounding
       let aiResponse: string;
       
-      // Check if the message mentions a username for profile-based generation
-      const usernameMatch = message.match(/(?:github\.com\/|@|user(?:name)?\s+)([a-zA-Z0-9-_]+)/i);
-      const mentionsProfile = message.toLowerCase().includes('profile') || 
-                            message.toLowerCase().includes('github') || 
-                            message.toLowerCase().includes('linkedin') ||
-                            usernameMatch;
-      
-      if (mentionsProfile && usernameMatch) {
-        // Use enhanced web search for profile-based README generation
-        const username = usernameMatch[1];
-        toast.info(`Searching for ${username}'s profile across platforms...`);
+      // Check if the message contains a GitHub repository URL for analysis
+      const githubUrlMatch = message.match(/https:\/\/github\.com\/[a-zA-Z0-9-._]+\/[a-zA-Z0-9-._]+/);
+      if (githubUrlMatch && (message.toLowerCase().includes('analyze') || message.toLowerCase().includes('generate'))) {
+        const repoUrl = githubUrlMatch[0];
+        toast.info(`Analyzing GitHub repository: ${repoUrl}`);
         
         try {
-          aiResponse = await webSearchService.generatePersonalizedReadme(message, username, true);
-          toast.success('Generated personalized README using profile data!');
+          const githubToken = localStorage.getItem('github-token') || undefined;
+          const result = await githubReadmeGenerator.generateRepoDocs(repoUrl, githubToken);
+          aiResponse = result.documentation;
+          toast.success('GitHub repository analysis complete!');
         } catch (error) {
-          console.warn('Enhanced search failed, falling back to standard generation:', error);
+          console.warn('GitHub analysis failed, falling back to standard generation:', error);
           // Fallback to standard generation
           if (message.toLowerCase().includes('create') || message.toLowerCase().includes('generate')) {
             aiResponse = await readmeAI.generateReadmeContent(message, {
@@ -119,18 +150,47 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
             aiResponse = await readmeAI.answerReadmeQuestion(message, markdownContent);
           }
         }
-      } else if (message.toLowerCase().includes('create') || message.toLowerCase().includes('generate')) {
-        // Standard content generation
-        aiResponse = await readmeAI.generateReadmeContent(message, {
-          currentReadme: markdownContent,
-          projectType: 'web application'
-        });
-      } else if (message.toLowerCase().includes('improve') || message.toLowerCase().includes('enhance')) {
-        // Improve existing content
-        aiResponse = await readmeAI.improveExistingReadme(markdownContent, message);
       } else {
-        // Answer questions or provide general help
-        aiResponse = await readmeAI.answerReadmeQuestion(message, markdownContent);
+        // Check if the message mentions a username for profile-based generation
+        const usernameMatch = message.match(/(?:github\.com\/|@|user(?:name)?\s+)([a-zA-Z0-9-_]+)/i);
+        const mentionsProfile = message.toLowerCase().includes('profile') || 
+                              message.toLowerCase().includes('github') || 
+                              message.toLowerCase().includes('linkedin') ||
+                              usernameMatch;
+        
+        if (mentionsProfile && usernameMatch) {
+          // Use enhanced web search for profile-based README generation
+          const username = usernameMatch[1];
+          toast.info(`Searching for ${username}'s profile across platforms...`);
+          
+          try {
+            aiResponse = await webSearchService.generatePersonalizedReadme(message, username, true);
+            toast.success('Generated personalized README using profile data!');
+          } catch (error) {
+            console.warn('Enhanced search failed, falling back to standard generation:', error);
+            // Fallback to standard generation
+            if (message.toLowerCase().includes('create') || message.toLowerCase().includes('generate')) {
+              aiResponse = await readmeAI.generateReadmeContent(message, {
+                currentReadme: markdownContent,
+                projectType: 'web application'
+              });
+            } else {
+              aiResponse = await readmeAI.answerReadmeQuestion(message, markdownContent);
+            }
+          }
+        } else if (message.toLowerCase().includes('create') || message.toLowerCase().includes('generate')) {
+          // Standard content generation
+          aiResponse = await readmeAI.generateReadmeContent(message, {
+            currentReadme: markdownContent,
+            projectType: 'web application'
+          });
+        } else if (message.toLowerCase().includes('improve') || message.toLowerCase().includes('enhance')) {
+          // Improve existing content
+          aiResponse = await readmeAI.improveExistingReadme(markdownContent, message);
+        } else {
+          // Answer questions or provide general help
+          aiResponse = await readmeAI.answerReadmeQuestion(message, markdownContent);
+        }
       }
 
       if(generationCancelled.current) {
@@ -200,7 +260,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
             </div>
             <Badge variant="secondary" className="text-xs">
               <Sparkles className="h-3 w-3 mr-1" />
-              Powered by Gemini 2.5 Flash Lite
+              Powered by Gemini 2.0 Flash Lite + GitHub
             </Badge>
           </div>
           

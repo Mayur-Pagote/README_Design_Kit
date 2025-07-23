@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Card, CardContent } from '@/components/ui/card';
+import { Separator } from '@/components/ui/separator';
 import { 
   Send, 
   Bot, 
@@ -14,12 +15,14 @@ import {
   MessageSquare,
   Zap,
   FileText,
-  Code2
+  Code2,
+  Github
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { GitHubRepoAnalyzer } from './GitHubRepoAnalyzer';
 
 interface ChatMessage {
   role: 'user' | 'assistant';
@@ -44,7 +47,8 @@ const SUGGESTED_PROMPTS = [
   "Create contributing guidelines",
   "Add API documentation section",
   "Generate profile based on GitHub username: [username]",
-  "Create a portfolio project README"
+  "Create a portfolio project README",
+  "Analyze GitHub repo: https://github.com/user/repo"
 ];
 
 export const ChatPanel: React.FC<ChatPanelProps> = ({
@@ -55,6 +59,7 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState('');
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [showGitHubAnalyzer, setShowGitHubAnalyzer] = useState(false);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -242,30 +247,78 @@ export const ChatPanel: React.FC<ChatPanelProps> = ({
         </ScrollArea>
       </div>
 
-      {/* Suggested Prompts */}
+      {/* GitHub Analyzer & Suggested Prompts */}
       {chatHistory.length === 0 && (
-        <div className="p-4 border-t bg-muted/30">
-          <div className="space-y-3">
-            <div className="flex items-center space-x-2 text-sm font-medium text-muted-foreground">
-              <Zap className="h-4 w-4" />
-              <span>Quick Start</span>
-            </div>
-            <div className="grid grid-cols-1 gap-2">
-              {SUGGESTED_PROMPTS.map((prompt, index) => (
+        <div className="p-4 border-t bg-muted/30 space-y-4">
+          {/* GitHub Repository Analyzer */}
+          {showGitHubAnalyzer ? (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center space-x-2 text-sm font-medium text-muted-foreground">
+                  <Github className="h-4 w-4" />
+                  <span>GitHub Repository Analyzer</span>
+                </div>
                 <Button
-                  key={index}
-                  variant="outline"
+                  variant="ghost"
                   size="sm"
-                  className="justify-start h-auto py-2 px-3 text-left whitespace-normal"
-                  onClick={() => handleSuggestedPrompt(prompt)}
-                  disabled={isGenerating}
+                  onClick={() => setShowGitHubAnalyzer(false)}
+                  className="text-xs"
                 >
-                  <FileText className="h-3 w-3 mr-2 flex-shrink-0 mt-0.5" />
-                  <span className="text-xs">{prompt}</span>
+                  Back to Quick Start
                 </Button>
-              ))}
+              </div>
+              <GitHubRepoAnalyzer onGeneratedContent={onApplyGeneration} />
             </div>
-          </div>
+          ) : (
+            <div className="space-y-4">
+              {/* GitHub Analyzer Button */}
+              <div className="flex flex-col space-y-2">
+                <div className="flex items-center space-x-2 text-sm font-medium text-muted-foreground">
+                  <Code2 className="h-4 w-4" />
+                  <span>Repository Analysis</span>
+                </div>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowGitHubAnalyzer(true)}
+                  disabled={isGenerating}
+                  className="justify-start h-auto py-3 px-3"
+                >
+                  <Github className="h-4 w-4 mr-2" />
+                  <div className="text-left">
+                    <div className="font-medium text-sm">Analyze GitHub Repository</div>
+                    <div className="text-xs text-muted-foreground">
+                      Generate comprehensive README from any GitHub repo
+                    </div>
+                  </div>
+                </Button>
+              </div>
+
+              <Separator />
+
+              {/* Suggested Prompts */}
+              <div className="space-y-3">
+                <div className="flex items-center space-x-2 text-sm font-medium text-muted-foreground">
+                  <Zap className="h-4 w-4" />
+                  <span>Quick Start</span>
+                </div>
+                <div className="grid grid-cols-1 gap-2">
+                  {SUGGESTED_PROMPTS.map((prompt, index) => (
+                    <Button
+                      key={index}
+                      variant="outline"
+                      size="sm"
+                      className="justify-start h-auto py-2 px-3 text-left whitespace-normal"
+                      onClick={() => handleSuggestedPrompt(prompt)}
+                      disabled={isGenerating}
+                    >
+                      <FileText className="h-3 w-3 mr-2 flex-shrink-0 mt-0.5" />
+                      <span className="text-xs">{prompt}</span>
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       )}
 
