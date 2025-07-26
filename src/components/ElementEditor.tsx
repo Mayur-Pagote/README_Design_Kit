@@ -36,7 +36,9 @@ export function ElementEditor({ element, isOpen, onClose, onSave, globalGithubUs
       onSave(editedElement);
       onClose();
     }
-  };  const updateElement = (updates: Partial<ElementType>) => {
+  };
+
+  const updateElement = (updates: Partial<ElementType>) => {
     setEditedElement(prev => prev ? { ...prev, ...updates } as ElementType : null);
   };
 
@@ -45,6 +47,11 @@ export function ElementEditor({ element, isOpen, onClose, onSave, globalGithubUs
       ...prev,
       style: { ...prev.style, ...styleUpdates }
     } as ElementType : null);
+  };
+
+  const shouldShowAITextarea = (elementType: string) => {
+    const excludedTypes = ['git-contribution', 'divider', 'image'];
+    return !excludedTypes.includes(elementType);
   };
 
   return (
@@ -59,23 +66,25 @@ export function ElementEditor({ element, isOpen, onClose, onSave, globalGithubUs
 
         <div className="space-y-4">
           {/* Common Fields */}
-          {editedElement.type !== 'divider' && (
+          {editedElement.type !== 'divider' && editedElement.type !== 'git-contribution' && editedElement.type !== 'image' && (
             <div className="space-y-2">
               <Label htmlFor="content">Content</Label>
-              <AITextarea
-                id="content"
-                value={editedElement.content || ''}
-                onValueChange={(value) => updateElement({ content: value })}
-                placeholder="Enter content..."
-                aiContext={`${editedElement.type} element`}
-                showGenerateOption={['text', 'description', 'title', 'header', 'banner'].includes(editedElement.type)}
-                generationType={
-                  editedElement.type === 'description' ? 'about' :
-                  editedElement.type === 'title' ? 'summary' :
-                  editedElement.type === 'text' ? 'custom' :
-                  'project'
-                }
-              />
+              {shouldShowAITextarea(editedElement.type) && (
+                <AITextarea
+                  id="content"
+                  value={editedElement.content || ''}
+                  onValueChange={(value) => updateElement({ content: value })}
+                  placeholder="Enter content..."
+                  aiContext={`${editedElement.type} element`}
+                  showGenerateOption={['text', 'description', 'title', 'header', 'banner'].includes(editedElement.type)}
+                  generationType={
+                    editedElement.type === 'description' ? 'about' :
+                    editedElement.type === 'title' ? 'summary' :
+                    editedElement.type === 'text' ? 'custom' :
+                    'project'
+                  }
+                />
+              )}
             </div>
           )}
 
