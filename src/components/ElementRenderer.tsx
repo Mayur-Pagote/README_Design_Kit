@@ -613,6 +613,19 @@ export function ElementRenderer({ element, isPreview = false, viewMode, showVisi
         </div>
       );
 
+    case 'installation':
+      return (
+        <div className={`mb-6 ${baseClasses} ${wrapperClass}`}>
+          {hiddenBadge}
+          <h3 className="text-xl font-semibold mb-4">⚙️ Installation</h3>
+          <pre className="bg-muted p-4 rounded-lg overflow-x-auto">
+            <code className="language-bash">
+              {element.content}
+            </code>
+          </pre>
+        </div>
+      );
+
     default:
       return <div className={`p-4 bg-muted rounded ${baseClasses} ${wrapperClass}`}>{hiddenBadge}Unknown element type</div>;
   }
