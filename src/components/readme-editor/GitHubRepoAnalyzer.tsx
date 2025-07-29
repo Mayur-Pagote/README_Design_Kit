@@ -21,6 +21,7 @@ import {
 import { toast } from 'sonner';
 import { githubReadmeGenerator } from '@/services/githubReadmeGeneratorService';
 import { GitHubTokenSettings } from './GitHubTokenSettings';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import type { RepoDocumentationResult } from '@/types/github';
 
 interface GitHubRepoAnalyzerProps {
@@ -41,7 +42,7 @@ export const GitHubRepoAnalyzer: React.FC<GitHubRepoAnalyzerProps> = ({
     const updateApiKeys = () => {
       const token = localStorage.getItem('github-token');
       setHasGitHubToken(!!token);
-      
+
       // Check and configure Gemini API - use the same key as readmeAIService
       const geminiKey = localStorage.getItem('gemini_api_key');
       if (geminiKey) {
@@ -88,7 +89,7 @@ export const GitHubRepoAnalyzer: React.FC<GitHubRepoAnalyzerProps> = ({
   const forceRefreshApiStatus = () => {
     const token = localStorage.getItem('github-token');
     setHasGitHubToken(!!token);
-    
+
     const geminiKey = localStorage.getItem('gemini_api_key');
     if (geminiKey) {
       githubReadmeGenerator.setApiKey(geminiKey);
@@ -131,17 +132,17 @@ export const GitHubRepoAnalyzer: React.FC<GitHubRepoAnalyzerProps> = ({
 
     try {
       const githubToken = localStorage.getItem('github-token') || undefined;
-      
+
       toast.info('Analyzing repository structure and files...');
-      
+
       const result = await githubReadmeGenerator.generateRepoDocs(repoUrl, githubToken);
-      
+
       setAnalysisResult(result);
       toast.success('Repository analysis complete!');
-      
+
     } catch (error) {
       console.error('Repository analysis error:', error);
-      
+
       if (error instanceof Error) {
         if (error.message.includes('rate limit')) {
           toast.error('GitHub API rate limit exceeded. Please add a Personal Access Token.');
@@ -182,19 +183,20 @@ export const GitHubRepoAnalyzer: React.FC<GitHubRepoAnalyzerProps> = ({
   const repoInfo = repoUrl ? extractRepoInfo(repoUrl) : null;
 
   return (
-    <div className="space-y-3">
-      <Card>
-        <CardHeader className="pb-3">
-          <CardTitle className="flex items-center space-x-2 text-base">
-            <Github className="h-4 w-4" />
-            <span>GitHub Repository Analyzer</span>
-            <Badge variant="secondary" className="ml-auto text-xs">
-              <Sparkles className="h-3 w-3 mr-1" />
-              AI-Powered
-            </Badge>
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-3">
+    <Card className="h-[500px] flex flex-col">
+      <CardHeader className="pb-3">
+        <CardTitle className="flex items-center space-x-2 text-base">
+          <Github className="h-4 w-4" />
+          <span>GitHub Repository Analyzer</span>
+          <Badge variant="secondary" className="ml-auto text-xs">
+            <Sparkles className="h-3 w-3 mr-1" />
+            AI-Powered
+          </Badge>
+        </CardTitle>
+      </CardHeader>
+
+      <ScrollArea className="flex-1 min-h-0 px-6">
+        <CardContent className="space-y-3 pb-4">
           {/* Repository URL Input */}
           <div className="space-y-2">
             <Label htmlFor="repo-url" className="text-sm">GitHub Repository URL</Label>
@@ -242,16 +244,16 @@ export const GitHubRepoAnalyzer: React.FC<GitHubRepoAnalyzerProps> = ({
               </span>
             </div>
             <div className="flex items-center space-x-1">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={forceRefreshApiStatus}
-                className="h-6 w-6 p-0"
-                title="Refresh API status"
-              >
-                <RefreshCw className="h-3 w-3" />
-              </Button>
-              {!hasGeminiAPI && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={forceRefreshApiStatus}
+              className="h-6 w-6 p-0"
+              title="Refresh API status"
+            >
+              <RefreshCw className="h-3 w-3" />
+            </Button>
+            {!hasGeminiAPI && (
                 <span className="text-xs text-muted-foreground">
                   Configure in settings
                 </span>
@@ -308,7 +310,7 @@ export const GitHubRepoAnalyzer: React.FC<GitHubRepoAnalyzerProps> = ({
           {analysisResult && (
             <div className="space-y-3">
               <Separator />
-              
+
               <div className="flex items-center justify-between">
                 <h4 className="text-sm font-medium flex items-center space-x-2">
                   <CheckCircle className="h-4 w-4 text-green-500" />
@@ -322,10 +324,9 @@ export const GitHubRepoAnalyzer: React.FC<GitHubRepoAnalyzerProps> = ({
               </div>
 
               {/* Preview of generated content */}
-              <div className="p-2 bg-muted/30 rounded-md max-h-24 overflow-y-auto">
+              <div className="p-2 bg-muted/30 rounded-md max-h-48 overflow-y-auto">
                 <pre className="text-xs text-muted-foreground whitespace-pre-wrap">
-                  {analysisResult.documentation.substring(0, 200)}
-                  {analysisResult.documentation.length > 200 ? '...' : ''}
+                  {analysisResult.documentation}
                 </pre>
               </div>
 
@@ -355,16 +356,20 @@ export const GitHubRepoAnalyzer: React.FC<GitHubRepoAnalyzerProps> = ({
                   </div>
                 </div>
               )}
-
-              {/* Use Generated Content Button */}
-              <Button onClick={handleUseGenerated} className="w-full h-9" size="sm">
-                <FileText className="h-4 w-4 mr-2" />
-                Use Generated README
-              </Button>
             </div>
           )}
         </CardContent>
-      </Card>
+      </ScrollArea>
+
+      {/* Use Generated Content Button */}
+      {analysisResult && (
+        <div className="p-4 border-t bg-background">
+          <Button onClick={handleUseGenerated} className="w-full h-9" size="sm">
+            <FileText className="h-4 w-4 mr-2" />
+            Use Generated README
+          </Button>
+        </div>
+      )}
 
       {/* GitHub Token Settings Modal */}
       <GitHubTokenSettings
@@ -372,6 +377,6 @@ export const GitHubRepoAnalyzer: React.FC<GitHubRepoAnalyzerProps> = ({
         onOpenChange={setShowTokenSettings}
         onTokenSaved={() => setHasGitHubToken(true)}
       />
-    </div>
+    </Card>
   );
 };
