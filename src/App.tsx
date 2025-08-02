@@ -2,7 +2,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
-import Dashboard from "./pages/Dashboard";
 import Layout from "./components/Layout";
 import ScrollToTop from "./components/ScrollToTop";
 import Elements from "./pages/Elements";
@@ -58,7 +57,6 @@ export default function App() {
               <Route path="/about" element={<Layout><AboutUs /></Layout>} />
               <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
               <Route path="/terms" element={<Layout><TermsOfService /></Layout>} />
-              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/readme-generator" element={<Layout><ReadmeGenerator /></Layout>} />
               <Route path="/readme-editor" element={<ReadmeEditor />} />
               <Route path="/ai-editor-intro" element={<Layout><AIEditorIntro /></Layout>} />
