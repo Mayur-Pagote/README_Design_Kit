@@ -29,10 +29,6 @@ const links = [
         title: 'Coming Soon',
         to: '/coming-soon',
     },
-    {
-        title: 'About',
-        to: '/about',
-    },
 ]
 
 export default function Footer() {
@@ -166,9 +162,27 @@ export default function Footer() {
                         </svg>
                     </Link>
                 </div>
-                    <span className="text-muted-foreground block text-center text-sm">
-                        © {new Date().getFullYear()} README DESIGN KIT, All rights reserved
-                    </span>
+                    <div className="text-muted-foreground block text-center text-sm">
+                        © {new Date().getFullYear()} README DESIGN KIT, All rights reserved | &nbsp;
+                        <Link
+                            to="/privacy"
+                            className="text-muted-foreground hover:text-primary duration-150"
+                        >
+                        Privacy Policy
+                        </Link> | &nbsp;
+                        <Link
+                            to="/terms"
+                            className="text-muted-foreground hover:text-primary duration-150"
+                        >
+                            Terms of Service
+                        </Link> | &nbsp;
+                        <Link
+                            to="/about"
+                            className="text-muted-foreground hover:text-primary duration-150" 
+                        >
+                            About
+                        </Link>
+                    </div>
                 </div>
             </footer>
         </div>
