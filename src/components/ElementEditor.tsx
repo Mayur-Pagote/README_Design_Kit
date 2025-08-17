@@ -274,7 +274,7 @@ export function ElementEditor({ element, isOpen, onClose, onSave, globalGithubUs
                       <SelectValue placeholder="Select style (optional)" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="">Default (No Style)</SelectItem>
+                      <SelectItem value="none">Default (No Style)</SelectItem>
                       <SelectItem value="flat">Flat Badges</SelectItem>
                       <SelectItem value="flat-square">Flat Square</SelectItem>
                       <SelectItem value="for-the-badge">For The Badge</SelectItem>
