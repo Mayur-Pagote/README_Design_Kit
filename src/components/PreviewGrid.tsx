@@ -607,6 +607,92 @@ socials: [
     imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook-1.png?raw=true",
     codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook-1.png" width="100">`
   }
+],
+discontinued: [
+  {
+    title: "Vercel Tokyo Stats",
+    description: "Classic GitHub stats card using Vercel's GitHub Readme Stats with Tokyo Night theme",
+    imageUrl: "https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&locale=en&theme=tokyonight",
+    codeSnippet: "![Stats Card 5](https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&locale=en&theme=tokyonight)"
+  },
+  {
+    title: "Synthwave Merge Tracker",
+    description: "GitHub Readme Stats card showing PR reviews and merge metrics in Synthwave theme",
+    imageUrl: "https://github-readme-stats.vercel.app/api?username={username}&show=reviews,prs_merged,prs_merged_percentage&show_icons=true&theme=synthwave",
+    codeSnippet: "![Stats Card 7](https://github-readme-stats.vercel.app/api?username={username}&show=reviews,prs_merged,prs_merged_percentage&show_icons=true&theme=synthwave)"
+  },
+  {
+    title: "High Contrast Insights",
+    description: "GitHub stats card with rank icon (GitHub logo) and High Contrast theme",
+    imageUrl: "https://github-readme-stats.vercel.app/api?username={username}&rank_icon=github&theme=highcontrast",
+    codeSnippet: "![Stats Card 8](https://github-readme-stats.vercel.app/api?username={username}&rank_icon=github&theme=highcontrast)"
+  },
+  {
+    title: "Percentile Rank Card",
+    description: "GitHub stats card with percentile rank icon and Vision Friendly Dark theme",
+    imageUrl: "https://github-readme-stats.vercel.app/api?username={username}&rank_icon=percentile&theme=vision-friendly-dark",
+    codeSnippet: "![Stats Card 9](https://github-readme-stats.vercel.app/api?username={username}&rank_icon=percentile&theme=vision-friendly-dark)"
+  },
+  {
+    title: "Views Counter - Glitch",
+    description: "Simple visitor badge using profile-counter from Glitch.",
+    imageUrl: "https://profile-counter.glitch.me/{username}/count.svg",
+    codeSnippet: `<img src="https://profile-counter.glitch.me/{username}/count.svg" alt="visitor badge"/>`
+  },
+  {
+    title: "Snake Game",
+    description: "Animated snake eating your contributions",
+    imageUrl: "https://github.com/mayur-pagote/mayur-pagote/blob/output/github-contribution-grid-snake.svg",
+    codeSnippet: "![Snake animation](https://github.com/{username}/{username}/blob/output/github-contribution-grid-snake.svg)"
+  },
+  {
+    title: "Most Used Language Card 1",
+    description: "Displays top 5 most used languages.",
+    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&langs_count=5",
+    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&langs_count=5"/>`
+  },
+  {
+    title: "Most Used Language Card 2",
+    description: "Compact layout of most used languages.",
+    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact",
+    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact"/>`
+  },
+  {
+    title: "Most Used Language Card 3",
+    description: "Donut-vertical layout with dark theme.",
+    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=donut-vertical&theme=dark",
+    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=donut-vertical&theme=dark"/>`
+  },
+  {
+    title: "Most Used Language Card 4",
+    description: "Pie chart layout with merko theme.",
+    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=pie&theme=merko",
+    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=pie&theme=merko"/>`
+  },
+  {
+    title: "Most Used Language Card 5",
+    description: "Minimal language card without progress bar.",
+    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&hide_progress=true",
+    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&hide_progress=true"/>`
+  },
+  {
+    title: "Repository Stats",
+    description: "Detailed repository information card",
+    imageUrl: "https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=radical",
+    codeSnippet: `![Repo Stats](https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=radical)`
+  },
+  {
+    title: "Repo Details",
+    description: "Shows a styled pinned GitHub repository card.",
+    imageUrl: "https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=dark&title_color=C2FFC7&icon_color=CB9DF0&text_color=ffffff&bg_color=000000",
+    codeSnippet: `<img src="https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=dark&title_color=C2FFC7&icon_color=CB9DF0&text_color=ffffff&bg_color=000000"/>`
+  },
+  {
+    title: "Codeforces Stats",
+    description: "Codeforces rating and contest stats card.",
+    imageUrl: "https://codeforces-readme-stats.vercel.app/api/card?username={username}",
+    codeSnippet: `<img height="180em" src="https://codeforces-readme-stats.vercel.app/api/card?username={username}"/>`
+  }
 ]
 };
 
