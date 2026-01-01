@@ -8,11 +8,12 @@ import { motion } from "motion/react";
 import Aurora from "@/components/LandingComponents/Aurora";
 import LiquidChrome from "@/components/LandingComponents/LiquidChrome";
 import { useTheme } from "@/components/theme-provider";
+import { ThemeSwitcherDemo } from "@/components/ThemeSwitcherDemo";
 
 export default function Home() {
-  const { theme } = useTheme();
+  const { theme, systemTheme } = useTheme();
   const navigate = useNavigate();
-  const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const isDark = theme === "dark" || (theme === "system" && systemTheme === "dark");
 
   return (
     <div className="w-full min-h-screen flex flex-col mb-5">
@@ -37,19 +38,21 @@ export default function Home() {
               />
             )}
           </div>
-<Link to="Elements" className="inline-block">
-  <div className="group cursor-pointer pt-5 pb-8">
-    <div className="relative rounded-xl bg-background/60 backdrop-blur-md border border-border px-5 py-2.5 transition-all duration-300 hover:bg-background/80 hover:border-primary/50 hover:scale-105 shadow-lg hover:shadow-xl">
-      <div className="flex items-center gap-2.5">
-        <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-        <span className="text-sm font-medium text-foreground">
-          Get Beautiful README Components
-        </span>
-        <div className="w-2 h-2 bg-primary rounded-full opacity-100 animate-pulse"></div>
+<div className="mt-6">
+  <Link to="Elements" className="inline-block">
+    <div className="group cursor-pointer pt-5 pb-8">
+      <div className="relative rounded-xl bg-background/60 backdrop-blur-md border border-border px-5 py-2.5 transition-all duration-300 hover:bg-background/80 hover:border-primary/50 hover:scale-105 shadow-lg hover:shadow-xl">
+        <div className="flex items-center gap-2.5">
+          <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+          <span className="text-sm font-medium text-foreground">
+            Get Beautiful README Components
+          </span>
+          <div className="w-2 h-2 bg-primary rounded-full opacity-100 animate-pulse"></div>
+        </div>
       </div>
     </div>
-  </div>
-</Link>
+  </Link>
+</div>
 
 <motion.div 
   initial={{ opacity: 0, y: 30 }} 
@@ -107,6 +110,15 @@ export default function Home() {
               onStartFromScratch={() => navigate('/drag-drop')}
             />
           </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 1.0, duration: 0.8 }}
+              className="w-full max-w-5xl px-4 mt-12"
+            >
+              <ThemeSwitcherDemo />
+            </motion.div>
         </div>
       </div>
     </div>
