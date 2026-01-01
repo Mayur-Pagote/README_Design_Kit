@@ -161,7 +161,7 @@ const FeatureRequestsPage: React.FC = () => {
       </div>
         {/* Controls */}
         <div className="container mx-auto px-6 py-8">
-          <Card className="shadow-lg border-border/50 hover:shadow-xl transition-shadow duration-300 max-w-7xl mx-auto bg-white dark:bg-card shadow-md rounded-lg mt-8">
+          <Card className="border-border/50 hover:shadow-xl transition-shadow duration-300 max-w-7xl mx-auto bg-white dark:bg-card shadow-md rounded-lg mt-8">
             <CardContent className="p-6">
               <div className="flex flex-col lg:flex-row gap-4 items-stretch lg:items-center flex-wrap">
                 <div className="relative flex-1">
@@ -170,13 +170,13 @@ const FeatureRequestsPage: React.FC = () => {
                     placeholder="Search feature requests..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10 bg-background border-input focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-200 flex-grow border rounded-md focus:ring-purple-500 dark:bg-background dark:text-foreground dark:border-border"
+                    className="pl-10 bg-background border-input focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all duration-200 flex-grow border rounded-md dark:bg-background dark:text-foreground dark:border-border"
                   />
                 </div>
 
                 <div className="flex gap-3 flex-col sm:flex-row lg:flex-nowrap">
                   <Select value={sortBy} onValueChange={(value) => setSortBy(value as SortOption)}>
-                    <SelectTrigger className="w-full sm:w-[160px] bg-background border-input focus:border-primary p-3 border rounded-md focus:ring-purple-500 bg-white dark:bg-background dark:text-foreground dark:border-border">
+                    <SelectTrigger className="w-full sm:w-[160px] border-input focus:border-primary p-3 border rounded-md focus:ring-purple-500 bg-white dark:bg-background dark:text-foreground dark:border-border">
                       <SortAsc className="h-4 w-4 mr-2" />
                       <SelectValue />
                     </SelectTrigger>
@@ -188,7 +188,7 @@ const FeatureRequestsPage: React.FC = () => {
                   </Select>
 
                   <Select value={filterBy} onValueChange={(value) => setFilterBy(value as FilterOption)}>
-                    <SelectTrigger className="w-full sm:w-[160px] bg-background border-input focus:border-primary p-3 border rounded-md focus:ring-purple-500 bg-white dark:bg-background dark:text-foreground dark:border-border">
+                    <SelectTrigger className="w-full sm:w-[160px] border-input focus:border-primary p-3 border rounded-md focus:ring-purple-500 bg-white dark:bg-background dark:text-foreground dark:border-border">
                       <Filter className="h-4 w-4 mr-2" />
                       <SelectValue />
                     </SelectTrigger>
@@ -203,7 +203,7 @@ const FeatureRequestsPage: React.FC = () => {
                   <Button
                     onClick={() => setShowForm(true)}
                     disabled={showForm}
-                    className="flex items-center gap-2 whitespace-nowrap bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 p-3 bg-purple-600 text-white rounded-md hover:bg-purple-700 disabled:opacity-60"
+                    className="flex items-center gap-2 whitespace-nowrap bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 p-3 rounded-md disabled:opacity-60"
                   >
                     <Plus className="h-4 w-4" />
                     Submit Request
@@ -230,10 +230,10 @@ const FeatureRequestsPage: React.FC = () => {
           {filteredAndSortedFeatures.length === 0 ? (
             <div className="text-center py-16 animate-fade-in">
               <div className="mx-auto w-24 h-24 bg-muted rounded-full flex items-center justify-center mb-6 animate-pulse">
-                <Filter className="h-12 w-12 text-muted-foreground mx-auto text-gray-400 dark:text-grey-600" size={48} />
+                <Filter className="h-12 w-12 text-muted-foreground mx-auto dark:text-grey-600" size={48} />
               </div>
-              <h3 className="text-2xl font-semibold text-foreground mb-2 text-xl font-semibold text-gray-600 dark:text-gray-300 mt-4">No feature requests found</h3>
-              <p className="text-muted-foreground mb-6 max-w-md mx-auto text-gray-500 dark:text-gray-400">
+              <h3 className="mb-2 text-xl font-semibold text-gray-600 dark:text-gray-300 mt-4">No feature requests found</h3>
+              <p className="text-muted-foreground mb-6 max-w-md mx-auto dark:text-gray-400">
                 {searchTerm || filterBy !== 'all' 
                   ? "Try adjusting your search or filters to find what you're looking for."
                   : "Be the first to submit a feature request and help improve README Design Kit!"
