@@ -2,263 +2,142 @@
   <picture>
     <source srcset="./rdk.svg" media="(prefers-color-scheme: dark)">
     <source srcset="./rdkd.svg" media="(prefers-color-scheme: light)">
-    <img src="./rdkd.svg" alt="README Design Kit Logo" height="100">
+    <img src="./rdkd.svg" alt="README Design Kit Logo" height="90">
   </picture>
+
+  <p>
+    <a href="LICENSE">
+      <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License">
+    </a>
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">
+    <img src="https://img.shields.io/badge/SSoC-S4-blueviolet" alt="SSoC">
+  </p>
 </div>
 
 ---
-<p align="center">
-  <a href="LICENSE">
-    <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License">
-  </a>
-  <a href="#">
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">
-  </a>
-  <a href="#">
-    <img src="https://img.shields.io/badge/SSoC-S4-blueviolet" alt="SSoC">
-  </a>
-</p>
 
+## 📘 README Design Kit
 
-Welcome to the **README Design Kit** — your one-stop starter pack for writing clean, organized, and beginner-friendly README files for your GitHub projects!
+A curated collection of **clean, reusable, and beginner-friendly README templates** and documentation components to help developers create clear, consistent, and professional `README.md` files for GitHub projects.
 
 ---
 
 ## 📚 Table of Contents
-
 - [🚀 About the Project](#-about-the-project)
 - [✨ Features](#-features)
-- [� Documentation](#-documentation)
-- [�🛠️ Getting Involved (SSoC S4)](#️-getting-involved-ssoc-s4)
+- [🌟 Project Showcase](#-project-showcase)
+- [🤖 AI Enhancements](#-ai-enhancements)
+- [📚 Documentation](#-documentation)
+- [🛠️ Getting Involved (SSoC S4)](#️-getting-involved-ssoc-s4)
 - [📅 Participated In](#-participated-in)
 - [📄 License](#-license)
 
 ---
 
-<h2 style="font-family: Helvetica, sans-serif;">🚀 About the Project</h2>
+## 🚀 About the Project
 
-`README_Design_Kit` is an open-source template project meant to help developers and contributors create high-quality, consistent, and appealing `README.md` files for any type of GitHub project — whether you're building a Python CLI tool, a web app, or participating in open-source programs like **SSoC**.
+**README Design Kit** is an open-source initiative designed to help developers and contributors write **high-quality, well-structured, and visually consistent READMEs**.
 
-This project aims to:
-- Provide clean templates for quick copy-paste use
-- Encourage good documentation practices
-- Help beginners make their projects more discoverable and understandable
+Whether you're building:
+- a Python CLI tool  
+- a web application  
+- or contributing to open-source programs like **SSoC**
 
----
-
-## 🌟 Project Showcase Page  
-
-The **Project Showcase Page** allows contributors to **explore high-quality README implementations** across various categories. It enables users to:
-- **🔎 Search & Filter Projects** by title, description, and tags.
-- **📂 Browse Categories** like Web Apps, Libraries, AI/ML, and Desktop.
-- **📝 Submit Their Own README-Based Projects** through an integrated form.
-- **🔗 Expand Cards** to preview README files, visit GitHub repos, and explore live demos.
-- **🚀 Discover Well-Designed README Examples** to improve documentation practices.
+this kit provides ready-to-use templates and components that improve documentation clarity and discoverability.
 
 ---
 
-<h2 style="font-family: Helvetica, sans-serif;">✨ Features</h2>
+## ✨ Features
 
-- ✅ Scrollable Table of Contents  
-- ✅ Clean sectioned layout with emojis and headers  
-- ✅ Easy-to-use Markdown examples  
-- ✅ Styled project sections (e.g., Features, How to Contribute)  
-- ✅ Ready-to-fork template for SSoC or hackathons  
-- ✅ **Project Showcase Page** for exploring and submitting README examples  
-- ✅ Advanced search & category-based organization  
-- ✅ Expandable project cards with README previews and GitHub links  
-- ✅ User submission form to showcase projects  
-- ✅ **🤖 AI-Powered Enhancement** - Generate and enhance content with Gemini API
-- ✅ **✨ Smart Text Generation** - Context-aware content creation for different element types
-- ✅ **🔧 One-Click Enhancement** - Improve existing text with AI suggestions
+- 📄 Reusable README templates for different project types  
+- 🎨 Clean layout with structured sections and badges  
+- 🧱 Ready-made components (Installation, Usage, Contributing, etc.)  
+- 🧪 Example READMEs following best practices  
+- 🌟 Project Showcase to explore real-world implementations  
+- 🤖 Optional AI-powered assistance for content enhancement  
 
 ---
 
-## 🤖 AI Enhancement Features
+## 🌟 Project Showcase
 
-Transform your README creation with powerful AI assistance powered by Google's Gemini API:
+The **Project Showcase Page** highlights well-designed README implementations across multiple categories.
 
-### ✨ Smart Content Generation
-- **Auto-Generate Descriptions** - Create professional project descriptions, bios, and summaries
-- **Technology Stack Suggestions** - Smart recommendations for tech stacks and tools
-- **Context-Aware Writing** - AI understands different content types (projects, about sections, etc.)
+You can:
+- 🔎 Search and filter projects by title, tags, or description  
+- 📂 Browse categories like Web, Libraries, AI/ML, and Desktop  
+- 📝 Submit your own README-based projects  
+- 🔗 Preview READMEs and explore linked GitHub repositories  
 
-### 🚀 Text Enhancement
-- **Professional Polish** - Enhance existing text for clarity, engagement, and professionalism
-- **Tone Consistency** - Maintain consistent voice across your README
-- **One-Click Improvement** - Single button to upgrade any text field
-
-### 🔧 Easy Setup
-1. Get your free [Gemini API key](https://aistudio.google.com/apikey)
-2. Configure in **Actions → AI Settings**
-3. Look for the ✨ sparkle icon in text fields
-4. Generate or enhance content instantly!
-
-👉 **[Full AI Features Documentation](./AI_FEATURES.md)**  
+This section serves as inspiration for building better documentation.
 
 ---
 
-## ✨ Branding Assistant
+## 🤖 AI Enhancements
 
-Improve your README with real-time tone and structure suggestions powered by AI.
+README Design Kit includes optional AI-powered features using **Google Gemini** to improve documentation quality.
 
-### Features
+### ✨ What it can do
+- Generate professional project descriptions and summaries  
+- Improve tone, clarity, and consistency  
+- Suggest technology stacks and structured content  
 
-- 🎯 Tone presets: Casual, Professional, Technical, Open-Source  
-- 🧠 AI-driven suggestions for clarity, tone consistency, and structure  
-- ⚡ Inline fix buttons and live feedback panel  
-- 🧪 Instant scoring: Overall branding + tone consistency
+### 🔧 Quick Setup
+1. Generate a Gemini API key  
+2. Configure it under **Actions → AI Settings**  
+3. Use the ✨ enhancement option inside the editor  
 
-### Usage
-
-Click the ✨ button in the bottom-right corner of the editor to launch the assistant.  
-Choose your desired tone and review suggestions in the sidebar panel.  
-Click “Apply Fix” to update the content instantly.
-
----
-
-## 🧪 Persona Preview Mode
-
-Crafting a README for multiple audiences? Try out our new **Persona Mode**:
-
-- 👨‍💻 **Developer Mode** – Shows setup instructions, code blocks, and contribution guidelines
-- 🔍 **Recruiter Mode** – Highlights project description, impact, and summary
-- 📦 **Client Mode** – Focuses on visuals, branding, and use-case clarity
-
-🎯 You can **toggle modes from the editor toolbar** to see what each audience sees, without affecting your actual content.
-
-### 🆚 Compare Personas View
-
-Want to compare all at once?  
-Click **"Compare"** to see a split-screen layout of what each persona sees.  
-This helps you identify which parts are hidden or missing for each type of user.
+📘 [Full AI Features Documentation](./AI_FEATURES.md)
 
 ---
 
-## 📝 Feature Requests Page  
+## 📚 Documentation
 
-The Feature Requests Page allows users to:  
-- 🚀 Submit new ideas via a structured form (`FeatureRequestForm.tsx`).  
-- 🔼 Vote on existing requests using an interactive system (`FeatureCard.tsx`).  
-- 💾 Persist votes across sessions using LocalStorage (`useLocalStorage.ts`).  
-- 🔍 Sort requests by **Most Votes, Newest, and Trending**.  
-- 🏷️ Track feature statuses like `"Planned"`, `"Under Review"`, and `"Rejected"`.  
-
-Users can now **actively participate in shaping future improvements** by submitting and voting
-
-
----
-
-<h2 style="font-family: Helvetica, sans-serif;">� Documentation</h2>
-
-Comprehensive documentation is available to help you understand and contribute to the project:
-
-| 📖 **Guide** | 📝 **Description** |
-|-------------|-------------------|
-| [📚 Documentation Index](./docs/README.md) | Navigate all available documentation |
-| [📘 Setup & Development Guide](./docs/setup.md) | Complete setup instructions and development guidelines |
-| [🏗️ Project Architecture](./docs/architecture.md) | Technical structure and architecture overview |
-| [📂 Files Documentation](./docs/files.md) | Detailed explanation of every file and directory |
-| [🎨 README Elements Library](./READMEelements.md) | Complete collection of README components and examples |
-| [🌟 Project Showcase](./docs/showcase.md) | Explore featured projects & submit your own |
-| [🤝 Contributing Guidelines](./CONTRIBUTING.md) | How to contribute to the project |
-| [📋 Code of Conduct](./CODE_OF_CONDUCT.md) | Community guidelines and standards |
-| [🔒 Security Policy](./SECURITY.md) | Security vulnerability reporting |
-
-**Quick Links for Contributors:**
-- 🚀 [Quick Start Guide](./docs/setup.md#quick-start) - Get running in 5 minutes
-- 🏗️ [Architecture Overview](./docs/architecture.md#overview) - Understand the tech stack
-- 📂 [Project Structure](./docs/files.md#-architecture-overview) - Navigate the codebase
-- 🎨 [Element Examples](./READMEelements.md) - Browse README components
+| Guide | Description |
+|------|------------|
+| [Documentation Index](./docs/README.md) | All project documentation |
+| [Setup Guide](./docs/setup.md) | Local setup & development |
+| [Architecture](./docs/architecture.md) | Project structure overview |
+| [README Elements](./READMEelements.md) | Component library & examples |
+| [Project Showcase](./docs/showcase.md) | Explore featured projects |
+| [Contributing](./CONTRIBUTING.md) | Contribution guidelines |
+| [Code of Conduct](./CODE_OF_CONDUCT.md) | Community standards |
+| [Security Policy](./SECURITY.md) | Vulnerability reporting |
 
 ---
 
-<h2 style="font-family: Helvetica, sans-serif;">�🛠️ Getting Involved (SSoC S4)</h2>
+## 🛠️ Getting Involved (SSoC S4)
 
-Are you participating in **SSoC Season 4**? Here's how you can contribute:
+If you’re participating in **Social Summer of Code – Season 4**, follow these steps:
 
-### 📌 Steps to Get Started:
-1. **Fork this repository**
-    > ![forking](https://github.com/user-attachments/assets/50943716-0dd4-402d-8244-c3a1b3505d79)
+### 📌 Contribution Flow
+1. Fork the repository  
+2. Clone your fork  
+3. Install dependencies (`npm install` or Docker)  
+4. Create a new branch  
+5. Pick an issue labeled `good first issue`, `ssoc`, or `beginner`  
+6. Commit and push your changes  
+7. Open a pull request with a clear description  
 
-2. **Clone the forked repository** to your local machine
-    > ![cloning](https://github.com/user-attachments/assets/f7064628-6ea2-42f5-9fee-dac6e8450334)
-
-    - OR You can copy the above and run it in your terminal like this:
-    ```bash
-    git clone the_link
-   ```
-3. **Move into the project directory**
-   ```bash
-    cd README_Design_Kit
-   ```
-3. **Download necessay packages**
-   ```bash
-    npm install 
-   ```
-   or 
-   <br>
-   **Use Docker to run project locally**
-   - Build the image
-   ```
-   docker build -t readme-design-kit .
-   ```
-   - Run image locally
-   ```
-   docker -it -p 5173:5173 readme-desing-kit
-   ```
-3. **Create a new branch** for your changes
-    ```bash
-    git checkout -b your_branch_name
-   ```
-3. **Check the open issues** Visit the original repository and click on the issues tab, then choose the ones labeled `good first issue` or `ssoc` ot `beginner`
-    > ![issues](https://github.com/user-attachments/assets/550349c4-e0cb-4d19-9370-1a9e558051c3)
-
-4. **Comment to get assigned** to a task
-    > ![comments](https://github.com/user-attachments/assets/1c144897-9160-457a-8300-cd5b72074e99)
-
-5. **Start editing, make your changes and commit them**
-    ```bash
-    git add .
-   ```
-6. **Push your changes** to your branch
-    ```bash
-    git commit -m "your commit message"
-    git push origin your_branch_name
-   ```
-6. **Submit a pull request** with a clear description and always remeber to go through the contribution.md and the guidelines in the repository. Go to your forked repository and click on the pull request tab, then click on the "New pull request" button OR you can click on Compare and Pull Request.
-    > ![pullrequest](https://github.com/user-attachments/assets/9fe3c0e1-6853-444b-bc15-69dddebf627c)
-
-
-### 💡 Suggestions for Contributions:
-- Add new README templates (for different tech stacks)
-- Improve the structure or visuals of existing templates
-- Add README templates in other languages (Hindi, Spanish, etc.)
-
-### 🙌 Community Guidelines
-- Be respectful and inclusive
-- Ask questions if you're unsure — here to help!
-- Every contribution counts, no matter how small
+📖 Please review `CONTRIBUTING.md` before submitting a PR.
 
 ---
 
-<h2 style="font-family: Helvetica, sans-serif;">📅 Participated In</h2>
+## 📅 Participated In
 
-| Sr. No. | Program Name               | Timeline         |
-|--------:|----------------------------|------------------|
-| 1       | Social Summer of Code 2025 | June - August    |
-
-> Add more entries here as you participate.
+| Program Name | Timeline |
+|-------------|----------|
+| Social Summer of Code 2025 | June – August |
 
 ---
 
-<h2 style="font-family: Helvetica, sans-serif;">📄 License</h2>
+## 📄 License
 
-This project is licensed under the **MIT License**.  
-You're free to use, modify, and distribute it with attribution.
+This project is licensed under the **MIT License**.
 
-**📌 Project Admin**: [Mayur Pagote](https://github.com/Mayur-Pagote)
+**Project Maintainer:** [Mayur Pagote](https://github.com/Mayur-Pagote)
 
 ---
 
-> Made with ❤️ for open-source and SSoC contributors.
+<p align="center">
+  Made with ❤️ for open-source contributors
+</p>
