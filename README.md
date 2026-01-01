@@ -136,7 +136,6 @@ This project is licensed under the **MIT License**.
 
 **Project Maintainer:** [Mayur Pagote](https://github.com/Mayur-Pagote)
 
----
 
 <p align="center">
   Made with ❤️ for open-source contributors
