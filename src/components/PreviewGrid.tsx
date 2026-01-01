@@ -72,34 +72,10 @@ const componentsData = {
     codeSnippet: "![Stats Card 4](https://awesome-github-stats.azurewebsites.net/user-stats/{username}?theme=github-dark&cardType=github)"
   },
   {
-    title: "Vercel Tokyo Stats",
-    description: "Classic GitHub stats card using Vercel's GitHub Readme Stats with Tokyo Night theme",
-    imageUrl: "https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&locale=en&theme=tokyonight",
-    codeSnippet: "![Stats Card 5](https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&locale=en&theme=tokyonight)"
-  },
-  {
     title: "Minimal Impact Card",
     description: "Simple stats card with minimal visual using GitHub Stats Alpha",
     imageUrl: "https://github-stats-alpha.vercel.app/api/?username={username}",
     codeSnippet: "![Stats Card 6](https://github-stats-alpha.vercel.app/api/?username={username})"
-  },
-  {
-    title: "Synthwave Merge Tracker",
-    description: "GitHub Readme Stats card showing PR reviews and merge metrics in Synthwave theme",
-    imageUrl: "https://github-readme-stats.vercel.app/api?username={username}&show=reviews,prs_merged,prs_merged_percentage&show_icons=true&theme=synthwave",
-    codeSnippet: "![Stats Card 7](https://github-readme-stats.vercel.app/api?username={username}&show=reviews,prs_merged,prs_merged_percentage&show_icons=true&theme=synthwave)"
-  },
-  {
-    title: "High Contrast Insights",
-    description: "GitHub stats card with rank icon (GitHub logo) and High Contrast theme",
-    imageUrl: "https://github-readme-stats.vercel.app/api?username={username}&rank_icon=github&theme=highcontrast",
-    codeSnippet: "![Stats Card 8](https://github-readme-stats.vercel.app/api?username={username}&rank_icon=github&theme=highcontrast)"
-  },
-  {
-    title: "Percentile Rank Card",
-    description: "GitHub stats card with percentile rank icon and Vision Friendly Dark theme",
-    imageUrl: "https://github-readme-stats.vercel.app/api?username={username}&rank_icon=percentile&theme=vision-friendly-dark",
-    codeSnippet: "![Stats Card 9](https://github-readme-stats.vercel.app/api?username={username}&rank_icon=percentile&theme=vision-friendly-dark)"
   },
   {
     title: "Profile Summary Stats",
@@ -133,29 +109,11 @@ const componentsData = {
       imageUrl: "https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=F75C7E&width=435&lines=Hello+World!;I'm+a+Developer;Welcome+to+my+Profile!",
       codeSnippet: "![Typing SVG](https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=F75C7E&width=435&lines=Hello+World!;I'm+{username};Welcome+to+my+Profile!)"
     },
-     {
-      title: "Snake Game",
-      description: "Animated snake eating your contributions",
-      imageUrl: "https://github.com/mayur-pagote/mayur-pagote/blob/output/github-contribution-grid-snake.svg",
-      codeSnippet: "![Snake animation](https://github.com/{username}/{username}/blob/output/github-contribution-grid-snake.svg)"
-    },
     {
       title: "Hand Waving",
       description: "Animated waving hand GIF",
       imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Hand%20Waving.gif?raw=true",
       codeSnippet: "![Hand Waving](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Hand%20Waving.gif)"
-    },
-    {
-      title: "Blue Line",
-      description: "Animated blue line divider",
-      imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Blue%20Line.gif?raw=true",
-      codeSnippet: "![Blue Line](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Blue%20Line.gif)"
-    },
-    {
-      title: "Blue Pink Line",
-      description: "Colorful animated line divider",
-      imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Blue%20Pink%20Line.gif?raw=true",
-      codeSnippet: "![Blue Pink Line](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Blue%20Pink%20Line.gif)"
     },
     {
       title: "Gmail Thug",
@@ -188,34 +146,10 @@ const componentsData = {
       codeSnippet: "![Professional Handshake](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Professional%20Handshake.gif)"
     },
     {
-      title: "RGB Line Medium",
-      description: "Medium RGB animated line",
-      imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/RGB%20Line%20Medium.gif?raw=true",
-      codeSnippet: "![RGB Line Medium](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/RGB%20Line%20Medium.gif)"
-    },
-    {
-      title: "RGB Line Thick",
-      description: "Thick RGB animated line",
-      imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/RGB%20Line%20Thick.gif?raw=true",
-      codeSnippet: "![RGB Line Thick](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/RGB%20Line%20Thick.gif)"
-    },
-    {
-      title: "RGB Line Thin",
-      description: "Thin RGB animated line",
-      imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/RGB%20Line%20Thin.gif?raw=true",
-      codeSnippet: "![RGB Line Thin](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/RGB%20Line%20Thin.gif)"
-    },
-    {
       title: "Rabbit Happy",
       description: "Happy rabbit animation",
       imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Rabit%20Happy.gif?raw=true",
       codeSnippet: "![Rabbit Happy](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Rabit%20Happy.gif)"
-    },
-    {
-      title: "Star Light Line",
-      description: "Sparkling star line animation",
-      imageUrl: "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Star%20Light%20Line.gif?raw=true",
-      codeSnippet: "![Star Light Line](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Star%20Light%20Line.gif)"
     }
   ],
   counter: [
@@ -225,12 +159,6 @@ const componentsData = {
       imageUrl: "https://komarev.com/ghpvc/?username={username}&color=blueviolet&style=flat-square&label=Profile+Views",
       codeSnippet: "![Profile Views](https://komarev.com/ghpvc/?username={username}&color=blueviolet&style=flat-square&label=Profile+Views)"
     },
-    {
-    title: "Views Counter - Glitch",
-    description: "Simple visitor badge using profile-counter from Glitch.",
-    imageUrl: "https://profile-counter.glitch.me/{username}/count.svg",
-    codeSnippet: `<img src="https://profile-counter.glitch.me/{username}/count.svg" alt="visitor badge"/>`
-  },
   {
     title: "Views Counter - Komarev (Short)",
     description: "Compact GitHub profile view counter using Komarev badge.",
@@ -441,36 +369,6 @@ const componentsData = {
     }
   ],
   languages: [
-    {
-    title: "Most Used Language Card 1",
-    description: "Displays top 5 most used languages.",
-    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&langs_count=5",
-    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&langs_count=5"/>`
-  },
-  {
-    title: "Most Used Language Card 2",
-    description: "Compact layout of most used languages.",
-    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact",
-    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact"/>`
-  },
-  {
-    title: "Most Used Language Card 3",
-    description: "Donut-vertical layout with dark theme.",
-    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=donut-vertical&theme=dark",
-    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=donut-vertical&theme=dark"/>`
-  },
-  {
-    title: "Most Used Language Card 4",
-    description: "Pie chart layout with merko theme.",
-    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=pie&theme=merko",
-    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=pie&theme=merko"/>`
-  },
-  {
-    title: "Most Used Language Card 5",
-    description: "Minimal language card without progress bar.",
-    imageUrl: "https://github-readme-stats.vercel.app/api/top-langs/?username={username}&hide_progress=true",
-    codeSnippet: `<img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&hide_progress=true"/>`
-  },
   {
     title: "Top Language By Repo",
     description: "Languages used based on repository count.",
@@ -485,23 +383,11 @@ const componentsData = {
   }
   ],
   repos: [
-   {
-  title: "Repository Stats",
-  description: "Detailed repository information card",
-  imageUrl: "https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=radical",
-  codeSnippet: `![Repo Stats](https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=radical)`
-},
 {
   title: "Top Contributed Repo",
   description: "Displays top contributed repositories of the user.",
   imageUrl: "https://github-contributor-stats.vercel.app/api?username={username}&limit=5&theme=transparent&hide_border=true&combine_all_yearly_contributions=true",
   codeSnippet: `<img height="180em" src="https://github-contributor-stats.vercel.app/api?username={username}&limit=5&theme=transparent&hide_border=true&combine_all_yearly_contributions=true"/>`
-},
-{
-  title: "Repo Details",
-  description: "Shows a styled pinned GitHub repository card.",
-  imageUrl: "https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=dark&title_color=C2FFC7&icon_color=CB9DF0&text_color=ffffff&bg_color=000000",
-  codeSnippet: `<img src="https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=dark&title_color=C2FFC7&icon_color=CB9DF0&text_color=ffffff&bg_color=000000"/>`
 },
 {
   title: "Contributors",
@@ -633,12 +519,6 @@ const componentsData = {
       description: "GeeksForGeeks profile statistics card.",
       imageUrl: "https://geeks-for-geeks-stats-card.vercel.app/?username={username}",
       codeSnippet: `<img height="180em" src="https://geeks-for-geeks-stats-card.vercel.app/?username={username}"/>`
-    },
-    {
-      title: "Codeforces Stats",
-      description: "Codeforces rating and contest stats card.",
-      imageUrl: "https://codeforces-readme-stats.vercel.app/api/card?username={username}",
-      codeSnippet: `<img height="180em" src="https://codeforces-readme-stats.vercel.app/api/card?username={username}"/>`
     }
 ],
 gitanimals: [
