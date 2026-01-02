@@ -99,11 +99,22 @@ export const Header = () => {
                                         <Link 
                                             to="/elements"
                                             onClick={() => setMenuState(false)}
-                                            className="text-muted-foreground hover:text-accent-foreground block duration-150 text-lg"
+                                            className="text-muted-foreground hover:text-accent-foreground block duration-150 text-base"
                                         >
                                             Elements
                                         </Link>
                                     </li>
+                                    {moreItems.map((item, index) => (
+                                        <li key={index}>
+                                            <Link 
+                                                to={item.to}
+                                                onClick={() => setMenuState(false)}
+                                                className="text-muted-foreground hover:text-accent-foreground block duration-150 text-base"
+                                            >
+                                                {item.name}
+                                            </Link>
+                                        </li>
+                                    ))}
                                 </ul>
                             </div>
                             <div className={cn("flex w-full flex-col sm:flex-row md:w-fit transition-all duration-300 items-center justify-center lg:justify-end", isScrolled ? "space-y-2 sm:gap-3" : "space-y-3 sm:gap-4")}>
