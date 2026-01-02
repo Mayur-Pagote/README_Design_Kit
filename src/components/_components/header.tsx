@@ -92,17 +92,21 @@ export const Header = () => {
                             </DropdownMenu>
                         </div>
 
-                        <div className={cn("bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent transition-all duration-300", isScrolled ? "space-y-4 lg:gap-4" : "space-y-8 lg:gap-8")}>
-                            <div className="lg:hidden">
-                                <ul className="space-y-6 text-base">
+                        <div className={cn("bg-background in-data-[state=active]:block lg:in-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-center rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent transition-all duration-300 data-[state=active]:absolute data-[state=active]:top-full data-[state=active]:left-0 data-[state=active]:right-0 lg:static mt-1 lg:mt-0 z-10", isScrolled ? "space-y-4 lg:gap-4" : "space-y-8 lg:gap-8")}>
+                            <div className="lg:hidden w-full text-center">
+                                <ul className="space-y-6 text-base inline-block">
                                     <li>
-                                        <Link to="/elements">
+                                        <Link 
+                                            to="/elements"
+                                            onClick={() => setMenuState(false)}
+                                            className="text-muted-foreground hover:text-accent-foreground block duration-150 text-lg"
+                                        >
                                             Elements
                                         </Link>
                                     </li>
                                 </ul>
                             </div>
-                            <div className={cn("flex w-full flex-col sm:flex-row md:w-fit transition-all duration-300 items-center", isScrolled ? "space-y-2 sm:gap-3" : "space-y-3 sm:gap-4")}>
+                            <div className={cn("flex w-full flex-col sm:flex-row md:w-fit transition-all duration-300 items-center justify-center lg:justify-end", isScrolled ? "space-y-2 sm:gap-3" : "space-y-3 sm:gap-4")}>
                                 <div className="flex items-center justify-center h-10 w-10 -my-1">
                                     <button 
                                         onClick={() => setTheme(isDark ? "light" : "dark")} 
@@ -118,6 +122,7 @@ export const Header = () => {
                                         )}
                                     </button>
                                 </div>
+                                <br />
                                 <GitHubStarsButton 
                                   username="Mayur-Pagote" 
                                   repo="README_Design_Kit" 
