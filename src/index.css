@@ -44,7 +44,11 @@
 :root {
   --radius: 0.65rem;
   /* Paper-like light theme */
-  --background: oklch(0.975 0.003 45);
+  /* --background: oklch(0.975 0.003 45); */
+
+   /*subtle-lavender theme*/
+   --background: oklch(0.955 0.02 285);
+
   --foreground: oklch(0.12 0.008 270);
   --card: oklch(0.985 0.002 45);
   --card-foreground: oklch(0.12 0.008 270);
