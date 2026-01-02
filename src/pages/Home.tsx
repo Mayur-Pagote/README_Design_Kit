@@ -56,11 +56,34 @@ export default function Home() {
   animate={{ opacity: 1, y: 0 }} 
   transition={{ delay: 0.2, duration: 0.8 }} 
   className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto"
->  <h1 className="text-center text-[52px] leading-none sm:text-[80px] lg:text-[70px] font-bold bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
-    <span>Create,</span>{" "}
-    Generate, and{" "}
-    <span className="text-primary drop-shadow-sm">Share</span> in Seconds!
-  </h1>
+>  <h1
+  className="
+    text-center text-[52px] leading-none sm:text-[80px] lg:text-[70px]
+    font-bold
+    bg-gradient-to-r from-foreground via-primary to-primary
+    bg-clip-text text-transparent
+    select-text
+    [&::selection]:bg-transparent
+    [&::selection]:text-current
+    [&_*::selection]:bg-transparent
+    [&_*::selection]:text-current
+  "
+>
+
+  <span className="inline-block bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
+    Create,
+  </span>{" "}
+  <span className="inline-block bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
+    Generate, and
+  </span>{" "}
+  <span className="inline-block text-primary drop-shadow-sm">
+    Share
+  </span>{" "}
+  <span className="inline-block bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
+    in Seconds!
+  </span>
+</h1>
+
 </motion.div>          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
