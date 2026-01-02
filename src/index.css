@@ -307,3 +307,29 @@ div.template-scroll {
   word-wrap: break-word;
   white-space: pre-wrap;
 }
+
+.cursor-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.cursor-dot {
+  position: fixed;
+  border-radius: 50%;
+  background: rgba(127, 95, 253, 0.35); /* matches theme purple */
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+}
+
+/* Size gradient for shadow effect */
+.cursor-dot:nth-child(1) { width: 35px; height: 35px; }
+.cursor-dot:nth-child(2) { width: 30px; height: 30px; }
+.cursor-dot:nth-child(3) { width: 25px; height: 25px; }
+.cursor-dot:nth-child(4) { width: 20px; height: 20px; }
+.cursor-dot:nth-child(5) { width: 15px; height: 15px; }
+.cursor-dot:nth-child(6) { width: 10px;  height: 10px; }
+.cursor-dot:nth-child(7) { width: 8px;  height: 8px; }
+.cursor-dot:nth-child(8) { width: 7px;  height: 7px; }
