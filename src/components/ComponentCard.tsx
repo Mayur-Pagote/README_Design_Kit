@@ -31,8 +31,8 @@ export default function ComponentCard({ title, description, imageUrl, codeSnippe
 
   const finalImageUrl = imageUrl.replace(/\{username\}/g, username).replace(/\{repo\}/g, repo);
   return (
-    <div className="relative bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden backdrop-blur-lg opacity-90 group transform-gpu transition-all duration-200 ease-out delay-100 hover:-translate-y-2 hover:scale-[1.04] shadow-md hover:shadow-2xl hover:shadow-purple-500/40 hover:opacity-100 hover:border-purple-600 cursor-pointer max-w-sm">
-      <div className="aspect-video bg-muted flex items-center justify-center p-4">
+    <div className="relative bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden backdrop-blur-lg opacity-90 group transform-gpu transition-all duration-200 ease-out delay-100 hover:-translate-y-2 hover:scale-[1.04] shadow-md hover:shadow-2xl hover:shadow-purple-500/40 hover:opacity-100 hover:border-purple-600 cursor-pointer max-w-sm flex flex-col h-full">
+      <div className="aspect-video bg-muted flex items-center justify-center p-4 flex flex-col flex-grow">
         <img
           src={finalImageUrl}
           alt={title}
@@ -41,7 +41,7 @@ export default function ComponentCard({ title, description, imageUrl, codeSnippe
       </div>
       <div className="p-4">
         <h3 className="font-semibold text-foreground mb-2">{title}</h3>
-        <p className="text-sm text-muted-foreground mb-4">{description}</p>
+        <p className="text-sm text-muted-foreground mb-4 flex-grow">{description}</p>
         <Button
           onClick={handleCopyLink}
           className="w-full bg-primary hover:bg-primary/60 text-primary-foreground transform-gpu transition-transform duration-200 ease-out delay-75 hover:-translate-y-0.5 hover:scale-[1.03]"

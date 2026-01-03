@@ -3,7 +3,7 @@ import { Search, Grid, List, Star, Heart, Clock, ArrowRight } from 'lucide-react
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -283,7 +283,7 @@ interface TemplateCardProps {
 
 function TemplateCard({ template, isFavorite, onSelect, onPreview, onToggleFavorite }: TemplateCardProps) {
   return (
-    <Card className="group hover:shadow-lg transition-all duration-200 cursor-pointer p-0 pb-6">
+    <Card className="group hover:shadow-lg transition-all duration-200 cursor-pointer pt-0 flex flex-col h-full">
       <div className="aspect-video bg-muted rounded-t-lg overflow-hidden">
         <TemplateThumbnail template={template} className="w-full h-full object-cover" />
       </div>
@@ -309,7 +309,7 @@ function TemplateCard({ template, isFavorite, onSelect, onPreview, onToggleFavor
         </div>
       </CardHeader>
 
-      <CardContent className="pt-0">
+      <CardContent className="pt-0 flex-grow">
         <div className="space-y-3">
           <div className="flex items-center gap-2">
             <Badge variant="outline" className="text-xs">
@@ -336,6 +336,9 @@ function TemplateCard({ template, isFavorite, onSelect, onPreview, onToggleFavor
             )}
           </div>
 
+        </div>
+      </CardContent>
+      <CardFooter>
           <div className="flex gap-2">
             <Button size="sm" onClick={onSelect} className="flex-1">
               Use Template
@@ -344,8 +347,7 @@ function TemplateCard({ template, isFavorite, onSelect, onPreview, onToggleFavor
               Preview
             </Button>
           </div>
-        </div>
-      </CardContent>
+      </CardFooter>
     </Card>
   );
 }
