@@ -27,7 +27,7 @@ import {
   X,
   RotateCcw,
   Image as ImageIcon,
-  Cloud,
+
   CheckCircle2
 } from 'lucide-react';
 import { toast } from 'sonner';
