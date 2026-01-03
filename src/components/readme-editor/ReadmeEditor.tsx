@@ -10,6 +10,7 @@ import { ChatPanel } from './ChatPanel';
 import { MarkdownPreview } from './MarkdownPreview';
 import { CodeEditor } from './CodeEditor';
 import { APIKeySettings } from './APIKeySettings';
+import   domtoimage from   'dom-to-image-more';
 import { 
   Code2, 
   Eye, 
@@ -22,7 +23,8 @@ import {
   Home,
   Check,
   X,
-  RotateCcw
+  RotateCcw,
+  Image as ImageIcon
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -247,7 +249,41 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
     autoTypeContent(generatedMarkdown);
     toast.success('AI-generated content applied!');
   };
+const handleExportPNG= async()=>{
+  const element= document.getElementById('readme-preview-content');
+  if(!element){
+    toast.error("Switch to Preview tab to export image");
+    return;
+  }
+  const scrollWidth = element.scrollWidth;
+      const scrollHeight = element.scrollHeight;
+  try{
+    const canvas= await domtoimage.toPng(element,{
+      bgcolor :'#000000',
+      width: scrollWidth,
+        height: scrollHeight,
+        style: {
+          transform: 'scale(1)', 
+          transformOrigin: 'top left',
+          overflow: 'visible',   
+          maxHeight: 'none',     
+          border: 'none',       
+          boxShadow: 'none'     
+        },
+quality:1.0,
 
+    });
+    
+      const link = document.createElement('a');
+      link.download = 'readme-preview.png';
+      link.href = canvas;
+      link.click();
+      toast.success('Preview exported as PNG!');
+    } catch (error) {
+      console.error('Export failed:', error);
+      toast.error('Failed to export image');
+  }
+}
   return (
     <div className={cn('h-screen flex flex-col bg-background', className)}>
       {/* Header */}
@@ -289,7 +325,11 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
               <Download className="h-4 w-4 mr-1" />
               Download
             </Button>
-            
+          <Button variant="outline" size="sm" onClick={handleExportPNG} title="Export as PNG">
+            <ImageIcon className="h-4 w-4 mr-1"/>
+            Export PNG
+
+          </Button>
             <Button variant="outline" size="sm" onClick={() => setShowSettings(true)}>
               <Settings className="h-4 w-4" />
             </Button>
@@ -435,7 +475,8 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
                       animate={{ opacity: 1, x: 0 }}
                       exit={{ opacity: 0, x: 20 }}
                       transition={{ duration: 0.2 }}
-                      className="h-full"
+                      className="h-full overflow-auto bg-background"
+                      id="readme-preview-content"
                     >
                       <MarkdownPreview content={markdownContent} />
                     </motion.div>
