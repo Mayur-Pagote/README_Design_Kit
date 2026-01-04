@@ -11,6 +11,8 @@ import { MarkdownPreview } from './MarkdownPreview';
 import { CodeEditor } from './CodeEditor';
 import { APIKeySettings } from './APIKeySettings';
 import   domtoimage from   'dom-to-image-more';
+import { useLocalStorage } from '@/hooks/useLocalStorage';
+import { formatDistanceToNow } from 'date-fns';
 import { 
   Code2, 
   Eye, 
@@ -24,13 +26,16 @@ import {
   Check,
   X,
   RotateCcw,
-  Image as ImageIcon
+  Image as ImageIcon,
+
+  CheckCircle2
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { readmeAI } from '@/services/readmeAIService';
 import { webSearchService } from '@/services/webSearchService';
 import { githubReadmeGenerator } from '@/services/githubReadmeGeneratorService';
+// import { setFlagsFromString } from 'v8';
 
 interface ReadmeEditorProps {
   className?: string;
@@ -39,7 +44,8 @@ interface ReadmeEditorProps {
 const defaultMarkdown = '# My Awesome Project\n\nWelcome to my project! This README was generated with AI assistance.\n\n## 🚀 Features\n\n- Feature 1\n- Feature 2\n- Feature 3\n\n## 🛠️ Installation\n\n```bash\nnpm install\n```\n\n## 📝 Usage\n\n```javascript\nconst example = "Hello World";\nconsole.log(example);\n```\n\n## 🤝 Contributing\n\nContributions are welcome! Please feel free to submit a Pull Request.\n\n## 📄 License\n\nThis project is licensed under the MIT License.';
 
 export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
-  const [markdownContent, setMarkdownContent] = useState<string>(defaultMarkdown);
+  const [markdownContent, setMarkdownContent] = useLocalStorage<string>('readme-editor-content', defaultMarkdown);
+  const [lastSaved, setLastSaved] = useState<Date>(new Date());
   const [activeTab, setActiveTab] = useState<'code' | 'preview'>('preview');
   const [isGenerating, setIsGenerating] = useState(false);
   const [chatHistory, setChatHistory] = useState<Array<{ role: 'user' | 'assistant'; content: string; timestamp: Date }>>([]);
@@ -49,7 +55,11 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
 
   const autoTypingCancelled = useRef(false);
   const generationCancelled = useRef(false);
-
+const [, setTick] = useState(0);
+  React.useEffect(() => {
+    const timer = setInterval(() => setTick(t => t + 1), 60000);
+    return () => clearInterval(timer);
+  }, []);
   // Configure GitHub README generator with API key
   React.useEffect(() => {
     const updateApiKey = () => {
@@ -86,6 +96,8 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
 
   const handleMarkdownChange = (content: string) => {
     setMarkdownContent(content);
+    setLastSaved(new Date());
+    
   };
 
   // Auto-typing effect for applying AI generated content - instant speed
@@ -96,7 +108,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
     
     // Apply content instantly for better user experience
     setMarkdownContent(newContent);
-    
+    setLastSaved(new Date());
     setIsAutoTyping(false);
     
     // Auto-switch to preview after content is applied
@@ -437,6 +449,13 @@ quality:1.0,
                     </>
                   )}
                 </div>
+                <div className="flex items-center text-xs text-muted-foreground transition-all duration-500 ease-in-out">
+    <CheckCircle2 className="h-3 w-3 mr-1 text-green-500" />
+    <span className="hidden sm:inline">
+      Saved {formatDistanceToNow(lastSaved, { addSuffix: true })}
+    </span>
+    <span className="sm:hidden">Saved</span>
+  </div>
                 <div className="flex items-center space-x-1">
                   <div className={cn(
                     "h-2 w-2 rounded-full",
