@@ -210,7 +210,7 @@ Not sure if your README resonates with your audience? Preview it through differe
 
 ## 📁 Project Folder Structure
 
-README_DESIGN-KIT/
+README_Design-Kit/
 ├── SRC/                         # Application source code
 ├── public/
 │   └── assets/                  # Static assets
