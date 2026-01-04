@@ -21,6 +21,8 @@ import { Toaster } from "./components/ui/sonner";
 import ReadmeGenerator from "./components/generator/Readme-generator";
 import ReadmeEditor from "./components/readme-editor/ReadmeEditor";
 import AIEditorIntro from "./pages/AIEditorIntro";
+import Cursortrail from "./Cursortrail";
+
 
 
 
@@ -41,6 +43,7 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <ThemeProvider defaultTheme="system" storageKey="readme-design-kit-theme">
+          <Cursortrail />
           <BrowserRouter>
             <ConditionalScrollToTop />
             <Routes>

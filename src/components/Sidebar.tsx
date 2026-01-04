@@ -19,7 +19,8 @@ const categories = [
   { id: 'gitanimals', name: 'GitAnimals', icon: '🐙' },
   { id: 'decorations', name: 'Decorations', icon: '🎉' },
   { id: 'socials', name: 'Socials', icon: '🔗' },
-  { id: 'coding', name: 'Coding Platform Stats', icon: '🧠' }
+  { id: 'coding', name: 'Coding Platform Stats', icon: '🧠' },
+  { id: 'discontinued', name: 'Discontinued', icon: '🛑' }
 ];
 
 const Sidebar = ({ selectedCategory, onCategorySelect }: SidebarProps) => {
