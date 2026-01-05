@@ -656,6 +656,20 @@ export const componentsData: Record<string, ComponentItem[]> = {
         "https://geeks-for-geeks-stats-card.vercel.app/?username={username}",
       codeSnippet: `<img height="180em" src="https://geeks-for-geeks-stats-card.vercel.app/?username={username}"/>`,
     },
+    {
+      title: "Codeforces Dark Theme Profile Stats",
+      description: "Dispalys Codeforces Profile with dark theme",
+      imageUrl:
+        "https://codeforces-readme-stats.vercel.app/api/card?username=tourist&theme=github_dark&disable_animations=false&show_icons=true&force_username=true",
+      codeSnippet: `<img height="180em" src="https://codeforces-readme-stats.vercel.app/api/card?username={username}&theme=github_dark&disable_animations=false&show_icons=true&force_username=true"/>`,
+    },
+    {
+      title: "Codeforces Light Theme Profile Stats",
+      description: "Dispalys Codeforces Profile with light theme",
+      imageUrl:
+        "https://codeforces-readme-stats.vercel.app/api/card?username=tourist&theme=default&disable_animations=false&show_icons=true&force_username=true",
+      codeSnippet: `<img height="180em" src="https://codeforces-readme-stats.vercel.app/api/card?username={username}&theme=default&disable_animations=false&show_icons=true&force_username=true"/>`,
+    },
   ],
   gitanimals: [
     {
