@@ -13,9 +13,58 @@ interface FinalPageProps {
   goToPage: (page: number) => void;
 }
 
+const statsAlphaThemes: Record<string, {
+  cc: string;
+  tc: string;
+  ic: string;
+  bc: string;
+}> = {
+  dark: {
+    cc: '0d1117',
+    tc: 'c9d1d9',
+    ic: '58a6ff',
+    bc: '30363d',
+  },
+  radical: {
+    cc: '141321',
+    tc: 'a9fef7',
+    ic: 'fe428e',
+    bc: '141321',
+  },
+  default: {
+    cc: 'ffffff',
+    tc: '24292f',
+    ic: '0969da',
+    bc: 'd0d7de',
+  },
+  gruvbox: {
+    cc: '282828',
+    tc: 'ebdbb2',
+    ic: 'fabd2f',
+    bc: '3c3836',
+  },
+  merko: {
+    cc: '0a0f0b',
+    tc: '68f596',
+    ic: '68f596',
+    bc: '1f6f43',
+  },
+  tokyonight: {
+    cc: '1a1b26',
+    tc: 'c0caf5',
+    ic: '7aa2f7',
+    bc: '414868',
+  },
+};
+
+
 const FinalPage = ({ state, goToPage }: FinalPageProps) => {
   const [markdown, setMarkdown] = useState('');
   const [copied, setCopied] = useState(false);
+
+  const selectedTheme =
+  statsAlphaThemes[state.githubStats.theme] ?? statsAlphaThemes.dark;
+
 
   useEffect(() => {
     generateMarkdown();
@@ -69,7 +118,12 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
     // GitHub Stats
     if (state.username) {
       md += `## 📊 GitHub Stats:\n`;
-      md += `![${state.username}'s GitHub stats](https://github-readme-stats.vercel.app/api?username=${state.username}&theme=${state.githubStats.theme}&hide_border=${!state.githubStats.showBorder}&include_all_commits=${state.githubStats.showLifetimeCommits}&count_private=${state.githubStats.showPrivateCommits})\n\n`;
+      md += `![${state.username}'s GitHub stats](https://github-stats-alpha.vercel.app/api?username=${state.username}
+      &cc=${selectedTheme.cc}
+      &tc=${selectedTheme.tc}
+      &ic=${selectedTheme.ic}
+      &bc=${selectedTheme.bc})\n\n`.replace(/\s+/g, '');
+
       md += `![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=${state.username}&theme=${state.githubStats.theme}&hide_border=${!state.githubStats.showBorder}&layout=compact)\n\n`;
     }
 
