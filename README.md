@@ -208,6 +208,23 @@ Not sure if your README resonates with your audience? Preview it through differe
 
 ---
 
+## 📁 Project Folder Structure
+
+README_Design-Kit/
+├── SRC/                         # Application source code
+├── public/
+│   └── assets/                  # Static assets
+├── docs/                        # Project documentation
+├── awesome-readme-templates/    # README templates collection
+├── .github/                     # GitHub workflows and issue templates
+├── README.md
+├── CONTRIBUTING.md
+├── CODE_OF_CONDUCT.md
+├── SECURITY.md
+└── LICENSE
+
+---
+
 ## 🤝 Contributing
 
 We love contributions! Whether you're a documentation expert or writing your first README, there's a place for you here.
