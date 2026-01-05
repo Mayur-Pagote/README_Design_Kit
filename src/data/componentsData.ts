@@ -863,4 +863,15 @@ export const componentsData: Record<string, ComponentItem[]> = {
       codeSnippet: `<img height="180em" src="https://codeforces-readme-stats.vercel.app/api/card?username={username}"/>`,
     },
   ],
+  achievements: [
+    {
+      title: "GitHub Trophies",
+      description:
+        "Dynamically generated GitHub Stat Trophies",
+      imageUrl:
+        "https://github-trophies.vercel.app/?username={username}",
+      codeSnippet:
+        "![](https://github-trophies.vercel.app/?username={username})",
+    },
+  ]
 };
