@@ -21,6 +21,6 @@ export const sidebarCategories = [
   {id: "decorations", name: "Decorations", icon: PartyPopper },
   { id: "socials", name: "Socials", icon: Link },
   { id: "coding", name: "Coding Platform Stats", icon: SquareCode },
-  { id: "discontinued", name: "Discontinued", icon: RefreshCwOff },
   { id: "achievements", name: "Achievements", icon: Trophy },
+  { id: "discontinued", name: "Discontinued", icon: RefreshCwOff },
 ];
