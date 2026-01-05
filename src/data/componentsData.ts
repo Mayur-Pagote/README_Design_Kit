@@ -665,7 +665,7 @@ export const componentsData: Record<string, ComponentItem[]> = {
     },
     {
       title: "Codeforces Light Theme Profile Stats",
-      description: "Dispalys Codeforces Profile with Light theme",
+      description: "Dispalys Codeforces Profile with light theme",
       imageUrl:
         "https://codeforces-readme-stats.vercel.app/api/card?username=tourist&theme=default&disable_animations=false&show_icons=true&force_username=true",
       codeSnippet: `<img height="180em" src="https://codeforces-readme-stats.vercel.app/api/card?username={username}&theme=default&disable_animations=false&show_icons=true&force_username=true"/>`,
