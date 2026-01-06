@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, memo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import WelcomePage from '@/components/generator/WelcomePage';
 import AboutMePage from '@/components/generator/AboutMePage';
@@ -10,6 +10,33 @@ import FinalPage from '@/components/generator/FinalPage';
 import LiquidChrome from '../LandingComponents/LiquidChrome';
 import Aurora from '../LandingComponents/Aurora';
 import { useTheme } from '../theme-provider';
+
+// Memoized background - prevents re-render from MutationObserver triggering parent updates
+const Background = memo(({ height }: { height: string }) => {
+  const { theme } = useTheme();
+  const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  return (
+    <div 
+      className="absolute top-0 left-0 w-full -z-10 rounded-b-4xl overflow-hidden opacity-90"
+      style={{ height }}
+    >
+      {isDark ? (
+        <Aurora
+          colorStops={["#4338ca", "#6366f1", "#8b5cf6"]} 
+          amplitude={1.5}
+          speed={1.0}
+        />
+      ) : (
+        <LiquidChrome
+          color={[0.96, 0.97, 0.98]}
+          mouseReact={true}
+          amplitude={0.08}
+          speed={0.6}
+        />
+      )}
+    </div>
+  );
+});
 
 export interface GeneratorState {
   username: string;
@@ -209,9 +236,6 @@ const Index = () => {
     }
   };
 
-  const { theme } = useTheme();
-  const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-
   // Update background height based on content
   useEffect(() => {
     if (containerRef.current) {
@@ -242,28 +266,8 @@ const Index = () => {
 
   return (
     <div ref={containerRef} className="relative overflow-hidden min-h-screen flex flex-col">
-      {/* Dynamic background that adapts to content height */}
-      <div 
-        className="absolute top-0 left-0 w-full -z-10 rounded-b-4xl overflow-hidden opacity-90"
-        style={{ height: containerHeight }}
-      >
-        {isDark ? (
-          // Dark mode: Flowing Aurora with vibrant purple gradients
-          <Aurora
-            colorStops={["#4338ca", "#6366f1", "#8b5cf6"]} 
-            amplitude={1.5}
-            speed={1.0}
-          />
-        ) : (
-          // Light mode: Subtle LiquidChrome with paper-like colors
-          <LiquidChrome
-            color={[0.96, 0.97, 0.98]}
-            mouseReact={true}
-            amplitude={0.08}
-            speed={0.6}
-          />
-        )}
-      </div>
+      {/* Memoized background - won't re-render on parent state changes */}
+      <Background height={containerHeight} />
       <AnimatePresence mode="wait">
         <motion.div
           key={currentPage}
