@@ -769,6 +769,17 @@ export const componentsData: Record<string, ComponentItem[]> = {
       codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook-1.png" width="100">`,
     },
   ],
+    achievements: [
+    {
+      title: "GitHub Trophies",
+      description:
+        "Dynamically generated GitHub Stat Trophies",
+      imageUrl:
+        "https://github-trophies.vercel.app/?username={username}",
+      codeSnippet:
+        "![](https://github-trophies.vercel.app/?username={username})",
+    },
+  ],
   discontinued: [
     {
       title: "Vercel Tokyo Stats",
