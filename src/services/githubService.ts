@@ -150,7 +150,43 @@ export const getFileContent = async (owner: string, repo: string, path: string, 
     return 'An unknown error occurred while fetching file content.';
   }
 };
+export const getRepoReadme = async (owner: string, repo: string, token?: string): Promise<string> => {
+  try {
+    const headers = getHeaders(token);
+    // Use the specific endpoint for READMEs
+    const res = await fetch(`${GITHUB_API_BASE}/repos/${owner}/${repo}/readme`, { headers });
+    
+    if (!res.ok) {
+      if (res.status === 404) {
+        throw new Error('README not found in this repository.');
+      }
+      throw handleApiError(res.status, 'fetching repository README');
+    }
 
+    const data = await res.json();
+
+    // Content is Base64 encoded
+    if (data.content && data.encoding === 'base64') {
+      try {
+        // Decode Base64, handling UTF-8 characters correctly
+        const binaryString = atob(data.content.replace(/\s/g, ''));
+        const bytes = new Uint8Array(binaryString.length);
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        return new TextDecoder().decode(bytes);
+      } catch (e) {
+        console.error('Base64 decode error:', e);
+        return atob(data.content); // Fallback
+      }
+    }
+    
+    throw new Error('Could not decode README content.');
+  } catch (error) {
+    console.error('GitHub API Error in getRepoReadme:', error);
+    throw error;
+  }
+};
 export const parseGitHubUrl = (url: string): { owner: string; repo: string } | null => {
   const GITHUB_URL_EXTRACT_REGEX = /^https:\/\/github\.com\/([a-zA-Z0-9-._]+)\/([a-zA-Z0-9-._]+)(?:\/)?$/;
   const match = url.match(GITHUB_URL_EXTRACT_REGEX);
