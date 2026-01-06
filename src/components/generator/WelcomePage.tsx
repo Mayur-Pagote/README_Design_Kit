@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Github, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import type { GeneratorState } from './Readme-generator';``
+import type { GeneratorState } from './Readme-generator';
 
 interface WelcomePageProps {
   state: GeneratorState;
