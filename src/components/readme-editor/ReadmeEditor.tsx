@@ -13,6 +13,8 @@ import { APIKeySettings } from './APIKeySettings';
 import   domtoimage from   'dom-to-image-more';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { formatDistanceToNow } from 'date-fns';
+import { GitHubLoadDialog } from './GitHubLoadDialog';
+import { getRepoReadme } from '@/services/githubService';
 import { 
   Code2, 
   Eye, 
@@ -27,7 +29,7 @@ import {
   X,
   RotateCcw,
   Image as ImageIcon,
-
+Github,
   CheckCircle2
 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -52,7 +54,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [isAutoTyping, setIsAutoTyping] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
-
+const [showLoadDialog, setShowLoadDialog] = useState(false);
   const autoTypingCancelled = useRef(false);
   const generationCancelled = useRef(false);
 const [, setTick] = useState(0);
@@ -296,6 +298,18 @@ quality:1.0,
       toast.error('Failed to export image');
   }
 }
+const handleLoadFromGithub = async (username: string, repo: string) => {
+    try {
+      const readmeContent = await getRepoReadme(username, repo);
+      setMarkdownContent(readmeContent);
+      // If you implemented the Auto-Save feature, update the timestamp too:
+      // setLastSaved(new Date()); 
+      toast.success(`Successfully loaded README from ${username}/${repo}`);
+    } catch (error) {
+      console.error('Failed to load README:', error);
+      throw error; // Re-throw so the dialog can show the error
+    }
+  };
   return (
     <div className={cn('h-screen flex flex-col bg-background', className)}>
       {/* Header */}
@@ -310,6 +324,8 @@ quality:1.0,
               <Sparkles className="h-3 w-3 mr-1" />
               Powered by Gemini 2.0 Flash Lite + GitHub
             </Badge>
+           
+
           </div>
           
           <div className="flex items-center space-x-2 ml-auto">
@@ -327,7 +343,10 @@ quality:1.0,
             </Tabs>
             
             <Separator orientation="vertical" className="h-6" />
-            
+             <Button variant="outline" size="sm" onClick={() => setShowLoadDialog(true)} title="Load from GitHub">
+              <Github className="h-4 w-4 mr-1" />
+              <span className="hidden sm:inline">Import</span>
+            </Button>
             <Button variant="outline" size="sm" onClick={handleCopyMarkdown}>
               <Copy className="h-4 w-4 mr-1" />
               Copy
@@ -511,6 +530,13 @@ quality:1.0,
       <APIKeySettings
         open={showSettings}
         onOpenChange={setShowSettings}
+      />
+
+    {/* GitHub Load Modal */}
+      <GitHubLoadDialog 
+        isOpen={showLoadDialog}
+        onClose={() => setShowLoadDialog(false)}
+        onLoad={handleLoadFromGithub}
       />
     </div>
   );
