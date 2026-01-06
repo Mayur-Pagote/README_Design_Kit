@@ -4,10 +4,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, Github, Sparkles } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import type { GeneratorState } from './Readme-generator';
-import LiquidChrome from '../LandingComponents/LiquidChrome';
-import Aurora from '../LandingComponents/Aurora';
-import { useTheme } from '../theme-provider';
+import type { GeneratorState } from './Readme-generator';``
 
 interface WelcomePageProps {
   state: GeneratorState;
@@ -25,29 +22,8 @@ const WelcomePage = ({ state, setState, nextPage }: WelcomePageProps) => {
     }
   };
 
-  const { theme } = useTheme();
-  const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
-
   return (
     <div className="relative overflow-hidden min-h-screen flex items-center justify-center">
-      <div className="absolute inset-0 -z-10 rounded-b-4xl overflow-hidden opacity-90">
-        {isDark ? (
-          // Dark mode: Flowing Aurora with vibrant purple gradients
-          <Aurora
-            colorStops={["#4338ca", "#6366f1", "#8b5cf6"]} 
-            amplitude={1.5}
-            speed={1.0}
-          />
-        ) : (
-          // Light mode: Subtle LiquidChrome with paper-like colors
-          <LiquidChrome
-            color={[0.96, 0.97, 0.98]}
-            mouseReact={true}
-            amplitude={0.08}
-            speed={0.6}
-          />
-        )}
-      </div>
       <div className="max-w-4xl w-full grid lg:grid-cols-2 gap-12 items-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
