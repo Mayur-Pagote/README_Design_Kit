@@ -81,7 +81,7 @@ export function GitHubLoadDialog({
               id="gh-username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="e.g. facebook"
+              placeholder="e.g.  facebook"
               autoFocus
             />
           </div>
@@ -91,7 +91,7 @@ export function GitHubLoadDialog({
               id="gh-repo"
               value={repo}
               onChange={(e) => setRepo(e.target.value)}
-              placeholder="e.g. react"
+              placeholder="e.g. jakebejoy"
             />
           </div>
         </div>

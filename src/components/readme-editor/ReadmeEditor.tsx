@@ -13,13 +13,15 @@ import { APIKeySettings } from './APIKeySettings';
 import domtoimage from 'dom-to-image-more';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { formatDistanceToNow } from 'date-fns';
-import {
-  Code2,
-  Eye,
-  MessageSquare,
-  Download,
-  Copy,
-  Settings,
+import { GitHubLoadDialog } from './GitHubLoadDialog';
+import { getRepoReadme } from '@/services/githubService';
+import { 
+  Code2, 
+  Eye, 
+  MessageSquare, 
+  Download, 
+  Copy, 
+  Settings, 
   Sparkles,
   Bot,
   Home,
@@ -27,8 +29,8 @@ import {
   X,
   RotateCcw,
   Image as ImageIcon,
-  CheckCircle2,
-  Github
+Github,
+  CheckCircle2
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -54,7 +56,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
   const [showGithubDialog, setShowGithubDialog] = useState(false);
   const [isAutoTyping, setIsAutoTyping] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
-
+const [showLoadDialog, setShowLoadDialog] = useState(false);
   const autoTypingCancelled = useRef(false);
   const generationCancelled = useRef(false);
   const [, setTick] = useState(0);
@@ -296,8 +298,20 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
     } catch (error) {
       console.error('Export failed:', error);
       toast.error('Failed to export image');
-    }
   }
+}
+const handleLoadFromGithub = async (username: string, repo: string) => {
+    try {
+      const readmeContent = await getRepoReadme(username, repo);
+      setMarkdownContent(readmeContent);
+      // If you implemented the Auto-Save feature, update the timestamp too:
+      // setLastSaved(new Date()); 
+      toast.success(`Successfully loaded README from ${username}/${repo}`);
+    } catch (error) {
+      console.error('Failed to load README:', error);
+      throw error; // Re-throw so the dialog can show the error
+    }
+  };
   return (
     <div className={cn('h-screen flex flex-col bg-background', className)}>
       {/* Header */}
@@ -312,6 +326,8 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
               <Sparkles className="h-3 w-3 mr-1" />
               Powered by Gemini 2.0 Flash Lite + GitHub
             </Badge>
+           
+
           </div>
 
           <div className="flex items-center space-x-2 ml-auto">
@@ -329,7 +345,10 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
             </Tabs>
 
             <Separator orientation="vertical" className="h-6" />
-
+             <Button variant="outline" size="sm" onClick={() => setShowLoadDialog(true)} title="Load from GitHub">
+              <Github className="h-4 w-4 mr-1" />
+              <span className="hidden sm:inline">Import</span>
+            </Button>
             <Button variant="outline" size="sm" onClick={handleCopyMarkdown}>
               <Copy className="h-4 w-4 mr-1" />
               Copy
@@ -521,12 +540,11 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
         onOpenChange={setShowSettings}
       />
 
-      {/* Save to GitHub Dialog */}
-      <SaveToGitHubDialog
-        open={showGithubDialog}
-        onOpenChange={setShowGithubDialog}
-        files={[{ path: 'README.md', content: markdownContent }]}
-        defaultMessage="Update README.md created with Readme Design Kit"
+    {/* GitHub Load Modal */}
+      <GitHubLoadDialog 
+        isOpen={showLoadDialog}
+        onClose={() => setShowLoadDialog(false)}
+        onLoad={handleLoadFromGithub}
       />
     </div>
   );
