@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Copy, Download, RefreshCw, Share2, CheckCircle } from 'lucide-react';
+import { Copy, Download, RefreshCw, Share2, CheckCircle, Github } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 import { Card, CardContent } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { SaveToGitHubDialog } from '@/components/github/SaveToGitHubDialog';
 import type { GeneratorState } from './Readme-generator';
 
 interface FinalPageProps {
@@ -61,9 +62,10 @@ const statsAlphaThemes: Record<string, {
 const FinalPage = ({ state, goToPage }: FinalPageProps) => {
   const [markdown, setMarkdown] = useState('');
   const [copied, setCopied] = useState(false);
+  const [showGithubDialog, setShowGithubDialog] = useState(false);
 
   const selectedTheme =
-  statsAlphaThemes[state.githubStats.theme] ?? statsAlphaThemes.dark;
+    statsAlphaThemes[state.githubStats.theme] ?? statsAlphaThemes.dark;
 
 
   useEffect(() => {
@@ -186,7 +188,7 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-400 hover:underline">$1</a>')
       .replace(/`([^`]+)`/g, '<code class="bg-gray-700 px-1 rounded">$1</code>')
       .replace(/\n\n/g, '<br/><br/>');
-    
+
     return { __html: html };
   };
 
@@ -229,7 +231,7 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
                   Refresh
                 </Button>
               </div>
-              
+
               <div className="relative">
                 <Card>
                   <CardContent>
@@ -246,11 +248,10 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
                   <Button
                     onClick={handleCopy}
                     size="sm"
-                    className={`${
-                      copied 
-                        ? 'bg-green-500 hover:bg-green-600' 
+                    className={`${copied
+                        ? 'bg-green-500 hover:bg-green-600'
                         : 'bg-blue-500 hover:bg-blue-600'
-                    } transition-colors`}
+                      } transition-colors`}
                   >
                     {copied ? <CheckCircle className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
                     {copied ? 'Copied!' : 'Copy'}
@@ -266,13 +267,21 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
                   <Copy className="w-4 h-4 mr-2" />
                   Copy Code
                 </Button>
-                
+
                 <Button
                   onClick={downloadMarkdown}
                   className="flex-1 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600"
                 >
                   <Download className="w-4 h-4 mr-2" />
                   Download File
+                </Button>
+
+                <Button
+                  onClick={() => setShowGithubDialog(true)}
+                  className="flex-1 bg-gradient-to-r from-gray-700 to-gray-900 hover:from-gray-800 hover:to-black"
+                >
+                  <Github className="w-4 h-4 mr-2" />
+                  Save to GitHub
                 </Button>
               </div>
             </motion.div>
@@ -293,7 +302,7 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
 
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold text-foreground">What's next?</h3>
-                
+
                 <div className="bg-background/50 border border-slate-700 rounded-lg p-4">
                   <ol className="list-decimal list-inside space-y-2 text-muted-foreground text-sm">
                     <li>Copy or download your README.md file</li>
@@ -312,7 +321,7 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
                   >
                     Create New
                   </Button>
-                  
+
                   <Button
                     className="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
                     onClick={() => window.open(`https://github.com/${state.username}`, '_blank')}
@@ -331,6 +340,13 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
           </div>
         </div>
       </div>
+
+      <SaveToGitHubDialog
+        open={showGithubDialog}
+        onOpenChange={setShowGithubDialog}
+        files={[{ path: 'README.md', content: markdown }]}
+        defaultMessage="Update README.md created with Readme Design Kit"
+      />
     </div>
   );
 };
