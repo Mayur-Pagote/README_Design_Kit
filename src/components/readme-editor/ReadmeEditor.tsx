@@ -546,7 +546,14 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
         onClose={() => setShowLoadDialog(false)}
         onLoad={handleLoadFromGithub}
       />
-    </div>
+   
+       <SaveToGitHubDialog
+        open={showGithubDialog}
+        onOpenChange={setShowGithubDialog}
+        files={[{ path: 'README.md', content: markdownContent }]}
+        defaultMessage="Update README.md created with Readme Design Kit"
+      />
+       </div>
   );
 };
 
