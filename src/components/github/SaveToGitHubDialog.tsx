@@ -150,9 +150,30 @@ export const SaveToGitHubDialog: React.FC<SaveToGitHubDialogProps> = ({
             <Dialog open={open} onOpenChange={onOpenChange}>
                 <DialogContent className="sm:max-w-lg">
                     <DialogHeader>
-                        <DialogTitle className="flex items-center gap-2">
-                            <Github className="h-5 w-5" />
-                            Save to GitHub
+                        <DialogTitle className="flex items-center justify-between">
+                            <div className="flex items-center gap-2">
+                                <Github className="h-5 w-5" />
+                                Save to GitHub
+                            </div>
+                            {hasToken && (
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="h-8 text-xs text-muted-foreground hover:text-destructive"
+                                    onClick={() => {
+                                        localStorage.removeItem('github-token');
+                                        setHasToken(false);
+                                        setRepos([]);
+                                        setBranches([]);
+                                        setSelectedRepo('');
+                                        setSelectedBranch('');
+                                        toast.success('GitHub token removed');
+                                        setTokenDialogOpen(true);
+                                    }}
+                                >
+                                    Disconnect
+                                </Button>
+                            )}
                         </DialogTitle>
                         <DialogDescription>
                             Commit your changes directly to a GitHub repository.
@@ -163,7 +184,7 @@ export const SaveToGitHubDialog: React.FC<SaveToGitHubDialogProps> = ({
                         {/* Repository Selection */}
                         <div className="space-y-2">
                             <Label>Repository</Label>
-                            <Select value={selectedRepo} onValueChange={setSelectedRepo} disabled={isLoadingRepos}>
+                            <Select value={selectedRepo} onValueChange={setSelectedRepo} disabled={isLoadingRepos || !hasToken}>
                                 <SelectTrigger>
                                     <SelectValue placeholder={isLoadingRepos ? "Loading repositories..." : "Select a repository"} />
                                 </SelectTrigger>
