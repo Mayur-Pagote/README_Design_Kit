@@ -548,15 +548,47 @@ export function ReadmePreview({
           <div className="flex items-center gap-2">
             <h3 className="font-medium">README Preview</h3>
           </div>
+          
+
+          
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={copyToClipboard} disabled={!filteredElements.length}>
-              <Copy className="h-4 w-4" /> Copy
-            </Button>
-            {copied && <span className="text-green-500 text-sm">Copied!</span>}
-            <Button variant="outline" size="sm" onClick={downloadMarkdown} disabled={!filteredElements.length}>
-              <Download className="h-4 w-4" /> Download
-            </Button>
-          </div>
+  <select
+    className="border rounded px-2 py-1 text-sm bg-background"
+    value={preset}
+    onChange={(e) =>
+      onPresetChange(e.target.value as ReadmeExportPreset)
+    }
+  >
+    <option value="default">Default Export</option>
+    <option value="openSource">Open Source</option>
+    <option value="personal">Personal / Portfolio</option>
+    <option value="professional">Professional</option>
+  </select>
+
+  <Button
+    variant="outline"
+    size="sm"
+    onClick={copyToClipboard}
+    disabled={!filteredElements.length}
+  >
+    <Copy className="h-4 w-4" /> Copy
+  </Button>
+
+  {copied && <span className="text-green-500 text-sm">Copied!</span>}
+
+  <Button
+    variant="outline"
+    size="sm"
+    onClick={downloadMarkdown}
+    disabled={!filteredElements.length}
+  >
+    <Download className="h-4 w-4" /> Download
+  </Button>
+</div>
+
+
+
+
         </div>
         <p className="text-sm text-muted-foreground">{getViewModeDescription()}</p>
       </div>
