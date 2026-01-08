@@ -303,7 +303,7 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
       toast.error('Failed to export image');
     }
   }
-}
+
 const handleLoadFromGithub = async (username: string, repo: string) => {
     try {
       const readmeContent = await getRepoReadme(username, repo);
@@ -316,6 +316,7 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
       throw error; // Re-throw so the dialog can show the error
     }
   };
+}
   return (
     <div className={cn('h-screen flex flex-col bg-background', className)}>
       {/* Header */}
