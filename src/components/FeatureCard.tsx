@@ -174,53 +174,53 @@ const FeatureCard: React.FC<FeatureCardProps> = ({ feature, onVote, onEdit }) =>
             </span>
           </div>
         </div>
-        {/* EDIT FEATURE MODAL */}
-<Dialog open={edited} onOpenChange={setEdited}>
-  <DialogContent className="sm:max-w-lg">
-    <DialogHeader>
-      <DialogTitle>Edit Feature Request</DialogTitle>
-    </DialogHeader>
+        
+        <Dialog open={edited} onOpenChange={setEdited}>
+          <DialogContent className="sm:max-w-lg">
+            <DialogHeader>
+              <DialogTitle>Edit Feature Request</DialogTitle>
+            </DialogHeader>
 
-    <div className="space-y-4">
-      <div>
-        <label className="text-sm font-medium">Title</label>
-        <Input
-          name="title"
-          value={editedFeature.title}
-          onChange={handleChange}
-        />
-      </div>
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium">Title</label>
+                <Input
+                  name="title"
+                  value={editedFeature.title}
+                  onChange={handleChange}
+                />
+              </div>
 
-      <div>
-        <label className="text-sm font-medium">Description</label>
-        <Textarea
-          name="description"
-          rows={4}
-          value={editedFeature.description}
-          onChange={handleChange}
-        />
-      </div>
+              <div>
+                <label className="text-sm font-medium">Description</label>
+                <Textarea
+                  name="description"
+                  rows={4}
+                  value={editedFeature.description}
+                  onChange={handleChange}
+                />
+              </div>
 
-      <div>
-        <label className="text-sm font-medium">Category</label>
-        <Input
-          name="category"
-          value={editedFeature.category}
-          onChange={handleChange}
-        />
-      </div>
-    </div>
+              <div>
+                <label className="text-sm font-medium">Category</label>
+                <Input
+                  name="category"
+                  value={editedFeature.category}
+                  onChange={handleChange}
+                />
+              </div>
+            </div>
 
-    <DialogFooter className="gap-2">
-      <Button variant="outline" onClick={handleCancel}>
-        Cancel
-      </Button>
-      <Button onClick={handleSave}>
-        Save Changes
-      </Button>
-    </DialogFooter>
-  </DialogContent>
-</Dialog>
+            <DialogFooter className="gap-2">
+              <Button variant="outline" onClick={handleCancel}>
+                Cancel
+              </Button>
+              <Button onClick={handleSave}>
+                Save Changes
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
       </CardContent>
     </Card>
