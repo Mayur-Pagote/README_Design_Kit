@@ -1,3 +1,7 @@
+import {
+  README_EXPORT_PRESETS,
+  type ReadmeExportPreset,
+} from '@/config/readmeExportPresets';
 import { useRef, useState } from 'react';
 import { Download, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,9 +12,15 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 interface ReadmePreviewProps {
   elements: ElementType[];
+  preset: ReadmeExportPreset;
+  onPresetChange: (preset: ReadmeExportPreset) => void;
 }
 
-export function ReadmePreview({ elements }: ReadmePreviewProps) {
+export function ReadmePreview({
+  elements,
+  preset,
+  onPresetChange,
+}: ReadmePreviewProps) {
   const [copied, setCopied] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
@@ -18,8 +28,12 @@ export function ReadmePreview({ elements }: ReadmePreviewProps) {
     theme === 'dark' ||
     (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-  // Show all elements without filtering based on persona
-  const filteredElements = elements;
+  const filteredElements =
+    preset === 'default'
+      ? elements
+      : elements.filter((el) =>
+          README_EXPORT_PRESETS[preset]?.allowedTypes.includes(el.type)
+        );
 
   const generateMarkdown = (): string =>
     filteredElements
