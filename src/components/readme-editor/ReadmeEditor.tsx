@@ -316,7 +316,7 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
       throw error; // Re-throw so the dialog can show the error
     }
   };
-}
+
   return (
     <div className={cn('h-screen flex flex-col bg-background', className)}>
       {/* Header */}
