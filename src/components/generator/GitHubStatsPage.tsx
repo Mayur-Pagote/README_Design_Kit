@@ -232,11 +232,11 @@ const GitHubStatsPage = ({
                   Most Used Languages
                 </h4>
                 <p className="text-muted-foreground text-sm py-3">
-                  Tracks your most used languages in a clean and transparent style
+                  Tracks your most used languages in a clean style
                 </p>
                 <img
                   className="w-full h-64 object-contain"
-                  src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${state.username}&layout=compact`}
+                  src={`https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=${state.username}&layout=compact&custom_title=Linguagens%20mais%20utilizadas:&theme=midnight-purple&hide_border=true`}
                   alt="Stats Card 6"
                 />
               </div>

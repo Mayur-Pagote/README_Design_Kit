@@ -100,9 +100,6 @@ export interface GeneratorState {
       theme: string;
       layout: string;
     };
-    topRepos: {
-      enabled: boolean;
-    };
   };
 }
 
@@ -164,16 +161,13 @@ const Index = () => {
       },
       visitorCount: {
         enabled: false,
-        color: 'cyan',
+        color: 'blue',
         icon: 'default',
       },
       devQuotes: {
         enabled: false,
         theme: 'radical',
         layout: 'horizontal',
-      },
-      topRepos: {
-        enabled: false,
       },
     },
   });

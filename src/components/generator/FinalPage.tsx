@@ -126,13 +126,13 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
       &ic=${selectedTheme.ic}
       &bc=${selectedTheme.bc})\n\n`.replace(/\s+/g, '');
 
-      md += `![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=${state.username}&theme=${state.githubStats.theme}&hide_border=${!state.githubStats.showBorder}&layout=compact)\n\n`;
+      md += `![Top Langs](https://github-readme-stats-fast.vercel.app/api/top-langs/?username=${state.username}&theme=${state.githubStats.theme}&hide_border=${!state.githubStats.showBorder}&layout=compact)\n\n`;
     }
 
     // Additional Components
     if (state.additional.trophies.enabled && state.username) {
       md += `## 🏆 GitHub Trophies\n`;
-      md += `![](https://github-profile-trophy.vercel.app/?username=${state.username}&theme=${state.additional.trophies.theme}&no-frame=${!state.additional.trophies.showBorder}&no-bg=${!state.additional.trophies.showBackground}&margin-w=4)\n\n`;
+      md += `![](https://github-trophies.vercel.app/?username=${state.username}&theme=${state.additional.trophies.theme}&no-frame=${!state.additional.trophies.showBorder}&no-bg=${!state.additional.trophies.showBackground}&margin-w=4)\n\n`;
     }
 
     if (state.additional.devQuotes.enabled) {
@@ -142,15 +142,9 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
 
     if (state.additional.visitorCount.enabled && state.username) {
       md += `## 👁️ Profile Views\n`;
-      md += `![](https://visitcount.itsvg.in/api?id=${state.username}&icon=${state.additional.visitorCount.icon}&color=${state.additional.visitorCount.color})\n\n`;
+      md += `![](https://komarev.com/ghpvc/?username=${state.username}&style=for-the-badge&color=${state.additional.visitorCount.color})\n\n`;
     }
 
-    if (state.additional.topRepos.enabled && state.username) {
-      md += `## 📈 Top Contributed Repo\n`;
-      md += `![](https://github-contributor-stats.vercel.app/api?username=${state.username}&limit=5&theme=${state.githubStats.theme}&combine_all_yearly_contributions=true)\n\n`;
-    }
-
-    md += `---\n[![](https://visitcount.itsvg.in/api?id=${state.username || 'yourprofile'}&label=Profile%20Views&color=0&icon=0&pretty=false)](https://visitcount.itsvg.in)\n\n`;
     md += `<!-- Proudly created with GitHub Profile README Generator 🚀 -->`;
 
     setMarkdown(md);

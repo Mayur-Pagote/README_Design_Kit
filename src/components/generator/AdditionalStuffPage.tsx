@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Plus, Trophy, Eye, Quote, Star } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Plus, Trophy, Eye, Quote } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -55,10 +55,11 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
           label: 'Theme',
           options: [
             { value: 'radical', label: 'Radical' },
-            { value: 'dark', label: 'Dark' },
             { value: 'flat', label: 'Flat' },
             { value: 'onedark', label: 'One Dark' },
             { value: 'gruvbox', label: 'Gruvbox' },
+            { value: 'dracula', label: 'Dracula' },
+            { value: 'monokai', label: 'Monokai' }
           ]
         },
         { type: 'switch', key: 'showBorder', label: 'Show Border' },
@@ -78,22 +79,11 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
           key: 'color',
           label: 'Color',
           options: [
-            { value: 'cyan', label: 'Cyan' },
+            { value: 'blue', label: 'Blue' },
             { value: 'green', label: 'Green' },
             { value: 'red', label: 'Red' },
-            { value: 'purple', label: 'Purple' },
+            { value: 'blueviolet', label: 'Purple' },
             { value: 'orange', label: 'Orange' },
-          ]
-        },
-        {
-          type: 'select',
-          key: 'icon',
-          label: 'Icon',
-          options: [
-            { value: 'default', label: 'Default' },
-            { value: 'eye', label: 'Eye' },
-            { value: 'user', label: 'User' },
-            { value: 'heart', label: 'Heart' },
           ]
         },
       ]
@@ -126,14 +116,6 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
           ]
         },
       ]
-    },
-    {
-      key: 'topRepos' as const,
-      title: 'Top Contributed Repos',
-      icon: Star,
-      description: 'Show your most contributed repositories',
-      color: 'from-emerald-500 to-teal-500',
-      options: []
     },
   ];
 
