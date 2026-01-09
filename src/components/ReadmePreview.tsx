@@ -1,3 +1,7 @@
+import {
+  README_EXPORT_PRESETS,
+  type ReadmeExportPreset,
+} from '@/config/readmeExportPresets';
 import { useRef, useState } from 'react';
 import { Download, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -8,9 +12,15 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 
 interface ReadmePreviewProps {
   elements: ElementType[];
+  preset: ReadmeExportPreset;
+  onPresetChange: (preset: ReadmeExportPreset) => void;
 }
 
-export function ReadmePreview({ elements }: ReadmePreviewProps) {
+export function ReadmePreview({
+  elements,
+  preset,
+  onPresetChange,
+}: ReadmePreviewProps) {
   const [copied, setCopied] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
@@ -18,8 +28,12 @@ export function ReadmePreview({ elements }: ReadmePreviewProps) {
     theme === 'dark' ||
     (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
 
-  // Show all elements without filtering based on persona
-  const filteredElements = elements;
+  const filteredElements =
+    preset === 'default'
+      ? elements
+      : elements.filter((el) =>
+          README_EXPORT_PRESETS[preset]?.allowedTypes.includes(el.type)
+        );
 
   const generateMarkdown = (): string =>
     filteredElements
@@ -534,15 +548,47 @@ export function ReadmePreview({ elements }: ReadmePreviewProps) {
           <div className="flex items-center gap-2">
             <h3 className="font-medium">README Preview</h3>
           </div>
+          
+
+          
           <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" onClick={copyToClipboard} disabled={!filteredElements.length}>
-              <Copy className="h-4 w-4" /> Copy
-            </Button>
-            {copied && <span className="text-green-500 text-sm">Copied!</span>}
-            <Button variant="outline" size="sm" onClick={downloadMarkdown} disabled={!filteredElements.length}>
-              <Download className="h-4 w-4" /> Download
-            </Button>
-          </div>
+  <select
+    className="border rounded px-2 py-1 text-sm bg-background"
+    value={preset}
+    onChange={(e) =>
+      onPresetChange(e.target.value as ReadmeExportPreset)
+    }
+  >
+    <option value="default">Default Export</option>
+    <option value="openSource">Open Source</option>
+    <option value="personal">Personal / Portfolio</option>
+    <option value="professional">Professional</option>
+  </select>
+
+  <Button
+    variant="outline"
+    size="sm"
+    onClick={copyToClipboard}
+    disabled={!filteredElements.length}
+  >
+    <Copy className="h-4 w-4" /> Copy
+  </Button>
+
+  {copied && <span className="text-green-500 text-sm">Copied!</span>}
+
+  <Button
+    variant="outline"
+    size="sm"
+    onClick={downloadMarkdown}
+    disabled={!filteredElements.length}
+  >
+    <Download className="h-4 w-4" /> Download
+  </Button>
+</div>
+
+
+
+
         </div>
         <p className="text-sm text-muted-foreground">{getViewModeDescription()}</p>
       </div>
