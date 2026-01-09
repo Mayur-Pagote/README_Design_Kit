@@ -20,6 +20,16 @@ const FeatureRequestsPage: React.FC = () => {
   const [filterBy, setFilterBy] = useState<FilterOption>('all');
   const [showForm, setShowForm] = useState(false);
 
+  const handleEdit = (updatedFeature: FeatureRequest) => {
+  setFeatures(prev =>
+    prev.map(feature =>
+      feature.id === updatedFeature.id
+        ? { ...feature, ...updatedFeature }
+        : feature
+    )
+  );
+};
+
   const handleVote = (id: string, voteType: 'up' | 'down') => {
     setFeatures((prevFeatures: FeatureRequest[]) => {
       if (!Array.isArray(prevFeatures)) return [];
@@ -257,7 +267,7 @@ const FeatureRequestsPage: React.FC = () => {
                   className="animate-fade-in"
                   style={{ animationDelay: `${index * 0.1}s` }}
                 >
-                  <FeatureCard feature={feature} onVote={handleVote} />
+                  <FeatureCard feature={feature} onVote={handleVote} onEdit={handleEdit} />
                 </div>
               ))}
             </div>
