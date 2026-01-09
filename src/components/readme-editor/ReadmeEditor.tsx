@@ -13,7 +13,6 @@ import { APIKeySettings } from './APIKeySettings';
 import domtoimage from 'dom-to-image-more';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { formatDistanceToNow } from 'date-fns';
-
 import { GitHubLoadDialog } from './GitHubLoadDialog';
 import { getRepoReadme } from '@/services/githubService';
 import { 
@@ -22,7 +21,7 @@ import {
   MessageSquare, 
   Download, 
   Copy, 
-  Settings,
+  Settings, 
   Sparkles,
   Bot,
   Home,
@@ -30,10 +29,8 @@ import {
   X,
   RotateCcw,
   Image as ImageIcon,
-
 Github,
   CheckCircle2
-
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -301,7 +298,6 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
     } catch (error) {
       console.error('Export failed:', error);
       toast.error('Failed to export image');
-    }
   }
 
 const handleLoadFromGithub = async (username: string, repo: string) => {
