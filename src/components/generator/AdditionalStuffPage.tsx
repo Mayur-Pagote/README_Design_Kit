@@ -225,11 +225,6 @@ const AdditionalStuffPage = ({ state, setState, currentPage, totalPages, nextPag
                               "Code is like humor. When you have to explain it, it's bad." - Cory House
                             </div>
                           )}
-                          {component.key === 'topRepos' && (
-                            <div className="text-sm text-muted-foreground">
-                              📊 Most contributed repositories with stats
-                            </div>
-                          )}
                         </div>
                       </motion.div>
                     )}
