@@ -7,7 +7,7 @@ import logg from '../rdk.svg';
 const links = [
     { title: 'Templates', to: '/templates' },
     { title: 'Elements', to: '/elements' },
-    { title: 'Showcase', to: '/showcase' },
+    // { title: 'Showcase', to: '/showcase' },
     { title: 'Drag & Drop Editor', to: '/drag-drop' },
     { title: 'Readme Generator', to: '/readme-generator' },
     { title: 'Coming Soon', to: '/coming-soon' },
@@ -54,7 +54,7 @@ export default function Footer() {
                         <div className="flex flex-col space-y-4">
                             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Product</h4>
                             <ul className="flex flex-col space-y-2 text-sm">
-                                {links.slice(0, 3).map((link, idx) => (
+                                {links.slice(0, 2).map((link, idx) => (
                                     <li key={idx}>
                                         <Link to={link.to} className="text-muted-foreground hover:text-primary transition-colors duration-150">{link.title}</Link>
                                     </li>
@@ -67,7 +67,7 @@ export default function Footer() {
                         <div className="flex flex-col space-y-4">
                             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Tools</h4>
                             <ul className="flex flex-col space-y-2 text-sm">
-                                {links.slice(3).map((link, idx) => (
+                                {links.slice(2).map((link, idx) => (
                                     <li key={idx}>
                                         <Link to={link.to} className="text-muted-foreground hover:text-primary transition-colors duration-150">{link.title}</Link>
                                     </li>
