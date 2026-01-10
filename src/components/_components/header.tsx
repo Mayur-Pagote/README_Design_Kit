@@ -11,7 +11,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 
 const moreItems = [
     { name: 'Templates', to: '/templates' },
-    { name: 'Showcase', to: '/showcase' },
+    // { name: 'Showcase', to: '/showcase' },
     { name: 'Drag & Drop Editor', to: '/drag-drop' },
     { name: 'Readme Generator', to: '/readme-generator'},
     { name: 'Coming Soon', to: '/coming-soon' },
