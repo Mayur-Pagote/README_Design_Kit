@@ -1,3 +1,5 @@
+import { analyzeReadmeQuality } from "@/utils/readmeQualityAnalyzer";
+
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -41,10 +43,17 @@ interface ReadmeEditorProps {
   className?: string;
 }
 
+
 const defaultMarkdown = '# My Awesome Project\n\nWelcome to my project! This README was generated with AI assistance.\n\n## 🚀 Features\n\n- Feature 1\n- Feature 2\n- Feature 3\n\n## 🛠️ Installation\n\n```bash\nnpm install\n```\n\n## 📝 Usage\n\n```javascript\nconst example = "Hello World";\nconsole.log(example);\n```\n\n## 🤝 Contributing\n\nContributions are welcome! Please feel free to submit a Pull Request.\n\n## 📄 License\n\nThis project is licensed under the MIT License.';
 
 export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
   const [markdownContent, setMarkdownContent] = useLocalStorage<string>('readme-editor-content', defaultMarkdown);
+  const [analysis, setAnalysis] = useState<{
+  passed: string[];
+  warnings: string[];
+  suggestions: string[];
+} | null>(null);
+
   const [lastSaved, setLastSaved] = useState<Date>(new Date());
   const [activeTab, setActiveTab] = useState<'code' | 'preview'>('preview');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -95,10 +104,16 @@ const [, setTick] = useState(0);
   }, []);
 
   const handleMarkdownChange = (content: string) => {
-    setMarkdownContent(content);
-    setLastSaved(new Date());
-    
-  };
+  setMarkdownContent(content);
+  setLastSaved(new Date());
+
+  if (content.trim()) {
+    setAnalysis(analyzeReadmeQuality(content));
+  } else {
+    setAnalysis(null);
+  }
+};
+
 
   // Auto-typing effect for applying AI generated content - instant speed
   const autoTypeContent = async (newContent: string) => {
@@ -488,18 +503,68 @@ quality:1.0,
                   )}
                   
                   {activeTab === 'preview' && (
-                    <motion.div
-                      key="preview"
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: 20 }}
-                      transition={{ duration: 0.2 }}
-                      className="h-full overflow-auto bg-background"
-                      id="readme-preview-content"
-                    >
-                      <MarkdownPreview content={markdownContent} />
-                    </motion.div>
-                  )}
+  <motion.div
+    key="preview"
+    initial={{ opacity: 0, x: 20 }}
+    animate={{ opacity: 1, x: 0 }}
+    exit={{ opacity: 0, x: 20 }}
+    transition={{ duration: 0.2 }}
+    className="h-full overflow-auto bg-background"
+    id="readme-preview-content"
+  >
+    <MarkdownPreview content={markdownContent} />
+
+    {analysis && (
+      <div className="m-4 rounded-lg border p-4 bg-muted">
+        <h3 className="font-semibold mb-2">
+          README Quality Feedback
+        </h3>
+
+        {analysis.warnings.length > 0 && (
+          <>
+            <h4 className="text-red-600 font-medium">
+              ⚠️ Warnings
+            </h4>
+            <ul className="list-disc ml-5 text-sm">
+              {analysis.warnings.map((w, i) => (
+                <li key={i}>{w}</li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {analysis.suggestions.length > 0 && (
+          <>
+            <h4 className="text-yellow-600 font-medium mt-2">
+              💡 Suggestions
+            </h4>
+            <ul className="list-disc ml-5 text-sm">
+              {analysis.suggestions.map((s, i) => (
+                <li key={i}>{s}</li>
+              ))}
+            </ul>
+          </>
+        )}
+
+        {analysis.passed.length > 0 && (
+          <>
+            <h4 className="text-green-600 font-medium mt-2">
+              ✅ Passed
+            </h4>
+            <ul className="list-disc ml-5 text-sm">
+              {analysis.passed.map((p, i) => (
+                <li key={i}>{p}</li>
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
+    )}
+  </motion.div>
+)}
+
+                  
+
                 </AnimatePresence>
               </div>
             </div>
