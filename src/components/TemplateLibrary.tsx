@@ -109,7 +109,8 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
           <div className="space-y-4">
             <div className="flex flex-col lg:flex-row gap-4">
               {/* Search */}
-              <div className="relative flex-1">
+              <div className="relative flex-1 transition-transform duration-200 ease-out hover:-translate-y-[2px]">
+
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Search templates..."
@@ -121,7 +122,8 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
 
               {/* Category Filter */}
               <Select value={selectedCategory} onValueChange={(value) => setSelectedCategory(value as TemplateCategory | 'all')}>
-                <SelectTrigger className="w-full lg:w-[200px]">
+               <SelectTrigger className="w-full lg:w-[200px] transition-transform duration-200 ease-out hover:-translate-y-[2px]">
+
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent>
@@ -153,10 +155,8 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
               </div>
             </div>            {/* Filter Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="all">
-                  All Templates
-                </TabsTrigger>
+             <TabsList className="grid w-full grid-cols-4 bg-muted/50 p-1 rounded-lg">
+                
                 <TabsTrigger value="featured">
                   <Star className="h-4 w-4 mr-2" />
                   Featured
