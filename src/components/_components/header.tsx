@@ -124,7 +124,7 @@ export const Header = () => {
               onClick={() => setMenuState(!menuState)}
               className="relative z-20 -m-2.5 -mr-4 block p-2.5 lg:hidden"
             >
-              <Menu className="size-6" />
+              <Menu className="size-7" />
               <X className="absolute inset-0 m-auto size-6 opacity-0" />
             </button>
 
