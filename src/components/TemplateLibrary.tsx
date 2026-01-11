@@ -155,8 +155,10 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
               </div>
             </div>            {/* Filter Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-             <TabsList className="grid w-full grid-cols-4 bg-muted/50 p-1 rounded-lg">
-                
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="all">
+                  All Templates
+                </TabsTrigger>
                 <TabsTrigger value="featured">
                   <Star className="h-4 w-4 mr-2" />
                   Featured
