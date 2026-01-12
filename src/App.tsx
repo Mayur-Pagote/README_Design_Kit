@@ -6,7 +6,7 @@ import Home from "./pages/Home";
 import Layout from "./components/Layout";
 import ScrollToTop from "./components/ScrollToTop";
 import Elements from "./pages/Elements";
-import Hero from "./pages/Hero";
+// import Hero from "./pages/Hero";
 import ProjectsSection from "./components/ProjectsSection";
 import SubmitSection from "./components/SubmitSection";
 import DragDropEditor from "./pages/DragDropEditor";
@@ -52,7 +52,7 @@ export default function App() {
               <Route path="/" element={<Layout><Home /></Layout>} />
               <Route path="/elements" element={<Layout><Elements /></Layout>} />
               <Route path="/templates" element={<Layout><TemplateLibraryPage /></Layout>} />
-              <Route path="/showcase" element={<Layout><Hero /></Layout>} />
+              {/* <Route path="/showcase" element={<Layout><Hero /></Layout>} /> */}
               <Route path="/projects" element={<Layout><ProjectsSection /></Layout>} />
               <Route path="/submit" element={<Layout><SubmitSection /></Layout>} />
               <Route path="/drag-drop" element={<Layout><DragDropEditor /></Layout>} />

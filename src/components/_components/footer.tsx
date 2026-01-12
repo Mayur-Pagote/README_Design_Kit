@@ -1,187 +1,106 @@
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { BackgroundLines } from './backgroundlines'
 import loggd from '../rdkd.svg';
 import logg from '../rdk.svg';
 
 
 const links = [
-    {
-        title: 'Templates',
-        to: '/templates',
-    },
-    {
-        title: 'Elements',
-        to: '/elements',
-    },
-    {
-        title: 'Showcase',
-        to: '/showcase',
-    },
-    {
-        title: 'Drag & Drop Editor',
-        to: '/drag-drop',
-    },
-    {
-        title: 'Readme Generator',
-        to: '/readme-generator',
-    },
-    {
-        title: 'Coming Soon',
-        to: '/coming-soon',
-    },
+    { title: 'Templates', to: '/templates' },
+    { title: 'Elements', to: '/elements' },
+    // { title: 'Showcase', to: '/showcase' },
+    { title: 'Drag & Drop Editor', to: '/drag-drop' },
+    { title: 'Readme Generator', to: '/readme-generator' },
+    { title: 'Coming Soon', to: '/coming-soon' },
 ]
+
 
 export default function Footer() {
     return (
-        <div className="relative w-full overflow-hidden">
+        <div className="relative w-full overflow-hidden border-t border-neutral-800/50 bg-black/20 backdrop-blur-sm">
+            {/* Background Animation Layer */}
             <div className="absolute inset-0 -z-10 h-full min-h-[500px]">
                 <BackgroundLines className="h-1/2 w-full">
                     <div className="absolute inset-0 " />
                 </BackgroundLines>
             </div>
-            <footer className="relative z-10 py-12 md:py-16">
-                <div className="container mx-auto px-6">
-                
-                <Link
-                    to="/"
-                    aria-label="go home"
-                    className="mx-auto block size-fit">
-                    {/* <Logo /> */}
-                    <img 
-                      src={loggd} 
-                      alt="README Design Kit - Light Logo" 
-                      className="h-8 object-contain block dark:hidden"
-                    />
-                     {/* Dark Mode Logo */}
-                    <img 
-                      src={logg} 
-                      alt="README Design Kit - Dark Logo" 
-                      className="h-8 object-contain hidden dark:block"
-                    />
-                </Link>
 
-                <div className="my-8 flex flex-wrap justify-center gap-6 text-sm">
-                    {links.map((link, index) => (
-                        <Link
-                            key={index}
-                            to={link.to}
-                            className="text-muted-foreground hover:text-primary block duration-150">
-                            <span>{link.title}</span>
-                        </Link>
-                    ))}
-                </div>
-                <div className="my-8 flex flex-wrap justify-center gap-6 text-sm">
-                    <Link
-                        to="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="X/Twitter"
-                        className="text-muted-foreground hover:text-primary block">
-                        <svg
-                            className="size-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="1em"
-                            height="1em"
-                            viewBox="0 0 24 24">
-                            <path
-                                fill="currentColor"
-                                d="M10.488 14.651L15.25 21h7l-7.858-10.478L20.93 3h-2.65l-5.117 5.886L8.75 3h-7l7.51 10.015L2.32 21h2.65zM16.25 19L5.75 5h2l10.5 14z"></path>
-                        </svg>
-                    </Link>
-                    <Link
-                        to="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="LinkedIn"
-                        className="text-muted-foreground hover:text-primary block">
-                        <svg
-                            className="size-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="1em"
-                            height="1em"
-                            viewBox="0 0 24 24">
-                            <path
-                                fill="currentColor"
-                                d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"></path>
-                        </svg>
-                    </Link>
-                    <Link
-                        to="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Facebook"
-                        className="text-muted-foreground hover:text-primary block">
-                        <svg
-                            className="size-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="1em"
-                            height="1em"
-                            viewBox="0 0 24 24">
-                            <path
-                                fill="currentColor"
-                                d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95"></path>
-                        </svg>
-                    </Link>
-                    <Link
-                        to="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Threads"
-                        className="text-muted-foreground hover:text-primary block">
-                        <svg
-                            className="size-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="1em"
-                            height="1em"
-                            viewBox="0 0 24 24">
-                            <path
-                                fill="none"
-                                stroke="currentColor"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth="1.5"
-                                d="M19.25 8.505c-1.577-5.867-7-5.5-7-5.5s-7.5-.5-7.5 8.995s7.5 8.996 7.5 8.996s4.458.296 6.5-3.918c.667-1.858.5-5.573-6-5.573c0 0-3 0-3 2.5c0 .976 1 2 2.5 2s3.171-1.027 3.5-3c1-6-4.5-6.5-6-4"
-                                color="currentColor"></path>
-                        </svg>
-                    </Link>
-                    <Link
-                        to="#"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label="Instagram"
-                        className="text-muted-foreground hover:text-primary block">
-                        <svg
-                            className="size-6"
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="1em"
-                            height="1em"
-                            viewBox="0 0 24 24">
-                            <path
-                                fill="currentColor"
-                                d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4zm9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8A1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5a5 5 0 0 1-5 5a5 5 0 0 1-5-5a5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3a3 3 0 0 0 3 3a3 3 0 0 0 3-3a3 3 0 0 0-3-3"></path>
-                        </svg>
-                    </Link>
-                </div>
-                    <div className="text-muted-foreground block text-center text-sm">
-                        © {new Date().getFullYear()} README DESIGN KIT, All rights reserved | &nbsp;
-                        <Link
-                            to="/privacy"
-                            className="text-muted-foreground hover:text-primary duration-150"
-                        >
-                        Privacy Policy
-                        </Link> | &nbsp;
-                        <Link
-                            to="/terms"
-                            className="text-muted-foreground hover:text-primary duration-150"
-                        >
-                            Terms of Service
-                        </Link> | &nbsp;
-                        <Link
-                            to="/about"
-                            className="text-muted-foreground hover:text-primary duration-150" 
-                        >
-                            About
-                        </Link>
+
+            <footer className="relative z-10 pt-16 pb-8">
+                <div className="container mx-auto px-6">
+                    {/* Main Footer Grid */}
+                    <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+                        
+                        {/* Column 1: Brand Identity */}
+                        <div className="flex flex-col space-y-4">
+                            <Link to="/" aria-label="go home" className="block size-fit">
+                                <img
+                                    src={loggd}
+                                    alt="README Design Kit - Light Logo"
+                                    className="h-8 object-contain block dark:hidden"
+                                />
+                                <img
+                                    src={logg}
+                                    alt="README Design Kit - Dark Logo"
+                                    className="h-8 object-contain hidden dark:block"
+                                />
+                            </Link>
+                            <p className="text-sm text-muted-foreground leading-relaxed max-w-xs">
+                                Create professional, aesthetic, and highly customizable READMEs for your GitHub projects in seconds. 
+                            </p>
+                        </div>
+
+
+                        {/* Column 2: Product */}
+                        <div className="flex flex-col space-y-4">
+                            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Product</h4>
+                            <ul className="flex flex-col space-y-2 text-sm">
+                                {links.slice(0, 2).map((link, idx) => (
+                                    <li key={idx}>
+                                        <Link to={link.to} className="text-muted-foreground hover:text-primary transition-colors duration-150">{link.title}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+
+                        {/* Column 3: Tools */}
+                        <div className="flex flex-col space-y-4">
+                            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Tools</h4>
+                            <ul className="flex flex-col space-y-2 text-sm">
+                                {links.slice(2).map((link, idx) => (
+                                    <li key={idx}>
+                                        <Link to={link.to} className="text-muted-foreground hover:text-primary transition-colors duration-150">{link.title}</Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+
+                        {/* Column 4: Newsletter/CTA (New Feature) */}
+                        <div className="flex flex-col space-y-4">
+                            <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Stay Updated</h4>
+                            <p className="text-xs text-muted-foreground">Join our community to get the latest README templates and UI tips.</p>
+                            <div className="flex w-full items-center space-x-2">
+                                <div className="h-9 w-full rounded-md border border-neutral-800 bg-neutral-900/50 px-3 py-1 text-xs flex items-center text-muted-foreground">
+                                    Coming soon...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    {/* Sub-Footer: Copyright and Legal */}
+                    <div className="mt-16 pt-8 border-t border-neutral-800/50 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
+                        <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2">
+                            <span>© {new Date().getFullYear()} README DESIGN KIT</span>
+                            <span className="hidden md:inline text-neutral-700">|</span>
+                            <Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
+                            <Link to="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
+                            <Link to="/about" className="hover:text-primary transition-colors">About</Link>
+                        </div>
+                        <div className="text-neutral-500 italic">
+                            Designed for Developers.
+                        </div>
                     </div>
                 </div>
             </footer>

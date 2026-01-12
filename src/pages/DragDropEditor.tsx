@@ -33,6 +33,7 @@ import { demoElements } from '@/data/demo';
 import { TemplateUtils } from '@/utils/templateUtils';
 import type { ElementType, GitContributionElement } from '@/types/elements';
 import type { Template } from '@/types/templates';
+import type { ReadmeExportPreset } from '@/config/readmeExportPresets';
 import ScrollToTop from '@/components/ScrollToTop';
 import { GithubUsernameDialog } from '@/components/GithubUsernameDialog';
 import { toast } from 'sonner';
@@ -49,6 +50,7 @@ export default function DragDropEditor() {
   const [githubUsername, setGithubUsername] = useState<string>('your-username');
   const [showGithubUsernameInput, setShowGithubUsernameInput] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [exportPreset, setExportPreset] = useState<ReadmeExportPreset>('default');
 
   const location = useLocation();
 
@@ -468,7 +470,11 @@ export default function DragDropEditor() {
 
         {showPreview && (
           <div className="basis-1/2 max-w-[600px] md:border-l overflow-y-scroll">
-            <ReadmePreview elements={elements} />
+            <ReadmePreview
+              elements={elements}
+              preset={exportPreset}
+              onPresetChange={setExportPreset}
+            />
           </div>
         )}
       </div>

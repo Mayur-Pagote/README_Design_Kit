@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, BarChart3, Settings, Loader2 } from 'lucide-react';
@@ -17,9 +16,61 @@ interface GitHubStatsPageProps {
   prevPage: () => void;
 }
 
-const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, prevPage }: GitHubStatsPageProps) => {
+const statsAlphaThemes: Record<string, {
+  cc: string;
+  tc: string;
+  ic: string;
+  bc: string;
+}> = {
+  dark: {
+    cc: '0d1117',  
+    tc: 'c9d1d9',   
+    ic: '58a6ff',  
+    bc: '30363d',   
+  },
+  radical: {
+    cc: '141321', 
+    tc: 'a9fef7',   
+    ic: 'fe428e', 
+    bc: '141321',  
+  },
+  default: {
+    cc: 'ffffff',
+    tc: '24292f',
+    ic: '0969da',
+    bc: 'd0d7de',
+  },
+  gruvbox: {
+    cc: '282828',
+    tc: 'ebdbb2',
+    ic: 'fabd2f',
+    bc: '3c3836',
+  },
+  merko: {
+    cc: '0a0f0b',
+    tc: '68f596',
+    ic: '68f596',
+    bc: '1f6f43',
+  },
+  tokyonight: {
+    cc: '1a1b26',
+    tc: 'c0caf5',
+    ic: '7aa2f7',
+    bc: '414868',
+  },
+};
+
+
+const GitHubStatsPage = ({
+  state,
+  setState,
+  currentPage,
+  totalPages,
+  nextPage,
+  prevPage,
+}: GitHubStatsPageProps) => {
   const [loading, setLoading] = useState(false);
-  const [ setGithubData] = useState<any>(null);
+  const [setGithubData] = useState<any>(null);
 
   useEffect(() => {
     if (state.username) {
@@ -61,12 +112,16 @@ const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, p
     { value: 'tokyonight', label: 'Tokyo Night' },
   ];
 
+
+  const selectedTheme =
+    statsAlphaThemes[state.githubStats.theme] ?? statsAlphaThemes.dark;
+
   return (
     <div className="min-h-screen flex flex-col">
       <div className="container mx-auto px-4 py-8 flex-1">
         <div className="max-w-6xl mx-auto">
           <ProgressIndicator current={currentPage} total={totalPages - 1} />
-          
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -95,10 +150,12 @@ const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, p
                   <Settings className="w-5 h-5 text-purple-400" />
                   <h3 className="font-semibold text-foreground">Customization</h3>
                 </div>
-                
+
                 <div className="space-y-4">
                   <div>
-                    <Label className="text-sm text-muted-foreground mb-2 block">Theme</Label>
+                    <Label className="text-sm text-muted-foreground mb-2 block">
+                      Theme
+                    </Label>
                     <Select
                       value={state.githubStats.theme}
                       onValueChange={(value) => updateGithubStats('theme', value)}
@@ -108,7 +165,11 @@ const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, p
                       </SelectTrigger>
                       <SelectContent className="bg-slate-800 border-slate-700">
                         {themes.map((theme) => (
-                          <SelectItem key={theme.value} value={theme.value} className="text-white hover:bg-slate-700">
+                          <SelectItem
+                            key={theme.value}
+                            value={theme.value}
+                            className="text-white hover:bg-slate-700"
+                          >
                             {theme.label}
                           </SelectItem>
                         ))}
@@ -116,12 +177,21 @@ const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, p
                     </Select>
                   </div>
 
-                  <div className="space-y-3">
                   <div className="bg-background/50 rounded-lg p-4 border border-slate-600">
-                    <h4 className="font-medium text-muted-foreground">Minimal Impact Card</h4>
-                    <p className="text-muted-foreground text-sm py-3">Simple stats card with minimal visual using GitHub Stats Alpha</p>
-                    <img src={`https://github-stats-alpha.vercel.app/api/?username=${state.username}`} alt="Stats Card 6" />
-                  </div>
+                    <h4 className="font-medium text-muted-foreground">
+                      Minimal Impact Card
+                    </h4>
+                    <p className="text-muted-foreground text-sm py-3">
+                      Simple stats card with minimal visual using GitHub Stats Alpha
+                    </p>
+
+                    {state.username && (
+                      <img
+                        src={`https://github-stats-alpha.vercel.app/api?username=${state.username}&cc=${selectedTheme.cc}&tc=${selectedTheme.tc}&ic=${selectedTheme.ic}&bc=${selectedTheme.bc}`}
+                        alt="GitHub Stats"
+                        className="w-full"
+                      />
+                    )}
                   </div>
                 </div>
               </div>
@@ -130,7 +200,9 @@ const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, p
                 <div className="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-xl p-6">
                   <div className="flex items-center gap-2 text-slate-300">
                     <Loader2 className="w-4 h-4 animate-spin" />
-                    <span className="text-sm">Please wait for images to load after changing any values</span>
+                    <span className="text-sm">
+                      Please wait for images to load after changing any values
+                    </span>
                   </div>
                 </div>
               )}
@@ -141,28 +213,41 @@ const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, p
               animate={{ opacity: 1, x: 0 }}
               className="space-y-6"
             >
-              <div className="space-y-3">
-                  <div className="bg-background/50 rounded-lg p-4 border border-slate-600">
-                    <h4 className="font-medium text-foreground">Contribution Streak Card</h4>
-                    <p className="text-muted-foreground text-sm">Tracks your GitHub streak stats in a clean and transparent style</p>
-                    <img className='w-full h-64 object-contain' src={`https://github-readme-streak-stats.herokuapp.com?user=${state.username}&theme=transparent&hide_border=true`} alt="Stats Card 6" />
-                  </div>
+              <div className="bg-background/50 rounded-lg p-4 border border-slate-600">
+                <h4 className="font-medium text-foreground">
+                  Contribution Streak Card
+                </h4>
+                <p className="text-muted-foreground text-sm">
+                  Tracks your GitHub streak stats in a clean and transparent style
+                </p>
+                <img
+                  className="w-full h-64 object-contain"
+                  src={`https://github-readme-streak-stats.herokuapp.com?user=${state.username}&theme=transparent&hide_border=true`}
+                  alt="Stats Card 6"
+                />
               </div>
-              <div className="space-y-3">
-                  <div className="bg-background/50 rounded-lg p-4 border border-slate-600">
-                    <h4 className="font-medium text-foreground">Most Used Languages</h4>
-                    <p className="text-muted-foreground text-sm py-3">Tracks your most used languages in a clean and transparent style</p>
-                    <img className='w-full h-64 object-contain' src={`https://github-readme-stats.vercel.app/api/top-langs/?username=${state.username}&layout=compact`} alt="Stats Card 6" />
-                  </div>
+
+              <div className="bg-background/50 rounded-lg p-4 border border-slate-600">
+                <h4 className="font-medium text-foreground">
+                  Most Used Languages
+                </h4>
+                <p className="text-muted-foreground text-sm py-3">
+                  Tracks your most used languages in a clean style
+                </p>
+                <img
+                  className="w-full h-64 object-contain"
+                  src={`https://github-readme-stats-sigma-five.vercel.app/api/top-langs/?username=${state.username}&layout=compact&custom_title=Linguagens%20mais%20utilizadas:&theme=midnight-purple&hide_border=true`}
+                  alt="Stats Card 6"
+                />
               </div>
             </motion.div>
-          </div>  
+          </div>
 
           <div className="flex justify-between items-center">
             <Button
               onClick={prevPage}
               variant="outline"
-              className="flex items-center gap-2 border-slate-600 text-foreground hover:text-foreground/90 hover:border-slate-500"
+              className="flex items-center gap-2 border-slate-600"
             >
               <ArrowLeft className="w-4 h-4" />
               Go Back
@@ -170,7 +255,7 @@ const GitHubStatsPage = ({ state, setState, currentPage, totalPages, nextPage, p
 
             <Button
               onClick={nextPage}
-              className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
+              className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-blue-500"
             >
               Next
               <ArrowRight className="w-4 h-4" />

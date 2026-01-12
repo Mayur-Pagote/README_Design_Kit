@@ -12,16 +12,19 @@ import { ChatPanel } from './ChatPanel';
 import { MarkdownPreview } from './MarkdownPreview';
 import { CodeEditor } from './CodeEditor';
 import { APIKeySettings } from './APIKeySettings';
-import   domtoimage from   'dom-to-image-more';
+import domtoimage from 'dom-to-image-more';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { formatDistanceToNow } from 'date-fns';
+
+import { GitHubLoadDialog } from './GitHubLoadDialog';
+import { getRepoReadme } from '@/services/githubService';
 import { 
   Code2, 
   Eye, 
   MessageSquare, 
   Download, 
   Copy, 
-  Settings, 
+  Settings,
   Sparkles,
   Bot,
   Home,
@@ -30,13 +33,16 @@ import {
   RotateCcw,
   Image as ImageIcon,
 
+Github,
   CheckCircle2
+
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
 import { readmeAI } from '@/services/readmeAIService';
 import { webSearchService } from '@/services/webSearchService';
 import { githubReadmeGenerator } from '@/services/githubReadmeGeneratorService';
+import { SaveToGitHubDialog } from '@/components/github/SaveToGitHubDialog';
 // import { setFlagsFromString } from 'v8';
 
 interface ReadmeEditorProps {
@@ -59,12 +65,13 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [chatHistory, setChatHistory] = useState<Array<{ role: 'user' | 'assistant'; content: string; timestamp: Date }>>([]);
   const [showSettings, setShowSettings] = useState(false);
+  const [showGithubDialog, setShowGithubDialog] = useState(false);
   const [isAutoTyping, setIsAutoTyping] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
-
+const [showLoadDialog, setShowLoadDialog] = useState(false);
   const autoTypingCancelled = useRef(false);
   const generationCancelled = useRef(false);
-const [, setTick] = useState(0);
+  const [, setTick] = useState(0);
   React.useEffect(() => {
     const timer = setInterval(() => setTick(t => t + 1), 60000);
     return () => clearInterval(timer);
@@ -89,12 +96,12 @@ const [, setTick] = useState(0);
     };
 
     window.addEventListener('storage', handleStorageChange);
-    
+
     // Also listen for custom events from the same window
     const handleApiKeyUpdate = () => {
       updateApiKey();
     };
-    
+
     window.addEventListener('gemini-api-key-updated', handleApiKeyUpdate);
 
     return () => {
@@ -120,12 +127,12 @@ const [, setTick] = useState(0);
     setIsAutoTyping(true);
     autoTypingCancelled.current = false;
     setActiveTab('code'); // Switch to code tab
-    
+
     // Apply content instantly for better user experience
     setMarkdownContent(newContent);
     setLastSaved(new Date());
     setIsAutoTyping(false);
-    
+
     // Auto-switch to preview after content is applied
     setTimeout(() => {
       setActiveTab('preview');
@@ -155,13 +162,13 @@ const [, setTick] = useState(0);
 
       // Enhanced AI response generation with web search grounding
       let aiResponse: string;
-      
+
       // Check if the message contains a GitHub repository URL for analysis
       const githubUrlMatch = message.match(/https:\/\/github\.com\/[a-zA-Z0-9-._]+\/[a-zA-Z0-9-._]+/);
       if (githubUrlMatch && (message.toLowerCase().includes('analyze') || message.toLowerCase().includes('generate'))) {
         const repoUrl = githubUrlMatch[0];
         toast.info(`Analyzing GitHub repository: ${repoUrl}`);
-        
+
         try {
           const githubToken = localStorage.getItem('github-token') || undefined;
           const result = await githubReadmeGenerator.generateRepoDocs(repoUrl, githubToken);
@@ -182,16 +189,16 @@ const [, setTick] = useState(0);
       } else {
         // Check if the message mentions a username for profile-based generation
         const usernameMatch = message.match(/(?:github\.com\/|@|user(?:name)?\s+)([a-zA-Z0-9-_]+)/i);
-        const mentionsProfile = message.toLowerCase().includes('profile') || 
-                              message.toLowerCase().includes('github') || 
-                              message.toLowerCase().includes('linkedin') ||
-                              usernameMatch;
-        
+        const mentionsProfile = message.toLowerCase().includes('profile') ||
+          message.toLowerCase().includes('github') ||
+          message.toLowerCase().includes('linkedin') ||
+          usernameMatch;
+
         if (mentionsProfile && usernameMatch) {
           // Use enhanced web search for profile-based README generation
           const username = usernameMatch[1];
           toast.info(`Searching for ${username}'s profile across platforms...`);
-          
+
           try {
             aiResponse = await webSearchService.generatePersonalizedReadme(message, username, true);
             toast.success('Generated personalized README using profile data!');
@@ -222,7 +229,7 @@ const [, setTick] = useState(0);
         }
       }
 
-      if(generationCancelled.current) {
+      if (generationCancelled.current) {
         setIsGenerating(false);
         return;
       }
@@ -232,16 +239,16 @@ const [, setTick] = useState(0);
         content: aiResponse,
         timestamp: new Date()
       };
-      
+
       setChatHistory(prev => [...prev, assistantMessage]);
       setIsGenerating(false);
-      
+
       // Auto-apply and type the content if it's markdown
       if (aiResponse.includes('# ') && aiResponse.includes('## ')) {
         await autoTypeContent(aiResponse);
         toast.success('Reset Successful');
       }
-      
+
     } catch (error) {
       console.error('Error generating AI response:', error);
       const errorMessage = {
@@ -276,31 +283,31 @@ const [, setTick] = useState(0);
     autoTypeContent(generatedMarkdown);
     toast.success('AI-generated content applied!');
   };
-const handleExportPNG= async()=>{
-  const element= document.getElementById('readme-preview-content');
-  if(!element){
-    toast.error("Switch to Preview tab to export image");
-    return;
-  }
-  const scrollWidth = element.scrollWidth;
-      const scrollHeight = element.scrollHeight;
-  try{
-    const canvas= await domtoimage.toPng(element,{
-      bgcolor :'#000000',
-      width: scrollWidth,
+  const handleExportPNG = async () => {
+    const element = document.getElementById('readme-preview-content');
+    if (!element) {
+      toast.error("Switch to Preview tab to export image");
+      return;
+    }
+    const scrollWidth = element.scrollWidth;
+    const scrollHeight = element.scrollHeight;
+    try {
+      const canvas = await domtoimage.toPng(element, {
+        bgcolor: '#000000',
+        width: scrollWidth,
         height: scrollHeight,
         style: {
-          transform: 'scale(1)', 
+          transform: 'scale(1)',
           transformOrigin: 'top left',
-          overflow: 'visible',   
-          maxHeight: 'none',     
-          border: 'none',       
-          boxShadow: 'none'     
+          overflow: 'visible',
+          maxHeight: 'none',
+          border: 'none',
+          boxShadow: 'none'
         },
-quality:1.0,
+        quality: 1.0,
 
-    });
-    
+      });
+
       const link = document.createElement('a');
       link.download = 'readme-preview.png';
       link.href = canvas;
@@ -309,8 +316,22 @@ quality:1.0,
     } catch (error) {
       console.error('Export failed:', error);
       toast.error('Failed to export image');
+    }
   }
-}
+
+const handleLoadFromGithub = async (username: string, repo: string) => {
+    try {
+      const readmeContent = await getRepoReadme(username, repo);
+      setMarkdownContent(readmeContent);
+      // If you implemented the Auto-Save feature, update the timestamp too:
+      // setLastSaved(new Date()); 
+      toast.success(`Successfully loaded README from ${username}/${repo}`);
+    } catch (error) {
+      console.error('Failed to load README:', error);
+      throw error; // Re-throw so the dialog can show the error
+    }
+  };
+
   return (
     <div className={cn('h-screen flex flex-col bg-background', className)}>
       {/* Header */}
@@ -325,8 +346,10 @@ quality:1.0,
               <Sparkles className="h-3 w-3 mr-1" />
               Powered by Gemini 2.0 Flash Lite + GitHub
             </Badge>
+           
+
           </div>
-          
+
           <div className="flex items-center space-x-2 ml-auto">
             <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="w-auto">
               <TabsList className="grid w-full grid-cols-2">
@@ -340,23 +363,32 @@ quality:1.0,
                 </TabsTrigger>
               </TabsList>
             </Tabs>
-            
+
             <Separator orientation="vertical" className="h-6" />
-            
+             <Button variant="outline" size="sm" onClick={() => setShowLoadDialog(true)} title="Load from GitHub">
+              <Github className="h-4 w-4 mr-1" />
+              <span className="hidden sm:inline">Import</span>
+            </Button>
             <Button variant="outline" size="sm" onClick={handleCopyMarkdown}>
               <Copy className="h-4 w-4 mr-1" />
               Copy
             </Button>
-            
+
             <Button variant="outline" size="sm" onClick={handleDownloadMarkdown}>
               <Download className="h-4 w-4 mr-1" />
               Download
             </Button>
-          <Button variant="outline" size="sm" onClick={handleExportPNG} title="Export as PNG">
-            <ImageIcon className="h-4 w-4 mr-1"/>
-            Export PNG
+            <Button variant="outline" size="sm" onClick={handleExportPNG} title="Export as PNG">
+              <ImageIcon className="h-4 w-4 mr-1" />
+              Export PNG
 
-          </Button>
+            </Button>
+
+            <Button variant="outline" size="sm" onClick={() => setShowGithubDialog(true)} title="Save to GitHub">
+              <Github className="h-4 w-4 mr-1" />
+              Save to GitHub
+            </Button>
+
             <Button variant="outline" size="sm" onClick={() => setShowSettings(true)}>
               <Settings className="h-4 w-4" />
             </Button>
@@ -399,7 +431,7 @@ quality:1.0,
                         initial={{ x: 20, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                       >
-                        <Button variant="outline" size="sm"className="px-2 py-1"
+                        <Button variant="outline" size="sm" className="px-2 py-1"
                           onClick={() => {
                             generationCancelled.current = true;
                             autoTypingCancelled.current = true;
@@ -435,7 +467,7 @@ quality:1.0,
               </div>
 
 
-              
+
               <ChatPanel
                 onMessage={handleChatMessage}
                 onApplyGeneration={handleApplyAIGeneration}
@@ -465,12 +497,12 @@ quality:1.0,
                   )}
                 </div>
                 <div className="flex items-center text-xs text-muted-foreground transition-all duration-500 ease-in-out">
-    <CheckCircle2 className="h-3 w-3 mr-1 text-green-500" />
-    <span className="hidden sm:inline">
-      Saved {formatDistanceToNow(lastSaved, { addSuffix: true })}
-    </span>
-    <span className="sm:hidden">Saved</span>
-  </div>
+                  <CheckCircle2 className="h-3 w-3 mr-1 text-green-500" />
+                  <span className="hidden sm:inline">
+                    Saved {formatDistanceToNow(lastSaved, { addSuffix: true })}
+                  </span>
+                  <span className="sm:hidden">Saved</span>
+                </div>
                 <div className="flex items-center space-x-1">
                   <div className={cn(
                     "h-2 w-2 rounded-full",
@@ -481,7 +513,7 @@ quality:1.0,
                   </span>
                 </div>
               </div>
-              
+
               <div className="flex-1 overflow-hidden">
                 <AnimatePresence mode="wait">
                   {activeTab === 'code' && (
@@ -501,7 +533,7 @@ quality:1.0,
                       />
                     </motion.div>
                   )}
-                  
+
                   {activeTab === 'preview' && (
   <motion.div
     key="preview"
@@ -577,7 +609,21 @@ quality:1.0,
         open={showSettings}
         onOpenChange={setShowSettings}
       />
-    </div>
+
+    {/* GitHub Load Modal */}
+      <GitHubLoadDialog 
+        isOpen={showLoadDialog}
+        onClose={() => setShowLoadDialog(false)}
+        onLoad={handleLoadFromGithub}
+      />
+   
+       <SaveToGitHubDialog
+        open={showGithubDialog}
+        onOpenChange={setShowGithubDialog}
+        files={[{ path: 'README.md', content: markdownContent }]}
+        defaultMessage="Update README.md created with Readme Design Kit"
+      />
+       </div>
   );
 };
 
