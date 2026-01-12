@@ -29,7 +29,7 @@ export function AISettingsDialog({ isOpen, onClose }: AISettingsDialogProps) {
   const [isTestingConnection, setIsTestingConnection] = useState(false);
   const [hasExistingKey, setHasExistingKey] = useState(false);
   const [creativity, setCreativity] = useState<'concise' | 'balanced' | 'detailed'>('balanced');
-  const [style, setStyle] = useState<'professional' | 'casual' | 'technical' | 'creative'>('professional');
+  const [style, setStyle] = useState<'professional' | 'casual' | 'technical' | 'creative' | 'recruiter' | 'maintainer'>('professional');
 
   useEffect(() => {
     if (isOpen) {
@@ -233,6 +233,18 @@ export function AISettingsDialog({ isOpen, onClose }: AISettingsDialogProps) {
                           <span className="text-xs text-muted-foreground">Engaging, memorable language</span>
                         </div>
                       </SelectItem>
+                      <SelectItem value="recruiter">
+  <div className="flex flex-col">
+    <span className="font-medium">Recruiter Friendly</span>
+    <span className="text-xs text-muted-foreground">Focus on metrics & impact</span>
+  </div>
+</SelectItem>
+<SelectItem value="maintainer">
+  <div className="flex flex-col">
+    <span className="font-medium">OS Maintainer</span>
+    <span className="text-xs text-muted-foreground">Community & contribution focus</span>
+  </div>
+</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -249,11 +261,18 @@ export function AISettingsDialog({ isOpen, onClose }: AISettingsDialogProps) {
                     {creativity === 'balanced' && style === 'casual' && "Hey there! I'm a developer who loves building awesome apps and learning new tech. I enjoy solving problems and creating things that people actually want to use."}
                     {creativity === 'balanced' && style === 'technical' && "Software engineer with expertise in React, Node.js, and cloud architecture. I specialize in building scalable applications with focus on performance optimization."}
                     {creativity === 'balanced' && style === 'creative' && "Digital architect weaving code into experiences. I transform ideas into interactive realities using cutting-edge technologies and creative problem-solving."}
-                    
+                    {creativity === 'balanced' && style === 'recruiter' && "Led a team of 5 developers to ship critical features, resulting in a 30% increase in user retention. Implemented CI/CD pipelines that reduced deployment time by 50%."}
+                    {creativity === 'balanced' && style === 'maintainer' && "A lightweight, flexible library for managing global state in React applications. We welcome contributions of all kinds, from bug fixes to documentation improvements."}
+                    {creativity === 'concise' && style === 'recruiter' && "Delivered 30% performance boost and reduced build times by 50%."}
+  {creativity === 'concise' && style === 'maintainer' && "Open source library for easy React state management. PRs welcome!"}
+
+
                     {creativity === 'detailed' && style === 'professional' && "I'm a passionate software developer with extensive experience in modern web technologies and full-stack development. I specialize in creating efficient, scalable solutions that deliver measurable value to businesses and users. My approach combines technical expertise with strategic thinking to build applications that not only function flawlessly but also drive real results."}
                     {creativity === 'detailed' && style === 'casual' && "Hey there! I'm a developer who absolutely loves building awesome applications and diving deep into new technologies. I get excited about solving complex problems and creating things that people genuinely enjoy using. Whether it's a sleek frontend or robust backend, I pour my heart into every project and love collaborating with teams to bring ideas to life."}
                     {creativity === 'detailed' && style === 'technical' && "Software engineer with comprehensive expertise in React, Node.js, TypeScript, and cloud architecture patterns. I specialize in building high-performance, scalable applications with emphasis on code quality, testing strategies, and deployment automation. My experience spans microservices architecture, database optimization, and implementing CI/CD pipelines for enterprise-level applications."}
                     {creativity === 'detailed' && style === 'creative' && "Digital architect and code poet, weaving elegant solutions from the threads of imagination and logic. I transform abstract concepts into tangible, interactive experiences using cutting-edge technologies as my palette. My journey involves crafting not just applications, but digital stories that resonate with users and push the boundaries of what's possible in the digital realm."}
+                  {creativity === 'detailed' && style === 'recruiter' && "Spearheaded the migration to microservices architecture, managing a budget of $50k and a team of 5. This initiative improved system reliability by 99.9% and increased user engagement metrics by 30% quarter-over-quarter. My focus is on delivering scalable, high-impact technical solutions that drive business growth."}
+{creativity === 'detailed' && style === 'maintainer' && "Empower your React applications with this battle-tested state management solution used by over 10k developers. We represent a diverse community of contributors and maintainers committed to high-quality code. Detailed contribution guidelines are provided to help you get started quickly with your first Pull Request."}
                   </p>
                 </div>
               </div>
