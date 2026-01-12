@@ -66,7 +66,7 @@ export class ReadmeAIService {
 
     try {
       const model = this.genAI!.getGenerativeModel({ 
-        model: 'gemini-2.0-flash-lite',
+        model: 'gemini-2.0-flash',
         generationConfig: {
           temperature: 0.8,
           topP: 0.9,
@@ -126,7 +126,7 @@ Generate ONLY the markdown content without any explanations or meta-commentary.`
 
     try {
       const model = this.genAI!.getGenerativeModel({ 
-        model: 'gemini-2.0-flash-lite',
+        model: 'gemini-2.0-flash',
         generationConfig: {
           temperature: 0.7,
           topP: 0.8,
@@ -181,7 +181,7 @@ Return ONLY the improved markdown content without any explanations.`;
 
     try {
       const model = this.genAI!.getGenerativeModel({ 
-        model: 'gemini-2.0-flash-lite',
+        model: 'gemini-2.0-flash',
         generationConfig: {
           temperature: 0.7,
           topP: 0.8,
@@ -226,7 +226,7 @@ If the question is about generating or improving content, provide specific markd
 
     try {
       const model = this.genAI!.getGenerativeModel({ 
-        model: 'gemini-2.0-flash-lite',
+        model: 'gemini-2.0-flash',
         generationConfig: {
           temperature: 0.8,
           topP: 0.9,
