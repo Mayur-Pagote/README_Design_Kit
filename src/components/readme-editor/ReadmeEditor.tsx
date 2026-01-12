@@ -30,10 +30,10 @@ import {
   X,
   RotateCcw,
   Image as ImageIcon,
-
-Github,
-  CheckCircle2
-
+  Github,
+  CheckCircle2,
+  FileArchive,
+  FileText
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -41,6 +41,8 @@ import { readmeAI } from '@/services/readmeAIService';
 import { webSearchService } from '@/services/webSearchService';
 import { githubReadmeGenerator } from '@/services/githubReadmeGeneratorService';
 import { SaveToGitHubDialog } from '@/components/github/SaveToGitHubDialog';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { exportAsZip, exportAsPdf } from '@/utils/exportUtils';
 // import { setFlagsFromString } from 'v8';
 
 interface ReadmeEditorProps {
@@ -304,6 +306,32 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
     }
   }
 
+  const handleExportZip = async () => {
+    try {
+      await exportAsZip(markdownContent);
+      toast.success('Exported as ZIP!');
+    } catch (error) {
+      console.error('ZIP export failed:', error);
+      toast.error('Failed to export ZIP');
+    }
+  };
+
+  const handleExportPdf = async () => {
+    if (activeTab !== 'preview') {
+      toast.error('Switch to Preview tab to export PDF');
+      return;
+    }
+    try {
+      toast.loading('Generating PDF...', { id: 'pdf-export' });
+      await exportAsPdf('readme-preview-content');
+      toast.success('Exported as PDF!', { id: 'pdf-export' });
+    } catch (error) {
+      console.error('PDF export failed:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      toast.error(`Failed to export PDF: ${errorMessage}`, { id: 'pdf-export' });
+    }
+  };
+
 const handleLoadFromGithub = async (username: string, repo: string) => {
     try {
       const readmeContent = await getRepoReadme(username, repo);
@@ -363,11 +391,31 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
               <Download className="h-4 w-4 mr-1" />
               Download
             </Button>
-            <Button variant="outline" size="sm" onClick={handleExportPNG} title="Export as PNG">
-              <ImageIcon className="h-4 w-4 mr-1" />
-              Export PNG
-
-            </Button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Download className="h-4 w-4 mr-1" />
+                  Export
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={handleExportZip}>
+                  <FileArchive className="h-4 w-4 mr-2" />
+                  <span className="flex-1">Download as ZIP</span>
+                  <Download className="h-4 w-4 ml-2" />
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleExportPdf}>
+                  <FileText className="h-4 w-4 mr-2" />
+                  <span className="flex-1">Export to PDF</span>
+                  <Download className="h-4 w-4 ml-2" />
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleExportPNG}>
+                  <ImageIcon className="h-4 w-4 mr-2" />
+                  <span className="flex-1">Export as PNG</span>
+                  <Download className="h-4 w-4 ml-2" />
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <Button variant="outline" size="sm" onClick={() => setShowGithubDialog(true)} title="Save to GitHub">
               <Github className="h-4 w-4 mr-1" />

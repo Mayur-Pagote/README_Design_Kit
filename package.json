@@ -55,6 +55,8 @@
     "framer-motion": "^12.19.2",
     "html2canvas": "^1.4.1",
     "input-otp": "^1.4.2",
+    "jspdf": "^4.0.0",
+    "jszip": "^3.10.1",
     "lucide-react": "^0.513.0",
     "monaco-editor": "^0.52.2",
     "motion": "^12.18.1",
