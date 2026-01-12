@@ -298,9 +298,10 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
     } catch (error) {
       console.error('Export failed:', error);
       toast.error('Failed to export image');
-  }
+    }
+  };
 
-const handleLoadFromGithub = async (username: string, repo: string) => {
+  const handleLoadFromGithub = async (username: string, repo: string) => {
     try {
       const readmeContent = await getRepoReadme(username, repo);
       setMarkdownContent(readmeContent);
@@ -554,7 +555,7 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
         files={[{ path: 'README.md', content: markdownContent }]}
         defaultMessage="Update README.md created with Readme Design Kit"
       />
-       </div>
+    </div>
   );
 };
 
