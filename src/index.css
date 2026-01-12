@@ -45,10 +45,8 @@
   --radius: 0.65rem;
   /* Paper-like light theme */
   /* --background: oklch(0.975 0.003 45); */
-
-   /*subtle-lavender theme*/
-   --background: oklch(0.955 0.02 285);
-
+  /*subtle-lavender theme*/
+  --background: oklch(0.955 0.02 285);
   --foreground: oklch(0.12 0.008 270);
   --card: oklch(0.985 0.002 45);
   --card-foreground: oklch(0.12 0.008 270);
@@ -115,39 +113,28 @@
   --sidebar-ring: oklch(0.541 0.281 293.009);
 }
 
-
 @layer base {
   :root {
     --background: 220 13% 10%;
     --foreground: 210 40% 95%;
-
     --card: 220 13% 12%;
     --card-foreground: 210 40% 95%;
-
     --popover: 220 13% 12%;
     --popover-foreground: 210 40% 95%;
-
     --primary: 280 100% 70%;
     --primary-foreground: 220 13% 10%;
-
     --secondary: 220 13% 16%;
     --secondary-foreground: 210 40% 95%;
-
     --muted: 220 13% 16%;
     --muted-foreground: 215 20.2% 65.1%;
-
     --accent: 220 13% 18%;
     --accent-foreground: 210 40% 95%;
-
     --destructive: 0 62.8% 50%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 220 13% 20%;
     --input: 220 13% 16%;
     --ring: 280 100% 70%;
-
     --radius: 0.75rem;
-
     --sidebar-background: 220 13% 12%;
     --sidebar-foreground: 210 40% 95%;
     --sidebar-primary: 280 100% 70%;
@@ -159,42 +146,36 @@
   }
 }
 
-
-*::-webkit-scrollbar {
+/* Hide scrollbars only for specific elements that need it */
+.hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-
-* {
-  -ms-overflow-style: none; 
-  scrollbar-width: none; 
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 @layer base {
   * {
     @apply border-border;
   }
-
   html {
     scroll-behavior: smooth;
   }
-
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     transition: background-color 0.3s ease, color 0.3s ease;
   }
-
   body:not(.dark) {
-    background-image: 
-      radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
+    background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.05) 1px, transparent 0);
     background-size: 20px 20px;
   }
   /* Smooth theme transitions */
   *, *::before, *::after {
     transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
   }
-
   /* View Transition API styles for theme switching */
   @supports (view-transition-name: none) {
     ::view-transition-old(root),
@@ -209,36 +190,30 @@
   .animate-fade-in {
     animation: fade-in 0.5s ease-out;
   }
-  
   .animate-scale-in {
     animation: scale-in 0.2s ease-out;
   }
-
   /* Reduced motion animations */
   @media (prefers-reduced-motion: reduce) {
     .animate-pulse {
       animation: none;
     }
-    
     .animate-fade-in {
       animation: none;
       opacity: 1;
       transform: translateY(0);
     }
-    
     .animate-scale-in {
       animation: none;
       opacity: 1;
       transform: scale(1);
     }
-    
     * {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
   }
-  
   /* Gentle pulse animation */
   .animate-pulse {
     animation: gentle-pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -276,7 +251,7 @@
   }
 }
 
-/*Style for scroll bar of preview theme template*/
+/* Custom styled scrollbar for template-scroll elements */
 div.template-scroll::-webkit-scrollbar {
   width: 8px;
 }
@@ -301,12 +276,15 @@ div.template-scroll {
 }
 
 @keyframes priorityGlow {
-  0%, 100% { text-shadow: 0 0 10px currentColor; }
-  50% { text-shadow: 0 0 20px currentColor; }
+  0%, 100% {
+    text-shadow: 0 0 10px currentColor;
+  }
+  50% {
+    text-shadow: 0 0 20px currentColor;
+  }
 }
 
 /* Preventing assistant message from overflowing */
-
 .assistant-message-content code {
   word-wrap: break-word;
   white-space: pre-wrap;
@@ -323,17 +301,48 @@ div.template-scroll {
 .cursor-dot {
   position: fixed;
   border-radius: 50%;
-  background: rgba(127, 95, 253, 0.35); /* matches theme purple */
+  background: rgba(127, 95, 253, 0.35);
   pointer-events: none;
   transform: translate(-50%, -50%);
 }
 
 /* Size gradient for shadow effect */
-.cursor-dot:nth-child(1) { width: 35px; height: 35px; }
-.cursor-dot:nth-child(2) { width: 30px; height: 30px; }
-.cursor-dot:nth-child(3) { width: 25px; height: 25px; }
-.cursor-dot:nth-child(4) { width: 20px; height: 20px; }
-.cursor-dot:nth-child(5) { width: 15px; height: 15px; }
-.cursor-dot:nth-child(6) { width: 10px;  height: 10px; }
-.cursor-dot:nth-child(7) { width: 8px;  height: 8px; }
-.cursor-dot:nth-child(8) { width: 7px;  height: 7px; }
+.cursor-dot:nth-child(1) {
+  width: 35px;
+  height: 35px;
+}
+
+.cursor-dot:nth-child(2) {
+  width: 30px;
+  height: 30px;
+}
+
+.cursor-dot:nth-child(3) {
+  width: 25px;
+  height: 25px;
+}
+
+.cursor-dot:nth-child(4) {
+  width: 20px;
+  height: 20px;
+}
+
+.cursor-dot:nth-child(5) {
+  width: 15px;
+  height: 15px;
+}
+
+.cursor-dot:nth-child(6) {
+  width: 10px;
+  height: 10px;
+}
+
+.cursor-dot:nth-child(7) {
+  width: 8px;
+  height: 8px;
+}
+
+.cursor-dot:nth-child(8) {
+  width: 7px;
+  height: 7px;
+}

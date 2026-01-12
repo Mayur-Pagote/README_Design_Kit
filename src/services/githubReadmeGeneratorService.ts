@@ -95,7 +95,7 @@ ${fc.content}
 
       // 5. Generate comprehensive README using Gemini
       const model = this.genAI!.getGenerativeModel({ 
-        model: 'gemini-2.0-flash-lite'
+        model: 'gemini-2.0-flash'
       });
 
       const prompt = `

@@ -13,7 +13,6 @@ import { APIKeySettings } from './APIKeySettings';
 import domtoimage from 'dom-to-image-more';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { formatDistanceToNow } from 'date-fns';
-
 import { GitHubLoadDialog } from './GitHubLoadDialog';
 import { getRepoReadme } from '@/services/githubService';
 import { 
@@ -22,7 +21,7 @@ import {
   MessageSquare, 
   Download, 
   Copy, 
-  Settings,
+  Settings, 
   Sparkles,
   Bot,
   Home,
@@ -61,15 +60,16 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
   const [showGithubDialog, setShowGithubDialog] = useState(false);
   const [isAutoTyping, setIsAutoTyping] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
-const [showLoadDialog, setShowLoadDialog] = useState(false);
+  const [showLoadDialog, setShowLoadDialog] = useState(false);
   const autoTypingCancelled = useRef(false);
   const generationCancelled = useRef(false);
   const [, setTick] = useState(0);
+
   React.useEffect(() => {
     const timer = setInterval(() => setTick(t => t + 1), 60000);
     return () => clearInterval(timer);
   }, []);
-  // Configure GitHub README generator with API key
+
   React.useEffect(() => {
     const updateApiKey = () => {
       const apiKey = localStorage.getItem('gemini_api_key');
@@ -78,10 +78,8 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
       }
     };
 
-    // Initial setup
     updateApiKey();
 
-    // Listen for storage changes (when API key is updated in settings)
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'gemini_api_key') {
         updateApiKey();
@@ -90,7 +88,6 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
 
     window.addEventListener('storage', handleStorageChange);
 
-    // Also listen for custom events from the same window
     const handleApiKeyUpdate = () => {
       updateApiKey();
     };
@@ -106,21 +103,17 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
   const handleMarkdownChange = (content: string) => {
     setMarkdownContent(content);
     setLastSaved(new Date());
-
   };
 
-  // Auto-typing effect for applying AI generated content - instant speed
   const autoTypeContent = async (newContent: string) => {
     setIsAutoTyping(true);
     autoTypingCancelled.current = false;
-    setActiveTab('code'); // Switch to code tab
+    setActiveTab('code');
 
-    // Apply content instantly for better user experience
     setMarkdownContent(newContent);
     setLastSaved(new Date());
     setIsAutoTyping(false);
 
-    // Auto-switch to preview after content is applied
     setTimeout(() => {
       setActiveTab('preview');
       toast.success('Content applied! Switch to code tab to edit further.');
@@ -134,7 +127,6 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
     setChatHistory(prev => [...prev, newUserMessage]);
 
     try {
-      // Check if AI is configured
       if (!readmeAI.isConfigured()) {
         const errorMessage = {
           role: 'assistant' as const,
@@ -147,10 +139,8 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
         return;
       }
 
-      // Enhanced AI response generation with web search grounding
       let aiResponse: string;
 
-      // Check if the message contains a GitHub repository URL for analysis
       const githubUrlMatch = message.match(/https:\/\/github\.com\/[a-zA-Z0-9-._]+\/[a-zA-Z0-9-._]+/);
       if (githubUrlMatch && (message.toLowerCase().includes('analyze') || message.toLowerCase().includes('generate'))) {
         const repoUrl = githubUrlMatch[0];
@@ -163,7 +153,6 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
           toast.success('GitHub repository analysis complete!');
         } catch (error) {
           console.warn('GitHub analysis failed, falling back to standard generation:', error);
-          // Fallback to standard generation
           if (message.toLowerCase().includes('create') || message.toLowerCase().includes('generate')) {
             aiResponse = await readmeAI.generateReadmeContent(message, {
               currentReadme: markdownContent,
@@ -174,7 +163,6 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
           }
         }
       } else {
-        // Check if the message mentions a username for profile-based generation
         const usernameMatch = message.match(/(?:github\.com\/|@|user(?:name)?\s+)([a-zA-Z0-9-_]+)/i);
         const mentionsProfile = message.toLowerCase().includes('profile') ||
           message.toLowerCase().includes('github') ||
@@ -182,7 +170,6 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
           usernameMatch;
 
         if (mentionsProfile && usernameMatch) {
-          // Use enhanced web search for profile-based README generation
           const username = usernameMatch[1];
           toast.info(`Searching for ${username}'s profile across platforms...`);
 
@@ -191,7 +178,6 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
             toast.success('Generated personalized README using profile data!');
           } catch (error) {
             console.warn('Enhanced search failed, falling back to standard generation:', error);
-            // Fallback to standard generation
             if (message.toLowerCase().includes('create') || message.toLowerCase().includes('generate')) {
               aiResponse = await readmeAI.generateReadmeContent(message, {
                 currentReadme: markdownContent,
@@ -202,16 +188,13 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
             }
           }
         } else if (message.toLowerCase().includes('create') || message.toLowerCase().includes('generate')) {
-          // Standard content generation
           aiResponse = await readmeAI.generateReadmeContent(message, {
             currentReadme: markdownContent,
             projectType: 'web application'
           });
         } else if (message.toLowerCase().includes('improve') || message.toLowerCase().includes('enhance')) {
-          // Improve existing content
           aiResponse = await readmeAI.improveExistingReadme(markdownContent, message);
         } else {
-          // Answer questions or provide general help
           aiResponse = await readmeAI.answerReadmeQuestion(message, markdownContent);
         }
       }
@@ -230,7 +213,6 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
       setChatHistory(prev => [...prev, assistantMessage]);
       setIsGenerating(false);
 
-      // Auto-apply and type the content if it's markdown
       if (aiResponse.includes('# ') && aiResponse.includes('## ')) {
         await autoTypeContent(aiResponse);
         toast.success('Reset Successful');
@@ -266,10 +248,10 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
   };
 
   const handleApplyAIGeneration = (generatedMarkdown: string) => {
-    // Auto-apply and type the content
     autoTypeContent(generatedMarkdown);
     toast.success('AI-generated content applied!');
   };
+
   const handleExportPNG = async () => {
     const element = document.getElementById('readme-preview-content');
     if (!element) {
@@ -292,7 +274,6 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
           boxShadow: 'none'
         },
         quality: 1.0,
-
       });
 
       const link = document.createElement('a');
@@ -306,6 +287,7 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
     }
   }
 
+  const handleLoadFromGithub = async (username: string, repo: string) => {
   const handleExportZip = async () => {
     try {
       await exportAsZip(markdownContent);
@@ -336,18 +318,15 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
     try {
       const readmeContent = await getRepoReadme(username, repo);
       setMarkdownContent(readmeContent);
-      // If you implemented the Auto-Save feature, update the timestamp too:
-      // setLastSaved(new Date()); 
       toast.success(`Successfully loaded README from ${username}/${repo}`);
     } catch (error) {
       console.error('Failed to load README:', error);
-      throw error; // Re-throw so the dialog can show the error
+      throw error;
     }
   };
 
   return (
     <div className={cn('h-screen flex flex-col bg-background', className)}>
-      {/* Header */}
       <div className="flex-none border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex h-14 items-center px-4">
           <div className="flex items-center space-x-2">
@@ -359,8 +338,6 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
               <Sparkles className="h-3 w-3 mr-1" />
               Powered by Gemini 2.0 Flash Lite + GitHub
             </Badge>
-           
-
           </div>
 
           <div className="flex items-center space-x-2 ml-auto">
@@ -378,7 +355,7 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
             </Tabs>
 
             <Separator orientation="vertical" className="h-6" />
-             <Button variant="outline" size="sm" onClick={() => setShowLoadDialog(true)} title="Load from GitHub">
+            <Button variant="outline" size="sm" onClick={() => setShowLoadDialog(true)} title="Load from GitHub">
               <Github className="h-4 w-4 mr-1" />
               <span className="hidden sm:inline">Import</span>
             </Button>
@@ -435,10 +412,8 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
         </div>
       </div>
 
-      {/* Main Content - Fixed Height */}
       <div className="flex-1 overflow-hidden">
         <ResizablePanelGroup direction="horizontal" className="h-full">
-          {/* Left Panel - Chat Only */}
           <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col">
             <div className="h-full overflow-hidden">
               <div className="flex items-center justify-between p-3 border-b bg-muted/50">
@@ -499,8 +474,6 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
                 </div>
               </div>
 
-
-
               <ChatPanel
                 onMessage={handleChatMessage}
                 onApplyGeneration={handleApplyAIGeneration}
@@ -512,7 +485,6 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
 
           <ResizableHandle withHandle />
 
-          {/* Right Panel - Code/Preview Toggle */}
           <ResizablePanel defaultSize={50} minSize={30} className="flex flex-col">
             <div className="h-full overflow-hidden flex flex-col">
               <div className="flex-none flex items-center justify-between p-3 border-b bg-muted/50">
@@ -587,13 +559,11 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
         </ResizablePanelGroup>
       </div>
 
-      {/* Settings Modal */}
       <APIKeySettings
         open={showSettings}
         onOpenChange={setShowSettings}
       />
 
-    {/* GitHub Load Modal */}
       <GitHubLoadDialog 
         isOpen={showLoadDialog}
         onClose={() => setShowLoadDialog(false)}
@@ -606,7 +576,7 @@ const handleLoadFromGithub = async (username: string, repo: string) => {
         files={[{ path: 'README.md', content: markdownContent }]}
         defaultMessage="Update README.md created with Readme Design Kit"
       />
-       </div>
+    </div>
   );
 };
 
