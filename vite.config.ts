@@ -16,11 +16,19 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes("node_modules")) {
-            return "vendor"; // ✅ Splits heavy dependencies into a separate chunk
+            // Split out the heaviest libraries into their own files
+            if (id.includes("lucide-react")) return "vendor-icons";
+            if (id.includes("framer-motion")) return "vendor-animations";
+            if (id.includes("dom-to-image-more")) return "vendor-utils";
+            if (id.includes("react")) return "vendor-react-core";
+            
+            // Everything else goes into a general vendor chunk
+            return "vendor";
           }
         },
       },
     },
-    chunkSizeWarningLimit: 800, // ✅ Temporary fix to suppress warnings
+    // Since we are splitting chunks, you can lower this limit back to 500
+    chunkSizeWarningLimit: 600, 
   },
 });
