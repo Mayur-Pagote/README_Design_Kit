@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export type CreativityLevel = 'concise' | 'balanced' | 'detailed';
-export type WritingStyle = 'professional' | 'casual' | 'technical' | 'creative';
+export type WritingStyle = 'professional' | 'casual' | 'technical' | 'creative'|'recruiter'|'maintainer';
 
 interface AISettings {
   creativity: CreativityLevel;
@@ -79,7 +79,7 @@ class GeminiService {
 
     try {
       const model = this.genAI!.getGenerativeModel({ 
-        model: 'gemini-2.5-flash-lite',
+        model: 'gemini-2.5-flash',
         generationConfig: {
           temperature: 0.7,
           topP: 0.8,
@@ -132,7 +132,7 @@ Enhanced text:`;
 
     try {
       const model = this.genAI!.getGenerativeModel({ 
-        model: 'gemini-2.5-flash-lite',
+        model: 'gemini-2.5-flash',
         generationConfig: {
           temperature: 0.8,
           topP: 0.9,
@@ -224,6 +224,11 @@ Generated content:`;
         return 'Tone: Use precise, technical language. Focus on accuracy and technical details.';
       case 'creative':
         return 'Tone: Use engaging, creative language. Make it memorable and unique while remaining professional.';
+      case 'recruiter':
+        return 'Tone: Results-oriented and impressive. Focus on quantifiable metrics, business impact, and key technologies. Highlight personal achievements to attract recruiters.';
+      case 'maintainer':
+        return 'Tone: Welcoming yet authoritative. Focus on clarity, ease of installation, and community building. Encourage contribution and collaboration.';
+      
       case 'professional':
       default:
         return 'Tone: Use a professional, polished tone. Make it suitable for business contexts and portfolios.';

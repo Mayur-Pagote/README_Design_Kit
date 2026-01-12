@@ -109,7 +109,8 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
           <div className="space-y-4">
             <div className="flex flex-col lg:flex-row gap-4">
               {/* Search */}
-              <div className="relative flex-1">
+              <div className="relative flex-1 transition-transform duration-200 ease-out hover:-translate-y-[2px]">
+
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Search templates..."
@@ -121,7 +122,8 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
 
               {/* Category Filter */}
               <Select value={selectedCategory} onValueChange={(value) => setSelectedCategory(value as TemplateCategory | 'all')}>
-                <SelectTrigger className="w-full lg:w-[200px]">
+               <SelectTrigger className="w-full lg:w-[200px] transition-transform duration-200 ease-out hover:-translate-y-[2px]">
+
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent>
@@ -153,33 +155,86 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
               </div>
             </div>            {/* Filter Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="grid w-full grid-cols-4">
-                <TabsTrigger value="all">
-                  All Templates
-                </TabsTrigger>
-                <TabsTrigger value="featured">
-                  <Star className="h-4 w-4 mr-2" />
-                  Featured
-                </TabsTrigger>
-                <TabsTrigger value="favorites">
-                  <Heart className="h-4 w-4 mr-2" />
-                  Favorites
-                </TabsTrigger>
-                <TabsTrigger value="recent">
-                  <Clock className="h-4 w-4 mr-2" />
-                  Recent
-                </TabsTrigger>
-              </TabsList>
-            </Tabs>
+  <TabsList className="grid w-full grid-cols-4 bg-muted/50 p-1 rounded-lg">
+
+    <TabsTrigger
+      value="all"
+      className="
+        transition-all duration-200 ease-out
+        hover:-translate-y-[2px]
+        hover:bg-purple-300
+        hover:text-black
+        hover:font-semibold
+        data-[state=active]:bg-background
+        data-[state=active]:text-foreground
+      "
+    >
+      All Templates
+    </TabsTrigger>
+
+    <TabsTrigger
+      value="featured"
+      className="
+        transition-all duration-200 ease-out
+        hover:-translate-y-[2px]
+        hover:bg-purple-300
+        hover:text-black
+        hover:font-semibold
+        data-[state=active]:bg-background
+        data-[state=active]:text-foreground
+      "
+    >
+      <Star className="h-4 w-4 mr-2" />
+      Featured
+    </TabsTrigger>
+
+    <TabsTrigger
+      value="favorites"
+      className="
+        transition-all duration-200 ease-out
+        hover:-translate-y-[2px]
+        hover:bg-purple-300
+        hover:text-black
+        hover:font-semibold
+        data-[state=active]:bg-background
+        data-[state=active]:text-foreground
+      "
+    >
+      <Heart className="h-4 w-4 mr-2" />
+      Favorites
+    </TabsTrigger>
+
+    <TabsTrigger
+      value="recent"
+      className="
+        transition-all duration-200 ease-out
+        hover:-translate-y-[2px]
+        hover:bg-purple-300
+        hover:text-black
+        hover:font-semibold
+        data-[state=active]:bg-background
+        data-[state=active]:text-foreground
+      "
+    >
+      <Clock className="h-4 w-4 mr-2" />
+      Recent
+    </TabsTrigger>
+
+  </TabsList>
+</Tabs>
 
             {/* Popular Tags */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-3 items-center">
               <span className="text-sm font-medium text-muted-foreground mr-2">Popular tags:</span>
               {popularTags.slice(0, 8).map(tag => (
                 <Badge
                   key={tag}
                   variant={selectedTags.includes(tag) ? 'default' : 'outline'}
-                  className="cursor-pointer"
+                  className="
+  cursor-pointer
+  transition-all duration-200 ease-out
+  hover:-translate-y-[1px]
+  hover:shadow-sm"
                   onClick={() => toggleTag(tag)}
                 >
                   {tag}
