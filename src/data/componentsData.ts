@@ -670,6 +670,12 @@ export const componentsData: Record<string, ComponentItem[]> = {
         "https://codeforces-readme-stats.vercel.app/api/card?username=tourist&theme=default&disable_animations=false&show_icons=true&force_username=true",
       codeSnippet: `<img height="180em" src="https://codeforces-readme-stats.vercel.app/api/card?username={username}&theme=default&disable_animations=false&show_icons=true&force_username=true"/>`,
     },
+    {
+      title: "AtCoder Stats",
+      description: "Displays AtCoder Profile Statistics",
+      imageUrl: "https://atcoder-readme-stats.vercel.app/stats/tourist?show_icons=true&width=450",
+      codeSnippet: `![atcoder stats](https://atcoder-readme-stats.vercel.app/stats/{username}?show_icons=true&width=450)`
+    },
   ],
   gitanimals: [
     {
