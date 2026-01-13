@@ -11,10 +11,22 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
   const isHome = location.pathname === '/';
+
+  const isMorePage =
+    location.pathname.startsWith('/profile') ||
+    location.pathname.startsWith('/coming-soon') ||
+    location.pathname.startsWith('/about');
+
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className={cn('flex-1', !isHome && 'pt-20')}>
+      <main
+  className={cn(
+    'flex-1',
+    !isHome && !isMorePage && 'pt-20'
+  )}
+>
+
         {children}
       </main>
       <Footer />
