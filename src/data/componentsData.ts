@@ -662,6 +662,12 @@ export const componentsData: Record<string, ComponentItem[]> = {
         "https://api.vaunt.dev/v1/github/entities/{username}/repositories/{repo}/contributors?format=svg&limit=54",
       codeSnippet: `<img src="https://api.vaunt.dev/v1/github/entities/{username}/repositories/{repo}/contributors?format=svg&limit=54" width="700" height="250" />`,
     },
+    {
+      title: "Star History Graph",
+      description: "Displays the Star History Graph of a Repository",
+      imageUrl: "https://api.star-history.com/svg?repos={username}/{repo}&type=Date",
+      codeSnippet: `![Star History Chart](https://api.star-history.com/svg?repos={username}/{repo}&type=Date)`,
+    },
   ],
   dividers: [
     {
