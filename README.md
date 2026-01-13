@@ -91,10 +91,10 @@ README Design Kit provides:
 
 ```bash
 # Clone the repository
-git clone https://github.com/Mayur-Pagote/README-Design-Kit.git
+git clone https://github.com/Mayur-Pagote/README_Design_Kit.git
 
 # Navigate to templates
-cd README-Design-Kit/templates
+cd README_Design_Kit/templates
 
 # Copy your preferred template
 cp web-app-template.md ../your-project/README.md
