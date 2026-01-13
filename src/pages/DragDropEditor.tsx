@@ -29,6 +29,13 @@ import { SaveTemplateDialog } from '@/components/SaveTemplateDialog';
 import { AssistantLauncher } from '@/components/AssistantLauncher';
 import { PersonaComparisonModal } from '@/components/PersonaComparisonModal';
 import { AISettingsDialog } from '@/components/AISettingsDialog';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { useIsMobile } from '@/hooks/use-mobile';
 import { demoElements } from '@/data/demo';
 import { TemplateUtils } from '@/utils/templateUtils';
 import type { ElementType, GitContributionElement } from '@/types/elements';
@@ -37,6 +44,7 @@ import type { ReadmeExportPreset } from '@/config/readmeExportPresets';
 import ScrollToTop from '@/components/ScrollToTop';
 import { GithubUsernameDialog } from '@/components/GithubUsernameDialog';
 import { toast } from 'sonner';
+import { Plus } from 'lucide-react';
 
 export default function DragDropEditor() {
   const [elements, setElements] = useState<ElementType[]>([]);
@@ -51,8 +59,22 @@ export default function DragDropEditor() {
   const [showGithubUsernameInput, setShowGithubUsernameInput] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [exportPreset, setExportPreset] = useState<ReadmeExportPreset>('default');
+  const [paletteSheetOpen, setPaletteSheetOpen] = useState(false);
+  const [previewSheetOpen, setPreviewSheetOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'editor' | 'preview'>('editor');
+  const [isTablet, setIsTablet] = useState(false);
+  const isMobile = useIsMobile();
 
   const location = useLocation();
+
+  useEffect(() => {
+    const checkTablet = () => {
+      setIsTablet(window.innerWidth >= 768 && window.innerWidth < 1278);
+    };
+    checkTablet();
+    window.addEventListener('resize', checkTablet);
+    return () => window.removeEventListener('resize', checkTablet);
+  }, []);
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -369,13 +391,13 @@ export default function DragDropEditor() {
                 >
                   Clear All
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setShowPalette(!showPalette)}>
+                <DropdownMenuItem onClick={() => isMobile ? setPaletteSheetOpen(true) : setShowPalette(!showPalette)}>
                   <PanelLeft className="h-4 w-4 mr-2" />
-                  {showPalette ? 'Hide' : 'Show'} Elements
+                  {isMobile ? 'Add Elements' : (showPalette ? 'Hide' : 'Show') + ' Elements'}
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setShowPreview(!showPreview)}>
+                <DropdownMenuItem onClick={() => isMobile ? setPreviewSheetOpen(true) : setShowPreview(!showPreview)}>
                   <PanelRight className="h-4 w-4 mr-2" />
-                  {showPreview ? 'Hide' : 'Show'} Preview
+                  {isMobile ? 'View Preview' : (showPreview ? 'Hide' : 'Show') + ' Preview'}
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setShowComparisonModal(true)}>
                   <Info className="h-4 w-4 mr-2" />
@@ -453,28 +475,143 @@ export default function DragDropEditor() {
       </div>
 
       {/* Editor Layout */}
-      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
-        {showPalette && (
-          <div className="basis-1/4 min-w-[220px] max-w-[320px] md:border-r overflow-y-scroll">
-            <ElementPalette onAddElement={handleAddElement} />
+      <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Mobile (<768px): Sheets for Palette and Preview */}
+        {isMobile && (
+          <>
+            {/* Mobile: Element Palette Sheet */}
+            <Sheet open={paletteSheetOpen} onOpenChange={setPaletteSheetOpen}>
+              <SheetContent side="left" className="w-[85vw] sm:w-[320px] p-0 z-50">
+                <div className="overflow-y-auto h-[calc(100vh-80px)] pt-8">
+                  <ElementPalette onAddElement={(element) => {
+                    handleAddElement(element);
+                    setPaletteSheetOpen(false);
+                  }} />
+                </div>
+              </SheetContent>
+            </Sheet>
+
+            {/* Mobile: README Preview Sheet (612px-<768px) */}
+            <Sheet open={previewSheetOpen} onOpenChange={setPreviewSheetOpen}>
+              <SheetContent side="right" className="w-[90vw] sm:w-[600px] p-0 z-50">
+                <div className="overflow-y-auto h-[calc(100vh-80px)] pt-8">
+                  <ReadmePreview
+                    elements={elements}
+                    preset={exportPreset}
+                    onPresetChange={setExportPreset}
+                  />
+                </div>
+              </SheetContent>
+            </Sheet>
+
+            {/* Mobile: Main Editor Area */}
+            <div className="flex-1 overflow-y-scroll">
+              <EditorCanvas
+                elements={elements}
+                onElementsChange={handleElementsChange}
+                onEditElement={handleEditElement}
+                onReorderElement={handleReorderElement}
+              />
+            </div>
+
+            {/* Mobile: Floating Action Buttons */}
+            <div className="fixed bottom-20 right-4 z-40 flex flex-col gap-3">
+              <Sheet open={paletteSheetOpen} onOpenChange={setPaletteSheetOpen}>
+                <SheetTrigger asChild>
+                  <Button
+                    size="lg"
+                    className="h-14 w-14 rounded-full shadow-lg"
+                    aria-label="Add element"
+                  >
+                    <Plus className="h-6 w-6" />
+                  </Button>
+                </SheetTrigger>
+              </Sheet>
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-14 w-14 rounded-full shadow-lg"
+                onClick={() => setPreviewSheetOpen(true)}
+                aria-label="View preview"
+              >
+                <Eye className="h-6 w-6" />
+              </Button>
+            </div>
+          </>
+        )}
+
+        {/* Tablet (768px-1277px): Tab View with Sidebar */}
+        {!isMobile && isTablet && (
+          <div className="flex-1 flex flex-row overflow-hidden">
+            {/* Element Palette Sidebar - Increased width for tablet to show tabs properly */}
+            {showPalette && (
+              <div className="w-80 min-w-[320px] max-w-[360px] border-r overflow-y-scroll bg-muted/50">
+                <ElementPalette onAddElement={handleAddElement} />
+              </div>
+            )}
+
+            {/* Tab View for Editor and Preview */}
+            <div className="flex-1 flex flex-col overflow-hidden bg-background">
+              <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'editor' | 'preview')} className="flex-1 flex flex-col">
+                <div className="border-b bg-muted/30 px-4 py-3">
+                  <TabsList className="grid w-full max-w-lg mx-auto grid-cols-2">
+                    <TabsTrigger value="editor" className="flex items-center gap-2 data-[state=active]:bg-background">
+                      <PanelLeft className="h-4 w-4" />
+                      <span className="font-medium">Editor</span>
+                    </TabsTrigger>
+                    <TabsTrigger value="preview" className="flex items-center gap-2 data-[state=active]:bg-background">
+                      <PanelRight className="h-4 w-4" />
+                      <span className="font-medium">Preview</span>
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
+                <TabsContent value="editor" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex">
+                  <EditorCanvas
+                    elements={elements}
+                    onElementsChange={handleElementsChange}
+                    onEditElement={handleEditElement}
+                    onReorderElement={handleReorderElement}
+                  />
+                </TabsContent>
+                <TabsContent value="preview" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex">
+                  <ReadmePreview
+                    elements={elements}
+                    preset={exportPreset}
+                    onPresetChange={setExportPreset}
+                  />
+                </TabsContent>
+              </Tabs>
+            </div>
           </div>
         )}
 
-        <div className="flex-1 overflow-y-scroll">
-          <EditorCanvas
-            elements={elements}
-            onElementsChange={handleElementsChange}
-            onEditElement={handleEditElement}
-          />
-        </div>
+        {/* Desktop (>=1278px): Three Column Layout */}
+        {!isMobile && !isTablet && (
+          <div className="flex-1 flex flex-row overflow-hidden">
+            {showPalette && (
+              <div className="basis-1/4 min-w-[220px] max-w-[320px] border-r overflow-y-scroll">
+                <ElementPalette onAddElement={handleAddElement} />
+              </div>
+            )}
 
-        {showPreview && (
-          <div className="basis-1/2 max-w-[600px] md:border-l overflow-y-scroll">
-            <ReadmePreview
-              elements={elements}
-              preset={exportPreset}
-              onPresetChange={setExportPreset}
-            />
+            <div className="flex-1 overflow-y-scroll">
+              <EditorCanvas
+                elements={elements}
+                onElementsChange={handleElementsChange}
+                onEditElement={handleEditElement}
+                onReorderElement={handleReorderElement}
+              />
+            </div>
+
+            {showPreview && (
+              <div className="basis-1/2 max-w-[600px] border-l overflow-y-scroll">
+                <ReadmePreview
+                  elements={elements}
+                  preset={exportPreset}
+                  onPresetChange={setExportPreset}
+                />
+              </div>
+            )}
           </div>
         )}
       </div>

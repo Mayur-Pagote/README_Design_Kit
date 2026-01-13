@@ -9,6 +9,7 @@ import { ElementRenderer } from '@/components/ElementRenderer';
 import type { ElementType } from '@/types/elements';
 import { useTheme } from '@/components/theme-provider';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 interface ReadmePreviewProps {
   elements: ElementType[];
@@ -24,6 +25,7 @@ export function ReadmePreview({
   const [copied, setCopied] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
   const { theme } = useTheme();
+  const isMobile = useIsMobile();
   const isDark =
     theme === 'dark' ||
     (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
@@ -543,54 +545,52 @@ export function ReadmePreview({
 
   return (
     <div className="h-full flex flex-col">
-      <div className="border-b border-border p-4 bg-muted/50">
-        <div className="flex items-center justify-between mb-3">
+      <div className={`border-b border-border p-3 md:p-4 bg-muted/50 ${isMobile ? 'mt-6' : ''}`}>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-3">
           <div className="flex items-center gap-2">
-            <h3 className="font-medium">README Preview</h3>
+            <h3 className="font-medium text-base md:text-lg">README Preview</h3>
           </div>
           
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <select
+              className="border rounded px-2 py-1.5 text-xs md:text-sm bg-background flex-1 sm:flex-initial min-w-[140px]"
+              value={preset}
+              onChange={(e) =>
+                onPresetChange(e.target.value as ReadmeExportPreset)
+              }
+            >
+              <option value="default">Default Export</option>
+              <option value="openSource">Open Source</option>
+              <option value="personal">Personal / Portfolio</option>
+              <option value="professional">Professional</option>
+            </select>
 
-          
-          <div className="flex items-center gap-2">
-  <select
-    className="border rounded px-2 py-1 text-sm bg-background"
-    value={preset}
-    onChange={(e) =>
-      onPresetChange(e.target.value as ReadmeExportPreset)
-    }
-  >
-    <option value="default">Default Export</option>
-    <option value="openSource">Open Source</option>
-    <option value="personal">Personal / Portfolio</option>
-    <option value="professional">Professional</option>
-  </select>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={copyToClipboard}
+              disabled={!filteredElements.length}
+              className="flex-1 sm:flex-initial touch-manipulation"
+            >
+              <Copy className="h-3.5 w-3.5 md:h-4 md:w-4" /> 
+              <span className="ml-1.5">Copy</span>
+            </Button>
 
-  <Button
-    variant="outline"
-    size="sm"
-    onClick={copyToClipboard}
-    disabled={!filteredElements.length}
-  >
-    <Copy className="h-4 w-4" /> Copy
-  </Button>
+            {copied && <span className="text-green-500 text-xs md:text-sm">Copied!</span>}
 
-  {copied && <span className="text-green-500 text-sm">Copied!</span>}
-
-  <Button
-    variant="outline"
-    size="sm"
-    onClick={downloadMarkdown}
-    disabled={!filteredElements.length}
-  >
-    <Download className="h-4 w-4" /> Download
-  </Button>
-</div>
-
-
-
-
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={downloadMarkdown}
+              disabled={!filteredElements.length}
+              className="flex-1 sm:flex-initial touch-manipulation"
+            >
+              <Download className="h-3.5 w-3.5 md:h-4 md:w-4" /> 
+              <span className="ml-1.5">Download</span>
+            </Button>
+          </div>
         </div>
-        <p className="text-sm text-muted-foreground">{getViewModeDescription()}</p>
+        <p className="text-xs md:text-sm text-muted-foreground">{getViewModeDescription()}</p>
       </div>
 
       <Tabs defaultValue="preview" className="flex-1 flex flex-col">
