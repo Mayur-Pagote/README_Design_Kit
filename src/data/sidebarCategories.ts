@@ -1,5 +1,5 @@
 import type { LucideIcon } from "lucide-react";
-import { ChartColumn, Code, FolderGit2, Github, Link, Minus, PartyPopper, Quote, RefreshCwOff, Smile, Sparkles, SquareCode, TrendingUp, Trophy, UserPlus } from "lucide-react";
+import { Atom, ChartColumn, Code, FolderGit2, Github, Link, Minus, PartyPopper, Quote, RefreshCwOff, Smile, Sparkles, SquareCode, TrendingUp, Trophy, UserPlus } from "lucide-react";
 
 export interface Category {
   id: string;
@@ -12,6 +12,7 @@ export const sidebarCategories = [
   { id: "stats", name: "Stats Cards", icon: TrendingUp },
   { id: "counter",name: "Profile Views Counter",icon: UserPlus },
   { id: "animation", name: "Animations", icon: Sparkles },
+  { id: "techStack", name: "Animated Tech Stack", icon: Atom },
   { id: "emojis", name: "Emojis", icon: Smile },
   { id: "quotes", name: "Quotes & Jokes", icon: Quote },
   { id: "languages", name: "Languages", icon: Code },
