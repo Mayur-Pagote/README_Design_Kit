@@ -1,9 +1,10 @@
 ---
-name: [Add Element]
+name: "[Add Element]"
 about: Propose a new element to be added to the project
 title: "[FEAT]: Add <Element Name>"
 labels: enhancement
 assignees: ''
+
 ---
 
 **Please describe:**
