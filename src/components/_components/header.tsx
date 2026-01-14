@@ -34,10 +34,11 @@ export const Header = () => {
 
   const closeMenu = () => setMenuState(false)
 
-  const navItemClass =
-    "relative flex items-center gap-1 text-[15px] font-medium text-white/85 " +
-    "transition-all duration-200 ease-out " +
-    "hover:text-white hover:-translate-y-[2px]"
+  const navItemClass = cn(
+    "relative flex items-center gap-1 text-[15px] font-medium " +
+      "transition-all duration-200 ease-out hover:-translate-y-[2px]",
+    isDark ? "text-white/85 hover:text-white" :"text-black hover:text-black" 
+  )
 
   return (
     <header>
@@ -87,7 +88,11 @@ export const Header = () => {
                     <DropdownMenuItem key={index} asChild>
                       <Link
                         to={item.to}
-                        className="block w-full px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-accent-foreground hover:bg-accent/10"
+                        className={cn(
+                          "block w-full px-3 py-2 rounded-md text-sm hover:bg-accent/10",
+                          isDark
+                            ? "text-muted-foreground hover:text-accent-foreground" :"text-black hover:text-black"
+                        )}
                       >
                         {item.name}
                       </Link>
@@ -148,7 +153,10 @@ export const Header = () => {
                   key={item.to}
                   to={item.to}
                   onClick={closeMenu}
-                  className="block px-4 py-2.5 rounded-md text-sm font-medium text-white/85 hover:bg-accent/10 hover:text-white transition-colors"
+                  className={cn(
+                    "block px-4 py-2.5 rounded-md text-sm font-medium hover:bg-accent/10 transition-colors",
+                    isDark ?  "text-white/85 hover:text-white" :"text-black hover:text-black" 
+                  )}
                 >
                   {item.name}
                 </Link>
@@ -162,7 +170,10 @@ export const Header = () => {
                     setTheme(isDark ? "light" : "dark");
                     closeMenu();
                   }}
-                  className="w-full flex items-center gap-3 px-4 py-2.5 rounded-md text-sm font-medium text-white/85 hover:bg-accent/10 hover:text-white transition-colors"
+                  className={cn(
+                    "w-full flex items-center gap-3 px-4 py-2.5 rounded-md text-sm font-medium hover:bg-accent/10 transition-colors",
+                    isDark ? "text-white/85 hover:text-white" :"text-black hover:text-black" 
+                  )}
                 >
                   {isDark ? (
                     <>
