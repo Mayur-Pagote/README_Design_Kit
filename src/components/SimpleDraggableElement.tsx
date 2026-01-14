@@ -4,16 +4,30 @@ import { ElementRenderer } from './ElementRenderer';
 import type { ElementType } from '@/types/elements';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { GripVertical, Edit, Trash2 } from 'lucide-react';
+import { GripVertical, Edit, Trash2, ChevronUp, ChevronDown } from 'lucide-react';
 
 interface SimpleDraggableElementProps {
   element: ElementType;
   onEdit: (element: ElementType) => void;
   onDelete: (id: string) => void;
   viewMode?: 'developer' | 'recruiter' | 'client';
+  isMobile?: boolean;
+  onMoveUp?: (id: string) => void;
+  onMoveDown?: (id: string) => void;
+  canMoveUp?: boolean;
+  canMoveDown?: boolean;
 }
 
-export function SimpleDraggableElement({ element, onEdit, onDelete }: SimpleDraggableElementProps) {
+export function SimpleDraggableElement({ 
+  element, 
+  onEdit, 
+  onDelete, 
+  isMobile = false,
+  onMoveUp,
+  onMoveDown,
+  canMoveUp = false,
+  canMoveDown = false,
+}: SimpleDraggableElementProps) {
   const {
     attributes,
     listeners,
@@ -21,7 +35,10 @@ export function SimpleDraggableElement({ element, onEdit, onDelete }: SimpleDrag
     transform,
     transition,
     isDragging,
-  } = useSortable({ id: element.id });
+  } = useSortable({ 
+    id: element.id,
+    disabled: isMobile, // Disable drag-and-drop on mobile
+  });
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -35,17 +52,20 @@ export function SimpleDraggableElement({ element, onEdit, onDelete }: SimpleDrag
       ref={setNodeRef} 
       style={style} 
       className="relative group"
-      {...attributes}
-      {...listeners}
+      {...(!isMobile ? { ...attributes, ...listeners } : {})}
     >
-      <Card className={`p-4 border-2 transition-all cursor-grab active:cursor-grabbing ${
+      <Card className={`p-4 border-2 transition-all ${
+        isMobile 
+          ? 'border-transparent hover:border-primary/20 hover:shadow-md' 
+          : 'cursor-grab active:cursor-grabbing'
+      } ${
         isDragging 
           ? 'border-primary bg-primary/5 shadow-lg scale-105' 
           : 'border-transparent hover:border-primary/20 hover:shadow-md'
       }`}>
         
-        {/* Controls */}
-        <div className="absolute -right-3 top-2 opacity-0 group-hover:opacity-100 transition-opacity flex flex-col gap-1 z-10">
+        {/* Controls - Edit & Delete */}
+        <div className={`absolute -right-3 top-2 ${isMobile ? 'opacity-100' : 'opacity-0 group-hover:opacity-100'} transition-opacity flex flex-col gap-1 z-10`}>
           <Button
             size="sm"
             variant="outline"
@@ -72,15 +92,49 @@ export function SimpleDraggableElement({ element, onEdit, onDelete }: SimpleDrag
           </Button>
         </div>
 
-        {/* Drag indicator */}
-        <div className="absolute -left-3 top-2 opacity-40 group-hover:opacity-100 transition-opacity">
-          <div className="h-8 w-8 bg-background border border-border rounded-md shadow-sm flex items-center justify-center">
-            <GripVertical className="h-4 w-4 text-muted-foreground" />
+        {/* Mobile: Move Up/Down buttons */}
+        {isMobile && (
+          <div className="absolute -left-3 top-2 opacity-100 transition-opacity flex flex-col gap-1 z-10">
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-10 w-10 p-0 bg-background border shadow-sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onMoveUp?.(element.id);
+              }}
+              disabled={!canMoveUp}
+              title="Move up"
+            >
+              <ChevronUp className="h-4 w-4" />
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              className="h-10 w-10 p-0 bg-background border shadow-sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                onMoveDown?.(element.id);
+              }}
+              disabled={!canMoveDown}
+              title="Move down"
+            >
+              <ChevronDown className="h-4 w-4" />
+            </Button>
           </div>
-        </div>
+        )}
+
+        {/* Desktop: Drag indicator */}
+        {!isMobile && (
+          <div className="absolute -left-3 top-2 opacity-40 group-hover:opacity-100 transition-opacity">
+            <div className="h-8 w-8 bg-background border border-border rounded-md shadow-sm flex items-center justify-center">
+              <GripVertical className="h-4 w-4 text-muted-foreground" />
+            </div>
+          </div>
+        )}
 
         {/* Element Content */}
-        <div className="min-h-[40px] pl-2 pr-2 pointer-events-none select-none">
+        <div className={`min-h-[40px] pl-2 pr-2 ${isMobile ? '' : 'pointer-events-none select-none'}`}>
           <ElementRenderer element={element} />
         </div>
       </Card>
