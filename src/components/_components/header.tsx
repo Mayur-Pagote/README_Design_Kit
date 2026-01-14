@@ -72,7 +72,7 @@ export const Header = () => {
                 Elements
               </Link>
 
-              <DropdownMenu>
+              <DropdownMenu modal={false}>
                 <DropdownMenuTrigger asChild>
                   <button className={navItemClass}>
                     More
