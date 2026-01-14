@@ -32,6 +32,8 @@ export const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  const closeMenu = () => setMenuState(false)
+
   const navItemClass =
     "relative flex items-center gap-1 text-[15px] font-medium text-white/85 " +
     "transition-all duration-200 ease-out " +
@@ -44,7 +46,7 @@ export const Header = () => {
           className={cn(
             'mx-auto mt-2 max-w-3xl px-6 transition-all duration-300 lg:px-12',
             isScrolled &&
-              'bg-background/60 max-w-2xl rounded-2xl border backdrop-blur-lg lg:px-5'
+            'bg-background/60 max-w-2xl rounded-2xl border backdrop-blur-lg lg:px-5'
           )}
         >
           <div className="relative flex flex-wrap items-center justify-between py-3 lg:py-4">
@@ -123,12 +125,69 @@ export const Header = () => {
             <button
               onClick={() => setMenuState(!menuState)}
               className="relative z-20 -m-2.5 -mr-4 block p-2.5 lg:hidden"
+              aria-label="Toggle menu"
             >
-              <Menu className="size-7" />
-              <X className="absolute inset-0 m-auto size-6 opacity-0" />
+              <Menu className={cn("size-7 transition-all", menuState && "opacity-0")} />
+              <X className={cn("absolute inset-0 m-auto size-6 opacity-0 transition-all", menuState && "opacity-100")} />
             </button>
 
           </div>
+
+          {/* Mobile Navigation Menu */}
+          {menuState && (
+            <div className="lg:hidden pb-4 mt-4 space-y-2 border-t border-white/10 animate-in fade-in slide-in-from-top-2 bg-background/95 backdrop-blur-md rounded-xl">
+              {/* Navigation Links */}
+              {[
+                { name: "Elements", to: "/elements" },
+                { name: "Templates", to: "/templates" },
+                { name: "Drag & Drop Editor", to: "/drag-drop" },
+                { name: "Readme Generator", to: "/readme-generator" },
+                { name: "Coming Soon", to: "/coming-soon" },
+              ].map((item) => (
+                <Link
+                  key={item.to}
+                  to={item.to}
+                  onClick={closeMenu}
+                  className="block px-4 py-2.5 rounded-md text-sm font-medium text-white/85 hover:bg-accent/10 hover:text-white transition-colors"
+                >
+                  {item.name}
+                </Link>
+              ))}
+
+              {/* Divider + Extra Controls */}
+              <div className="mt-3 pt-3 space-y-2 border-t border-white/10">
+                {/* Theme Toggle */}
+                <button
+                  onClick={() => {
+                    setTheme(isDark ? "light" : "dark");
+                    closeMenu();
+                  }}
+                  className="w-full flex items-center gap-3 px-4 py-2.5 rounded-md text-sm font-medium text-white/85 hover:bg-accent/10 hover:text-white transition-colors"
+                >
+                  {isDark ? (
+                    <>
+                      <Sun className="h-5 w-5 text-yellow-400" />
+                      <span>Light Mode</span>
+                    </>
+                  ) : (
+                    <>
+                      <Moon className="h-5 w-5 text-blue-400" />
+                      <span>Dark Mode</span>
+                    </>
+                  )}
+                </button>
+
+                {/* GitHub Stars Button */}
+                <div className="px-4 py-2">
+                  <GitHubStarsButton
+                    username="Mayur-Pagote"
+                    repo="README_Design_Kit"
+                    isScrolled={isScrolled}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       </nav>
     </header>
