@@ -1,11 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Loader2, GitCommit, Github } from 'lucide-react';
 import { toast } from 'sonner';
+import { Github } from 'lucide-react';
 import { getUserRepos, getRepoBranches, commitFilesToGitHub } from '@/services/githubService';
 import { GitHubTokenDialog } from './GitHubTokenDialog';
 
@@ -24,11 +21,7 @@ export const SaveToGitHubDialog: React.FC<SaveToGitHubDialogProps> = ({
 }) => {
     // State
     const [tokenDialogOpen, setTokenDialogOpen] = useState(false);
-    const [isLoadingRepos, setIsLoadingRepos] = useState(false);
-    const [isLoadingBranches, setIsLoadingBranches] = useState(false);
     const [isCommitting, setIsCommitting] = useState(false);
-    const [repos, setRepos] = useState<any[]>([]);
-    const [branches, setBranches] = useState<any[]>([]);
 
     // Selection State
     const [selectedRepo, setSelectedRepo] = useState<string>('');
@@ -44,18 +37,6 @@ export const SaveToGitHubDialog: React.FC<SaveToGitHubDialogProps> = ({
         }
     }, [open]);
 
-    useEffect(() => {
-        if (hasToken && open) {
-            fetchRepos();
-        }
-    }, [hasToken, open]);
-
-    useEffect(() => {
-        if (selectedRepo && hasToken) {
-            fetchBranches(selectedRepo);
-        }
-    }, [selectedRepo]);
-
     const checkToken = () => {
         const token = sessionStorage.getItem('github-token'); // Use sessionStorage instead of localStorage
         if (!token) {
@@ -64,48 +45,6 @@ export const SaveToGitHubDialog: React.FC<SaveToGitHubDialogProps> = ({
             setTokenDialogOpen(true);
         } else {
             setHasToken(true);
-        }
-    };
-
-    const fetchRepos = async () => {
-        setIsLoadingRepos(true);
-        try {
-            const token = sessionStorage.getItem('github-token'); // Use sessionStorage here
-            if (!token) return;
-            const data = await getUserRepos(token);
-            setRepos(data);
-        } catch (error) {
-            console.error('Failed to fetch repos:', error);
-            toast.error('Failed to load repositories. Your token might be expired.');
-            setHasToken(false);
-            setTokenDialogOpen(true);
-        } finally {
-            setIsLoadingRepos(false);
-        }
-    };
-
-    const fetchBranches = async (repoFullName: string) => {
-        if (!repoFullName) return;
-        setIsLoadingBranches(true);
-        const [owner, repo] = repoFullName.split('/');
-        try {
-            const token = sessionStorage.getItem('github-token'); // Use sessionStorage here
-            if (!token) return;
-            const data = await getRepoBranches(owner, repo, token);
-            setBranches(data);
-
-            // Auto-select 'main' or 'master' if available
-            const defaultBranch = data.find((b: any) => b.name === 'main' || b.name === 'master');
-            if (defaultBranch) {
-                setSelectedBranch(defaultBranch.name);
-            } else if (data.length > 0) {
-                setSelectedBranch(data[0].name);
-            }
-        } catch (error) {
-            console.error('Failed to fetch branches:', error);
-            toast.error('Failed to load branches.');
-        } finally {
-            setIsLoadingBranches(false);
         }
     };
 
@@ -163,8 +102,6 @@ export const SaveToGitHubDialog: React.FC<SaveToGitHubDialogProps> = ({
                                     onClick={() => {
                                         sessionStorage.removeItem('github-token'); // Use sessionStorage here
                                         setHasToken(false);
-                                        setRepos([]);
-                                        setBranches([]);
                                         setSelectedRepo('');
                                         setSelectedBranch('');
                                         toast.success('GitHub token removed');
@@ -198,7 +135,6 @@ export const SaveToGitHubDialog: React.FC<SaveToGitHubDialogProps> = ({
                 }}
                 onTokenSaved={() => {
                     setHasToken(true);
-                    fetchRepos();
                 }}
             />
         </>
