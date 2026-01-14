@@ -42,7 +42,7 @@ export function TechStackDialog({ isOpen, onClose, onAddElement }: TechStackDial
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[calc(100vh-96px)] overflow-y-auto mt-16">
         <DialogHeader>
           <DialogTitle>Advanced Tech Stack Generator</DialogTitle>
           <DialogDescription>
