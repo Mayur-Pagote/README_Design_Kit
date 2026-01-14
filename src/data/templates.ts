@@ -3,376 +3,76 @@ import type { Template, TemplateCategory } from '@/types/templates';
 // Sample template data - this would typically come from an API
 export const sampleTemplates: Template[] = [
   {
-    id: 'template-modern-oss',
-    name: 'Modern Open Source',
-    description: 'A sleek, professional template perfect for open source projects with comprehensive sections.',
-    category: 'open-source',
-    tags: ['modern', 'comprehensive', 'badges', 'tech-stack'],
+    id: 'template-1',
+    name: 'Template - I',
+    description: 'A sleek, professional template.',
+    category: 'professional',
+    tags: ['modern', 'comprehensive'],
     author: 'README Design Kit',
     version: '1.0.0',
     popularity: 95,
+    thumbnail: './template-1.png',
     created: new Date('2024-12-01'),
-    updated: new Date('2024-12-15'),
+    updated: new Date('2026-01-15'),
     featured: true,
-    thumbnail: '/templates/thumbnails/modern-oss.png',
-    elements: [
-      {
-        id: 'header-1',
-        type: 'header',
-        content: '🚀 Your Amazing Project',
-        level: 1,
-      },
-      {
-        id: 'banner-1',
-        type: 'banner',
-        content: '⭐ Star this project if you find it helpful!',
-        variant: 'gradient',
-        color: 'blue',
-      },
-      {
-        id: 'text-1',
-        type: 'text',
-        content: 'A modern, feature-rich project that solves real-world problems with elegant solutions.',
-        style: {
-          fontSize: 'lg',
-          fontWeight: 'normal',
-          textAlign: 'center',
-          color: 'text-muted-foreground',
-        },
-      },
-      {
-        id: 'tech-stack-1',
-        type: 'tech-stack',
-        technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Vite'],
-        layout: 'badges',
-      },
-      {
-        id: 'header-2',
-        type: 'header',
-        content: '✨ Features',
-        level: 2,
-      },
-      {
-        id: 'table-1',
-        type: 'table',
-        headers: ['Feature', 'Status', 'Description'],
-        rows: [
-          ['🎨 Modern UI', '✅ Ready', 'Beautiful and responsive design'],
-          ['🔧 Easy Setup', '✅ Ready', 'Quick installation process'],
-          ['📱 Mobile Friendly', '✅ Ready', 'Works on all devices'],
-          ['🚀 Performance', '🚧 WIP', 'Optimized for speed'],
-        ],
-      },
-    ],
-  },
-  {
-    id: 'template-personal-portfolio',
-    name: 'Personal Portfolio',
-    description: 'Showcase your skills and projects with this personal portfolio template.',
-    category: 'personal-projects',
-    tags: ['portfolio', 'personal', 'skills', 'projects'],
-    author: 'README Design Kit',
-    version: '1.0.0',
-    popularity: 87,
-    created: new Date('2024-11-20'),
-    updated: new Date('2024-12-10'),
-    featured: true,
-    thumbnail: '/templates/thumbnails/personal-portfolio.png',
-    elements: [
-      {
-        id: 'header-1',
-        type: 'header',
-        content: '👋 Hi, I\'m [Your Name]',
-        level: 1,
-      },
-      {
-        id: 'text-1',
-        type: 'text',
-        content: 'I\'m a passionate developer who loves creating amazing digital experiences.',
-        style: {
-          fontSize: 'lg',
-          fontWeight: 'normal',
-          textAlign: 'center',
-          color: 'text-foreground',
-        },
-      },
-      {
-        id: 'tech-stack-1',
-        type: 'tech-stack',
-        technologies: ['JavaScript', 'Python', 'React', 'Node.js', 'Docker'],
-        layout: 'grid',
-      },
-      {
-        id: 'header-2',
-        type: 'header',
-        content: '🚀 Featured Projects',
-        level: 2,
-      },
-      {
-        id: 'text-2',
-        type: 'text',
-        content: 'Here are some of my recent projects that I\'m proud of:',
-        style: {
-          fontSize: 'md',
-          fontWeight: 'normal',
-          textAlign: 'left',
-          color: 'text-foreground',
-        },
-      },
-    ],
-  },
-  {
-    id: 'template-corporate-docs',
-    name: 'Corporate Documentation',
-    description: 'Professional documentation template suitable for enterprise projects.',
-    category: 'corporate',
-    tags: ['professional', 'documentation', 'enterprise', 'clean'],
-    author: 'README Design Kit',
-    version: '1.0.0',
-    popularity: 78,
-    created: new Date('2024-11-15'),
-    updated: new Date('2024-12-05'),
-    featured: false,
-    thumbnail: '/templates/thumbnails/corporate-docs.png',
-    elements: [
-      {
-        id: 'header-1',
-        type: 'header',
-        content: 'Project Documentation',
-        level: 1,
-      },
-      {
-        id: 'text-1',
-        type: 'text',
-        content: 'Comprehensive documentation for our enterprise solution.',
-        style: {
-          fontSize: 'lg',
-          fontWeight: 'normal',
-          textAlign: 'left',
-          color: 'text-foreground',
-        },
-      },
-      {
-        id: 'header-2',
-        type: 'header',
-        content: 'Table of Contents',
-        level: 2,
-      },
-      {
-        id: 'table-1',
-        type: 'table',
-        headers: ['Section', 'Description'],
-        rows: [
-          ['Getting Started', 'Initial setup and configuration'],
-          ['API Reference', 'Complete API documentation'],
-          ['Examples', 'Code examples and use cases'],
-          ['Support', 'Contact information and resources'],
-        ],
-      },
-    ],
-  },
-  {
-    id: 'template-startup-mvp',
-    name: 'Startup MVP',
-    description: 'Perfect for startups showcasing their minimum viable product.',
-    category: 'startup',
-    tags: ['startup', 'mvp', 'modern', 'business'],
-    author: 'README Design Kit',
-    version: '1.0.0',
-    popularity: 82,
-    created: new Date('2024-12-01'),
-    updated: new Date('2024-12-12'),
-    featured: true,
-    thumbnail: '/templates/thumbnails/startup-mvp.png',
-    elements: [
-      {
-        id: 'header-1',
-        type: 'header',
-        content: '🚀 [Your Startup Name]',
-        level: 1,
-      },
-      {
-        id: 'banner-1',
-        type: 'banner',
-        content: '🎉 Now in Beta - Join our early adopters!',
-        variant: 'colored',
-        color: 'green',
-      },
-      {
-        id: 'text-1',
-        type: 'text',
-        content: 'Revolutionizing [industry] with our innovative solution.',
-        style: {
-          fontSize: 'xl',
-          fontWeight: 'semibold',
-          textAlign: 'center',
-          color: 'text-foreground',
-        },
-      },
-      {
-        id: 'header-2',
-        type: 'header',
-        content: '💡 What We Do',
-        level: 2,
-      },
-      {
-        id: 'text-2',
-        type: 'text',
-        content: 'Brief description of your product and its key value proposition.',
-        style: {
-          fontSize: 'lg',
-          fontWeight: 'normal',
-          textAlign: 'left',
-          color: 'text-foreground',
-        },
-      },
-    ],
-  },
-  {
-    id: 'template-academic-research',
-    name: 'Academic Research',
-    description: 'Template for academic projects and research repositories.',
-    category: 'academic',
-    tags: ['academic', 'research', 'scholarly', 'citation'],
-    author: 'README Design Kit',
-    version: '1.0.0',
-    popularity: 65,
-    created: new Date('2024-11-10'),
-    updated: new Date('2024-11-25'),
-    featured: false,
-    thumbnail: '/templates/thumbnails/academic-research.png',
-    elements: [
-      {
-        id: 'header-1',
-        type: 'header',
-        content: 'Research Project Title',
-        level: 1,
-      },
-      {
-        id: 'text-1',
-        type: 'text',
-        content: 'Abstract: Brief summary of the research project, methodology, and findings.',
-        style: {
-          fontSize: 'md',
-          fontWeight: 'normal',
-          textAlign: 'left',
-          color: 'text-foreground',
-        },
-      },
-      {
-        id: 'header-2',
-        type: 'header',
-        content: '📚 Citation',
-        level: 2,
-      },
-      {
-        id: 'code-block-1',
-        type: 'code-block',
-        content: '@article{author2024,\n  title={Research Project Title},\n  author={Author Name},\n  journal={Journal Name},\n  year={2024}\n}',
-        language: 'bibtex',
-      },
-    ],
-  },
-  {
-    id: 'template-community-project',
-    name: 'Community Project',
-    description: 'Template for community-driven open source projects.',
-    category: 'community',
-    tags: ['community', 'open-source', 'collaboration', 'contributing'],
-    author: 'README Design Kit',
-    version: '1.0.0',
-    popularity: 73,
-    created: new Date('2024-11-28'),
-    updated: new Date('2024-12-08'),
-    featured: false,
-    thumbnail: '/templates/thumbnails/community-project.png',
-    elements: [
-      {
-        id: 'header-1',
-        type: 'header',
-        content: '🌟 Community Project Name',
-        level: 1,
-      },
-      {
-        id: 'banner-1',
-        type: 'banner',
-        content: '🤝 Join our amazing community of contributors!',
-        variant: 'gradient',
-        color: 'purple',
-      },
-      {
-        id: 'text-1',
-        type: 'text',
-        content: 'This project is built by the community, for the community.',
-        style: {
-          fontSize: 'lg',
-          fontWeight: 'normal',
-          textAlign: 'center',
-          color: 'text-foreground',
-        },
-      },
-      {
-        id: 'header-2',
-        type: 'header',
-        content: '🤝 Contributing',
-        level: 2,
-      },
-      {
-        id: 'text-2',
-        type: 'text',
-        content: 'We welcome contributions from everyone! Check out our contributing guidelines.',
-        style: {
-          fontSize: 'md',
-          fontWeight: 'normal',
-          textAlign: 'left',
-          color: 'text-foreground',
-        },
-      },
-    ],
+    markdown:`
+      <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=90&section=header" width="100%"/>
+      <h1 align="center"> About Me </h1>
+
+      <!-- Profile Description -->
+      <span style="color:#0000FF;"><b>👀 I’m interested in technology.</b></span><br>
+      <span style="color:#228B22;"><b>🌱 I’m currently studying Computer Science.</b></span><br>
+      <span style="color:#FF69B4;"><b>⚡ Fun fact: The first gigabyte drive cost $40,000!</b></span><br>
+      <span style="color:#FFD700;"><b>❤️ Favorite quote: "Help ever, hurt never."</b></span><br>
+      <br> </br>
+
+      <img src="https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif" width="100%">
+
+      <!-- GitHub Stats Header -->
+    <h1 align="center"> 📊 GitHub Stats </h1>
+
+    <!-- Summary Cards -->
+    <div align="center">
+        <!-- Profile Details Card -->
+        <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username={username}&theme=transparent" />
+        <!-- Divider GIF -->
+        <img src="https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif" width="100%">
+        <!-- Top Languages Card -->
+        <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username={username}&theme=transparent" />
+        <!-- Divider GIF -->
+        <img src="https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif" width="100%">
+        <!-- Stats Card -->
+        <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username={username}&theme=transparent" />
+        <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username={username}&theme=transparent" />
+        <img src="https://github-readme-activity-graph.vercel.app/graph?username={username}&theme=react-dark&hide_border=false" width="100%" />
+    </div>
+
+    <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" width="100%"/>
+    `,
   },
 ];
 
 export const templateCategories: { value: TemplateCategory; label: string; description: string }[] = [
   {
-    value: 'personal-projects',
-    label: 'Personal Projects',
-    description: 'Templates for personal projects and portfolios',
+    value: 'modern',
+    label: 'Modern',
+    description: 'Modern Templates',
   },
   {
-    value: 'open-source',
-    label: 'Open Source',
-    description: 'Templates for open source projects and libraries',
+    value: 'minimal',
+    label: 'Minimal',
+    description: 'Minimal Templates',
   },
   {
-    value: 'corporate',
-    label: 'Corporate',
-    description: 'Professional templates for enterprise projects',
+    value: 'professional',
+    label: 'Professional',
+    description: 'Professional Templates',
   },
   {
-    value: 'documentation',
-    label: 'Documentation',
-    description: 'Templates focused on project documentation',
-  },
-  {
-    value: 'portfolio',
-    label: 'Portfolio',
-    description: 'Showcase your work and skills',
-  },
-  {
-    value: 'startup',
-    label: 'Startup',
-    description: 'Templates for startup projects and MVPs',
-  },
-  {
-    value: 'academic',
-    label: 'Academic',
-    description: 'Templates for research and academic projects',
-  },
-  {
-    value: 'community',
-    label: 'Community',
-    description: 'Templates for community-driven projects',
-  },
+    value: 'other',
+    label: 'Other',
+    description: 'Other Templates',
+  }
 ];
 
 export const popularTags = [
@@ -382,14 +82,5 @@ export const popularTags = [
   'comprehensive',
   'badges',
   'tech-stack',
-  'portfolio',
-  'open-source',
-  'documentation',
-  'startup',
-  'academic',
-  'community',
-  'business',
-  'personal',
   'clean',
-  'colorful',
 ];

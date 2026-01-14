@@ -5,12 +5,11 @@ import type { Template } from '@/types/templates';
 export default function TemplateLibraryPage() {
   const navigate = useNavigate();
 
-  const handleSelectTemplate = (template: Template) => {
-    // Store the selected template in sessionStorage so it can be loaded in the editor
-    sessionStorage.setItem('selectedTemplate', JSON.stringify(template));
-    
-    // Navigate to the drag-drop editor
-    navigate('/drag-drop?template=true');
+  const handleSelectTemplate = (template: Template, username: string, repo: string) => {
+    const markdown = template.markdown || '';
+    const finalMarkdown = markdown.replace(/{username}/g, username).replace(/{repo}/g, repo);
+    // Navigate to the markdown editor
+    navigate('/markdown-editor', { state: { markdown: finalMarkdown } });
   };
 
   const handleStartFromScratch = () => {

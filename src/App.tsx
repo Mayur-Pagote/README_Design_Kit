@@ -20,6 +20,7 @@ import { ThemeProvider } from "./components/theme-provider";
 import { Toaster } from "./components/ui/sonner";
 import ReadmeGenerator from "./components/generator/Readme-generator";
 import ReadmeEditor from "./components/readme-editor/ReadmeEditor";
+import MarkdownEditor from "./pages/MarkdownEditor";
 import AIEditorIntro from "./pages/AIEditorIntro";
 import Cursortrail from "./Cursortrail";
 
@@ -62,6 +63,7 @@ export default function App() {
               <Route path="/terms" element={<Layout><TermsOfService /></Layout>} />
               <Route path="/readme-generator" element={<Layout><ReadmeGenerator /></Layout>} />
               <Route path="/readme-editor" element={<ReadmeEditor />} />
+              <Route path="/markdown-editor" element={<Layout><MarkdownEditor /></Layout>} />
               <Route path="/ai-editor-intro" element={<Layout><AIEditorIntro /></Layout>} />
               <Route path="*" element={<Layout><NotFound /></Layout>} />
             </Routes>

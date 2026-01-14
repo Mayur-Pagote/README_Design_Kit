@@ -12,14 +12,17 @@ import { TemplateThumbnail } from './TemplateThumbnail';
 import { useTemplatePreferences } from '@/hooks/useTemplatePreferences';
 import { sampleTemplates, templateCategories, popularTags } from '@/data/templates';
 import type { Template, TemplateCategory } from '@/types/templates';
+import UserInput from './UserInput';
 
 interface TemplateLibraryProps {
-  onSelectTemplate: (template: Template) => void;
+  onSelectTemplate: (template: Template, username: string, repo: string) => void;
   onStartFromScratch: () => void;
 }
 
 export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: TemplateLibraryProps) {
   const [searchQuery, setSearchQuery] = useState('');
+  const [username, setUsername] = useState('Mayur-Pagote');
+  const [repo, setRepo] = useState('README_Design_Kit');
   const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | 'all'>('all');  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [previewTemplate, setPreviewTemplate] = useState<Template | null>(null);
@@ -74,12 +77,20 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
     setActiveTab('all');
   };const handleTemplateSelect = (template: Template) => {
     addToRecentlyUsed(template.id);
-    onSelectTemplate(template);
+    onSelectTemplate(template, username, repo);
   };
 
   const handleTemplatePreview = (template: Template) => {
     addToRecentlyViewed(template.id);
     setPreviewTemplate(template);
+  };
+
+  const handleUsernameChange = (newUsername: string) => {
+    setUsername(newUsername);
+  };
+  
+  const handleRepoChange = (newRepo: string) => { 
+    setRepo(newRepo);
   };
 
   return (
@@ -104,6 +115,13 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
               </Button>
             </div>
           </div>
+
+          <UserInput 
+            onUsernameChange={handleUsernameChange}
+            defaultUsername="Mayur-Pagote"
+            onRepoChange={handleRepoChange}  
+            defaultRepo="README_Design_Kit" 
+          />
 
           {/* Filters */}
           <div className="space-y-4">
@@ -317,7 +335,9 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
             <TemplatePreview
               template={previewTemplate}
               onUseTemplate={() => {
-                handleTemplateSelect(previewTemplate);
+                if (previewTemplate) {
+                  handleTemplateSelect(previewTemplate);
+                }
                 setPreviewTemplate(null);
               }}
             />
@@ -336,7 +356,7 @@ interface TemplateCardProps {
   onToggleFavorite: () => void;
 }
 
-function TemplateCard({ template, isFavorite, onSelect, onPreview, onToggleFavorite }: TemplateCardProps) {
+function TemplateCard({ template, isFavorite, onSelect, onToggleFavorite }: TemplateCardProps) {
   return (
     <Card className="group hover:shadow-lg transition-all duration-200 cursor-pointer pt-0 flex flex-col h-full">
       <div className="aspect-video bg-muted rounded-t-lg overflow-hidden">
@@ -394,12 +414,9 @@ function TemplateCard({ template, isFavorite, onSelect, onPreview, onToggleFavor
         </div>
       </CardContent>
       <CardFooter>
-          <div className="flex gap-2">
-            <Button size="sm" onClick={onSelect} className="flex-1">
+          <div className="flex gap-2 w-full">
+            <Button size="lg" onClick={onSelect} className="flex-1">
               Use Template
-            </Button>
-            <Button size="sm" variant="outline" onClick={onPreview}>
-              Preview
             </Button>
           </div>
       </CardFooter>
@@ -415,7 +432,7 @@ interface TemplateListItemProps {
   onToggleFavorite: () => void;
 }
 
-function TemplateListItem({ template, isFavorite, onSelect, onPreview, onToggleFavorite }: TemplateListItemProps) {
+function TemplateListItem({ template, isFavorite, onSelect, onToggleFavorite }: TemplateListItemProps) {
   return (
     <Card className="hover:shadow-md transition-shadow">
       <CardContent className="p-6">        <div className="flex items-center gap-4">
@@ -452,9 +469,6 @@ function TemplateListItem({ template, isFavorite, onSelect, onPreview, onToggleF
                   onClick={onToggleFavorite}
                 >
                   <Heart className={`h-4 w-4 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
-                </Button>
-                <Button size="sm" variant="outline" onClick={onPreview}>
-                  Preview
                 </Button>
                 <Button size="sm" onClick={onSelect}>
                   Use Template
