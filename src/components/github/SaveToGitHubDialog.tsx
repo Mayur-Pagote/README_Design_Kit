@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { toast } from 'sonner';
 import { Github } from 'lucide-react';
-import { getUserRepos, getRepoBranches, commitFilesToGitHub } from '@/services/githubService';
+import { commitFilesToGitHub } from '@/services/githubService';
 import { GitHubTokenDialog } from './GitHubTokenDialog';
 
 interface SaveToGitHubDialogProps {
@@ -121,7 +121,7 @@ export const SaveToGitHubDialog: React.FC<SaveToGitHubDialogProps> = ({
                     <DialogFooter>
                         <Button variant="outline" onClick={() => onOpenChange(false)}>Cancel</Button>
                         <Button onClick={handleCommit} disabled={isCommitting || !selectedRepo || !selectedBranch}>
-                            {isCommitting && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                            {isCommitting && <span className="mr-2 h-4 w-4 animate-spin">Loading...</span>}
                             Commit Changes
                         </Button>
                     </DialogFooter>
