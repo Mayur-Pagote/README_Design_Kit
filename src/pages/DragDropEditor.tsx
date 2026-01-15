@@ -505,7 +505,7 @@ export default function DragDropEditor() {
             </Sheet>
 
             {/* Mobile: Main Editor Area */}
-            <div className="flex-1 overflow-y-scroll">
+            <div className="flex-1 overflow-auto">
               <EditorCanvas
                 elements={elements}
                 onElementsChange={handleElementsChange}
@@ -565,7 +565,7 @@ export default function DragDropEditor() {
                     </TabsTrigger>
                   </TabsList>
                 </div>
-                <TabsContent value="editor" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex">
+                <TabsContent value="editor" className="flex-1 overflow-hidden m-0 data-[state=active]:flex">
                   <EditorCanvas
                     elements={elements}
                     onElementsChange={handleElementsChange}
@@ -573,7 +573,7 @@ export default function DragDropEditor() {
                     onReorderElement={handleReorderElement}
                   />
                 </TabsContent>
-                <TabsContent value="preview" className="flex-1 overflow-y-auto m-0 data-[state=active]:flex">
+                <TabsContent value="preview" className="flex-1 overflow-hidden m-0 data-[state=active]:flex">
                   <ReadmePreview
                     elements={elements}
                     preset={exportPreset}
@@ -589,12 +589,12 @@ export default function DragDropEditor() {
         {!isMobile && !isTablet && (
           <div className="flex-1 flex flex-row overflow-hidden">
             {showPalette && (
-              <div className="basis-1/4 min-w-[220px] max-w-[320px] border-r overflow-y-scroll">
+              <div className="basis-1/4 min-w-[220px] max-w-[320px] border-r overflow-auto">
                 <ElementPalette onAddElement={handleAddElement} />
               </div>
             )}
 
-            <div className="flex-1 overflow-y-scroll">
+            <div className="flex-1 overflow-auto">
               <EditorCanvas
                 elements={elements}
                 onElementsChange={handleElementsChange}
@@ -604,7 +604,7 @@ export default function DragDropEditor() {
             </div>
 
             {showPreview && (
-              <div className="basis-1/2 max-w-[600px] border-l overflow-y-scroll">
+              <div className="basis-1/2 max-w-[600px] border-l overflow-auto">
                 <ReadmePreview
                   elements={elements}
                   preset={exportPreset}
