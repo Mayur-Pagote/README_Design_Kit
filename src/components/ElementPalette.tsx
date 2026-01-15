@@ -237,7 +237,7 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
 
   return (
     <TooltipProvider>
-      <div className="w-full md:w-80 border-r border-border bg-muted/50 p-3 md:p-4 overflow-auto">
+      <div className="w-full md:w-80 border-r border-border bg-muted/50 p-3 md:p-4 overflow-hidden">
         <div className={`mb-4 ${isMobile ? 'mt-6' : ''}`}>
           <h2 className="font-semibold text-base md:text-lg mb-2">Element Palette</h2>
           <p className="text-xs md:text-sm text-muted-foreground">
