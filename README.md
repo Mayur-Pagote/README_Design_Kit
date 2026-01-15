@@ -178,6 +178,27 @@ Read the [Contributing Guidelines](./CONTRIBUTING.md) for detailed instructions.
 
 ---
 
+## 🌟 Open Source Participation
+
+<table>
+  <tr>
+    <th>Program</th>
+    <th>Program Name</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="./logo.png" alt="SWoC Logo" width="80" height="80">
+    </td>
+    <td><strong>Social Winter of Code (SWoC)</strong></td>
+    <td>1 Jan 2026</td>
+    <td>1 March 2026</td>
+  </tr>
+</table>
+
+---
+
 ## 📄 License
 
 This project is licensed under the **MIT License**. See [LICENSE](./LICENSE) for details.
