@@ -113,7 +113,7 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
                 `}
               >
                 <div className="p-6 space-y-4 min-h-[400px]">
-                  {template.elements.map((element, index) => (
+                  {template.elements?.map((element, index) => (
                     <ElementRenderer 
                       key={`${element.id}-${index}`} 
                       element={element} 
@@ -130,12 +130,12 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
             <CardHeader>
               <CardTitle className="text-lg">Template Structure</CardTitle>
               <CardDescription>
-                This template contains {template.elements.length} elements
+                This template contains {template.elements?.length || 0} elements
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
-                {template.elements.map((element, index) => (
+                {template.elements?.map((element, index) => (
                   <div key={`${element.id}-structure`} className="flex items-center gap-3 p-3 border rounded-lg">
                     <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center text-sm font-medium">
                       {index + 1}

@@ -21,6 +21,7 @@ export type TemplateCategory =
   | 'modern'
   | 'minimal'
   | 'professional'
+  | 'personal-projects'
   | 'other';
 
 export interface TemplateFilter {
