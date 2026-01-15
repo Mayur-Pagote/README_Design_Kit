@@ -7,26 +7,25 @@
 
   <h3>✨ Craft Beautiful Documentation in Minutes</h3>
   
-  <p>
-    <a href="LICENSE">
-      <img src="https://img.shields.io/badge/License-MIT-green.svg" alt="MIT License">
-    </a>
-    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" alt="PRs Welcome">
-    <img src="https://img.shields.io/badge/SWoC-S6-blueviolet" alt="SwoC">
-    <img src="https://img.shields.io/github/stars/Mayur-Pagote/README_Design_Kit?style=social" alt="GitHub Stars">
-  </p>
-  
-  <p><strong>Transform your project documentation from overlooked to outstanding</strong></p>
-</div>
 
-## 📊 Project Stats
-
-<div align="center">
+  <div align="center">
   <img src="https://img.shields.io/github/contributors/Mayur-Pagote/README_Design_Kit" alt="Contributors">
   <img src="https://img.shields.io/github/forks/Mayur-Pagote/README_Design_Kit" alt="Forks">
+    <img src="https://img.shields.io/github/stars/Mayur-Pagote/README_Design_Kit?style=social" alt="GitHub Stars">
   <img src="https://img.shields.io/github/issues/Mayur-Pagote/README_Design_Kit" alt="Issues">
   <img src="https://img.shields.io/github/issues-pr/Mayur-Pagote/README_Design_Kit" alt="Pull Requests">
 </div>
+  
+</div>
+
+---
+
+## Whats is this about?
+README Design Kit is your all-in-one solution for creating professional, accessible, and visually appealing documentation. This curated collection of templates, components, and AI-powered tools eliminates the guesswork from writing README files, letting you focus on what matters: your code.
+
+Stop staring at blank markdown files. Start shipping documentation that developers actually want to read.
+
+
 
 ---
 
