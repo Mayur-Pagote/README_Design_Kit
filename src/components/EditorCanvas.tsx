@@ -65,7 +65,7 @@ export function EditorCanvas({ elements, onElementsChange, onEditElement, viewMo
   };
 
   return (
-    <div className="flex-1 p-6 overflow-y-auto bg-muted/30">
+    <div className="flex-1 p-6 bg-muted/30">
       <div className="max-w-4xl mx-auto">
         <div className="mb-6">
           <h2 className="text-xl font-semibold mb-2">README Editor</h2>
