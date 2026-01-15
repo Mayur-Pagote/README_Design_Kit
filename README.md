@@ -16,79 +16,24 @@
     <img src="https://img.shields.io/github/stars/Mayur-Pagote/README_Design_Kit?style=social" alt="GitHub Stars">
   </p>
   
-  <p>
-    <strong>Transform your project documentation from overlooked to outstanding</strong>
-  </p>
+  <p><strong>Transform your project documentation from overlooked to outstanding</strong></p>
+</div>
+
+## 📊 Project Stats
+
+<div align="center">
+  <img src="https://img.shields.io/github/contributors/Mayur-Pagote/README_Design_Kit" alt="Contributors">
+  <img src="https://img.shields.io/github/forks/Mayur-Pagote/README_Design_Kit" alt="Forks">
+  <img src="https://img.shields.io/github/issues/Mayur-Pagote/README_Design_Kit" alt="Issues">
+  <img src="https://img.shields.io/github/issues-pr/Mayur-Pagote/README_Design_Kit" alt="Pull Requests">
 </div>
 
 ---
 
-## 📘 What is README Design Kit?
-
-**README Design Kit** is your all-in-one solution for creating **professional, accessible, and visually appealing** documentation. This curated collection of templates, components, and AI-powered tools eliminates the guesswork from writing README files, letting you focus on what matters: your code.
-
-Stop staring at blank markdown files. Start shipping documentation that developers actually want to read.
-
----
-
-## 🎯 Why Choose README Design Kit?
-
-Your README is often the **first—and sometimes only—interaction** someone has with your project. Make it count.
-
-### The Problem
-- ❌ Generic, uninspiring documentation that doesn't reflect your project's quality
-- ❌ Inconsistent structure across your repositories
-- ❌ Hours spent researching what to include
-- ❌ Documentation that doesn't speak to your audience
-
-### The Solution
-README Design Kit provides:
-
-- ✅ **Battle-tested templates** optimized for different project types
-- ✅ **Modular components** you can mix and match instantly
-- ✅ **AI-powered enhancement** for professional tone and clarity
-- ✅ **Persona preview mode** to see your README through different eyes
-- ✅ **Best practices baked in** from hundreds of successful open-source projects
-
-**Result:** Professional documentation in minutes, not hours.
-
----
-
-## 📦 What's Inside
-
-<table>
-  <tr>
-    <td align="center">📄</td>
-    <td><strong>Ready-to-Use Templates</strong><br/>Pre-built READMEs for web apps, CLI tools, libraries, APIs, and more</td>
-  </tr>
-  <tr>
-    <td align="center">🎨</td>
-    <td><strong>Design Components</strong><br/>Badges, banners, tables, shields, and layouts that look polished</td>
-  </tr>
-  <tr>
-    <td align="center">🧱</td>
-    <td><strong>Modular Sections</strong><br/>Installation guides, usage examples, contributing guidelines, and more</td>
-  </tr>
-  <tr>
-    <td align="center">🧪</td>
-    <td><strong>Real-World Examples</strong><br/>Annotated READMEs from successful projects showing what works</td>
-  </tr>
-  <tr>
-    <td align="center">🤖</td>
-    <td><strong>AI Enhancement Tools</strong><br/>Gemini-powered assistance for writing, editing, and refining content</td>
-  </tr>
-  <tr>
-    <td align="center">👥</td>
-    <td><strong>Persona Previews</strong><br/>See your README from developer, recruiter, and user perspectives</td>
-  </tr>
-</table>
-
----
 
 ## 🚀 Quick Start
 
-### Option 1: Use a Complete Template
-
+Use a Complete Template
 ```bash
 # Clone the repository
 git clone https://github.com/Mayur-Pagote/README_Design_Kit.git
@@ -99,77 +44,54 @@ cd README_Design_Kit/templates
 # Copy your preferred template
 cp web-app-template.md ../your-project/README.md
 ```
+Then: Replace placeholders with your project details and you're done!
 
-**Then:** Replace placeholders with your project details and you're done!
-
-### Option 2: Build Your Own
-
-Browse the `components/` directory and assemble sections like:
-- Project badges and status indicators
-- Installation instructions
-- Usage examples with code snippets
-- Contributing guidelines
-- Licensing and attribution
-
-Mix, match, and customize to fit your exact needs.
 
 ---
 
-## 🤖 AI-Powered Documentation
+# 🔄 How It Works
 
-Leverage **Google Gemini AI** to elevate your documentation quality without the effort.
-
-### ✨ What AI Can Do
-
-- **Generate compelling descriptions** that capture your project's essence
-- **Refine technical writing** for clarity and professionalism
-- **Maintain consistent tone** across all sections
-- **Suggest improvements** based on documentation best practices
-- **Auto-complete sections** when you provide basic information
-
-### 🔧 Quick Setup
-
-1. **Get an API Key**  
-   Visit [Google AI Studio](https://makersuite.google.com/app/apikey) and generate a free Gemini API key
-
-2. **Configure in Settings**  
-   Navigate to **Actions → AI Settings** and paste your key
-
-3. **Start Enhancing**  
-   Use the ✨ enhancement button in the editor to improve any section
-
-> 💡 **Pro tip:** Start with a rough draft, then let AI polish it to perfection.
+```mermaid
+graph LR
+    A[Start] --> B{Choose Method}
+    B -->|Online| C[Visit Web App]
+    B -->|Local| D[Clone Templates]
+    C --> E[Drag & Drop Elements]
+    C --> F[Use AI Enhancement]
+    E --> G[Preview in Real-time]
+    F --> G
+    G --> H[Export Markdown]
+    D --> I[Customize Template]
+    I --> H
+    H --> J[Use in Your Project]
+    style A fill:#2ea44f
+    style J fill:#2ea44f
+    style C fill:#4285F4
+    style F fill:#FF6B6B
+```
 
 ---
+## 🛠️ Tech Stack
 
-## 🧠 Persona Preview Mode
+<div align="center">
 
-Not sure if your README resonates with your audience? Preview it through different lenses:
+### Frontend
+![React](https://img.shields.io/badge/React-19.1.0-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-6.3-646CFF?logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.1-38B2AC?logo=tailwind-css&logoColor=white)
 
-<table>
-  <tr>
-    <th>Persona</th>
-    <th>What They See</th>
-    <th>Focus Areas</th>
-  </tr>
-  <tr>
-    <td>👨‍💻 <strong>Developer</strong></td>
-    <td>Technical depth, setup, API docs</td>
-    <td>Installation, code examples, architecture, contribution process</td>
-  </tr>
-  <tr>
-    <td>🔍 <strong>Recruiter</strong></td>
-    <td>Impact, skills, results</td>
-    <td>Project overview, technologies used, your role, achievements</td>
-  </tr>
-  <tr>
-    <td>📦 <strong>Client/User</strong></td>
-    <td>Value proposition, ease of use</td>
-    <td>Features, benefits, screenshots, getting started quickly</td>
-  </tr>
-</table>
+### UI & Libraries
+![Radix UI](https://img.shields.io/badge/Radix_UI-Accessible-161618?logo=radix-ui)
+![Framer Motion](https://img.shields.io/badge/Framer_Motion-12.19-0055FF?logo=framer)
+![Monaco Editor](https://img.shields.io/badge/Monaco_Editor-0.52-0078D4?logo=visual-studio-code)
+![dnd-kit](https://img.shields.io/badge/dnd--kit-Drag_&_Drop-FF6B6B?logo=react)
 
-**Toggle between personas** or view them side-by-side to ensure your README speaks to everyone who matters.
+### AI & APIs
+![Google Gemini](https://img.shields.io/badge/Google_Gemini-AI-4285F4?logo=google)
+![GitHub API](https://img.shields.io/badge/GitHub_API-Octokit-181717?logo=github)
+
+</div>
 
 ---
 
@@ -244,49 +166,36 @@ graph TD
 
 ---
 
-## 🤝 Contributing
 
-We love contributions! Whether you're a documentation expert or writing your first README, there's a place for you here.
-
-### 🌱 Good First Contributions
-
-- **Improve existing templates** with clearer examples
-- **Add templates** for new frameworks or project types
-- **Enhance documentation** clarity and accessibility
-- **Submit showcase examples** of READMEs you've created
-- **Fix typos** and improve grammar
-- **Suggest new components** or sections
-
-### 📝 How to Contribute
-
+## How to Contribute:
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-template`)
 3. Make your changes
 4. Test your template with a real project
 5. Submit a pull request
 
-Read the **[Contributing Guidelines](./CONTRIBUTING.md)** for detailed instructions.
+Read the [Contributing Guidelines](./CONTRIBUTING.md) for detailed instructions.
 
 ---
 
-## 🌟 Show Your Support
+## 🌟 Open Source Participation
 
-If README Design Kit helped you create better documentation:
-
-- ⭐ **Star this repository** to help others discover it
-- 💬 **Tell your team** about it
-- 🤝 **Contribute** templates or improvements
-
----
-
-## 📊 Project Stats
-
-<div align="center">
-  <img src="https://img.shields.io/github/contributors/Mayur-Pagote/README_Design_Kit" alt="Contributors">
-  <img src="https://img.shields.io/github/forks/Mayur-Pagote/README_Design_Kit" alt="Forks">
-  <img src="https://img.shields.io/github/issues/Mayur-Pagote/README_Design_Kit" alt="Issues">
-  <img src="https://img.shields.io/github/issues-pr/Mayur-Pagote/README_Design_Kit" alt="Pull Requests">
-</div>
+<table>
+  <tr>
+    <th>Program</th>
+    <th>Program Name</th>
+    <th>Start Date</th>
+    <th>End Date</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="./logo.png" alt="SWoC Logo" width="80" height="80">
+    </td>
+    <td><strong>Social Winter of Code (SWoC)</strong></td>
+    <td>1 Jan 2026</td>
+    <td>1 March 2026</td>
+  </tr>
+</table>
 
 ---
 
@@ -317,10 +226,6 @@ Special thanks to:
 ---
 
 <div align="center">
-  <p>
-    <strong>Made with ❤️ for developers who care about documentation</strong>
-  </p>
-  <p>
-    <sub>Because great code deserves great documentation</sub>
-  </p>
+  <p><strong>Made with ❤️ for developers who care about documentation</strong></p>
+  <p><sub>Because great code deserves great documentation</sub></p>
 </div>
