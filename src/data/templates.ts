@@ -11,7 +11,7 @@ export const sampleTemplates: Template[] = [
     author: 'README Design Kit',
     version: '1.0.0',
     popularity: 95,
-    thumbnail: './template-1.png',
+    thumbnail: '/template-1.mp4',
     created: new Date('2024-12-01'),
     updated: new Date('2026-01-15'),
     featured: true,

@@ -11,11 +11,15 @@ export function TemplateThumbnail({ template, className = "" }: TemplateThumbnai
 
   return (
     <div className={`relative overflow-hidden border rounded-t-lg bg-white aspect-video ${className}`}>
-      <img
-        src={iconPath}
-        alt={`${template.name} thumbnail`}
-        className="absolute inset-0 w-full h-full object-cover"
-      />
+      {template.thumbnail && (
+        <video autoPlay loop muted playsInline className='w-full h-full object-fill'>
+          <source src={iconPath} type="video/mp4" />
+        </video>
+      )}
+
+      {!template.thumbnail && (
+        <img src={iconPath} alt={template.name} className='w-full h-full object-cover' />
+      )}
 
       {template.featured && (
         <div className="absolute top-2 right-2">
