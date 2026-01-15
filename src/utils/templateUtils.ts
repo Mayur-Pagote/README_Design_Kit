@@ -6,7 +6,7 @@ export class TemplateUtils {
    * Clone template elements with new IDs to avoid conflicts
    */
   static cloneTemplateElements(template: Template): ElementType[] {
-    return template.elements.map((element, index) => ({
+    return (template.elements || []).map((element, index) => ({
       ...element,
       id: `${template.id}-element-${index}-${Date.now()}`,
     }));
