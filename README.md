@@ -18,19 +18,19 @@
   
 </div>
 
----
 
-## Whats is this about?
+
+# About
 README Design Kit is your all-in-one solution for creating professional, accessible, and visually appealing documentation. This curated collection of templates, components, and AI-powered tools eliminates the guesswork from writing README files, letting you focus on what matters: your code.
 
 Stop staring at blank markdown files. Start shipping documentation that developers actually want to read.
 
 
 
----
 
 
-## 🚀 Quick Start
+
+# 🚀 Quick Start
 
 Use a Complete Template
 ```bash
@@ -46,7 +46,7 @@ cp web-app-template.md ../your-project/README.md
 Then: Replace placeholders with your project details and you're done!
 
 
----
+
 
 # 🔄 How It Works
 
@@ -69,8 +69,8 @@ graph LR
     style F fill:#FF6B6B
 ```
 
----
-## 🛠️ Tech Stack
+
+# 🛠️ Tech Stack
 
 <div align="center">
 
@@ -92,7 +92,7 @@ graph LR
 
 </div>
 
----
+
 
 ## 📚 Complete Documentation
 
@@ -127,7 +127,7 @@ graph LR
   </tr>
 </table>
 
----
+
 
 ## 📁 Project Folder Structure
 
@@ -163,7 +163,7 @@ graph TD
     style Github_Comment fill:none,stroke:none,font-style:italic
 ```
 
----
+
 
 
 ## How to Contribute:
@@ -175,7 +175,7 @@ graph TD
 
 Read the [Contributing Guidelines](./CONTRIBUTING.md) for detailed instructions.
 
----
+
 
 ## 🌟 Open Source Participation
 
@@ -196,13 +196,13 @@ Read the [Contributing Guidelines](./CONTRIBUTING.md) for detailed instructions.
   </tr>
 </table>
 
----
+
 
 ## 📄 License
 
 This project is licensed under the **MIT License**. See [LICENSE](./LICENSE) for details.
 
----
+
 
 ## 👨‍💻 Maintainer
 
@@ -214,7 +214,8 @@ This project is licensed under the **MIT License**. See [LICENSE](./LICENSE) for
   </p>
 </div>
 
----
+
+
 
 ## 🙏 Acknowledgments
 
@@ -222,7 +223,7 @@ Special thanks to:
 - All contributors who've shared templates and improvements
 - The open-source community for inspiration and feedback
 
----
+
 
 <div align="center">
   <p><strong>Made with ❤️ for developers who care about documentation</strong></p>
