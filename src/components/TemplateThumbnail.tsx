@@ -20,12 +20,6 @@ export function TemplateThumbnail({ template, className = "" }: TemplateThumbnai
       {!template.thumbnail && (
         <img src={iconPath} alt={template.name} className='w-full h-full object-cover' />
       )}
-
-      {template.featured && (
-        <div className="absolute top-2 right-2">
-          <div className="w-3 h-3 bg-yellow-400 rounded-full border border-white/30"></div>
-        </div>
-      )}
     </div>
   );
 }
