@@ -14,6 +14,7 @@ import {
   Eye,
   Settings,
   Menu,
+  Plus,
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -21,6 +22,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { ElementPalette } from '@/components/ElementPalette';
 import { EditorCanvas } from '@/components/EditorCanvas';
 import { ReadmePreview } from '@/components/ReadmePreview';
@@ -29,22 +36,17 @@ import { SaveTemplateDialog } from '@/components/SaveTemplateDialog';
 import { AssistantLauncher } from '@/components/AssistantLauncher';
 import { PersonaComparisonModal } from '@/components/PersonaComparisonModal';
 import { AISettingsDialog } from '@/components/AISettingsDialog';
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from '@/components/ui/sheet';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import { GithubUsernameDialog } from '@/components/GithubUsernameDialog';
+import { ReadmeQualityDialog } from '@/components/ReadmeQualityDialog';
+import ScrollToTop from '@/components/ScrollToTop';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { demoElements } from '@/data/demo';
 import { TemplateUtils } from '@/utils/templateUtils';
+import { analyzeReadmeQuality, type ReadmeQualityResult } from '@/utils/readmeQualityAnalyzer';
 import type { ElementType, GitContributionElement } from '@/types/elements';
 import type { Template } from '@/types/templates';
 import type { ReadmeExportPreset } from '@/config/readmeExportPresets';
-import ScrollToTop from '@/components/ScrollToTop';
-import { GithubUsernameDialog } from '@/components/GithubUsernameDialog';
 import { toast } from 'sonner';
-import { Plus } from 'lucide-react';
 
 export default function DragDropEditor() {
   const [elements, setElements] = useState<ElementType[]>([]);
@@ -63,8 +65,10 @@ export default function DragDropEditor() {
   const [previewSheetOpen, setPreviewSheetOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'editor' | 'preview'>('editor');
   const [isTablet, setIsTablet] = useState(false);
-  const isMobile = useIsMobile();
+  const [qualityResult, setQualityResult] = useState<ReadmeQualityResult | null>(null);
+  const [showQualityDialog, setShowQualityDialog] = useState(false);
 
+  const isMobile = useIsMobile();
   const location = useLocation();
 
   useEffect(() => {
@@ -131,17 +135,27 @@ export default function DragDropEditor() {
     }
   };
 
+  const handleCheckReadmeQuality = () => {
+    console.log('Checking README quality', elements);
+    const result = analyzeReadmeQuality(elements);
+    console.log('Quality Result:', result);
+    setQualityResult(result);
+    setShowQualityDialog(true);
+  };
+
   const handleEditElement = (element: ElementType) => setEditingElement(element);
+  
   const handleSaveElement = (editedElement: ElementType) => {
     setElements(prev => prev.map(el => (el.id === editedElement.id ? editedElement : el)));
     setEditingElement(null);
   };
+  
   const handleElementsChange = (newElements: ElementType[]) => setElements(newElements);
+  
   const handleBrandingSuggestion = (id: string, newContent: string) => {
     setElements(prev => prev.map(el => (el.id === id ? { ...el, content: newContent } : el)));
   };
 
-  // Enhanced action handlers for AI suggestions
   const handleRemoveElement = (elementId: string) => {
     setElements(prev => prev.filter(el => el.id !== elementId));
     toast.success('Element removed successfully');
@@ -193,7 +207,6 @@ export default function DragDropEditor() {
         }
         break;
       case 'enhance':
-        // For enhance actions, we might want to trigger AI enhancement
         if (action.elementId && action.newContent) {
           handleBrandingSuggestion(action.elementId, action.newContent);
           toast.success('Content enhanced with AI');
@@ -245,7 +258,6 @@ export default function DragDropEditor() {
     );
   };
 
-  // Helper function to validate and sanitize elements before adding
   const validateElementForEditor = (element: any): ElementType | null => {
     if (!element || !element.type || !element.id) {
       console.warn('Invalid element: missing type or id', element);
@@ -262,7 +274,6 @@ export default function DragDropEditor() {
       return null;
     }
 
-    // Ensure required properties exist for each element type
     try {
       switch (element.type) {
         case 'text':
@@ -385,6 +396,14 @@ export default function DragDropEditor() {
                   AI Settings
                 </DropdownMenuItem>
                 <DropdownMenuItem
+                  onClick={handleCheckReadmeQuality}
+                  disabled={elements.length === 0}
+                  className="flex items-center gap-2"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  Check README Quality
+                </DropdownMenuItem>
+                <DropdownMenuItem
                   onClick={clearAll}
                   disabled={elements.length === 0}
                   className="text-destructive"
@@ -406,7 +425,6 @@ export default function DragDropEditor() {
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
-
 
           {/* Right side - Desktop Actions */}
           <div className="hidden md:flex items-center gap-2">
@@ -434,6 +452,14 @@ export default function DragDropEditor() {
                 <DropdownMenuItem onClick={() => setShowAISettings(true)} className="flex items-center gap-2">
                   <Settings className="h-4 w-4" />
                   AI Settings
+                </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={handleCheckReadmeQuality}
+                  disabled={elements.length === 0}
+                  className="flex items-center gap-2"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  Check README Quality
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={clearAll}
@@ -479,7 +505,6 @@ export default function DragDropEditor() {
         {/* Mobile (<768px): Sheets for Palette and Preview */}
         {isMobile && (
           <>
-            {/* Mobile: Element Palette Sheet */}
             <Sheet open={paletteSheetOpen} onOpenChange={setPaletteSheetOpen}>
               <SheetContent side="left" className="w-[85vw] sm:w-[320px] p-0 z-50">
                 <div className="overflow-y-auto h-[calc(100vh-80px)] pt-8">
@@ -491,7 +516,6 @@ export default function DragDropEditor() {
               </SheetContent>
             </Sheet>
 
-            {/* Mobile: README Preview Sheet (612px-<768px) */}
             <Sheet open={previewSheetOpen} onOpenChange={setPreviewSheetOpen}>
               <SheetContent side="right" className="w-[90vw] sm:w-[600px] p-0 z-50">
                 <div className="overflow-y-auto h-[calc(100vh-80px)] pt-8">
@@ -504,7 +528,6 @@ export default function DragDropEditor() {
               </SheetContent>
             </Sheet>
 
-            {/* Mobile: Main Editor Area */}
             <div className="flex-1 overflow-auto">
               <EditorCanvas
                 elements={elements}
@@ -514,7 +537,6 @@ export default function DragDropEditor() {
               />
             </div>
 
-            {/* Mobile: Floating Action Buttons */}
             <div className="fixed bottom-20 right-4 z-40 flex flex-col gap-3">
               <Sheet open={paletteSheetOpen} onOpenChange={setPaletteSheetOpen}>
                 <SheetTrigger asChild>
@@ -543,14 +565,12 @@ export default function DragDropEditor() {
         {/* Tablet (768px-1277px): Tab View with Sidebar */}
         {!isMobile && isTablet && (
           <div className="flex-1 flex flex-row overflow-hidden">
-            {/* Element Palette Sidebar - Increased width for tablet to show tabs properly */}
             {showPalette && (
               <div className="w-80 min-w-[320px] max-w-[360px] border-r overflow-y-scroll bg-muted/50">
                 <ElementPalette onAddElement={handleAddElement} />
               </div>
             )}
 
-            {/* Tab View for Editor and Preview */}
             <div className="flex-1 flex flex-col overflow-hidden bg-background">
               <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'editor' | 'preview')} className="flex-1 flex flex-col">
                 <div className="border-b bg-muted/30 px-4 py-3">
@@ -616,6 +636,7 @@ export default function DragDropEditor() {
         )}
       </div>
 
+      {/* All Modals and Dialogs */}
       <AssistantLauncher
         elements={elements}
         isEditorActive={elements.length > 0}
@@ -626,7 +647,9 @@ export default function DragDropEditor() {
         onReorderElement={handleReorderElement}
         backToTopVisible={backToTopVisible}
       />
+      
       <ScrollToTop isVisible={backToTopVisible} />
+      
       <ElementEditor
         element={editingElement}
         isOpen={editingElement !== null}
@@ -634,7 +657,12 @@ export default function DragDropEditor() {
         onSave={handleSaveElement}
         globalGithubUsername={githubUsername}
       />
-      <PersonaComparisonModal isOpen={showComparisonModal} onClose={() => setShowComparisonModal(false)} />
+      
+      <PersonaComparisonModal 
+        isOpen={showComparisonModal} 
+        onClose={() => setShowComparisonModal(false)} 
+      />
+      
       <GithubUsernameDialog
         isOpen={showGithubUsernameInput}
         onClose={() => setShowGithubUsernameInput(false)}
@@ -644,7 +672,17 @@ export default function DragDropEditor() {
           updateAllGithubUsernames(newUsername);
         }}
       />
-      <AISettingsDialog isOpen={showAISettings} onClose={() => setShowAISettings(false)} />
+      
+      <AISettingsDialog
+        isOpen={showAISettings}
+        onClose={() => setShowAISettings(false)}
+      />
+      
+      <ReadmeQualityDialog
+        open={showQualityDialog}
+        onClose={() => setShowQualityDialog(false)}
+        result={qualityResult}
+      />
     </div>
   );
 }
