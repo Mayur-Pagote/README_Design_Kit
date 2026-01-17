@@ -1,0 +1,20 @@
+.scroll-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.scroll-card img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  object-fit: cover;
+  transition: transform 1.5s ease-in-out;
+  will-change: transform;
+}
+
+.scroll-card:hover img {
+  transform: translateY(calc(var(--image-height) + var(--container-height)));
+}
