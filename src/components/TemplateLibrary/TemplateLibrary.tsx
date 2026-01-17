@@ -3,16 +3,16 @@ import { Search, Grid, List, Star, Heart, Clock, ArrowRight } from 'lucide-react
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { TemplatePreview } from './TemplatePreview';
-import { TemplateThumbnail } from './TemplateThumbnail';
 import { useTemplatePreferences } from '@/hooks/useTemplatePreferences';
 import { sampleTemplates, templateCategories, popularTags } from '@/data/templates';
 import type { Template, TemplateCategory } from '@/types/templates';
-import UserInput from './UserInput';
+import UserInput from '../UserInput';
+import { TemplateCard } from './TemplateCard';
+import { TemplateListItem } from './TemplateListItem';
 
 interface TemplateLibraryProps {
   onSelectTemplate: (template: Template, username: string, repo: string) => void;
@@ -23,7 +23,8 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
   const [searchQuery, setSearchQuery] = useState('');
   const [username, setUsername] = useState('Mayur-Pagote');
   const [repo, setRepo] = useState('README_Design_Kit');
-  const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | 'all'>('all');  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | 'all'>('all');  
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [previewTemplate, setPreviewTemplate] = useState<Template | null>(null);
   const [activeTab, setActiveTab] = useState('all');
@@ -47,14 +48,18 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
 
     // Apply other filters
     return templates.filter(template => {
-      const matchesSearch = template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          template.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                          template.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+      const matchesSearch =
+        template.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        template.description
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
+        template.tags.some((tag) =>
+          tag.toLowerCase().includes(searchQuery.toLowerCase()),
+        );
       
       const matchesCategory = selectedCategory === 'all' || template.category === selectedCategory;
       
-      const matchesTags = selectedTags.length === 0 || 
-                         selectedTags.every(tag => template.tags.includes(tag));
+      const matchesTags = selectedTags.length === 0 || selectedTags.every(tag => template.tags.includes(tag));
 
       return matchesSearch && matchesCategory && matchesTags;
     });
@@ -141,7 +146,6 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
               {/* Category Filter */}
               <Select value={selectedCategory} onValueChange={(value) => setSelectedCategory(value as TemplateCategory | 'all')}>
                <SelectTrigger className="w-full lg:w-[200px] transition-transform duration-200 ease-out hover:-translate-y-[2px]">
-
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent>
@@ -171,75 +175,45 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
                   <List className="h-4 w-4" />
                 </Button>
               </div>
-            </div>            {/* Filter Tabs */}
+            </div>  
+               
+            {/* Filter Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-  <TabsList className="grid w-full grid-cols-4 bg-muted/50 p-1 rounded-lg">
+              <TabsList className="grid w-full grid-cols-4 bg-muted/50 p-1 rounded-lg">
 
-    <TabsTrigger
-      value="all"
-      className="
-        transition-all duration-200 ease-out
-        hover:-translate-y-[2px]
-        hover:bg-purple-300
-        hover:text-black
-        hover:font-semibold
-        data-[state=active]:bg-background
-        data-[state=active]:text-foreground
-      "
-    >
-      All Templates
-    </TabsTrigger>
+                <TabsTrigger
+                  value="all"
+                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
+                >
+                  All Templates
+                </TabsTrigger>
 
-    <TabsTrigger
-      value="featured"
-      className="
-        transition-all duration-200 ease-out
-        hover:-translate-y-[2px]
-        hover:bg-purple-300
-        hover:text-black
-        hover:font-semibold
-        data-[state=active]:bg-background
-        data-[state=active]:text-foreground
-      "
-    >
-      <Star className="h-4 w-4 mr-2" />
-      Featured
-    </TabsTrigger>
+                <TabsTrigger
+                  value="featured"
+                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
+                >
+                  <Star className="h-4 w-4 mr-2" />
+                  Featured
+                </TabsTrigger>
 
-    <TabsTrigger
-      value="favorites"
-      className="
-        transition-all duration-200 ease-out
-        hover:-translate-y-[2px]
-        hover:bg-purple-300
-        hover:text-black
-        hover:font-semibold
-        data-[state=active]:bg-background
-        data-[state=active]:text-foreground
-      "
-    >
-      <Heart className="h-4 w-4 mr-2" />
-      Favorites
-    </TabsTrigger>
+                <TabsTrigger
+                  value="favorites"
+                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
+                >
+                  <Heart className="h-4 w-4 mr-2" />
+                  Favorites
+                </TabsTrigger>
 
-    <TabsTrigger
-      value="recent"
-      className="
-        transition-all duration-200 ease-out
-        hover:-translate-y-[2px]
-        hover:bg-purple-300
-        hover:text-black
-        hover:font-semibold
-        data-[state=active]:bg-background
-        data-[state=active]:text-foreground
-      "
-    >
-      <Clock className="h-4 w-4 mr-2" />
-      Recent
-    </TabsTrigger>
+                <TabsTrigger
+                  value="recent"
+                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
+                >
+                  <Clock className="h-4 w-4 mr-2" />
+                  Recent
+                </TabsTrigger>
 
-  </TabsList>
-</Tabs>
+              </TabsList>
+            </Tabs>
 
             {/* Popular Tags */}
             <div className="flex flex-wrap gap-3 items-center">
@@ -248,11 +222,7 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
                 <Badge
                   key={tag}
                   variant={selectedTags.includes(tag) ? 'default' : 'outline'}
-                  className="
-  cursor-pointer
-  transition-all duration-200 ease-out
-  hover:-translate-y-[1px]
-  hover:shadow-sm"
+                  className="cursor-pointer transition-all duration-200 ease-out hover:-translate-y-[1px] hover:shadow-sm"
                   onClick={() => toggleTag(tag)}
                 >
                   {tag}
@@ -291,19 +261,20 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
 
         {viewMode === 'grid' ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredTemplates.map(template => (              <TemplateCard
+            {filteredTemplates.map(template => (
+              <TemplateCard
                 key={template.id}
                 template={template}
                 isFavorite={preferences.favorites.includes(template.id)}
                 onSelect={() => handleTemplateSelect(template)}
-                onPreview={() => handleTemplatePreview(template)}
                 onToggleFavorite={() => toggleFavorite(template.id)}
               />
             ))}
           </div>
         ) : (
           <div className="grid space-y-4">
-            {filteredTemplates.map(template => (<TemplateListItem
+            {filteredTemplates.map(template => (
+              <TemplateListItem
                 key={template.id}
                 template={template}
                 isFavorite={preferences.favorites.includes(template.id)}
@@ -345,139 +316,5 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
         </DialogContent>
       </Dialog>
     </div>
-  );
-}
-
-interface TemplateCardProps {
-  template: Template;
-  isFavorite: boolean;
-  onSelect: () => void;
-  onPreview: () => void;
-  onToggleFavorite: () => void;
-}
-
-function TemplateCard({ template, isFavorite, onSelect, onToggleFavorite }: TemplateCardProps) {
-  return (
-    <Card className="group hover:shadow-lg transition-all duration-200 cursor-pointer pt-0 flex flex-col h-full">
-      <div className="aspect-video bg-muted rounded-t-lg overflow-hidden">
-        <TemplateThumbnail template={template} className="w-full h-full object-cover" />
-      </div>
-      
-      <CardHeader className="pb-3">
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <CardTitle className="text-lg line-clamp-1">{template.name}</CardTitle>
-            <CardDescription className="line-clamp-2 mt-1">
-              {template.description}
-            </CardDescription>
-          </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={(e) => {
-              e.stopPropagation();
-              onToggleFavorite();
-            }}
-          >
-            <Heart className={`h-4 w-4 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
-          </Button>
-        </div>
-      </CardHeader>
-
-      <CardContent className="pt-0 flex-grow">
-        <div className="space-y-3">
-          <div className="flex items-center gap-2">
-            <Badge variant="outline" className="text-xs">
-              {templateCategories.find(c => c.value === template.category)?.label}
-            </Badge>
-            {template.featured && (
-              <Badge variant="default" className="text-xs">
-                <Star className="h-3 w-3 mr-1" />
-                Featured
-              </Badge>
-            )}
-          </div>
-
-          <div className="flex flex-wrap gap-1">
-            {template.tags.slice(0, 3).map(tag => (
-              <Badge key={tag} variant="secondary" className="text-xs">
-                {tag}
-              </Badge>
-            ))}
-            {template.tags.length > 3 && (
-              <Badge variant="secondary" className="text-xs">
-                +{template.tags.length - 3}
-              </Badge>
-            )}
-          </div>
-
-        </div>
-      </CardContent>
-      <CardFooter>
-          <div className="flex gap-2 w-full">
-            <Button size="lg" onClick={onSelect} className="flex-1">
-              Use Template
-            </Button>
-          </div>
-      </CardFooter>
-    </Card>
-  );
-}
-
-interface TemplateListItemProps {
-  template: Template;
-  isFavorite: boolean;
-  onSelect: () => void;
-  onPreview: () => void;
-  onToggleFavorite: () => void;
-}
-
-function TemplateListItem({ template, isFavorite, onSelect, onToggleFavorite }: TemplateListItemProps) {
-  return (
-    <Card className="hover:shadow-md transition-shadow">
-      <CardContent className="p-6">        <div className="flex items-center gap-4">
-          <div className="w-20 h-16 rounded-lg overflow-hidden flex-shrink-0">
-            <TemplateThumbnail template={template} className="w-full h-full" />
-          </div>
-          
-          <div className="flex-1 min-w-0">
-            <div className="flex items-start justify-between">
-              <div>
-                <h3 className="font-semibold text-lg">{template.name}</h3>
-                <p className="text-muted-foreground text-sm mt-1">{template.description}</p>
-                
-                <div className="flex items-center gap-2 mt-2">
-                  <Badge variant="outline" className="text-xs">
-                    {templateCategories.find(c => c.value === template.category)?.label}
-                  </Badge>
-                  {template.featured && (
-                    <Badge variant="default" className="text-xs">
-                      <Star className="h-3 w-3 mr-1" />
-                      Featured
-                    </Badge>
-                  )}
-                  <span className="text-xs text-muted-foreground">
-                    {template.popularity}% popularity
-                  </span>
-                </div>
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={onToggleFavorite}
-                >
-                  <Heart className={`h-4 w-4 ${isFavorite ? 'fill-red-500 text-red-500' : ''}`} />
-                </Button>
-                <Button size="sm" onClick={onSelect}>
-                  Use Template
-                </Button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
   );
 }
