@@ -31,7 +31,7 @@ const cleanMarkdown = (markdown: string) => {
 const MarkdownPreview = ({ markdown }: MarkdownPreviewProps) => {
     const content = cleanMarkdown(markdown);
   return (
-    <div className="prose dark:prose-invert max-w-none">
+    <div className="prose dark:prose-invert max-w-none prose-img:inline-block">
       <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
         {content}
       </ReactMarkdown>

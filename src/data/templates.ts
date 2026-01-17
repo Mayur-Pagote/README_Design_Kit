@@ -187,14 +187,10 @@ export const sampleTemplates: Template[] = [
     featured: true,
     markdown:`
       <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=90&section=header" width="100%"/>
-      <br/>
       <h1><img src="https://emojis.slackmojis.com/emojis/images/1531849430/4246/blob-sunglasses.gif?1531849430" width="30"/>Hey! Nice to see you.</h1>
-
       <!-- Profile Description -->
       <p>Welcome to my page! </br> I'm {username}, Fullstack developer</p>
-      <br/>
       <img src="https://komarev.com/ghpvc/?username={username}&style=for-the-badge"/>
-      <br/>
       <h1>Tech Stack:</h1>
       <p>
         <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" />
@@ -206,9 +202,7 @@ export const sampleTemplates: Template[] = [
         <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" />
         <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" />
       </p>
-      <br/>
       <img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/aa28326300247d989c9f7c2eeb177f59577d785b/Assets/RGB%20Line%20Medium.gif?raw=true" width="100%">
-      <br/>
 
       <!-- GitHub Stats Header -->
       <h1 align="center"> 📊 GitHub Stats </h1>
