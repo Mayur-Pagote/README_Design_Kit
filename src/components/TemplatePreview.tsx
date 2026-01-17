@@ -4,7 +4,10 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Monitor, Smartphone, Star, User, Calendar, Tag, ArrowRight } from 'lucide-react';
+import { Monitor, Smartphone, Star, User, Calendar, Tag, ArrowRight, Copy } from 'lucide-react';
+import { useTheme } from '@/components/theme-provider';
+import { toast } from "sonner";
+import { generateMarkdown } from "@/utils/markdownGenerator";
 import { ElementRenderer } from '@/components/ElementRenderer';
 import { templateCategories } from '@/data/templates';
 import type { Template } from '@/types/templates';
@@ -17,7 +20,19 @@ interface TemplatePreviewProps {
 export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProps) {
   const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop');
 
+  const { theme } = useTheme();
   const categoryLabel = templateCategories.find(c => c.value === template.category)?.label;
+
+  const handleCopyMarkdown = async () => {
+    if (!template.elements) return;
+    try {
+      const markdown = generateMarkdown(template.elements, theme);
+      await navigator.clipboard.writeText(markdown);
+      toast.success("Markdown copied to clipboard");
+    } catch (err) {
+      toast.error("Failed to copy markdown");
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -35,10 +50,16 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
           </div>
           <p className="text-muted-foreground">{template.description}</p>
         </div>
-        <Button onClick={onUseTemplate} className="flex items-center gap-2 cursor-pointer">
-          Use This Template
-          <ArrowRight className="h-4 w-4" />
-        </Button>
+        <div className="flex flex-wrap gap-2">
+          <Button onClick={onUseTemplate} className="flex items-center gap-2 cursor-pointer">
+            Use This Template
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+          <Button variant="outline" onClick={handleCopyMarkdown} className="flex items-center gap-2 cursor-pointer">
+            <Copy className="h-4 w-4" />
+            Copy Markdown
+          </Button>
+        </div>
         {/* Metadata */}
         <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
           <div className="flex items-center gap-1">
@@ -106,7 +127,7 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
         <TabsContent value="preview" className="mt-4">
           <Card>
             <CardContent className="p-0">
-              <div 
+              <div
                 className={`
                   transition-all duration-300 mx-auto bg-white dark:bg-gray-900 
                   ${viewMode === 'mobile' ? 'max-w-sm' : 'max-w-4xl'}
@@ -114,9 +135,9 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
               >
                 <div className="p-6 space-y-4 min-h-[400px]">
                   {template.elements?.map((element, index) => (
-                    <ElementRenderer 
-                      key={`${element.id}-${index}`} 
-                      element={element} 
+                    <ElementRenderer
+                      key={`${element.id}-${index}`}
+                      element={element}
                     />
                   ))}
                 </div>
@@ -170,6 +191,10 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
         <Button size="lg" onClick={onUseTemplate} className="flex items-center gap-2">
           Use This Template
           <ArrowRight className="h-4 w-4" />
+        </Button>
+        <Button variant="outline" size="lg" onClick={handleCopyMarkdown} className="flex items-center gap-2 ml-4">
+          <Copy className="h-4 w-4" />
+          Copy Markdown
         </Button>
       </div>
     </div>
