@@ -15,7 +15,9 @@ export default function Layout({ children }: LayoutProps) {
   const isMorePage =
     location.pathname.startsWith('/profile') ||
     location.pathname.startsWith('/coming-soon') ||
-    location.pathname.startsWith('/about');
+    location.pathname.startsWith('/about') ||
+    location.pathname.startsWith('/readme-generator') ||
+    location.pathname.startsWith('/feature-requests');
 
   return (
     <div className="min-h-screen flex flex-col">
