@@ -1,4 +1,3 @@
-// src/pages/Editor.tsx
 import { useState, useMemo, useEffect } from 'react';
 import { TemplateUtils } from '@/utils/templateUtils';
 import { Sidebar } from '@/components/Editor/Sidebar'; 
@@ -17,9 +16,11 @@ export const EditorPage = () => {
     const savedTemplate = sessionStorage.getItem('selectedTemplate');
     if (savedTemplate) {
       const template: Template = JSON.parse(savedTemplate);
-      setElements(template.elements);
+      
+      setElements(template.elements || []); 
     }
   }, []);
+
 
   // 3. Process placeholders like {{NAME}} in real-time as user types
   const dynamicElements = useMemo(() => {
