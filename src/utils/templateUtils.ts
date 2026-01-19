@@ -6,7 +6,7 @@ export class TemplateUtils {
    * Clone template elements with new IDs to avoid conflicts
    */
   static cloneTemplateElements(template: Template): ElementType[] {
-    return template.elements.map((element, index) => ({
+    return (template.elements || []).map((element, index) => ({
       ...element,
       id: `${template.id}-element-${index}-${Date.now()}`,
     }));
@@ -107,16 +107,19 @@ export class TemplateUtils {
    * Get template statistics
    */
   static getTemplateStats(template: Template) {
-    const elementTypes = template.elements.reduce((acc, element) => {
+    const elements = template.elements || []; // Ensure elements is an array
+
+    const elementTypes = elements.reduce((acc, element) => {
       acc[element.type] = (acc[element.type] || 0) + 1;
       return acc;
     }, {} as Record<string, number>);
 
     return {
-      totalElements: template.elements.length,
+      totalElements: elements.length,
       elementTypes,
-      estimatedReadTime: Math.ceil(template.elements.length * 0.5), // rough estimate in minutes
-      complexity: template.elements.length > 10 ? 'complex' : template.elements.length > 5 ? 'medium' : 'simple',
+      estimatedReadTime: Math.ceil(elements.length * 0.5), // rough estimate in minutes
+      complexity:
+        elements.length > 10 ? 'complex' : elements.length > 5 ? 'medium' : 'simple',
     };
   }
 }

@@ -208,6 +208,122 @@ export const componentsData: Record<string, ComponentItem[]> = {
         "![Rabbit Happy](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Rabit%20Happy.gif)",
     },
   ],
+  techStack: [
+    {
+      title: "Animated JavaScript",
+      description: "Animated JavaScript Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212257454-16e3712e-945a-4ca2-b238-408ad0bf87e6.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212257454-16e3712e-945a-4ca2-b238-408ad0bf87e6.gif" width="100">`,
+    },
+    {
+      title: "Animated Python",
+      description: "Animated Python Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212257472-08e52665-c503-4bd9-aa20-f5a4dae769b5.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212257472-08e52665-c503-4bd9-aa20-f5a4dae769b5.gif" width="100">`,
+    },
+    {
+      title: "Animated GitHub",
+      description: "Animated GitHub Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212257468-1e9a91f1-b626-4baa-b15d-5c385dfa7ed2.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212257468-1e9a91f1-b626-4baa-b15d-5c385dfa7ed2.gif" width="100">`,
+    },
+    {
+      title: "Animated Visual Studio Code",
+      description: "Animated VS Code Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212257465-7ce8d493-cac5-494e-982a-5a9deb852c4b.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212257465-7ce8d493-cac5-494e-982a-5a9deb852c4b.gif" width="100">`,
+    },
+    {
+      title: "Animated Vue",
+      description: "Animated Vue JS Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212257463-4d082cb4-7483-4eaf-bc25-6dde2628aabd.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212257463-4d082cb4-7483-4eaf-bc25-6dde2628aabd.gif" width="100">`,
+    },
+    {
+      title: "Animated Node",
+      description: "Animated Node JS Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212257460-738ff738-247f-4445-a718-cdd0ca76e2db.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212257460-738ff738-247f-4445-a718-cdd0ca76e2db.gif" width="100">`,
+    },
+    {
+      title: "Animated React",
+      description: "Animated React JS Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212257467-871d32b7-e401-42e8-a166-fcfd7baa4c6b.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212257467-871d32b7-e401-42e8-a166-fcfd7baa4c6b.gif" width="100">`,
+    },
+    {
+      title: "Animated Sublime Text",
+      description: "Animated Sublime Text Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212281756-450d3ffa-9335-4b98-a965-db8a18fee927.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212281756-450d3ffa-9335-4b98-a965-db8a18fee927.gif" width="100">`,
+    },
+    {
+      title: "Animated Bootstrap",
+      description: "Animated Bootstrap Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212280805-9bcb336b-8c55-46a8-abf8-ff286ab55472.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212280805-9bcb336b-8c55-46a8-abf8-ff286ab55472.gif" width="100">`,
+    },
+    {
+      title: "Animated Angular",
+      description: "Animated Angular JS Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212280823-79088828-a258-4a4d-8d6c-96315d5a07af.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212280823-79088828-a258-4a4d-8d6c-96315d5a07af.gif" width="100">`,
+    },
+    {
+      title: "Animated Android",
+      description: "Animated Android Operating System Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212281763-e6ecd7ef-c4aa-45b6-a97c-f33f6bb592bd.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212281763-e6ecd7ef-c4aa-45b6-a97c-f33f6bb592bd.gif" width="100">`,
+    },
+    {
+      title: "Animated iOS",
+      description: "Animated iOS Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212281780-0afd9616-8310-46e9-a898-c4f5269f1387.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212281780-0afd9616-8310-46e9-a898-c4f5269f1387.gif" width="100">`,
+    },
+    {
+      title: "Animated Git",
+      description: "Animated Git Logo",
+      imageUrl: "https://user-images.githubusercontent.com/74038190/212281775-b468df30-4edc-4bf8-a4ee-f52e1aaddc86.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212281775-b468df30-4edc-4bf8-a4ee-f52e1aaddc86.gif" width="100">`,
+    },
+    {
+      title: "Animated Express",
+      description: "Animated Express JS Logo",
+      imageUrl: "https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/1a797f46-efe4-41e6-9e75-5303e1bbcbfa",
+      codeSnippet: `<img src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/1a797f46-efe4-41e6-9e75-5303e1bbcbfa" width="100">`,
+    },
+    {
+      title: "Animated HTML",
+      description: "Animated HTML Logo",
+      imageUrl: "https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/29fd6286-4e7b-4d6c-818f-c4765d5e39a9",
+      codeSnippet: `<img src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/29fd6286-4e7b-4d6c-818f-c4765d5e39a9" width="100">`,
+    },
+    {
+      title: "Animated CSS",
+      description: "Animated CSS Logo",
+      imageUrl: "https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/67f477ed-6624-42da-99f0-1a7b1a16eecb",
+      codeSnippet: `<img src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/67f477ed-6624-42da-99f0-1a7b1a16eecb" width="100">`,
+    },
+    {
+      title: "Animated Firebase",
+      description: "Animated Google Firebase Logo",
+      imageUrl: "https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/3c16d4f2-b757-4c70-8f42-43d5dddd2c36",
+      codeSnippet: `<img src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/3c16d4f2-b757-4c70-8f42-43d5dddd2c36" width="100">`,
+    },
+    {
+      title: "Animated Ubuntu",
+      description: "Animated Ubuntu Logo",
+      imageUrl: "https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/3fb2cdf6-8920-462e-87a4-95af376418aa",
+      codeSnippet: `<img src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/3fb2cdf6-8920-462e-87a4-95af376418aa" width="100">`,
+    },
+    {
+      title: "Animated MongoDB",
+      description: "Animated MongoDB Logo",
+      imageUrl: "https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/398b19b1-9aae-4c1f-8bc0-d172a2c08d68",
+      codeSnippet: `<img src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/398b19b1-9aae-4c1f-8bc0-d172a2c08d68" width="100">`,
+    },
+  ],
   counter: [
     {
       title: "Profile Views",
@@ -546,6 +662,12 @@ export const componentsData: Record<string, ComponentItem[]> = {
         "https://api.vaunt.dev/v1/github/entities/{username}/repositories/{repo}/contributors?format=svg&limit=54",
       codeSnippet: `<img src="https://api.vaunt.dev/v1/github/entities/{username}/repositories/{repo}/contributors?format=svg&limit=54" width="700" height="250" />`,
     },
+    {
+      title: "Star History Graph",
+      description: "Displays the Star History Graph of a Repository",
+      imageUrl: "https://api.star-history.com/svg?repos={username}/{repo}&type=Date",
+      codeSnippet: `![Star History Chart](https://api.star-history.com/svg?repos={username}/{repo}&type=Date)`,
+    },
   ],
   dividers: [
     {
@@ -669,6 +791,12 @@ export const componentsData: Record<string, ComponentItem[]> = {
       imageUrl:
         "https://codeforces-readme-stats.vercel.app/api/card?username=tourist&theme=default&disable_animations=false&show_icons=true&force_username=true",
       codeSnippet: `<img height="180em" src="https://codeforces-readme-stats.vercel.app/api/card?username={username}&theme=default&disable_animations=false&show_icons=true&force_username=true"/>`,
+    },
+    {
+      title: "AtCoder Stats",
+      description: "Displays AtCoder Profile Statistics",
+      imageUrl: "https://atcoder-readme-stats.vercel.app/stats/tourist?show_icons=true&width=450",
+      codeSnippet: `![atcoder stats](https://atcoder-readme-stats.vercel.app/stats/{username}?show_icons=true&width=450)`
     },
   ],
   gitanimals: [

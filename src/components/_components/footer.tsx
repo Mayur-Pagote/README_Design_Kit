@@ -91,14 +91,14 @@ export default function Footer() {
 
                     {/* Sub-Footer: Copyright and Legal */}
                     <div className="mt-16 pt-8 border-t border-neutral-800/50 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-muted-foreground">
-                        <div className="flex flex-wrap justify-center md:justify-start gap-x-4 gap-y-2">
+                        <div className="flex flex-wrap justify-center md:justify-center text-center w-full gap-x-4 gap-y-2">
                             <span>© {new Date().getFullYear()} README DESIGN KIT</span>
                             <span className="hidden md:inline text-neutral-700">|</span>
                             <Link to="/privacy" className="hover:text-primary transition-colors">Privacy Policy</Link>
                             <Link to="/terms" className="hover:text-primary transition-colors">Terms of Service</Link>
                             <Link to="/about" className="hover:text-primary transition-colors">About</Link>
                         </div>
-                        <div className="text-neutral-500 italic">
+                        <div className="text-neutral-500 italic whitespace-nowrap">
                             Designed for Developers.
                         </div>
                     </div>
