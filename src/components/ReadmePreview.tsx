@@ -4,13 +4,15 @@ import {
 } from '@/config/readmeExportPresets';
 import { generateMarkdown as generateMarkdownUtil } from '@/utils/markdownGenerator';
 import { useRef, useState } from 'react';
-import { Download, Copy } from 'lucide-react';
+import { Download, Copy, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ElementRenderer } from '@/components/ElementRenderer';
 import type { ElementType } from '@/types/elements';
 import { useTheme } from '@/components/theme-provider';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { createGist } from '@/services/githubService';
+import { toast } from 'sonner';
 
 interface ReadmePreviewProps {
   elements: ElementType[];
@@ -61,6 +63,37 @@ export function ReadmePreview({
     URL.revokeObjectURL(url);
   };
 
+  const handleExportGist = async () => {
+    const token = localStorage.getItem('github-token');
+    if (!token) {
+      toast.error('GitHub token not found. Please configure it in settings.');
+      return;
+    }
+
+    const markdown = generateMarkdown();
+    const promise = createGist(token, markdown);
+
+    toast.promise(promise, {
+      loading: 'Creating Gist...',
+      success: (data: any) => {
+        return (
+          <div className="flex flex-col gap-1">
+            <span className="font-medium">Gist created successfully!</span>
+            <a
+              href={data.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-primary underline py-1"
+            >
+              View on GitHub
+            </a>
+          </div>
+        );
+      },
+      error: (err: any) => `Failed to create Gist: ${err.message}`,
+    });
+  };
+
   const getViewModeDescription = () => {
     return 'Shows all README elements with complete formatting and styling';
   };
@@ -109,6 +142,18 @@ export function ReadmePreview({
             >
               <Download className="h-3.5 w-3.5 md:h-4 md:w-4" />
               <span className="ml-1.5">Download</span>
+            </Button>
+
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleExportGist}
+              disabled={!filteredElements.length}
+              className="flex-1 sm:flex-initial touch-manipulation"
+              title="Export to Gist"
+            >
+              <Share2 className="h-3.5 w-3.5 md:h-4 md:w-4" />
+              <span className="ml-1.5">Export Gist</span>
             </Button>
           </div>
         </div>

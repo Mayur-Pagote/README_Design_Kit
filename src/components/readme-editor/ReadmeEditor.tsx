@@ -14,14 +14,14 @@ import domtoimage from 'dom-to-image-more';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { formatDistanceToNow } from 'date-fns';
 import { GitHubLoadDialog } from './GitHubLoadDialog';
-import { getRepoReadme } from '@/services/githubService';
-import { 
-  Code2, 
-  Eye, 
-  MessageSquare, 
-  Download, 
-  Copy, 
-  Settings, 
+import { getRepoReadme, createGist } from '@/services/githubService';
+import {
+  Code2,
+  Eye,
+  MessageSquare,
+  Download,
+  Copy,
+  Settings,
   Sparkles,
   Bot,
   Home,
@@ -29,8 +29,9 @@ import {
   X,
   RotateCcw,
   Image as ImageIcon,
-Github,
-  CheckCircle2
+  Github,
+  CheckCircle2,
+  Share2
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -56,7 +57,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
   const [showGithubDialog, setShowGithubDialog] = useState(false);
   const [isAutoTyping, setIsAutoTyping] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
-const [showLoadDialog, setShowLoadDialog] = useState(false);
+  const [showLoadDialog, setShowLoadDialog] = useState(false);
   const autoTypingCancelled = useRef(false);
   const generationCancelled = useRef(false);
   const [, setTick] = useState(0);
@@ -301,6 +302,37 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
     }
   };
 
+  const handleExportGist = async () => {
+    const token = localStorage.getItem('github-token');
+    if (!token) {
+      toast.error('GitHub token not found. Please configure it in settings.');
+      setShowSettings(true);
+      return;
+    }
+
+    const promise = createGist(token, markdownContent);
+
+    toast.promise(promise, {
+      loading: 'Creating Gist...',
+      success: (data: any) => {
+        return (
+          <div className="flex flex-col gap-1">
+            <span className="font-medium">Gist created successfully!</span>
+            <a
+              href={data.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-primary underline py-1"
+            >
+              View on GitHub
+            </a>
+          </div>
+        );
+      },
+      error: (err: any) => `Failed to create Gist: ${err.message}`,
+    });
+  };
+
   const handleLoadFromGithub = async (username: string, repo: string) => {
     try {
       const readmeContent = await getRepoReadme(username, repo);
@@ -328,7 +360,7 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
               <Sparkles className="h-3 w-3 mr-1" />
               Powered by Gemini 2.0 Flash Lite + GitHub
             </Badge>
-           
+
 
           </div>
 
@@ -347,7 +379,7 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
             </Tabs>
 
             <Separator orientation="vertical" className="h-6" />
-             <Button variant="outline" size="sm" onClick={() => setShowLoadDialog(true)} title="Load from GitHub">
+            <Button variant="outline" size="sm" onClick={() => setShowLoadDialog(true)} title="Load from GitHub">
               <Github className="h-4 w-4 mr-1" />
               <span className="hidden sm:inline">Import</span>
             </Button>
@@ -359,6 +391,10 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
             <Button variant="outline" size="sm" onClick={handleDownloadMarkdown}>
               <Download className="h-4 w-4 mr-1" />
               Download
+            </Button>
+            <Button variant="outline" size="sm" onClick={handleExportGist} title="Export to Gist">
+              <Share2 className="h-4 w-4 mr-1" />
+              Export Gist
             </Button>
             <Button variant="outline" size="sm" onClick={handleExportPNG} title="Export as PNG">
               <ImageIcon className="h-4 w-4 mr-1" />
@@ -542,14 +578,14 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
         onOpenChange={setShowSettings}
       />
 
-    {/* GitHub Load Modal */}
-      <GitHubLoadDialog 
+      {/* GitHub Load Modal */}
+      <GitHubLoadDialog
         isOpen={showLoadDialog}
         onClose={() => setShowLoadDialog(false)}
         onLoad={handleLoadFromGithub}
       />
-   
-       <SaveToGitHubDialog
+
+      <SaveToGitHubDialog
         open={showGithubDialog}
         onOpenChange={setShowGithubDialog}
         files={[{ path: 'README.md', content: markdownContent }]}
