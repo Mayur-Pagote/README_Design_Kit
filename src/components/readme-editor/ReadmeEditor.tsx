@@ -15,13 +15,13 @@ import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { formatDistanceToNow } from 'date-fns';
 import { GitHubLoadDialog } from './GitHubLoadDialog';
 import { getRepoReadme } from '@/services/githubService';
-import { 
-  Code2, 
-  Eye, 
-  MessageSquare, 
-  Download, 
-  Copy, 
-  Settings, 
+import {
+  Code2,
+  Eye,
+  MessageSquare,
+  Download,
+  Copy,
+  Settings,
   Sparkles,
   Bot,
   Home,
@@ -29,8 +29,9 @@ import {
   X,
   RotateCcw,
   Image as ImageIcon,
-Github,
-  CheckCircle2
+  Github,
+  CheckCircle2,
+  ChevronDown
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -38,6 +39,12 @@ import { readmeAI } from '@/services/readmeAIService';
 import { webSearchService } from '@/services/webSearchService';
 import { githubReadmeGenerator } from '@/services/githubReadmeGeneratorService';
 import { SaveToGitHubDialog } from '@/components/github/SaveToGitHubDialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 // import { setFlagsFromString } from 'v8';
 
 interface ReadmeEditorProps {
@@ -56,7 +63,7 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
   const [showGithubDialog, setShowGithubDialog] = useState(false);
   const [isAutoTyping, setIsAutoTyping] = useState(false);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
-const [showLoadDialog, setShowLoadDialog] = useState(false);
+  const [showLoadDialog, setShowLoadDialog] = useState(false);
   const autoTypingCancelled = useRef(false);
   const generationCancelled = useRef(false);
   const [, setTick] = useState(0);
@@ -319,20 +326,18 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
       {/* Header */}
       <div className="flex-none border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex h-14 items-center px-4">
-          <div className="flex items-center space-x-2">
-            <div className="flex items-center space-x-1">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               <Bot className="h-5 w-5 text-primary" />
               <span className="font-semibold text-lg">AI README Editor</span>
             </div>
             <Badge variant="secondary" className="text-xs">
               <Sparkles className="h-3 w-3 mr-1" />
-              Powered by Gemini 2.0 Flash Lite + GitHub
+              Powered by Gemini 2.0 + GitHub
             </Badge>
-           
-
           </div>
 
-          <div className="flex items-center space-x-2 ml-auto">
+          <div className="flex items-center gap-2 ml-auto">
             <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="w-auto">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="code" className="flex items-center space-x-1">
@@ -345,36 +350,52 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
                 </TabsTrigger>
               </TabsList>
             </Tabs>
-
-            <Separator orientation="vertical" className="h-6" />
-             <Button variant="outline" size="sm" onClick={() => setShowLoadDialog(true)} title="Load from GitHub">
-              <Github className="h-4 w-4 mr-1" />
-              <span className="hidden sm:inline">Import</span>
-            </Button>
-            <Button variant="outline" size="sm" onClick={handleCopyMarkdown}>
-              <Copy className="h-4 w-4 mr-1" />
-              Copy
-            </Button>
-
-            <Button variant="outline" size="sm" onClick={handleDownloadMarkdown}>
-              <Download className="h-4 w-4 mr-1" />
-              Download
-            </Button>
-            <Button variant="outline" size="sm" onClick={handleExportPNG} title="Export as PNG">
-              <ImageIcon className="h-4 w-4 mr-1" />
-              Export PNG
-
-            </Button>
-
-            <Button variant="outline" size="sm" onClick={() => setShowGithubDialog(true)} title="Save to GitHub">
-              <Github className="h-4 w-4 mr-1" />
-              Save to GitHub
-            </Button>
-
+            <Separator orientation="vertical" className="h-8" />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Download className="h-4 w-4 mr-1" />
+                  Export
+                  <ChevronDown className="h-3 w-3 ml-1" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={handleCopyMarkdown}>
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copy Markdown
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDownloadMarkdown}>
+                  <Download className="h-4 w-4 mr-2" />
+                  Download MD
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleExportPNG}>
+                  <ImageIcon className="h-4 w-4 mr-2" />
+                  Export as PNG
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Github className="h-4 w-4 mr-1" />
+                  GitHub
+                  <ChevronDown className="h-3 w-3 ml-1" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setShowLoadDialog(true)}>
+                  <Github className="h-4 w-4 mr-2" />
+                  Import from GitHub
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setShowGithubDialog(true)}>
+                  <Github className="h-4 w-4 mr-2" />
+                  Save to GitHub
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <Button variant="outline" size="sm" onClick={() => setShowSettings(true)}>
               <Settings className="h-4 w-4" />
             </Button>
-
             <Button variant="outline" size="sm">
               <Link to="/">
                 <Home className="h-4 w-4" />
@@ -542,14 +563,14 @@ const [showLoadDialog, setShowLoadDialog] = useState(false);
         onOpenChange={setShowSettings}
       />
 
-    {/* GitHub Load Modal */}
-      <GitHubLoadDialog 
+      {/* GitHub Load Modal */}
+      <GitHubLoadDialog
         isOpen={showLoadDialog}
         onClose={() => setShowLoadDialog(false)}
         onLoad={handleLoadFromGithub}
       />
-   
-       <SaveToGitHubDialog
+
+      <SaveToGitHubDialog
         open={showGithubDialog}
         onOpenChange={setShowGithubDialog}
         files={[{ path: 'README.md', content: markdownContent }]}
