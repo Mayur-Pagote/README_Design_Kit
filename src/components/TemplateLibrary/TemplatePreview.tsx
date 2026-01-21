@@ -5,7 +5,8 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Monitor, Smartphone, Star, User, Calendar, Tag, ArrowRight, Copy, Github } from 'lucide-react';
+// Added Rocket and Brain to the imports below
+import { Monitor, Smartphone, Star, User, Calendar, Tag, ArrowRight, Copy, Github, Rocket, Brain } from 'lucide-react';
 import { useTheme } from '@/components/theme-provider';
 import { toast } from "sonner";
 import { generateMarkdown } from "@/utils/markdownGenerator";
@@ -19,28 +20,35 @@ interface TemplatePreviewProps {
 }
 
 export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProps) {
-  // 1. COMPONENT STATE (Must be inside the function)
   const [viewMode, setViewMode] = useState<'desktop' | 'mobile'>('desktop');
   const [githubUsername, setGithubUsername] = useState('Mayur-Pagote'); 
   const [repoName, setRepoName] = useState('README_Design_Kit');
+  const [projectTitle, setProjectTitle] = useState('Portfolio Dashboard'); 
+  const [learningTech, setLearningTech] = useState('System Design');
 
   const { theme } = useTheme();
   const categoryLabel = templateCategories.find(c => c.value === template.category)?.label;
 
-  // 2. DYNAMIC REPLACEMENT LOGIC
+  // Handles all placeholders including the new ones for Template VIII
   const processedMarkdown = useMemo(() => {
     if (!template.markdown) return '';
     
     return template.markdown
       .replace(/{username}/g, githubUsername || 'Mayur-Pagote')
-      .replace(/{repo}/g, repoName || 'README_Design_Kit'); 
-  }, [template.markdown, githubUsername, repoName]);
+      .replace(/{repo}/g, repoName || 'README_Design_Kit')
+      .replace(/{main_repo}/g, repoName || 'README_Design_Kit')
+      .replace(/{flagship_project_name}/g, projectTitle || 'Portfolio Dashboard')
+      .replace(/{current_learning_tech}/g, learningTech || 'System Design'); 
+  }, [template.markdown, githubUsername, repoName, projectTitle, learningTech]);
 
   const handleCopyMarkdown = async () => {
-    if (!template.elements) return;
     try {
-      const markdown = generateMarkdown(template.elements, theme);
-      await navigator.clipboard.writeText(markdown);
+      // Logic fix: favor the processed markdown if it exists, otherwise generate from elements
+      const contentToCopy = template.markdown 
+        ? processedMarkdown 
+        : generateMarkdown(template.elements || [], theme);
+
+      await navigator.clipboard.writeText(contentToCopy);
       toast.success("Markdown copied to clipboard");
     } catch (err) {
       toast.error("Failed to copy markdown");
@@ -49,7 +57,6 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
 
   return (
     <div className="space-y-6">
-      {/* Template Info Section */}
       <div className="space-y-4">
         <div className="space-y-2">
           <div className="flex items-center gap-2">
@@ -64,28 +71,46 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
           <p className="text-muted-foreground">{template.description}</p>
         </div>
 
-        {/* 3. DYNAMIC INPUTS: Fixes "setRepoName is never read" and broken links */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 p-4 border rounded-lg bg-muted/30">
+        {/* Dynamic Inputs Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-4 border rounded-lg bg-muted/30">
           <div className="space-y-1">
-            <label className="text-xs font-semibold uppercase text-muted-foreground flex items-center gap-2">
+            <label className="text-[10px] font-bold uppercase text-muted-foreground flex items-center gap-2">
               <User className="h-3 w-3" /> GitHub Username
             </label>
             <Input 
               value={githubUsername}
               onChange={(e) => setGithubUsername(e.target.value)}
-              placeholder="Enter username..."
-              className="bg-background"
+              className="bg-background h-8 text-sm"
             />
           </div>
           <div className="space-y-1">
-            <label className="text-xs font-semibold uppercase text-muted-foreground flex items-center gap-2">
-              <Github className="h-3 w-3" /> Repository Name
+            <label className="text-[10px] font-bold uppercase text-muted-foreground flex items-center gap-2">
+              <Github className="h-3 w-3" /> Main Repository
             </label>
             <Input 
               value={repoName}
               onChange={(e) => setRepoName(e.target.value)}
-              placeholder="Enter repository name..."
-              className="bg-background"
+              className="bg-background h-8 text-sm"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-[10px] font-bold uppercase text-muted-foreground flex items-center gap-2">
+              <Rocket className="h-3 w-3" /> Current Project
+            </label>
+            <Input 
+              value={projectTitle}
+              onChange={(e) => setProjectTitle(e.target.value)}
+              className="bg-background h-8 text-sm"
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-[10px] font-bold uppercase text-muted-foreground flex items-center gap-2">
+              <Brain className="h-3 w-3" /> Current Focus
+            </label>
+            <Input 
+              value={learningTech}
+              onChange={(e) => setLearningTech(e.target.value)}
+              className="bg-background h-8 text-sm"
             />
           </div>
         </div>
@@ -101,39 +126,15 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
           </Button>
         </div>
 
-        {/* Metadata */}
-        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-          <div className="flex items-center gap-1">
-            <User className="h-4 w-4" />
-            {template.author}
-          </div>
-          <div className="flex items-center gap-1">
-            <Tag className="h-4 w-4" />
-            {categoryLabel}
-          </div>
-          <div className="flex items-center gap-1">
-            <Calendar className="h-4 w-4" />
-            Updated {template.updated.toLocaleDateString()}
-          </div>
-          <div className="flex items-center gap-1">
-            <Star className="h-4 w-4" />
-            {template.popularity}% popularity
-          </div>
-        </div>
-
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2">
-          {template.tags.map(tag => (
-            <Badge key={tag} variant="secondary" className="text-xs">
-              {tag}
-            </Badge>
-          ))}
+        <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground pt-2">
+          <div className="flex items-center gap-1"><User className="h-4 w-4" /> {template.author}</div>
+          <div className="flex items-center gap-1"><Tag className="h-4 w-4" /> {categoryLabel}</div>
+          <div className="flex items-center gap-1"><Calendar className="h-4 w-4" /> Updated {template.updated.toLocaleDateString()}</div>
         </div>
 
         <Separator />
       </div>
 
-      {/* Preview Controls */}
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold">Live Preview</h3>
         <div className="flex border rounded-lg p-1 bg-muted/50">
@@ -143,8 +144,7 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
             onClick={() => setViewMode('desktop')}
             className="flex items-center gap-2"
           >
-            <Monitor className="h-4 w-4" />
-            Desktop
+            <Monitor className="h-4 w-4" /> Desktop
           </Button>
           <Button
             variant={viewMode === 'mobile' ? 'secondary' : 'ghost'}
@@ -152,13 +152,11 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
             onClick={() => setViewMode('mobile')}
             className="flex items-center gap-2"
           >
-            <Smartphone className="h-4 w-4" />
-            Mobile
+            <Smartphone className="h-4 w-4" /> Mobile
           </Button>
         </div>
       </div>
 
-      {/* Tabs Section */}
       <Tabs defaultValue="preview" className="w-full">
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="preview">Preview Rendering</TabsTrigger>
@@ -166,12 +164,12 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
         </TabsList>
 
         <TabsContent value="preview" className="mt-4">
-          <Card className="overflow-hidden">
+          <Card className="overflow-hidden border-2">
             <CardContent className="p-0">
               <div
                 className={`
                   transition-all duration-300 mx-auto bg-white dark:bg-slate-950
-                  ${viewMode === 'mobile' ? 'max-w-sm border-x shadow-2xl' : 'max-w-full'}
+                  ${viewMode === 'mobile' ? 'max-w-[375px] border-x shadow-2xl' : 'max-w-full'}
                 `}
               >
                 <div className="p-6 space-y-4 min-h-[400px]">
@@ -222,18 +220,6 @@ export function TemplatePreview({ template, onUseTemplate }: TemplatePreviewProp
           </Card>
         </TabsContent>
       </Tabs>
-
-      {/* Final Action Row */}
-      <div className="flex justify-center gap-4 pt-6 border-t">
-        <Button size="lg" onClick={onUseTemplate} className="gap-2 px-8">
-          Apply Template
-          <ArrowRight className="h-5 w-5" />
-        </Button>
-        <Button variant="outline" size="lg" onClick={handleCopyMarkdown} className="gap-2 px-8">
-          <Copy className="h-5 w-5" />
-          Get Markdown
-        </Button>
-      </div>
     </div>
   );
 }
