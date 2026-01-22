@@ -488,9 +488,96 @@ export const sampleTemplates: Template[] = [
       <img src="https://capsule-render.vercel.app/api?type=soft&color=00b4d8&height=60&section=footer" width="100%"/>
     `,
   },
+  {
+    id: 'template-10',
+    name: 'Template - X (RPG Edition)',
+    description: 'The Gamified Developer: Transform your profile into an RPG-style character sheet with a quest log, inventory, and radar stats.',
+    category: 'gamified' as TemplateCategory,
+    tags: ['gamified', 'interactive', 'rpg', 'stats'],
+    author: 'README Design Kit',
+    version: '1.0.0',
+    popularity: 150,
+    thumbnail: '/template-10.png',
+    created: new Date('2026-01-22'),
+    updated: new Date('2026-01-22'),
+    featured: true,
+    markdown: `
+      <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=120&section=header&text=Adventurer%20Status&fontSize=40" width="100%"/>
+
+      <div align="center">
+        <h1> 🎮 Level 25 Developer: {username} </h1>
+        <p> <b>Class:</b> Full Stack Mage | <b>Sub-class:</b> UI/UX Alchemist </p>
+      </div>
+
+      ---
+
+      ## 🛡️ Equipped Inventory (Tech Stack)
+      <div align="center">
+        <table>
+          <tr>
+            <td align="center"><b>Main Hand</b><br/><img src="https://img.shields.io/badge/React-Blade-61DAFB?style=for-the-badge&logo=react" /></td>
+            <td align="center"><b>Off-Hand</b><br/><img src="https://img.shields.io/badge/Node.js-Shield-339933?style=for-the-badge&logo=node.js" /></td>
+          </tr>
+          <tr>
+            <td align="center"><b>Armor</b><br/><img src="https://img.shields.io/badge/Tailwind-Plate-38B2AC?style=for-the-badge&logo=tailwind-css" /></td>
+            <td align="center"><b>Accessories</b><br/><img src="https://img.shields.io/badge/Figma-Gem-F24E1E?style=for-the-badge&logo=figma" /></td>
+          </tr>
+        </table>
+      </div>
+
+      ---
+
+      ## 📊 Ability Radar (Skill Mapping)
+      <div align="center">
+        <img height="250em" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username={username}&theme=github_dark" />
+        <img height="250em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username={username}&theme=github_dark" />
+      </div>
+
+      ---
+
+      ## 📜 Active Quest Log
+      - [ ] **Main Quest:** Architecting a scalable MERN microservice. <code>(Progress: 75%)</code>
+      - [ ] **Side Quest:** Contributing 5 PRs to Open Source projects this month. <code>(Progress: 2/5)</code>
+      - [ ] **Daily:** Solve 2 LeetCode problems. <code>(Streak: 12 days)</code>
+
+      ---
+
+      ## 🏆 Achievement Trophies
+      <div align="center">
+        <img src="https://github-trophies.vercel.app/?username={username}&theme=dracula&no-bg=true&row=1" />
+      </div>
+
+      ---
+      ## 🐍 The Contribution Field (Snake Game)
+      <div align="center">
+        <picture>
+          <source
+            media="(prefers-color-scheme: dark)"
+            srcset="https://raw.githubusercontent.com/{username}/{username}/output/github-contribution-grid-snake-dark.svg"
+          />
+          <source
+            media="(prefers-color-scheme: light)"
+            srcset="https://raw.githubusercontent.com/{username}/{username}/output/github-contribution-grid-snake.svg"
+          />
+          <img
+            alt="github contribution grid snake animation"
+            src="https://raw.githubusercontent.com/{username}/{username}/output/github-contribution-grid-snake.svg"
+          />
+        </picture>
+      </div>
+
+      <br/>
+      <img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&height=60&section=footer" width="100%"/>
+    `,
+  },
 ];
 
 export const templateCategories: { value: TemplateCategory; label: string; description: string }[] = [
+  {
+    value: 'gamified' as TemplateCategory,
+    label: 'Gamified',
+    description: 'RPG-style and interactive templates for a unique developer experience.',
+  },
   {
     value: 'modern',
     label: 'Modern',
@@ -534,4 +621,8 @@ export const popularTags = [
   'open-source',
   'contributor',
   'dynamic',
+  'gamified',
+  'interactive',
+  'rpg',
+  'stats',
 ];
