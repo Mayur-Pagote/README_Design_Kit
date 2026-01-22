@@ -23,7 +23,6 @@ export const sampleTemplates: Template[] = [
       <span style="color:#228B22;"><b>🌱 I’m currently studying Computer Science.</b></span><br>
       <span style="color:#FF69B4;"><b>⚡ Fun fact: The first gigabyte drive cost $40,000!</b></span><br>
       <span style="color:#FFD700;"><b>❤️ Favorite quote: "Help ever, hurt never."</b></span><br>
-      <br> </br>
 
       <img src="https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif" width="100%">
 
@@ -35,6 +34,7 @@ export const sampleTemplates: Template[] = [
           <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username={username}&theme=transparent" />
           <img src="https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif" width="100%">
           <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username={username}&theme=transparent" />
+          <img src="https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif" width="100%">
           <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username={username}&theme=transparent" />
           <img src="https://github-readme-activity-graph.vercel.app/graph?username={username}&theme=react-dark&hide_border=false" width="100%" />
       </div>
@@ -375,9 +375,278 @@ export const sampleTemplates: Template[] = [
       <img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&height=50&section=footer" width="100%"/>
     `,
   },
+  {
+    id: 'template-8',
+    name: 'Template - VIII',
+    description: 'The Impact Dashboard: High-impact, zero-scroll layout for modern profiles.',
+    category: 'minimal',
+    tags: ['minimal', 'dashboard', 'impact', 'short-form'],
+    author: 'README Design Kit',
+    version: '1.0.0',
+    popularity: 120,
+    thumbnail: '/template-8.png',
+    created: new Date('2026-01-21'),
+    updated: new Date('2026-01-21'),
+    featured: true,
+    markdown: `
+
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=120&section=header&text=Portfolio.dashboard&fontSize=40" width="100%"/>
+
+  
+  <p align="center">
+    <b>🚀 CURRENT SPRINT:</b> <code>{repo}</code> <br>
+    <b>🎯 PRIMARY FOCUS:</b> <code>Next.js & TypeScript</code> <br>
+    <b>⏳ STATUS:</b> <code>Available for Hire</code>
+  </p>
+  
+  ---
+  
+  <h2 align="center"> 🌟 Flagship Project </h2>
+  <p align="center">
+    <a href="https://github.com/{username}/{repo}">
+      <img src="https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=dark&show_owner=true" width="100%" />
+    </a>
+  </p>
+  
+  <h2 align="center"> 🛠️ Core Tech Stack </h2>
+  <p align="center">
+    <img src="https://img.shields.io/badge/React-000000?style=for-the-badge&logo=react&logoColor=white" />
+    <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" />
+    <img src="https://img.shields.io/badge/TypeScript-000000?style=for-the-badge&logo=typescript&logoColor=white" />
+    <img src="https://img.shields.io/badge/Node.js-000000?style=for-the-badge&logo=node.js&logoColor=white" />
+    <img src="https://img.shields.io/badge/PostgreSQL-000000?style=for-the-badge&logo=postgresql&logoColor=white" />
+  </p>
+  
+  <h2 align="center"> 📊 Project Contribution Stats </h2>
+  <p align="center">
+    <img src="https://img.shields.io/github/issues-pr/{username}/{repo}?style=for-the-badge&logo=github&color=000000&labelColor=333333" />
+    <img src="https://img.shields.io/github/contributors/{username}/{repo}?style=for-the-badge&logo=github&color=000000&labelColor=333333" />
+    <img src="https://img.shields.io/github/forks/{username}/{repo}?style=for-the-badge&logo=github&color=000000&labelColor=333333" />
+    <img src="https://img.shields.io/github/stars/{username}/{repo}?style=for-the-badge&logo=github&color=000000&labelColor=333333" />
+  </p>
+  
+  <h2 align="center"> 📈 Overall Graphical Statistics </h2>
+  <p align="center">
+    <img height="180em" src="https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&theme=dark&hide_border=true" />
+    <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact&theme=dark&hide_border=true" />
+  </p>
+    `,
+  },
+  {
+    id: 'template-9',
+    name: 'Template - IX',
+    description: 'The Creative Coder: A design-centric layout for developers who prioritize visual storytelling and sleek aesthetics.',
+    category: 'portfolio',
+    tags: ['design', 'aesthetic', 'creative', 'modern'],
+    author: 'README Design Kit',
+    version: '1.0.0',
+    popularity: 140,
+    thumbnail: '/template-9.png',
+    created: new Date('2026-01-21'),
+    updated: new Date('2026-01-21'),
+    featured: true,
+    markdown: `
+      <img src="https://capsule-render.vercel.app/api?type=waving&color=00b4d8&height=180&section=header&text=Creative%20Engineer&fontSize=50&animation=fadeIn" width="100%"/>
+      
+      <div align="center">
+        <h1> ✨ Visualizing Code. Designing Impact. ✨ </h1>
+        <p> 🎨 <b>Poster Designer turned Full Stack Developer.</b> I build digital experiences that are as functional as they are beautiful. </p>
+      </div>
+
+      ---
+
+      <h2 align="center"> 🖌️ The Design Toolbox</h2>
+      <p align="center">
+        <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
+        <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+        <img src="https://img.shields.io/badge/React.js-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+        <img src="https://img.shields.io/badge/Adobe_Photoshop-31A8FF?style=for-the-badge&logo=adobephotoshop&logoColor=white" />
+      </p>
+
+      <h2 align="center">🚀 Flagship Creations</h2>
+      <p align="center">
+        <a href="https://github.com/{username}/{repo}">
+          <img src="https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=transparent&title_color=00b4d8&text_color=777&icon_color=00b4d8&hide_border=true" width="100%" />
+        </a>
+      </p>
+
+      ---
+
+      <h2 align="center">📊 Aesthetic Analytics</h2>
+      <div align="center">
+        <img height="180em" src="https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&theme=transparent&title_color=00b4d8&icon_color=00b4d8&text_color=777&hide_border=true" />
+        <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact&theme=transparent&title_color=00b4d8&text_color=777&hide_border=true" />
+      </div>
+
+      <br/>
+
+      <div align="center">
+        <img src="https://github-readme-activity-graph.vercel.app/graph?username={username}&bg_color=ffffff&color=00b4d8&line=00b4d8&point=00b4d8&area=true&hide_border=true" width="100%" />
+      </div>
+
+      <br/>
+      <img src="https://capsule-render.vercel.app/api?type=soft&color=00b4d8&height=60&section=footer" width="100%"/>
+    `,
+  },
+  {
+    id: 'template-10',
+    name: 'Template - X (RPG Edition)',
+    description: 'The Gamified Developer: Transform your profile into an RPG-style character sheet with a quest log, inventory, and radar stats.',
+    category: 'gamified' as TemplateCategory,
+    tags: ['gamified', 'interactive', 'rpg', 'stats'],
+    author: 'README Design Kit',
+    version: '1.0.0',
+    popularity: 150,
+    thumbnail: '/template-10.png',
+    created: new Date('2026-01-22'),
+    updated: new Date('2026-01-22'),
+    featured: true,
+    markdown: `
+      <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=120&section=header&text=Adventurer%20Status&fontSize=40" width="100%"/>
+
+      <div align="center">
+        <h1> 🎮 Level 25 Developer: {username} </h1>
+        <p> <b>Class:</b> Full Stack Mage | <b>Sub-class:</b> UI/UX Alchemist </p>
+      </div>
+
+      ---
+
+      ## 🛡️ Equipped Inventory (Tech Stack)
+      <div align="center">
+        <table>
+          <tr>
+            <td align="center"><b>Main Hand</b><br/><img src="https://img.shields.io/badge/React-Blade-61DAFB?style=for-the-badge&logo=react" /></td>
+            <td align="center"><b>Off-Hand</b><br/><img src="https://img.shields.io/badge/Node.js-Shield-339933?style=for-the-badge&logo=node.js" /></td>
+          </tr>
+          <tr>
+            <td align="center"><b>Armor</b><br/><img src="https://img.shields.io/badge/Tailwind-Plate-38B2AC?style=for-the-badge&logo=tailwind-css" /></td>
+            <td align="center"><b>Accessories</b><br/><img src="https://img.shields.io/badge/Figma-Gem-F24E1E?style=for-the-badge&logo=figma" /></td>
+          </tr>
+        </table>
+      </div>
+
+      ---
+
+      ## 📊 Ability Radar (Skill Mapping)
+      <div align="center">
+        <img height="250em" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username={username}&theme=github_dark" />
+        <img height="250em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username={username}&theme=github_dark" />
+      </div>
+
+      ---
+
+      ## 📜 Active Quest Log
+      - [ ] **Main Quest:** Architecting a scalable MERN microservice. <code>(Progress: 75%)</code>
+      - [ ] **Side Quest:** Contributing 5 PRs to Open Source projects this month. <code>(Progress: 2/5)</code>
+      - [ ] **Daily:** Solve 2 LeetCode problems. <code>(Streak: 12 days)</code>
+
+      ---
+
+      ## 🏆 Achievement Trophies
+      <div align="center">
+        <img src="https://github-trophies.vercel.app/?username={username}&theme=dracula&no-bg=true&row=1" />
+      </div>
+
+      ---
+      ## 🐍 The Contribution Field (Snake Game)
+      <div align="center">
+        <picture>
+          <source
+            media="(prefers-color-scheme: dark)"
+            srcset="https://raw.githubusercontent.com/{username}/{username}/output/github-contribution-grid-snake-dark.svg"
+          />
+          <source
+            media="(prefers-color-scheme: light)"
+            srcset="https://raw.githubusercontent.com/{username}/{username}/output/github-contribution-grid-snake.svg"
+          />
+          <img
+            alt="github contribution grid snake animation"
+            src="https://raw.githubusercontent.com/{username}/{username}/output/github-contribution-grid-snake.svg"
+          />
+        </picture>
+      </div>
+
+      <br/>
+      <img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&height=60&section=footer" width="100%"/>
+    `,
+  },
+  {
+    id: 'template-11',
+    name: 'Template - XI',
+    description: 'Animated Template',
+    category: 'modern',
+    tags: ['animated', 'dynamic', 'aesthetic', 'creative'],
+    author: 'README Design Kit',
+    version: '1.0.0',
+    popularity: 200,
+    thumbnail: '/template-11.png',
+    created: new Date('2026-01-22'),
+    updated: new Date('2026-01-22'),
+    featured: true,
+    markdown: `
+  <img src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/d48893bd-0757-481c-8d7e-ba3e163feae7" />
+
+  <div align="center">
+    <h2> 𝐇𝐞𝐥𝐥𝐨 𝐭𝐡𝐞𝐫𝐞, 𝐟𝐞𝐥𝐥𝐨𝐰 <𝚍𝚎𝚟𝚎𝚕𝚘𝚙𝚎𝚛𝚜/>!
+    <img src="https://user-images.githubusercontent.com/74038190/214644152-52f47eb3-5e31-4f47-8758-05c9468d5596.gif" width="25"/></h2>
+  </div>
+
+  <div align="center">
+    <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&pause=1000&color=F75C7E&width=435&lines=Hello+Developers!;I'm+{username};Welcome+to+my+Profile!" />
+  </div>
+
+  <h1><img src="https://user-images.githubusercontent.com/74038190/212284087-bbe7e430-757e-4901-90bf-4cd2ce3e1852.gif" width="40"/>Tech Stack</h1>
+
+  <p style="display: flex; gap: 20px;">
+    <img src="https://user-images.githubusercontent.com/74038190/212257467-871d32b7-e401-42e8-a166-fcfd7baa4c6b.gif" width="60">
+    <img src="https://user-images.githubusercontent.com/74038190/212257460-738ff738-247f-4445-a718-cdd0ca76e2db.gif" width="60">
+    <img src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/1a797f46-efe4-41e6-9e75-5303e1bbcbfa" width="80">
+    <img src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/398b19b1-9aae-4c1f-8bc0-d172a2c08d68" width="80">
+    <img src="https://user-images.githubusercontent.com/74038190/212281775-b468df30-4edc-4bf8-a4ee-f52e1aaddc86.gif" width="80">
+    <img src="https://user-images.githubusercontent.com/74038190/212257468-1e9a91f1-b626-4baa-b15d-5c385dfa7ed2.gif" width="50">
+    <img src="https://user-images.githubusercontent.com/74038190/212257454-16e3712e-945a-4ca2-b238-408ad0bf87e6.gif" width="60">
+  </p>
+
+  <br/>
+
+  <h1> 📊 GitHub Stats </h1>
+  <div align="center">
+  <img src="https://github-readme-stats.vercel.app/api?username={username}&theme=rose&hide_border=false&include_all_commits=false&count_private=false" />
+  <br/>
+  <img src="https://nirzak-streak-stats.vercel.app/?user={username}&theme=rose&hide_border=false" />
+  </div>
+
+  <h1>🏆 GitHub Trophies </h1>
+  <img src="https://github-trophies.vercel.app/?username={username}&theme=dracula" />
+
+  <h1> 📈 Contribution Graph </h1>
+  <div align="center">
+    <img src="https://ssr-contributions-svg.vercel.app/_/{username}?chart=3dbar&flatten=1&weeks=34&animation=wave&format=svg&gap=0.6&animation_frequency=0.2&animation_amplitude=20&theme=pink" />
+  </div>
+
+  <h2>📝 Connect</h2>
+  <br> 
+  <div align="center">
+      <a href="https://github.com/{username}" target="_blank">
+          <img src=https://img.shields.io/badge/github-%2324292e.svg?&style=for-the-badge&logo=github&logoColor=white alt=github style="margin-bottom: 5px;">
+      </a>
+      <a href="https://x.com/{username}" target="_blank">
+          <img src=https://img.shields.io/badge/twitter-%2300acee.svg?&style=for-the-badge&logo=twitter&logoColor=white alt=twitter style="margin-bottom: 5px;">
+      </a>
+      <a href="https://linkedin.com/in/{username}" target="_blank">
+          <img src=https://img.shields.io/badge/linkedin-%231E77B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white alt=linkedin style="margin-bottom: 5px;">
+      </a>
+  </div>
+    `,
+  },
 ];
 
 export const templateCategories: { value: TemplateCategory; label: string; description: string }[] = [
+  {
+    value: 'gamified' as TemplateCategory,
+    label: 'Gamified',
+    description: 'RPG-style and interactive templates for a unique developer experience.',
+  },
   {
     value: 'modern',
     label: 'Modern',
@@ -421,4 +690,8 @@ export const popularTags = [
   'open-source',
   'contributor',
   'dynamic',
+  'gamified',
+  'interactive',
+  'rpg',
+  'stats',
 ];

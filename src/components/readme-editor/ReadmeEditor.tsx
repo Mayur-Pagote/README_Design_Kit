@@ -31,7 +31,8 @@ import {
   Image as ImageIcon,
   Github,
   CheckCircle2,
-  Share2
+  Share2,
+  ChevronDown
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '@/lib/utils';
@@ -39,6 +40,12 @@ import { readmeAI } from '@/services/readmeAIService';
 import { webSearchService } from '@/services/webSearchService';
 import { githubReadmeGenerator } from '@/services/githubReadmeGeneratorService';
 import { SaveToGitHubDialog } from '@/components/github/SaveToGitHubDialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 // import { setFlagsFromString } from 'v8';
 
 interface ReadmeEditorProps {
@@ -351,20 +358,18 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
       {/* Header */}
       <div className="flex-none border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="flex h-14 items-center px-4">
-          <div className="flex items-center space-x-2">
-            <div className="flex items-center space-x-1">
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               <Bot className="h-5 w-5 text-primary" />
               <span className="font-semibold text-lg">AI README Editor</span>
             </div>
             <Badge variant="secondary" className="text-xs">
               <Sparkles className="h-3 w-3 mr-1" />
-              Powered by Gemini 2.0 Flash Lite + GitHub
+              Powered by Gemini 2.0 + GitHub
             </Badge>
-
-
           </div>
 
-          <div className="flex items-center space-x-2 ml-auto">
+          <div className="flex items-center gap-2 ml-auto">
             <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as any)} className="w-auto">
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="code" className="flex items-center space-x-1">
@@ -377,40 +382,56 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
                 </TabsTrigger>
               </TabsList>
             </Tabs>
-
-            <Separator orientation="vertical" className="h-6" />
-            <Button variant="outline" size="sm" onClick={() => setShowLoadDialog(true)} title="Load from GitHub">
-              <Github className="h-4 w-4 mr-1" />
-              <span className="hidden sm:inline">Import</span>
-            </Button>
-            <Button variant="outline" size="sm" onClick={handleCopyMarkdown}>
-              <Copy className="h-4 w-4 mr-1" />
-              Copy
-            </Button>
-
-            <Button variant="outline" size="sm" onClick={handleDownloadMarkdown}>
-              <Download className="h-4 w-4 mr-1" />
-              Download
-            </Button>
-            <Button variant="outline" size="sm" onClick={handleExportGist} title="Export to Gist">
-              <Share2 className="h-4 w-4 mr-1" />
-              Export Gist
-            </Button>
-            <Button variant="outline" size="sm" onClick={handleExportPNG} title="Export as PNG">
-              <ImageIcon className="h-4 w-4 mr-1" />
-              Export PNG
-
-            </Button>
-
-            <Button variant="outline" size="sm" onClick={() => setShowGithubDialog(true)} title="Save to GitHub">
-              <Github className="h-4 w-4 mr-1" />
-              Save to GitHub
-            </Button>
-
+            <Separator orientation="vertical" className="h-8" />
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Download className="h-4 w-4 mr-1" />
+                  Export
+                  <ChevronDown className="h-3 w-3 ml-1" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={handleCopyMarkdown}>
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copy Markdown
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDownloadMarkdown}>
+                  <Download className="h-4 w-4 mr-2" />
+                  Download MD
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleExportPNG}>
+                  <ImageIcon className="h-4 w-4 mr-2" />
+                  Export as PNG
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleExportGist}>
+                  <Share2 className="h-4 w-4 mr-2" />
+                  Export Gist
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm">
+                  <Github className="h-4 w-4 mr-1" />
+                  GitHub
+                  <ChevronDown className="h-3 w-3 ml-1" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setShowLoadDialog(true)}>
+                  <Github className="h-4 w-4 mr-2" />
+                  Import from GitHub
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setShowGithubDialog(true)}>
+                  <Github className="h-4 w-4 mr-2" />
+                  Save to GitHub
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             <Button variant="outline" size="sm" onClick={() => setShowSettings(true)}>
               <Settings className="h-4 w-4" />
             </Button>
-
             <Button variant="outline" size="sm">
               <Link to="/">
                 <Home className="h-4 w-4" />
