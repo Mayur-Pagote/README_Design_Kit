@@ -25,7 +25,8 @@ export type TemplateCategory =
   | 'other'
   | 'academic'    
   | 'community'   
-  | 'portfolio';  
+  | 'portfolio'
+  | 'open-source';
 
 export interface TemplateFilter {
   category?: TemplateCategory;

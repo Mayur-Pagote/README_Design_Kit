@@ -23,7 +23,6 @@ export const sampleTemplates: Template[] = [
       <span style="color:#228B22;"><b>🌱 I’m currently studying Computer Science.</b></span><br>
       <span style="color:#FF69B4;"><b>⚡ Fun fact: The first gigabyte drive cost $40,000!</b></span><br>
       <span style="color:#FFD700;"><b>❤️ Favorite quote: "Help ever, hurt never."</b></span><br>
-      <br> </br>
 
       <img src="https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif" width="100%">
 
@@ -35,6 +34,7 @@ export const sampleTemplates: Template[] = [
           <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username={username}&theme=transparent" />
           <img src="https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif" width="100%">
           <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username={username}&theme=transparent" />
+          <img src="https://user-images.githubusercontent.com/85225156/171937799-8fc9e255-9889-4642-9c92-6df85fb86e82.gif" width="100%">
           <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username={username}&theme=transparent" />
           <img src="https://github-readme-activity-graph.vercel.app/graph?username={username}&theme=react-dark&hide_border=false" width="100%" />
       </div>
@@ -312,6 +312,182 @@ export const sampleTemplates: Template[] = [
       <img src="https://capsule-render.vercel.app/api?type=soft&color=000000&height=50&section=footer" width="100%"/>
     `,
   },
+  {
+    id: 'template-7',
+    name: 'Template - VII',
+    description: 'Open Source Contributor: A specialized template focusing on program participation, contribution streaks, and real-time PR activity.',
+    category: 'open-source',
+    tags: ['open-source', 'contributor', 'dynamic', 'stats'],
+    author: 'README Design Kit',
+    version: '1.0.0',
+    popularity: 110,
+    thumbnail: '/template-7.png',
+    created: new Date('2026-01-20'),
+    updated: new Date('2026-01-20'),
+    featured: true,
+    markdown: `
+      <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=120&section=header&text=Open%20Source%20Contributor&fontSize=40" width="100%"/>
+      
+      <p align="center">
+        <img src="https://img.shields.io/badge/Latest%20Contribution-Merged-8E44AD?style=for-the-badge&logo=github" />
+        <img src="https://img.shields.io/github/issues-pr-raw/{username}/{repo}?style=for-the-badge&label=Active%20PRs&color=2ecc71" />
+      </p>
+
+      <h1 align="center"> Hi, I'm {username} 👋 </h1>
+      <p align="center"> 🚀 Passionate about contributing to Open Source and building community-driven software. </p>
+
+      ---
+
+      ## 🏆 Open Source Achievements
+      <div align="center">
+        <img src="https://img.shields.io/badge/Hacktoberfest%20'25-6+%20PRs%20Accepted-9146FF?style=for-the-badge&logo=hacktoberfest" />
+        <img src="https://img.shields.io/badge/SWOC%20'25-Rank%2014-blue?style=for-the-badge&logo=github" />
+        <img src="https://img.shields.io/badge/GSSoC%20'24-Rank%20483-orange?style=for-the-badge&logo=google-summer-of-code" />
+      </div>
+      
+      ---
+
+      ## 📊 Contribution Analytics
+      <p align="center">
+        <img height="180em" src="https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&theme=tokyonight&count_private=true" />
+        <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username={username}&theme=react"/>
+      </p>
+
+      ---
+      ## 🔄 Recent Activity Graph
+      <div align="center">
+        <img src="https://github-readme-activity-graph.vercel.app/graph?username={username}&theme=tokyonight&hide_border=true&area=true" width="100%" />
+      </div>
+
+      <br/>
+
+      ---
+
+      ## 🛠️ Most Contributed Tech
+      <p align="center">
+        <img src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E" />
+        <img src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB" />
+        <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" />
+        <img src="https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white" />
+      </p>
+
+      <br/>
+      <img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&height=50&section=footer" width="100%"/>
+    `,
+  },
+  {
+    id: 'template-8',
+    name: 'Template - VIII',
+    description: 'The Impact Dashboard: High-impact, zero-scroll layout for modern profiles.',
+    category: 'minimal',
+    tags: ['minimal', 'dashboard', 'impact', 'short-form'],
+    author: 'README Design Kit',
+    version: '1.0.0',
+    popularity: 120,
+    thumbnail: '/template-8.png',
+    created: new Date('2026-01-21'),
+    updated: new Date('2026-01-21'),
+    featured: true,
+    markdown: `
+
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=120&section=header&text=Portfolio.dashboard&fontSize=40" width="100%"/>
+
+  
+  <p align="center">
+    <b>🚀 CURRENT SPRINT:</b> <code>{repo}</code> <br>
+    <b>🎯 PRIMARY FOCUS:</b> <code>Next.js & TypeScript</code> <br>
+    <b>⏳ STATUS:</b> <code>Available for Hire</code>
+  </p>
+  
+  ---
+  
+  <h2 align="center"> 🌟 Flagship Project </h2>
+  <p align="center">
+    <a href="https://github.com/{username}/{repo}">
+      <img src="https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=dark&show_owner=true" width="100%" />
+    </a>
+  </p>
+  
+  <h2 align="center"> 🛠️ Core Tech Stack </h2>
+  <p align="center">
+    <img src="https://img.shields.io/badge/React-000000?style=for-the-badge&logo=react&logoColor=white" />
+    <img src="https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white" />
+    <img src="https://img.shields.io/badge/TypeScript-000000?style=for-the-badge&logo=typescript&logoColor=white" />
+    <img src="https://img.shields.io/badge/Node.js-000000?style=for-the-badge&logo=node.js&logoColor=white" />
+    <img src="https://img.shields.io/badge/PostgreSQL-000000?style=for-the-badge&logo=postgresql&logoColor=white" />
+  </p>
+  
+  <h2 align="center"> 📊 Project Contribution Stats </h2>
+  <p align="center">
+    <img src="https://img.shields.io/github/issues-pr/{username}/{repo}?style=for-the-badge&logo=github&color=000000&labelColor=333333" />
+    <img src="https://img.shields.io/github/contributors/{username}/{repo}?style=for-the-badge&logo=github&color=000000&labelColor=333333" />
+    <img src="https://img.shields.io/github/forks/{username}/{repo}?style=for-the-badge&logo=github&color=000000&labelColor=333333" />
+    <img src="https://img.shields.io/github/stars/{username}/{repo}?style=for-the-badge&logo=github&color=000000&labelColor=333333" />
+  </p>
+  
+  <h2 align="center"> 📈 Overall Graphical Statistics </h2>
+  <p align="center">
+    <img height="180em" src="https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&theme=dark&hide_border=true" />
+    <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact&theme=dark&hide_border=true" />
+  </p>
+    `,
+  },
+  {
+    id: 'template-9',
+    name: 'Template - IX',
+    description: 'The Creative Coder: A design-centric layout for developers who prioritize visual storytelling and sleek aesthetics.',
+    category: 'portfolio',
+    tags: ['design', 'aesthetic', 'creative', 'modern'],
+    author: 'README Design Kit',
+    version: '1.0.0',
+    popularity: 140,
+    thumbnail: '/template-9.png',
+    created: new Date('2026-01-21'),
+    updated: new Date('2026-01-21'),
+    featured: true,
+    markdown: `
+      <img src="https://capsule-render.vercel.app/api?type=waving&color=00b4d8&height=180&section=header&text=Creative%20Engineer&fontSize=50&animation=fadeIn" width="100%"/>
+      
+      <div align="center">
+        <h1> ✨ Visualizing Code. Designing Impact. ✨ </h1>
+        <p> 🎨 <b>Poster Designer turned Full Stack Developer.</b> I build digital experiences that are as functional as they are beautiful. </p>
+      </div>
+
+      ---
+
+      <h2 align="center"> 🖌️ The Design Toolbox</h2>
+      <p align="center">
+        <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white" />
+        <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
+        <img src="https://img.shields.io/badge/React.js-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+        <img src="https://img.shields.io/badge/Adobe_Photoshop-31A8FF?style=for-the-badge&logo=adobephotoshop&logoColor=white" />
+      </p>
+
+      <h2 align="center">🚀 Flagship Creations</h2>
+      <p align="center">
+        <a href="https://github.com/{username}/{repo}">
+          <img src="https://github-readme-stats.vercel.app/api/pin/?username={username}&repo={repo}&theme=transparent&title_color=00b4d8&text_color=777&icon_color=00b4d8&hide_border=true" width="100%" />
+        </a>
+      </p>
+
+      ---
+
+      <h2 align="center">📊 Aesthetic Analytics</h2>
+      <div align="center">
+        <img height="180em" src="https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&theme=transparent&title_color=00b4d8&icon_color=00b4d8&text_color=777&hide_border=true" />
+        <img height="180em" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact&theme=transparent&title_color=00b4d8&text_color=777&hide_border=true" />
+      </div>
+
+      <br/>
+
+      <div align="center">
+        <img src="https://github-readme-activity-graph.vercel.app/graph?username={username}&bg_color=ffffff&color=00b4d8&line=00b4d8&point=00b4d8&area=true&hide_border=true" width="100%" />
+      </div>
+
+      <br/>
+      <img src="https://capsule-render.vercel.app/api?type=soft&color=00b4d8&height=60&section=footer" width="100%"/>
+    `,
+  },
 ];
 
 export const templateCategories: { value: TemplateCategory; label: string; description: string }[] = [
@@ -336,6 +512,11 @@ export const templateCategories: { value: TemplateCategory; label: string; descr
     description: 'Personal portfolio templates',
   },
   {
+    value: 'open-source',
+    label: 'Open Source',
+    description: 'Templates for active contributors and program participants',
+  },
+  {
     value: 'other',
     label: 'Other',
     description: 'Other Templates',
@@ -350,4 +531,7 @@ export const popularTags = [
   'badges',
   'tech-stack',
   'clean',
+  'open-source',
+  'contributor',
+  'dynamic',
 ];
