@@ -136,22 +136,20 @@ export default function DragDropEditor() {
   };
 
   const handleCheckReadmeQuality = () => {
-    console.log('Checking README quality', elements);
     const result = analyzeReadmeQuality(elements);
-    console.log('Quality Result:', result);
     setQualityResult(result);
     setShowQualityDialog(true);
   };
 
   const handleEditElement = (element: ElementType) => setEditingElement(element);
-  
+
   const handleSaveElement = (editedElement: ElementType) => {
     setElements(prev => prev.map(el => (el.id === editedElement.id ? editedElement : el)));
     setEditingElement(null);
   };
-  
+
   const handleElementsChange = (newElements: ElementType[]) => setElements(newElements);
-  
+
   const handleBrandingSuggestion = (id: string, newContent: string) => {
     setElements(prev => prev.map(el => (el.id === id ? { ...el, content: newContent } : el)));
   };
@@ -165,10 +163,10 @@ export default function DragDropEditor() {
     setElements(prev => {
       const currentIndex = prev.findIndex(el => el.id === elementId);
       if (currentIndex === -1) return prev;
-      
+
       const newIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
       if (newIndex < 0 || newIndex >= prev.length) return prev;
-      
+
       const newElements = [...prev];
       [newElements[currentIndex], newElements[newIndex]] = [newElements[newIndex], newElements[currentIndex]];
       toast.success(`Element moved ${direction}`);
@@ -566,7 +564,7 @@ export default function DragDropEditor() {
         {!isMobile && isTablet && (
           <div className="flex-1 flex flex-row overflow-hidden">
             {showPalette && (
-              <div className="w-80 min-w-[320px] max-w-[360px] border-r overflow-y-scroll bg-muted/50">
+              <div className="w-80 min-w-[320px] max-w-[360px] border-r overflow-y-auto overflow-x-hidden bg-muted/50">
                 <ElementPalette onAddElement={handleAddElement} />
               </div>
             )}
@@ -609,7 +607,7 @@ export default function DragDropEditor() {
         {!isMobile && !isTablet && (
           <div className="flex-1 flex flex-row overflow-hidden">
             {showPalette && (
-              <div className="basis-1/4 min-w-[220px] max-w-[320px] border-r overflow-auto">
+              <div className="basis-1/4 min-w-0 max-w-[320px] border-r overflow-y-auto overflow-x-hidden">
                 <ElementPalette onAddElement={handleAddElement} />
               </div>
             )}
@@ -647,9 +645,9 @@ export default function DragDropEditor() {
         onReorderElement={handleReorderElement}
         backToTopVisible={backToTopVisible}
       />
-      
+
       <ScrollToTop isVisible={backToTopVisible} />
-      
+
       <ElementEditor
         element={editingElement}
         isOpen={editingElement !== null}
@@ -657,12 +655,12 @@ export default function DragDropEditor() {
         onSave={handleSaveElement}
         globalGithubUsername={githubUsername}
       />
-      
+
       <PersonaComparisonModal 
         isOpen={showComparisonModal} 
         onClose={() => setShowComparisonModal(false)} 
       />
-      
+
       <GithubUsernameDialog
         isOpen={showGithubUsernameInput}
         onClose={() => setShowGithubUsernameInput(false)}
@@ -672,12 +670,12 @@ export default function DragDropEditor() {
           updateAllGithubUsernames(newUsername);
         }}
       />
-      
+
       <AISettingsDialog
         isOpen={showAISettings}
         onClose={() => setShowAISettings(false)}
       />
-      
+
       <ReadmeQualityDialog
         open={showQualityDialog}
         onClose={() => setShowQualityDialog(false)}
