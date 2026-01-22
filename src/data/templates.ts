@@ -509,12 +509,6 @@ export const sampleTemplates: Template[] = [
         <p> <b>Class:</b> Full Stack Mage | <b>Sub-class:</b> UI/UX Alchemist </p>
       </div>
 
-      <div align="center">
-        <img src="https://progress-bar.dev/85/?title=HEALTH&color=4ade80&width=400" />
-        <br/>
-        <img src="https://progress-bar.dev/60/?title=MANA&color=60a5fa&width=400" />
-      </div>
-
       ---
 
       ## 🛡️ Equipped Inventory (Tech Stack)
@@ -559,15 +553,15 @@ export const sampleTemplates: Template[] = [
         <picture>
           <source
             media="(prefers-color-scheme: dark)"
-            srcset="https://github.com/Pri-21-coder/README_Design_Kit-2.O/blob/output/github-contribution-grid-snake-dark.svg"
+            srcset="https://raw.githubusercontent.com/{username}/{username}/output/github-contribution-grid-snake-dark.svg"
           />
           <source
             media="(prefers-color-scheme: light)"
-            srcset="https://github.com/Pri-21-coder/README_Design_Kit-2.O/blob/output/github-contribution-grid-snake.svg"
+            srcset="https://raw.githubusercontent.com/{username}/{username}/output/github-contribution-grid-snake.svg"
           />
           <img
             alt="github contribution grid snake animation"
-            src="https://github.com/Pri-21-coder/README_Design_Kit-2.O/blob/output/github-contribution-grid-snake.svg"
+            src="https://raw.githubusercontent.com/{username}/{username}/output/github-contribution-grid-snake.svg"
           />
         </picture>
       </div>
