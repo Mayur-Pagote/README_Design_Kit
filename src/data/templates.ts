@@ -570,6 +570,92 @@ export const sampleTemplates: Template[] = [
       <img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&height=60&section=footer" width="100%"/>
     `,
   },
+  {
+    id: 'template-11',
+    name: 'Template - XI (Bento Portfolio)',
+    description: 'Modern Bento Grid: A highly organized, modular layout inspired by premium landing pages.',
+    category: 'modern',
+    tags: ['bento', 'grid', 'modern', 'clean'],
+    author: 'README Design Kit',
+    version: '1.1.0',
+    popularity: 160,
+    thumbnail: '/template-11.png',
+    created: new Date('2026-01-22'),
+    updated: new Date('2026-01-22'),
+    featured: true,
+    markdown: `
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=120&section=header&text=My Developer%20Bento&fontSize=40" width="100%"/>
+  
+  <div align="center">
+    <table border="0" cellspacing="10" cellpadding="10">
+      <tr>
+        <td width="55%" rowspan="2" valign="top" align="left" style="border: 1px solid #30363d; border-radius: 10px;">
+          <h3 align="left">🚀 About Me</h3>
+          I am a <b>3rd-year B.Tech Computer Science student</b> specializing in <b>Data Science</b>. 
+          My focus is on building scalable full-stack applications with the <b>MERN stack</b> while exploring <b>Machine Learning</b> models like Decision Trees and SVMs.
+        </td>
+        <td width="45%" valign="top" align="left" style="border: 1px solid #30363d; border-radius: 10px;">
+          <h3 align="left">📍 Location</h3>
+          Kolkata, India 
+        </td>
+      </tr>
+      <tr>
+        <td valign="top" align="left" style="border: 1px solid #30363d; border-radius: 10px;">
+          <h3 align="left">🛠️ Tech Stack</h3>
+          <img src="https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=flat&logo=mongodb&logoColor=white" />
+          <img src="https://img.shields.io/badge/Express.js-%23404d59.svg?style=flat&logo=express&logoColor=%2361DAFB" />
+          <img src="https://img.shields.io/badge/React-%2320232a.svg?style=flat&logo=react&logoColor=%2361DAFB" />
+          <img src="https://img.shields.io/badge/Node.js-6DA55F?style=flat&logo=node.js&logoColor=white" /><br/>
+          <img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=python&logoColor=white" />
+          <img src="https://img.shields.io/badge/Java-ED8B00?style=flat&logo=openjdk&logoColor=white" />
+          <img src="https://img.shields.io/badge/R-276DC3?style=flat&logo=r&logoColor=white" />
+        </td>
+      </tr>
+      <tr>
+        <td valign="top" align="left" style="border: 1px solid #30363d; border-radius: 10px;">
+          <h3 align="left">🌟 Open Source Contributions</h3>
+          • <b>Social Winter of Code (SWOC) '26</b> Contributor<br/>
+          • <b>GirlScript Summer of Code (GSSoC) '25</b> Contributor
+        </td>
+        <td valign="top" align="left" style="border: 1px solid #30363d; border-radius: 10px;">
+          <h3 align="left">🎨 Creative Side</h3>
+          Passionate about <b>Poster Making</b> and designing visual narratives.
+        </td>
+      </tr>
+      <tr>
+        <td colspan="2" valign="top" align="left" style="border: 1px solid #30363d; border-radius: 10px;">
+          <h3 align="left">💻 Featured Work</h3>
+          <b>Project Ecosta:</b> Finalist at IIIT Kalyani's Status Code 2 Hackathon<br/>
+          <b>Feeler:</b> A concept app aimed at promoting mental well-being and emotional stress reduction
+        </td>
+      </tr>
+    </table>
+  </div>
+  
+  <br/>
+  
+  <div align="center">
+    <img src="https://github-readme-activity-graph.vercel.app/graph?username={username}&theme=dracula&area=true&hide_border=true&radius=15" width="100%" />
+  </div>
+  
+  <br/>
+  
+  <div align="center">
+    <table width="100%" border="0">
+      <tr>
+        <td align="center" width="50%">
+          <img src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact&theme=dracula&hide_border=true" />
+        </td>
+        <td align="center" width="50%">
+          <img height="180em" src="https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&theme=transparent&title_color=00b4d8&icon_color=00b4d8&text_color=777&hide_border=true" />
+        </td>
+      </tr>
+    </table>
+  </div>
+  <br/>
+      <img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&height=60&section=footer" width="100%"/>
+      `,
+  },
 ];
 
 export const templateCategories: { value: TemplateCategory; label: string; description: string }[] = [
