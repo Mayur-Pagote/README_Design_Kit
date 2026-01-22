@@ -14,7 +14,7 @@ import domtoimage from 'dom-to-image-more';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { formatDistanceToNow } from 'date-fns';
 import { GitHubLoadDialog } from './GitHubLoadDialog';
-import { getRepoReadme } from '@/services/githubService';
+import { getRepoReadme, createGist } from '@/services/githubService';
 import {
   Code2,
   Eye,
@@ -31,6 +31,7 @@ import {
   Image as ImageIcon,
   Github,
   CheckCircle2,
+  Share2,
   ChevronDown
 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -308,6 +309,37 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
     }
   };
 
+  const handleExportGist = async () => {
+    const token = localStorage.getItem('github-token');
+    if (!token) {
+      toast.error('GitHub token not found. Please configure it in settings.');
+      setShowSettings(true);
+      return;
+    }
+
+    const promise = createGist(token, markdownContent);
+
+    toast.promise(promise, {
+      loading: 'Creating Gist...',
+      success: (data: any) => {
+        return (
+          <div className="flex flex-col gap-1">
+            <span className="font-medium">Gist created successfully!</span>
+            <a
+              href={data.html_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs text-primary underline py-1"
+            >
+              View on GitHub
+            </a>
+          </div>
+        );
+      },
+      error: (err: any) => `Failed to create Gist: ${err.message}`,
+    });
+  };
+
   const handleLoadFromGithub = async (username: string, repo: string) => {
     try {
       const readmeContent = await getRepoReadme(username, repo);
@@ -371,6 +403,10 @@ export const ReadmeEditor: React.FC<ReadmeEditorProps> = ({ className }) => {
                 <DropdownMenuItem onClick={handleExportPNG}>
                   <ImageIcon className="h-4 w-4 mr-2" />
                   Export as PNG
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleExportGist}>
+                  <Share2 className="h-4 w-4 mr-2" />
+                  Export Gist
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

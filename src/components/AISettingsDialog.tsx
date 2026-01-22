@@ -14,7 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Eye, EyeOff, ExternalLink, Key, Sparkles, Trash2 } from 'lucide-react';
+import { Eye, EyeOff, ExternalLink, Key, Sparkles, Trash2, Github } from 'lucide-react';
 import { geminiService } from '@/services/geminiService';
 import { toast } from 'sonner';
 
@@ -30,37 +30,56 @@ export function AISettingsDialog({ isOpen, onClose }: AISettingsDialogProps) {
   const [hasExistingKey, setHasExistingKey] = useState(false);
   const [creativity, setCreativity] = useState<'concise' | 'balanced' | 'detailed'>('balanced');
   const [style, setStyle] = useState<'professional' | 'casual' | 'technical' | 'creative' | 'recruiter' | 'maintainer'>('professional');
+  const [githubToken, setGithubToken] = useState('');
+  const [showGithubToken, setShowGithubToken] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       const existingKey = geminiService.getApiKey();
       setHasExistingKey(!!existingKey);
       setApiKey(existingKey || '');
-      
+
       const settings = geminiService.getSettings();
       setCreativity(settings.creativity);
       setStyle(settings.style);
+
+      const storedToken = localStorage.getItem('github-token');
+      setGithubToken(storedToken || '');
     }
   }, [isOpen]);
 
   const handleSave = async () => {
-    if (!apiKey.trim()) {
-      toast.error('Please enter a valid API key');
+    if (!apiKey.trim() && !githubToken.trim()) {
+      toast.error('Please enter either a Gemini API key or a GitHub token');
       return;
     }
 
     try {
-      // Test the API key by making a simple request
       setIsTestingConnection(true);
-      geminiService.setApiKey(apiKey.trim());
-      
+
+      // Save Gemini Key if provided
+      if (apiKey.trim()) {
+        geminiService.setApiKey(apiKey.trim());
+      } else {
+        geminiService.clearApiKey();
+      }
+
       // Save the AI settings
       geminiService.setSettings({ creativity, style });
-      
-      // Test with a simple request
-      await geminiService.enhanceText('Hello world', 'test');
-      
-      toast.success('API key and settings saved successfully!');
+
+      // Save GitHub Token
+      if (githubToken.trim()) {
+        localStorage.setItem('github-token', githubToken.trim());
+      } else {
+        localStorage.removeItem('github-token');
+      }
+
+      // Test Gemini with a simple request ONLY if a key was provided
+      if (apiKey.trim()) {
+        await geminiService.enhanceText('Hello world', 'test');
+      }
+
+      toast.success('Settings saved successfully!');
       onClose();
     } catch (error) {
       toast.error('Invalid API key. Please check your key and try again.');
@@ -96,7 +115,7 @@ export function AISettingsDialog({ isOpen, onClose }: AISettingsDialogProps) {
 
         <div className="space-y-4">
           <Tabs defaultValue="api-key" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
+            <TabsList className="grid w-full grid-cols-3">
               <TabsTrigger value="api-key" className="flex items-center gap-2">
                 <Key className="h-4 w-4" />
                 API Key
@@ -105,8 +124,12 @@ export function AISettingsDialog({ isOpen, onClose }: AISettingsDialogProps) {
                 <Sparkles className="h-4 w-4" />
                 Preferences
               </TabsTrigger>
+              <TabsTrigger value="github" className="flex items-center gap-2">
+                <Github className="h-4 w-4" />
+                GitHub
+              </TabsTrigger>
             </TabsList>
-            
+
             <TabsContent value="api-key" className="space-y-4">
               <Alert>
                 <Key className="h-4 w-4" />
@@ -127,7 +150,7 @@ export function AISettingsDialog({ isOpen, onClose }: AISettingsDialogProps) {
                     Get API Key <ExternalLink className="h-3 w-3 ml-1" />
                   </Button>
                 </div>
-                
+
                 <div className="relative">
                   <Input
                     id="api-key"
@@ -168,7 +191,7 @@ export function AISettingsDialog({ isOpen, onClose }: AISettingsDialogProps) {
                 <p>• Your data is processed by Google's AI services</p>
               </div>
             </TabsContent>
-            
+
             <TabsContent value="preferences" className="space-y-4">
               <div className="space-y-4">
                 <div>
@@ -234,17 +257,17 @@ export function AISettingsDialog({ isOpen, onClose }: AISettingsDialogProps) {
                         </div>
                       </SelectItem>
                       <SelectItem value="recruiter">
-  <div className="flex flex-col">
-    <span className="font-medium">Recruiter Friendly</span>
-    <span className="text-xs text-muted-foreground">Focus on metrics & impact</span>
-  </div>
-</SelectItem>
-<SelectItem value="maintainer">
-  <div className="flex flex-col">
-    <span className="font-medium">OS Maintainer</span>
-    <span className="text-xs text-muted-foreground">Community & contribution focus</span>
-  </div>
-</SelectItem>
+                        <div className="flex flex-col">
+                          <span className="font-medium">Recruiter Friendly</span>
+                          <span className="text-xs text-muted-foreground">Focus on metrics & impact</span>
+                        </div>
+                      </SelectItem>
+                      <SelectItem value="maintainer">
+                        <div className="flex flex-col">
+                          <span className="font-medium">OS Maintainer</span>
+                          <span className="text-xs text-muted-foreground">Community & contribution focus</span>
+                        </div>
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -256,7 +279,7 @@ export function AISettingsDialog({ isOpen, onClose }: AISettingsDialogProps) {
                     {creativity === 'concise' && style === 'casual' && "Hey! I'm a developer who loves building cool stuff."}
                     {creativity === 'concise' && style === 'technical' && "Software engineer specializing in full-stack development."}
                     {creativity === 'concise' && style === 'creative' && "Code artist crafting digital experiences."}
-                    
+
                     {creativity === 'balanced' && style === 'professional' && "I'm a passionate software developer with expertise in modern web technologies. I focus on creating efficient, scalable solutions that deliver real value to users."}
                     {creativity === 'balanced' && style === 'casual' && "Hey there! I'm a developer who loves building awesome apps and learning new tech. I enjoy solving problems and creating things that people actually want to use."}
                     {creativity === 'balanced' && style === 'technical' && "Software engineer with expertise in React, Node.js, and cloud architecture. I specialize in building scalable applications with focus on performance optimization."}
@@ -264,17 +287,66 @@ export function AISettingsDialog({ isOpen, onClose }: AISettingsDialogProps) {
                     {creativity === 'balanced' && style === 'recruiter' && "Led a team of 5 developers to ship critical features, resulting in a 30% increase in user retention. Implemented CI/CD pipelines that reduced deployment time by 50%."}
                     {creativity === 'balanced' && style === 'maintainer' && "A lightweight, flexible library for managing global state in React applications. We welcome contributions of all kinds, from bug fixes to documentation improvements."}
                     {creativity === 'concise' && style === 'recruiter' && "Delivered 30% performance boost and reduced build times by 50%."}
-  {creativity === 'concise' && style === 'maintainer' && "Open source library for easy React state management. PRs welcome!"}
+                    {creativity === 'concise' && style === 'maintainer' && "Open source library for easy React state management. PRs welcome!"}
 
 
                     {creativity === 'detailed' && style === 'professional' && "I'm a passionate software developer with extensive experience in modern web technologies and full-stack development. I specialize in creating efficient, scalable solutions that deliver measurable value to businesses and users. My approach combines technical expertise with strategic thinking to build applications that not only function flawlessly but also drive real results."}
                     {creativity === 'detailed' && style === 'casual' && "Hey there! I'm a developer who absolutely loves building awesome applications and diving deep into new technologies. I get excited about solving complex problems and creating things that people genuinely enjoy using. Whether it's a sleek frontend or robust backend, I pour my heart into every project and love collaborating with teams to bring ideas to life."}
                     {creativity === 'detailed' && style === 'technical' && "Software engineer with comprehensive expertise in React, Node.js, TypeScript, and cloud architecture patterns. I specialize in building high-performance, scalable applications with emphasis on code quality, testing strategies, and deployment automation. My experience spans microservices architecture, database optimization, and implementing CI/CD pipelines for enterprise-level applications."}
                     {creativity === 'detailed' && style === 'creative' && "Digital architect and code poet, weaving elegant solutions from the threads of imagination and logic. I transform abstract concepts into tangible, interactive experiences using cutting-edge technologies as my palette. My journey involves crafting not just applications, but digital stories that resonate with users and push the boundaries of what's possible in the digital realm."}
-                  {creativity === 'detailed' && style === 'recruiter' && "Spearheaded the migration to microservices architecture, managing a budget of $50k and a team of 5. This initiative improved system reliability by 99.9% and increased user engagement metrics by 30% quarter-over-quarter. My focus is on delivering scalable, high-impact technical solutions that drive business growth."}
-{creativity === 'detailed' && style === 'maintainer' && "Empower your React applications with this battle-tested state management solution used by over 10k developers. We represent a diverse community of contributors and maintainers committed to high-quality code. Detailed contribution guidelines are provided to help you get started quickly with your first Pull Request."}
+                    {creativity === 'detailed' && style === 'recruiter' && "Spearheaded the migration to microservices architecture, managing a budget of $50k and a team of 5. This initiative improved system reliability by 99.9% and increased user engagement metrics by 30% quarter-over-quarter. My focus is on delivering scalable, high-impact technical solutions that drive business growth."}
+                    {creativity === 'detailed' && style === 'maintainer' && "Empower your React applications with this battle-tested state management solution used by over 10k developers. We represent a diverse community of contributors and maintainers committed to high-quality code. Detailed contribution guidelines are provided to help you get started quickly with your first Pull Request."}
                   </p>
                 </div>
+              </div>
+            </TabsContent>
+
+            <TabsContent value="github" className="space-y-4">
+              <Alert>
+                <Github className="h-4 w-4" />
+                <AlertDescription>
+                  Configure your GitHub Personal Access Token to enable "Export to Gist" and other GitHub features.
+                  Make sure the token has the <code className="bg-muted px-1 rounded">gist</code> scope.
+                </AlertDescription>
+              </Alert>
+
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <Label htmlFor="github-token">GitHub Personal Access Token</Label>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => window.open('https://github.com/settings/tokens', '_blank')}
+                    className="h-auto p-1 text-xs text-blue-600 hover:text-blue-700"
+                  >
+                    Generate Token <ExternalLink className="h-3 w-3 ml-1" />
+                  </Button>
+                </div>
+
+                <div className="relative">
+                  <Input
+                    id="github-token"
+                    type={showGithubToken ? 'text' : 'password'}
+                    value={githubToken}
+                    onChange={(e) => setGithubToken(e.target.value)}
+                    placeholder="ghp_xxxxxxxxxxxx"
+                    className="pr-10"
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowGithubToken(!showGithubToken)}
+                    className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                  >
+                    {showGithubToken ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </Button>
+                </div>
+              </div>
+
+              <div className="text-xs text-muted-foreground space-y-1">
+                <p>• Tokens are stored only in your local browser storage</p>
+                <p>• Used for "Export to Gist" and GitHub elements</p>
               </div>
             </TabsContent>
           </Tabs>
@@ -299,9 +371,9 @@ export function AISettingsDialog({ isOpen, onClose }: AISettingsDialogProps) {
           <Button variant="outline" onClick={onClose}>
             Cancel
           </Button>
-          <Button 
-            onClick={handleSave} 
-            disabled={!apiKey.trim() || isTestingConnection}
+          <Button
+            onClick={handleSave}
+            disabled={(!apiKey.trim() && !githubToken.trim()) || isTestingConnection}
             className="min-w-24"
           >
             {isTestingConnection ? (
