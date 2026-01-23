@@ -1,5 +1,8 @@
 name: generate animation
 on:
+permissions:
+  contents: write
+
   schedule:
     - cron: "0 */12 * * *" 
   workflow_dispatch:
