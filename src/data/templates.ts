@@ -547,26 +547,6 @@ export const sampleTemplates: Template[] = [
         <img src="https://github-trophies.vercel.app/?username={username}&theme=dracula&no-bg=true&row=1" />
       </div>
 
-      ---
-      ## 🐍 The Contribution Field (Snake Game)
-      <div align="center">
-        <picture>
-          <source
-            media="(prefers-color-scheme: dark)"
-            srcset="https://raw.githubusercontent.com/{username}/{username}/output/github-contribution-grid-snake-dark.svg"
-          />
-          <source
-            media="(prefers-color-scheme: light)"
-            srcset="https://raw.githubusercontent.com/{username}/{username}/output/github-contribution-grid-snake.svg"
-          />
-          <img
-            alt="github contribution grid snake animation"
-            src="https://raw.githubusercontent.com/{username}/{username}/output/github-contribution-grid-snake.svg"
-          />
-        </picture>
-      </div>
-
-      <br/>
       <img src="https://capsule-render.vercel.app/api?type=soft&color=gradient&height=60&section=footer" width="100%"/>
     `,
   },
