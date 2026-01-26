@@ -1049,14 +1049,14 @@ export const sampleTemplates: Template[] = [
   },
   {
     id: 'template-16',
-    name: 'Template - XVI (The Ultimate Retro-Terminal)',
+    name: 'Template - XVI',
     description: 'A fully centered 80s/90s CLI interface featuring ASCII branding, system loading bars, and a live-tail contribution log.',
     category: 'portfolio',
-    tags: ['retro', 'terminal', 'cli', 'centered', 'pro'],
+    tags: ['retro', 'terminal', 'centered', 'pro'],
     author: 'README Design Kit',
     version: '3.1.0',
     popularity: 25,
-    thumbnail: '/template-16-centered.png',
+    thumbnail: '/template-16.png',
     created: new Date('2026-01-26'),
     updated: new Date('2026-01-26'),
     featured: true,
@@ -1130,7 +1130,7 @@ const skills = {
 <table border="0">
   <tr>
     <td>
-      <img height="180px" src="https://github-readme-stats.vercel.app/api?username={username}&hide_title=true&show_icons=true&hide_border=true&include_all_commits=true&count_private=true&line_height=21&text_color=00FFD1&icon_color=00FFD1&bg_color=0,000000,161b22" />
+      <img height="180px" src="https://github-readme-stats.vercel.app/api?username={username}&hide_title=true&hide_border=true&show_icons=true&include_all_commits=true&count_private=true&line_height=21&text_color=00FFD1&icon_color=00FFD1&bg_color=0,000000,161b22&theme=dark" />
     </td>
     <td>
       <img height="180px" src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&hide=html&hide_title=true&layout=compact&langs_count=6&hide_border=true&text_color=00FFD1&icon_color=00FFD1&bg_color=0,000000,161b22" />
