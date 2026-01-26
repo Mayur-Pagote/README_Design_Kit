@@ -1052,7 +1052,7 @@ export const sampleTemplates: Template[] = [
     name: 'Template - XVI',
     description: 'A fully centered 80s/90s CLI interface featuring ASCII branding, system loading bars, and a live-tail contribution log.',
     category: 'portfolio',
-    tags: ['retro', 'terminal', 'cli', 'centered', 'pro'],
+    tags: ['retro', 'terminal', 'centered', 'pro'],
     author: 'README Design Kit',
     version: '3.1.0',
     popularity: 25,
