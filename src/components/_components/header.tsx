@@ -42,7 +42,8 @@ export const Header = () => {
 
   return (
     <header>
-      <nav className="fixed z-20 w-full px-2" style={{ zIndex: "100000" }}>
+      {/* FIXED: Removed inline z-index: 100000 and used z-40 so the dialog (z-50) can cover it */}
+      <nav className="fixed top-0 left-0 w-full px-2 z-40 transition-all duration-300">
         <div
           className={cn(
             'mx-auto mt-2 max-w-3xl px-6 transition-all duration-300 lg:px-12',
@@ -81,7 +82,7 @@ export const Header = () => {
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent
-                  className="mt-2 w-48 rounded-lg bg-background shadow-lg p-1"
+                  className="mt-2 w-48 rounded-lg bg-background shadow-lg p-1 border z-50"
                   sideOffset={6}
                 >
                   {moreItems.map((item, index) => (
