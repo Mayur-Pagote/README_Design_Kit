@@ -194,29 +194,29 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
               <TabsList className="grid w-full grid-cols-4 bg-muted/50 p-1 rounded-lg">
                 <TabsTrigger
                   value="all"
-                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
+                  className="mr-2 transition-all duration-200 ease-out hover:-translate-y-[2px] text-xs md:text-base hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
                 >
                   All Templates
                 </TabsTrigger>
                 <TabsTrigger
                   value="featured"
-                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
+                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] text-xs md:text-base hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
                 >
-                  <Star className="h-4 w-4 mr-2" />
+                  <Star className="h-4 w-4 md:mr-2" />
                   Featured
                 </TabsTrigger>
                 <TabsTrigger
                   value="favorites"
-                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
+                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] text-xs md:text-base hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
                 >
-                  <Heart className="h-4 w-4 mr-2" />
+                  <Heart className="h-4 w-4 md:mr-2" />
                   Favorites
                 </TabsTrigger>
                 <TabsTrigger
                   value="recent"
-                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
+                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] text-xs md:text-base hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
                 >
-                  <Clock className="h-4 w-4 mr-2" />
+                  <Clock className="h-4 w-4 md:mr-2" />
                   Recent
                 </TabsTrigger>
               </TabsList>
