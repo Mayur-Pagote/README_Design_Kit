@@ -215,7 +215,7 @@ export function TemplatePreview({ template }: TemplatePreviewProps) {
                   <div className={`p-6 lg:p-10 ${viewMode === 'mobile' ? 'text-xs' : ''}`}>
                     {template.markdown ? (
                       <div 
-                        className="prose dark:prose-invert max-w-none break-words"
+                        className="prose dark:prose-invert max-w-none break-words prose-img:inline-block"
                         dangerouslySetInnerHTML={{ __html: processedMarkdown }} 
                       />
                     ) : (
