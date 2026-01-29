@@ -6,18 +6,8 @@ import { useNavigate } from 'react-router-dom'; // ✅ Added navigation
 import { motion } from 'framer-motion';
 
 export default function ComingSoon() {
-  const [email, setEmail] = useState("");
   const navigate = useNavigate(); // ✅ Enable page transitions
 
-  const handleNotifyClick = () => {
-    if (!email || !email.includes("@")) {
-      alert("Please enter a valid email address");
-      return;
-    }
-    
-    console.log("Notify request sent for:", email);
-    alert("You'll be notified when new features are released!");
-  };
 
   const upcomingFeatures = [
     { title: "Export Formats", description: "Export README as PDF, HTML, etc.", eta: "Q3 2025", priority: "medium" },
@@ -52,10 +42,6 @@ export default function ComingSoon() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" className="text-lg px-8" onClick={() => document.getElementById("stay-in-loop")?.scrollIntoView({ behavior: 'smooth' })}>
-              <Bell className="mr-2 h-5 w-5" />
-              Get Notified
-            </Button>
             <Button variant="outline" size="lg" className="text-lg px-8" onClick={() => document.getElementById("feature-roadmap")?.scrollIntoView({ behavior: 'smooth' })}>
               <Star className="mr-2 h-5 w-5" />
               Follow Progress
@@ -162,36 +148,7 @@ export default function ComingSoon() {
         </div>
       </div>
     </section>
-
-      {/* Newsletter Signup */}
-      <section id="stay-in-loop" className="py-20 px-6">
-        <div className="container mx-auto">
-          <Card className="max-w-2xl mx-auto text-center">
-            <CardHeader>
-              <CardTitle className="text-2xl">Stay in the Loop</CardTitle>
-              <CardDescription>Be the first to know when new features are released</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-2 border border-border rounded-md bg-background focus:outline-none focus:ring-2 focus:ring-primary"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-                <Button onClick={handleNotifyClick}>
-                  <Bell className="mr-2 h-4 w-4" />
-                  Notify Me
-                </Button>
-              </div>
-              <p className="text-xs text-muted-foreground mt-4">
-                We'll only send you updates about new features. No spam, ever.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+    
     </div>
   );
 }
