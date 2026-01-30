@@ -24,9 +24,6 @@ export default function ComingSoon() {
           <div className="flex justify-center mb-6">
             <div className="relative">
               <Rocket className="h-16 w-16 text-primary animate-pulse" />
-              <div className="absolute -top-2 -right-2">
-                <Bell className="h-6 w-6 text-yellow-500 animate-bounce" />
-              </div>
             </div>
           </div>
           
