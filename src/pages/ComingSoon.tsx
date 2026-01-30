@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Clock, Bell, Rocket, Star, ArrowRight } from 'lucide-react';
+import { Clock, Rocket, Star, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom'; // ✅ Added navigation
 import { motion } from 'framer-motion';
 
