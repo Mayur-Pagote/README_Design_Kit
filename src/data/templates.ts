@@ -1877,7 +1877,7 @@ const skills = {
     </div>
     <hr style="border: 2px solid #000; width: 100%;" />
     <div align="center" style="background-color: #000; padding: 10px 0;">
-      <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=28&pause=1000&color=FFFFFF&center=true&vCenter=true&width=800&lines=BBREAKING+NEWS%3A+Mayur+Pagote+10K+Views+on+YouTube!;LATEST%3A+Secures+Oracle+%26+Azure+Certifications!;UPDATE%3A+Stanford+Code+in+Place+Appoints+Mayur+as+Student+Teacher!;EXCLUSIVE%3A+Mastering+C%2C+C%2B%2B%2C+and+Python+Logic!" />
+      <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=700&size=28&pause=1000&color=FFFFFF&center=true&vCenter=true&width=800&lines=BBREAKING+NEWS%3A+Mayur+Pagote+10K+Views+on+YouTube!;LATEST%3A+Secures+Oracle+%26+Azure+Certifications!;UPDATE%3A+SStanford+Code+in+Place+Appoints+Mayur+as+Student+Teacher!;EXCLUSIVE%3A+Mastering+C%2C+C%2B%2B%2C+and+Python+Logic!" />
     </div>
     <hr style="border: 2px solid #000; width: 100%;" />
     <br/>
