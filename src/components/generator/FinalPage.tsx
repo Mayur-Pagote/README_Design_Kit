@@ -326,7 +326,6 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
                 </div>
 
                 <div className="text-center text-sm text-slate-400 space-y-2">
-                  <p>Need help? <a href="#" className="text-purple-400 hover:text-purple-300">Watch tutorial video</a></p>
                   <p>Hey 👋 Help us grow by sharing! 🙏</p>
                 </div>
               </div>
