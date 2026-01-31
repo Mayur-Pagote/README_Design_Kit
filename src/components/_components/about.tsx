@@ -161,22 +161,41 @@ export default function AboutUs() {
             <Separator className="my-12" />
 
             {/* Features Section */}
-            <section className="mb-20">
-                <h2 className="text-3xl font-bold text-center mb-12">
+            <section className="mb-24">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
                     Features That Make a Difference
                 </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-14">
+                    Thoughtfully designed features to guide, support, and empower open-source contributors.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {features.map((feature, index) => (
-                        <Card key={index} className="hover:shadow-lg transition-shadow">
-                            <CardHeader>
-                                <div className="p-2 bg-primary/10 rounded-lg w-fit mb-4">
-                                    {feature.icon}
-                                </div>
-                                <CardTitle className="text-xl">{feature.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-muted-foreground">{feature.description}</p>
-                            </CardContent>
+                        <Card
+                        key={index}
+                        tabIndex={0}
+                        className="group relative rounded-xl border border-border bg-white dark:bg-neutral-900 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:border-purple-400/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500  focus-visible:ring-offset-2 focus-visible:ring-offset-background "
+                        >
+                        <CardHeader>
+                            {/* Icon Container */}
+                            <div className=" relative p-3 rounded-lg w-fit mb-5 bg-purple-100 text-purple-600 dark:bg-neutral-800 dark:text-purple-400 transition-all duration-300 ease-out group-hover:scale-110 group-hover:-rotate-2">
+                            {/* Icon-only glow */}
+                            <span className="pointer-events-none absolute inset-0 rounded-lg opacity-0 blur-xl bg-purple-400/30 transition-opacity duration-300 group-hover:opacity-100" />
+                            <span className="relative z-10">
+                                {feature.icon}
+                            </span>
+                            </div>
+
+                            <CardTitle className="text-xl text-foreground transition-colors duration-300 group-hover:text-purple-600 dark:group-hover:text-purple-400">
+                            {feature.title}
+                            </CardTitle>
+                        </CardHeader>
+
+                        <CardContent>
+                            <p className="text-muted-foreground leading-relaxed">
+                            {feature.description}
+                            </p>
+                        </CardContent>
                         </Card>
                     ))}
                 </div>
