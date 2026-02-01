@@ -323,6 +323,14 @@ export const componentsData: Record<string, ComponentItem[]> = {
       imageUrl: "https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/398b19b1-9aae-4c1f-8bc0-d172a2c08d68",
       codeSnippet: `<img src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/398b19b1-9aae-4c1f-8bc0-d172a2c08d68" width="100">`,
     },
+{
+  title: "Animated AWS",
+  description: "Animated Amazon Web Services Logo",
+  imageUrl: "https://private-user-images.githubusercontent.com/74038190/238200437-de038172-e903-4951-926c-755878deb0b4.gif",
+  codeSnippet: `<img src="https://raw.githubusercontent.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/main/assets/aws.gif" width="100">`,
+},
+
+
   ],
   counter: [
     {
