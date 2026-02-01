@@ -26,10 +26,14 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
   const [selectedCategory, setSelectedCategory] = useState<TemplateCategory | 'all'>('all');  
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  
+  // State for the Preview Popup
   const [previewTemplate, setPreviewTemplate] = useState<Template | null>(null);
+  
   const [activeTab, setActiveTab] = useState('all');
   
   const { preferences, toggleFavorite: toggleTemplateFavorite, addToRecentlyViewed, addToRecentlyUsed } = useTemplatePreferences();
+  
   // Filter templates based on current filters and active tab
   const filteredTemplates = useMemo(() => {
     let templates = sampleTemplates;
@@ -72,22 +76,31 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
         : [...prev, tag]
     );
   };
+  
   const toggleFavorite = (templateId: string) => {
     toggleTemplateFavorite(templateId);
   };
+  
   const clearFilters = () => {
     setSearchQuery('');
     setSelectedCategory('all');
     setSelectedTags([]);
     setActiveTab('all');
-  };const handleTemplateSelect = (template: Template) => {
-    addToRecentlyUsed(template.id);
-    onSelectTemplate(template, username, repo);
   };
 
-  const handleTemplatePreview = (template: Template) => {
+  // --- ACTIONS ---
+
+  // Triggered when "Use This Template" is clicked INSIDE the popup
+  const handleConfirmUseTemplate = (template: Template) => {
+    addToRecentlyUsed(template.id);
+    onSelectTemplate(template, username, repo);
+    setPreviewTemplate(null);
+  };
+
+  // Triggered when a card is clicked in the grid
+  const handleCardClick = (template: Template) => {
     addToRecentlyViewed(template.id);
-    setPreviewTemplate(template);
+    setPreviewTemplate(template); // Opens the popup
   };
 
   const handleUsernameChange = (newUsername: string) => {
@@ -133,7 +146,6 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
             <div className="flex flex-col lg:flex-row gap-4">
               {/* Search */}
               <div className="relative flex-1 transition-transform duration-200 ease-out hover:-translate-y-[2px]">
-
                 <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
                 <Input
                   placeholder="Search templates..."
@@ -180,38 +192,33 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
             {/* Filter Tabs */}
             <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
               <TabsList className="grid w-full grid-cols-4 bg-muted/50 p-1 rounded-lg">
-
                 <TabsTrigger
                   value="all"
-                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
+                  className="mr-2 transition-all duration-200 ease-out hover:-translate-y-[2px] text-xs md:text-base hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
                 >
                   All Templates
                 </TabsTrigger>
-
                 <TabsTrigger
                   value="featured"
-                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
+                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] text-xs md:text-base hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
                 >
-                  <Star className="h-4 w-4 mr-2" />
+                  <Star className="h-4 w-4 md:mr-2" />
                   Featured
                 </TabsTrigger>
-
                 <TabsTrigger
                   value="favorites"
-                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
+                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] text-xs md:text-base hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
                 >
-                  <Heart className="h-4 w-4 mr-2" />
+                  <Heart className="h-4 w-4 md:mr-2" />
                   Favorites
                 </TabsTrigger>
-
                 <TabsTrigger
                   value="recent"
-                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
+                  className="transition-all duration-200 ease-out hover:-translate-y-[2px] text-xs md:text-base hover:bg-purple-300 hover:text-black hover:font-semibold data-[state=active]:bg-background data-[state=active]:text-foreground"
                 >
-                  <Clock className="h-4 w-4 mr-2" />
+                  <Clock className="h-4 w-4 md:mr-2" />
                   Recent
                 </TabsTrigger>
-
               </TabsList>
             </Tabs>
 
@@ -266,7 +273,7 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
                 key={template.id}
                 template={template}
                 isFavorite={preferences.favorites.includes(template.id)}
-                onSelect={() => handleTemplateSelect(template)}
+                onSelect={() => handleCardClick(template)} 
                 onToggleFavorite={() => toggleFavorite(template.id)}
               />
             ))}
@@ -278,8 +285,8 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
                 key={template.id}
                 template={template}
                 isFavorite={preferences.favorites.includes(template.id)}
-                onSelect={() => handleTemplateSelect(template)}
-                onPreview={() => handleTemplatePreview(template)}
+                onSelect={() => handleCardClick(template)}
+                onPreview={() => handleCardClick(template)}
                 onToggleFavorite={() => toggleFavorite(template.id)}
               />
             ))}
@@ -296,22 +303,20 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
         )}
       </div>
 
-      {/* Template Preview Dialog */}
+      {/* Template Preview Dialog - PERFECT BOX */}
       <Dialog open={!!previewTemplate} onOpenChange={() => setPreviewTemplate(null)}>
-        <DialogContent className="template-scroll max-w-4xl max-h-[80vh] overflow-auto">
-          <DialogHeader>
+        {/* max-w-[95vw] and h-[90vh] makes it a big professional window */}
+        <DialogContent className="template-scroll max-w-[95vw] w-[1400px] h-[90vh] overflow-hidden p-0 gap-0 border-none bg-background/95 backdrop-blur-xl">
+          <DialogHeader className="sr-only">
             <DialogTitle>{previewTemplate?.name}</DialogTitle>
           </DialogHeader>
           {previewTemplate && (
-            <TemplatePreview
-              template={previewTemplate}
-              onUseTemplate={() => {
-                if (previewTemplate) {
-                  handleTemplateSelect(previewTemplate);
-                }
-                setPreviewTemplate(null);
-              }}
-            />
+            <div className="h-full overflow-hidden p-6">
+              <TemplatePreview
+                template={previewTemplate}
+                onUseTemplate={() => handleConfirmUseTemplate(previewTemplate)}
+              />
+            </div>
           )}
         </DialogContent>
       </Dialog>
