@@ -10,12 +10,8 @@ export default function TemplateLibraryPage() {
     username: string,
     repo: string,
   ) => {
-    const markdown = template.markdown || "";
-    const finalMarkdown = markdown
-      .replace(/{username}/g, username)
-      .replace(/{repo}/g, repo);
-    // Navigate to the markdown editor
-    navigate("/markdown-editor", { state: { markdown: finalMarkdown } });
+    // Navigate to the markdown editor, passing the full template and context
+    navigate("/markdown-editor", { state: { template, username, repo } });
   };
 
   const handleStartFromScratch = () => {
