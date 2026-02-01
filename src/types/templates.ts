@@ -6,8 +6,9 @@ export interface Template {
   description: string;
   category: TemplateCategory;
   tags: string[];
-  elements: ElementType[];
-  thumbnail: string;
+  elements?: ElementType[];
+  markdown?: string;
+  thumbnail?: string;
   author: string;
   version: string;
   popularity: number;
@@ -17,14 +18,15 @@ export interface Template {
 }
 
 export type TemplateCategory = 
+  | 'modern'
+  | 'minimal'
+  | 'professional'
   | 'personal-projects'
-  | 'open-source'
-  | 'corporate'
-  | 'documentation'
+  | 'other'
+  | 'academic'    
+  | 'community'   
   | 'portfolio'
-  | 'startup'
-  | 'academic'
-  | 'community';
+  | 'open-source';
 
 export interface TemplateFilter {
   category?: TemplateCategory;

@@ -33,7 +33,8 @@ const ScrollToTop: React.FC<ScrollToTopProps> = ({ isVisible: isVisibleProp }) =
         <button
           onClick={scrollToTop}
           aria-label="Scroll to top"
-          className={`fixed bottom-8 right-8 w-12 h-12 text-xl text-white  rounded-full shadow-xl z-[9999] group overflow-hidden cursor-pointer transition-all duration-300 ease-in-out
+          // FIXED: Changed z-[9999] to z-50 so it sits under the popup overlay (z-150)
+          className={`fixed bottom-8 right-8 w-12 h-12 text-xl text-white rounded-full shadow-xl z-50 group overflow-hidden cursor-pointer transition-all duration-300 ease-in-out
           opacity-100 scale-100
           hover:bg-[#5c1cc4] hover:scale-110`}
         >
@@ -44,9 +45,6 @@ const ScrollToTop: React.FC<ScrollToTopProps> = ({ isVisible: isVisibleProp }) =
           />
           {/* <span className="absolute inset-0 rounded-full border-4 border-transparent border-t-white border-r-white transition-transform duration-700 group-hover:rotate-[360deg] pointer-events-none"></span> */}
         </button>
-
-
-
       )}
     </>
   );

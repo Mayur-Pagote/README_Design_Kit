@@ -5,14 +5,15 @@ import { Label } from '@/components/ui/label';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
-import { 
-  Key, 
-  Eye, 
-  EyeOff, 
-  Check, 
+import {
+  Key,
+  Eye,
+  EyeOff,
+  Check,
   AlertTriangle,
   ExternalLink,
-  Info
+  Info,
+  Github
 } from 'lucide-react';
 import { toast } from 'sonner';
 import { readmeAI } from '@/services/readmeAIService';
@@ -30,36 +31,50 @@ export const APIKeySettings: React.FC<APIKeySettingsProps> = ({
   const [showApiKey, setShowApiKey] = useState(false);
   const [isConfigured, setIsConfigured] = useState(false);
   const [isTesting, setIsTesting] = useState(false);
+  const [githubToken, setGithubToken] = useState('');
+  const [showGithubToken, setShowGithubToken] = useState(false);
 
   useEffect(() => {
     if (open) {
       const currentKey = readmeAI.getApiKey();
       setApiKey(currentKey || '');
       setIsConfigured(readmeAI.isConfigured());
+
+      const storedToken = localStorage.getItem('github-token');
+      setGithubToken(storedToken || '');
     }
   }, [open]);
 
   const handleSave = async () => {
-    if (!apiKey.trim()) {
-      toast.error('Please enter an API key');
+    if (!apiKey.trim() && !githubToken.trim()) {
+      toast.error('Please enter either a Gemini API key or a GitHub token');
       return;
     }
 
     setIsTesting(true);
-    
+
     try {
-      // Set the API key
-      readmeAI.setApiKey(apiKey.trim());
-      
-      // Test the API key with a simple request
-      await readmeAI.answerReadmeQuestion('Test connection');
-      
-      setIsConfigured(true);
-      toast.success('API key saved and verified successfully!');
-      
+      // Set and test the Gemini API key ONLY if provided
+      if (apiKey.trim()) {
+        readmeAI.setApiKey(apiKey.trim());
+        await readmeAI.answerReadmeQuestion('Test connection');
+        setIsConfigured(true);
+      } else {
+        readmeAI.clearApiKey();
+        setIsConfigured(false);
+      }
+
       // Dispatch custom event to notify other components
       window.dispatchEvent(new CustomEvent('gemini-api-key-updated'));
-      
+
+      // Save GitHub Token
+      if (githubToken.trim()) {
+        localStorage.setItem('github-token', githubToken.trim());
+      } else {
+        localStorage.removeItem('github-token');
+      }
+
+      toast.success('Settings saved successfully!');
       onOpenChange(false);
     } catch (error) {
       console.error('API key test failed:', error);
@@ -76,6 +91,10 @@ export const APIKeySettings: React.FC<APIKeySettingsProps> = ({
     readmeAI.clearApiKey();
     setApiKey('');
     setIsConfigured(false);
+
+    // Also clear github token if desired, but maybe keep it? 
+    // Usually "Remove Key" refers to the Gemini API key in this context.
+
     toast.success('API key removed');
   };
 
@@ -169,6 +188,50 @@ export const APIKeySettings: React.FC<APIKeySettingsProps> = ({
               <li>Paste it in the field above</li>
             </ol>
           </div>
+
+          {/* GitHub Token Input */}
+          <div className="space-y-2 border-t pt-4 mt-4">
+            <div className="flex justify-between items-center">
+              <Label htmlFor="github-token" className="flex items-center gap-2">
+                <Github className="h-4 w-4" />
+                GitHub Token
+              </Label>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => window.open('https://github.com/settings/tokens', '_blank')}
+                className="h-auto p-0 text-xs text-blue-600 hover:text-blue-700 hover:bg-transparent"
+              >
+                Get Token <ExternalLink className="h-3 w-3 ml-1" />
+              </Button>
+            </div>
+            <div className="relative">
+              <Input
+                id="github-token"
+                type={showGithubToken ? 'text' : 'password'}
+                placeholder="ghp_xxxxxxxxxxxx"
+                value={githubToken}
+                onChange={(e) => setGithubToken(e.target.value)}
+                className="pr-10"
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                onClick={() => setShowGithubToken(!showGithubToken)}
+              >
+                {showGithubToken ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </Button>
+            </div>
+            <p className="text-[10px] text-muted-foreground mt-1">
+              Used for "Export to Gist" and other GitHub integrations.
+            </p>
+          </div>
         </div>
 
         <DialogFooter className="flex gap-2">
@@ -177,7 +240,7 @@ export const APIKeySettings: React.FC<APIKeySettingsProps> = ({
               Remove Key
             </Button>
           )}
-          <Button onClick={handleSave} disabled={isTesting || !apiKey.trim()}>
+          <Button onClick={handleSave} disabled={isTesting || (!apiKey.trim() && !githubToken.trim())}>
             {isTesting ? 'Testing...' : 'Save & Test'}
           </Button>
         </DialogFooter>

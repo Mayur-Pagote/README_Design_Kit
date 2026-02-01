@@ -159,7 +159,7 @@ export const getRepoReadme = async (owner: string, repo: string, token?: string)
     const headers = getHeaders(token);
     // Use the specific endpoint for READMEs
     const res = await fetch(`${GITHUB_API_BASE}/repos/${owner}/${repo}/readme`, { headers });
-    
+
     if (!res.ok) {
       if (res.status === 404) {
         throw new Error('README not found in this repository.');
@@ -184,7 +184,7 @@ export const getRepoReadme = async (owner: string, repo: string, token?: string)
         return atob(data.content); // Fallback
       }
     }
-    
+
     throw new Error('Could not decode README content.');
   } catch (error) {
     console.error('GitHub API Error in getRepoReadme:', error);
@@ -308,3 +308,23 @@ export const commitFilesToGitHub = async (
   };
 };
 
+export const createGist = async (token: string, content: string, filename: string = 'README.md', description: string = 'Generated with README Design Kit') => {
+  try {
+    const octokit = new Octokit({ auth: token });
+    const { data } = await octokit.rest.gists.create({
+      description,
+      public: true,
+      files: {
+        [filename]: {
+          content,
+        },
+      },
+    });
+    return data;
+  } catch (error: any) {
+    if (error.status === 404) {
+      throw new Error('GitHub returned "Not Found". Please ensure your Personal Access Token has the "gist" scope enabled (or "Gists" account permission for fine-grained tokens).');
+    }
+    throw error;
+  }
+};

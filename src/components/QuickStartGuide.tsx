@@ -60,7 +60,10 @@ export function QuickStartGuide({ onStartFromScratch }: QuickStartGuideProps) {
           </CommandGroup>
 
           <CommandGroup heading="Help">
-            <CommandItem onSelect={() => handleNavigation('/docs')}>
+            <CommandItem onSelect={() => 
+               window.open(
+                  'https://github.com/Mayur-Pagote/README_Design_Kit/tree/main/docs','_blank'
+                )}>
               <Text className="mr-3 h-5 w-5" />
               <span className="text-base">Documentation</span>
             </CommandItem>

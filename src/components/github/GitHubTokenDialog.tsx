@@ -22,30 +22,50 @@ export const GitHubTokenDialog: React.FC<GitHubTokenDialogProps> = ({
     const [showToken, setShowToken] = useState(false);
     const [isValidating, setIsValidating] = useState(false);
 
+    // Fetch token securely from sessionStorage on dialog open
     useEffect(() => {
         if (open) {
-            const storedToken = localStorage.getItem('github-token');
+            const storedToken = sessionStorage.getItem('github-token'); // More secure than localStorage
             if (storedToken) setToken(storedToken);
         }
     }, [open]);
 
     const handleSave = async () => {
-        if (!token.trim()) {
+        const trimmedToken = token.trim();
+
+        if (!trimmedToken) {
             toast.error('Please enter a GitHub Personal Access Token');
+            return;
+        }
+
+        // Validate token length (GitHub tokens are typically 40+ characters)
+        if (trimmedToken.length < 40) {
+            toast.error('Invalid token format. GitHub tokens should be at least 40 characters.');
+            return;
+        }
+
+        // Validate token pattern format
+        const validTokenPattern = /^(ghp_|github_pat_|gho_|ghu_|ghs_|ghr_)[a-zA-Z0-9]{36,}$/;
+        if (!validTokenPattern.test(trimmedToken)) {
+            toast.error('Invalid GitHub token format. Token should start with ghp_, github_pat_, etc.');
             return;
         }
 
         setIsValidating(true);
         try {
-            await getAuthenticatedUser(token.trim());
-            localStorage.setItem('github-token', token.trim());
+            // Call service to validate token
+            await getAuthenticatedUser(trimmedToken);
+
+            // Securely store the token in sessionStorage (cleared when the browser is closed)
+            sessionStorage.setItem('github-token', trimmedToken);
             toast.success('GitHub token verified and saved!');
+
+            // Trigger onOpenChange and onTokenSaved callbacks after saving
             onOpenChange(false);
             onTokenSaved?.();
         } catch (error) {
             console.error('Token validation failed:', error);
             toast.error('Invalid token. Please check permissions and try again.');
-            // Don't clear the token input so user can correct it
         } finally {
             setIsValidating(false);
         }
