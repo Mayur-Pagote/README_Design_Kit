@@ -24,7 +24,6 @@ export function TechStackDialog({ isOpen, onClose, onAddElement }: TechStackDial
     theme: string;
   }) => {
     if (techStack.technologies.length > 0) {
-      // Create a tech stack element with the selected options
       const newElement: ElementType = {
         id: `tech-stack-${Date.now()}`,
         type: 'tech-stack',
@@ -42,7 +41,10 @@ export function TechStackDialog({ isOpen, onClose, onAddElement }: TechStackDial
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[calc(100vh-96px)] overflow-y-auto mt-16">
+      {/* FIX: Applied z-[200] so content renders above the blurred backdrop (z-150).
+          Added outline-none to prevent focus outlines on the container.
+      */}
+      <DialogContent className="max-w-2xl mt-16 z-[200] outline-none">
         <DialogHeader>
           <DialogTitle>Advanced Tech Stack Generator</DialogTitle>
           <DialogDescription>
@@ -51,11 +53,14 @@ export function TechStackDialog({ isOpen, onClose, onAddElement }: TechStackDial
           </DialogDescription>
         </DialogHeader>
 
-        <div className="py-4">
+        {/* Internal scroll div allows the long selector list to be usable 
+            without cutting off dropdown menus.
+        */}
+        <div className="py-4 max-h-[70vh] overflow-y-auto px-1 custom-scrollbar">
           <TechStackSelector onTechStackGenerate={handleTechStackGenerate} />
         </div>
 
-        <DialogFooter>
+        <DialogFooter className="border-t pt-4">
           <Button variant="outline" onClick={onClose}>Cancel</Button>
         </DialogFooter>
       </DialogContent>

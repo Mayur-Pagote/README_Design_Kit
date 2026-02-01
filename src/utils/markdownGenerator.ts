@@ -198,6 +198,55 @@ export const generateMarkdown = (elements: ElementType[], theme: string = 'syste
     }
   };
 
+  /**
+   * Helper function to render a group of technologies with appropriate styling
+   */
+  const renderTechGroup = (title: string, techs: string[], badgeStyle: string) => {
+    if (techs.length === 0) return '';
+    
+    let markdown = `### ${title}\n\n`;
+    
+    // Check if the style uses icon-based layouts (which require HTML tables for alignment)
+    const isIconStyle = badgeStyle && (badgeStyle.includes('icon') || 
+        ['devicon', 'simple-icons', 'skill-icons', 'devicon-with-text', 
+         'flat-icons', 'material-icons', 'github-icons', 'icons8', 
+         'svg-badges', 'animated-badges', 'devto-badges', 'edge-icons'].includes(badgeStyle));
+
+    if (isIconStyle) {
+      // Create a row of icons in table format
+      const cells = techs.map(tech => {
+        if (badgeStyle === 'devicon' || badgeStyle === 'flat-icons' || 
+            badgeStyle === 'material-icons' || badgeStyle === 'github-icons' || 
+            badgeStyle === 'icons8' || badgeStyle === 'edge-icons') {
+          return `<img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" width="40" height="40" />`;
+        } else if (badgeStyle === 'skill-icons') {
+          return `<img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" />`;
+        } else if (badgeStyle === 'devicon-with-text') {
+          return `<div align="center"><img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" width="40" height="40" /><br>${tech}</div>`;
+        } else if (badgeStyle === 'svg-badges' || badgeStyle === 'animated-badges') {
+          return `<img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" height="30" />`;
+        } else { // simple-icons, devto-badges and others
+          return `<img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" />`;
+        }
+      });
+      
+      const tableRow = '| ' + cells.join(' | ') + ' |';
+      const colCount = techs.length;
+      const header = '|' + ' '.repeat(colCount * 3 - 1) + '|';
+      const separator = '|' + '--|'.repeat(colCount);
+      
+      markdown += `${header}\n${separator}\n${tableRow}\n\n`;
+    } else if (badgeStyle) {
+      // For standard badge styles, use markdown image syntax
+      markdown += techs.map(tech => `![${tech}](${getBadgeUrl(tech, badgeStyle)})`).join(' ') + '\n\n';
+    } else {
+      // For no badge style, use simple list
+      markdown += techs.map(tech => `- ${tech}`).join('\n') + '\n\n';
+    }
+    
+    return markdown;
+  };
+
   return elements
     .map((element) => {
       switch (element.type) {
@@ -274,95 +323,20 @@ export const generateMarkdown = (elements: ElementType[], theme: string = 'syste
               .map(tech => badgeStyle ? `![${tech}](${getBadgeUrl(tech, badgeStyle)})` : tech)
               .join(' • ')}\n\n`;
           } else if (element.layout === 'grouped') {
-            // For grouped layout, separate by categories
-            const languages = element.technologies.filter(t => 
-              ['JavaScript', 'TypeScript', 'Python', 'Java', 'C#', 'C++'].includes(t)
-            );
-            const frameworks = element.technologies.filter(t => 
-              ['React', 'Angular', 'Vue', 'Next.js', 'Node.js', 'Express'].includes(t)
-            );
+            // UPDATED: Refactored grouped layout to prevent data loss and support "Others" category
+            const languageList = ['JavaScript', 'TypeScript', 'Python', 'Java', 'C#', 'C++', 'Rust', 'Go', 'PHP', 'Swift', 'Kotlin', 'Ruby', 'Dart', 'HTML', 'CSS'];
+            const frameworkList = ['React', 'Angular', 'Vue', 'Next.js', 'Node.js', 'Express', 'Svelte', 'Tailwind CSS', 'Bootstrap', 'Django', 'Flask', 'Laravel', 'Spring', 'Flutter', 'Electron'];
+
+            const languages = element.technologies.filter(t => languageList.includes(t));
+            const frameworks = element.technologies.filter(t => frameworkList.includes(t));
+            const others = element.technologies.filter(t => !languageList.includes(t) && !frameworkList.includes(t));
             
             let markdown = `## ⚡ Tech Stack\n\n`;
             
-            if (languages.length > 0) {
-              markdown += `### Languages\n\n`;
-              // For icon-style badges, use HTML table layout
-              if (badgeStyle && (badgeStyle.includes('icon') || 
-                  ['devicon', 'simple-icons', 'skill-icons', 'devicon-with-text', 
-                   'flat-icons', 'material-icons', 'github-icons', 'icons8', 
-                   'svg-badges', 'animated-badges', 'devto-badges', 'edge-icons'].includes(badgeStyle))) {
-                
-                // Create a row of icons in table format for better compatibility
-                const cells = languages.map(tech => {
-                  if (badgeStyle === 'devicon' || badgeStyle === 'flat-icons' || 
-                      badgeStyle === 'material-icons' || badgeStyle === 'github-icons' || 
-                      badgeStyle === 'icons8' || badgeStyle === 'edge-icons') {
-                    return `<img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" width="40" height="40" />`;
-                  } else if (badgeStyle === 'skill-icons') {
-                    return `<img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" />`;
-                  } else if (badgeStyle === 'devicon-with-text') {
-                    return `<div align="center"><img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" width="40" height="40" /><br>${tech}</div>`;
-                  } else if (badgeStyle === 'svg-badges' || badgeStyle === 'animated-badges') {
-                    return `<img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" height="30" />`;
-                  } else { // simple-icons, devto-badges and others
-                    return `<img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" />`;
-                  }
-                });
-                
-                const tableRow = '| ' + cells.join(' | ') + ' |';
-                const colCount = languages.length;
-                const header = '|' + ' '.repeat(colCount * 3 - 1) + '|';
-                const separator = '|' + '--|'.repeat(colCount);
-                
-                markdown += `${header}\n${separator}\n${tableRow}\n\n`;
-              } else if (badgeStyle) {
-                // For standard badge styles, use markdown image syntax
-                markdown += languages.map(tech => `![${tech}](${getBadgeUrl(tech, badgeStyle)})`).join(' ') + '\n\n';
-              } else {
-                // For no badge style, use simple list
-                markdown += languages.map(tech => `- ${tech}`).join('\n') + '\n\n';
-              }
-            }
-            
-            if (frameworks.length > 0) {
-              markdown += `### Frameworks\n\n`;
-              // For icon-style badges, use HTML table layout
-              if (badgeStyle && (badgeStyle.includes('icon') || 
-                  ['devicon', 'simple-icons', 'skill-icons', 'devicon-with-text', 
-                   'flat-icons', 'material-icons', 'github-icons', 'icons8', 
-                   'svg-badges', 'animated-badges', 'devto-badges', 'edge-icons'].includes(badgeStyle))) {
-                
-                // Create a row of icons in table format for better compatibility
-                const cells = frameworks.map(tech => {
-                  if (badgeStyle === 'devicon' || badgeStyle === 'flat-icons' || 
-                      badgeStyle === 'material-icons' || badgeStyle === 'github-icons' || 
-                      badgeStyle === 'icons8' || badgeStyle === 'edge-icons') {
-                    return `<img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" width="40" height="40" />`;
-                  } else if (badgeStyle === 'skill-icons') {
-                    return `<img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" />`;
-                  } else if (badgeStyle === 'devicon-with-text') {
-                    return `<div align="center"><img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" width="40" height="40" /><br>${tech}</div>`;
-                  } else if (badgeStyle === 'svg-badges' || badgeStyle === 'animated-badges') {
-                    return `<img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" height="30" />`;
-                  } else { // simple-icons, devto-badges and others
-                    return `<img src="${getBadgeUrl(tech, badgeStyle)}" alt="${tech}" />`;
-                  }
-                });
-                
-                const tableRow = '| ' + cells.join(' | ') + ' |';
-                const colCount = frameworks.length;
-                const header = '|' + ' '.repeat(colCount * 3 - 1) + '|';
-                const separator = '|' + '--|'.repeat(colCount);
-                
-                markdown += `${header}\n${separator}\n${tableRow}\n\n`;
-              } else if (badgeStyle) {
-                // For standard badge styles, use markdown image syntax
-                markdown += frameworks.map(tech => `![${tech}](${getBadgeUrl(tech, badgeStyle)})`).join(' ') + '\n\n';
-              } else {
-                // For no badge style, use simple list
-                markdown += frameworks.map(tech => `- ${tech}`).join('\n') + '\n\n';
-              }
-            }
+            // Render each category using the helper function
+            markdown += renderTechGroup('Languages', languages, badgeStyle);
+            markdown += renderTechGroup('Frameworks', frameworks, badgeStyle);
+            markdown += renderTechGroup('Others', others, badgeStyle);
             
             return markdown;
           } else if (element.layout === 'grid') {
