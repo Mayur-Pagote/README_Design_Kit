@@ -537,9 +537,9 @@ export const sampleTemplates: Template[] = [
       <br>
       <div align="center">
       <h2 align="center"> 📜 Active Quest Log</h2><br>
-      - [ ] **Main Quest:** Architecting a scalable MERN microservice. <code>(Progress: 75%)</code><br>
-      - [ ] **Side Quest:** Contributing 5 PRs to Open Source projects this month. <code>(Progress: 2/5)</code><br>
-      - [ ] **Daily:** Solve 2 LeetCode problems. <code>(Streak: 12 days)</code><br>
+      - Main Quest: Architecting a scalable MERN microservice. <code>(Progress: 75%)</code><br>
+      - Side Quest: Contributing 5 PRs to Open Source projects this month. <code>(Progress: 2/5)</code><br>
+      - Daily: Solve 2 LeetCode problems. <code>(Streak: 12 days)</code><br>
       </div>
       <br><br>
     
