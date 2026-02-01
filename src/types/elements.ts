@@ -6,10 +6,11 @@ export interface BaseElement {
   type: string;
   content?: string;
   style?: Record<string, string | number>;
-  hiddenFor?: ViewMode[]; // ✅ Added to support persona filtering
+  hiddenFor?: ViewMode[]; // persona filtering
 }
 
-// Textual elements
+/* ===================== TEXT ELEMENTS ===================== */
+
 export interface TextElement extends BaseElement {
   type: 'text';
   content: string;
@@ -37,12 +38,21 @@ export interface HeaderElement extends BaseElement {
   level: 1 | 2 | 3 | 4 | 5 | 6;
 }
 
+/* ===================== LAYOUT ELEMENTS ===================== */
+
 export interface BannerElement extends BaseElement {
   type: 'banner';
   content: string;
   variant: 'default' | 'gradient' | 'colored';
   color: string;
 }
+
+export interface DividerElement extends BaseElement {
+  type: 'divider';
+  dividerStyle: 'line' | 'dots' | 'stars';
+}
+
+/* ===================== FUNCTIONAL ELEMENTS ===================== */
 
 export interface GitContributionElement extends BaseElement {
   type: 'git-contribution';
@@ -85,18 +95,20 @@ export interface BadgeElement extends BaseElement {
   hiddenFor?: ('developer' | 'recruiter' | 'client')[];
 }
 
-export interface DividerElement extends BaseElement {
-  type: 'divider';
-  dividerStyle: 'line' | 'dots' | 'stars';
-}
-
 export interface InstallationElement extends BaseElement {
   type: 'installation';
   content: string;
   instructions?: string[];
 }
 
-// Strong union type with all known element types
+/* ===================== 🔥 ANIMATED TECH ELEMENT ===================== */
+
+export interface AnimatedAWSElement extends BaseElement {
+  type: 'animated-aws';
+}
+
+/* ===================== STRONG UNION ===================== */
+
 export type ElementType =
   | TextElement
   | TitleElement
@@ -110,9 +122,11 @@ export type ElementType =
   | TableElement
   | BadgeElement
   | DividerElement
-  | InstallationElement;
+  | InstallationElement
+  | AnimatedAWSElement;
 
-// Optional config metadata
+/* ===================== CONFIG METADATA ===================== */
+
 export interface ElementConfig {
   type: ElementType['type'];
   name: string;

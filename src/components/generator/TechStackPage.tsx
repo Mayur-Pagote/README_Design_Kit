@@ -7,6 +7,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import type { GeneratorState } from './Readme-generator';
 import ProgressIndicator from "./ProgressIndicator";
+import { TECH_STACK_CATEGORIES } from '@/constants/techstack';
 
 interface TechStackPageProps {
   state: GeneratorState;
@@ -20,53 +21,7 @@ interface TechStackPageProps {
 const TechStackPage = ({ state, setState, currentPage, totalPages, nextPage, prevPage }: TechStackPageProps) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const techCategories = {
-    languages: {
-      title: 'LANGUAGES',
-      color: 'from-blue-500 to-purple-500',
-      items: ['Python', 'JavaScript', 'TypeScript', 'Java', 'C++', 'C#', 'Go', 'Rust', 'Swift', 'Kotlin', 'PHP', 'Ruby', 'Scala', 'R', 'MATLAB', 'Dart', 'HTML5', 'CSS3']
-    },
-    hosting: {
-      title: 'HOSTING/SAAS',
-      color: 'from-green-500 to-emerald-500',
-      items: ['AWS', 'Google Cloud', 'Azure', 'Vercel', 'Netlify', 'Firebase', 'Heroku', 'DigitalOcean', 'Railway', 'PlanetScale', 'Supabase', 'Cloudflare']
-    },
-    frameworks: {
-      title: 'FRAMEWORKS & LIBRARIES',
-      color: 'from-purple-500 to-pink-500',
-      items: ['React', 'Next.js', 'Vue.js', 'Angular', 'Svelte', 'Node.js', 'Express', 'Django', 'Flask', 'Spring', 'Laravel', 'TailwindCSS', 'Bootstrap', 'Three.js', 'Electron']
-    },
-    servers: {
-      title: 'SERVERS',
-      color: 'from-orange-500 to-red-500',
-      items: ['Apache', 'Nginx', 'Jenkins', 'Docker', 'Kubernetes', 'GraphQL', 'Socket.IO']
-    },
-    databases: {
-      title: 'DATABASES / ORM',
-      color: 'from-yellow-500 to-orange-500',
-      items: ['MongoDB', 'MySQL', 'PostgreSQL', 'Firebase', 'Redis', 'SQLite', 'Prisma', 'Sequelize', 'Mongoose', 'Supabase']
-    },
-    design: {
-      title: 'DESIGN',
-      color: 'from-pink-500 to-rose-500',
-      items: ['Figma', 'Adobe Photoshop', 'Adobe Illustrator', 'Blender', 'Sketch', 'Adobe XD', 'Canva', 'Framer']
-    },
-    ml: {
-      title: 'ML/DL',
-      color: 'from-indigo-500 to-blue-500',
-      items: ['TensorFlow', 'PyTorch', 'Keras', 'NumPy', 'Pandas', 'Scikit-learn', 'OpenCV', 'Matplotlib']
-    },
-    cicd: {
-      title: 'CI/CD & VCS',
-      color: 'from-slate-500 to-gray-500',
-      items: ['GitHub Actions', 'GitLab CI', 'Docker', 'Kubernetes', 'Git', 'GitHub', 'GitLab', 'Bitbucket']
-    },
-    other: {
-      title: 'OTHER',
-      color: 'from-teal-500 to-cyan-500',
-      items: ['Linux', 'Postman', 'Insomnia', 'Vim', 'VS Code', 'IntelliJ', 'Selenium', 'Jest', 'Cypress', 'Webpack', 'Vite', 'Babel']
-    }
-  };
+  const techCategories = TECH_STACK_CATEGORIES;
 
   const toggleTech = (category: keyof typeof state.techStack, tech: string) => {
     const currentTechs = state.techStack[category];

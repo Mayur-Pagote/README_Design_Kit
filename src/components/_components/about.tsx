@@ -125,7 +125,23 @@ export default function AboutUs() {
             icon: <Sparkles className="w-6 h-6" />,
             title: "Rich Elements",
             description: "Pre-built components for badges, tables, code blocks, and more"
-        }
+        },
+        {
+  icon: <Zap className="w-6 h-6" />,
+  title: "Live Preview",
+  description: "Instantly preview your README as it will appear on GitHub"
+},
+{
+  icon: <Code className="w-6 h-6" />,
+  title: "Export & Download",
+  description: "Export README files in Markdown format with a single click"
+},
+{
+  icon: <Users className="w-6 h-6" />,
+  title: "Accessibility Friendly",
+  description: "Built with accessibility best practices for inclusive documentation"
+}
+
     ];
 
     // Team section now uses the renderContributors function to display GitHub contributors
@@ -155,7 +171,7 @@ export default function AboutUs() {
                         </a>
                             
                     </Button>
-                </div>
+               </div>
             </section>
 
             <Separator className="my-12" />
