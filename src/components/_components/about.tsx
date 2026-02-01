@@ -135,13 +135,7 @@ export default function AboutUs() {
   icon: <Code className="w-6 h-6" />,
   title: "Export & Download",
   description: "Export README files in Markdown format with a single click"
-},
-{
-  icon: <Users className="w-6 h-6" />,
-  title: "Accessibility Friendly",
-  description: "Built with accessibility best practices for inclusive documentation"
 }
-
     ];
 
     // Team section now uses the renderContributors function to display GitHub contributors
