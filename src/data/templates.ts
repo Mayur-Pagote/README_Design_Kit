@@ -509,11 +509,11 @@ export const sampleTemplates: Template[] = [
         <p> <b>Class:</b> Full Stack Mage | <b>Sub-class:</b> UI/UX Alchemist </p>
       </div>
 
-      ---
 
-      ## 🛡️ Equipped Inventory (Tech Stack)
+
+      <h2 align="center"> 🛡️ Equipped Inventory (Tech Stack)</h2>
       <div align="center">
-        <table>
+        <table border="0" cellspacing="10" cellpadding="10" align="center">
           <tr>
             <td align="center"><b>Main Hand</b><br/><img src="https://img.shields.io/badge/React-Blade-61DAFB?style=for-the-badge&logo=react" /></td>
             <td align="center"><b>Off-Hand</b><br/><img src="https://img.shields.io/badge/Node.js-Shield-339933?style=for-the-badge&logo=node.js" /></td>
@@ -525,24 +525,26 @@ export const sampleTemplates: Template[] = [
         </table>
       </div>
 
-      ---
+    
 
-      ## 📊 Ability Radar (Skill Mapping)
+      <h2 align="center"> 📊 Ability Radar (Skill Mapping)</h2>
       <div align="center">
         <img height="250em" src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username={username}&theme=github_dark" />
         <img height="250em" src="https://github-profile-summary-cards.vercel.app/api/cards/repos-per-language?username={username}&theme=github_dark" />
       </div>
+    <br>
+    
+      <br>
+      <div align="center">
+      <h2 align="center"> 📜 Active Quest Log</h2><br>
+      - Main Quest: Architecting a scalable MERN microservice. <code>(Progress: 75%)</code><br>
+      - Side Quest: Contributing 5 PRs to Open Source projects this month. <code>(Progress: 2/5)</code><br>
+      - Daily: Solve 2 LeetCode problems. <code>(Streak: 12 days)</code><br>
+      </div>
+      <br><br>
+    
 
-      ---
-
-      ## 📜 Active Quest Log
-      - [ ] **Main Quest:** Architecting a scalable MERN microservice. <code>(Progress: 75%)</code>
-      - [ ] **Side Quest:** Contributing 5 PRs to Open Source projects this month. <code>(Progress: 2/5)</code>
-      - [ ] **Daily:** Solve 2 LeetCode problems. <code>(Streak: 12 days)</code>
-
-      ---
-
-      ## 🏆 Achievement Trophies
+      <h2 align="center"> 🏆 Achievement Trophies</h2>
       <div align="center">
         <img src="https://github-trophies.vercel.app/?username={username}&theme=dracula&no-bg=true&row=1" />
       </div>
