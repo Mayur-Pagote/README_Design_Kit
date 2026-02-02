@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import Layout from "./components/Layout";
 import ScrollToTop from "./components/ScrollToTop";
+import ScrollRestoration from "./components/ScrollRestoration";
 import Elements from "./pages/Elements";
 // import Hero from "./pages/Hero";
 import ProjectsSection from "./components/ProjectsSection";
@@ -46,6 +47,7 @@ export default function App() {
         <ThemeProvider defaultTheme="system" storageKey="readme-design-kit-theme">
           <Cursortrail />
           <BrowserRouter>
+            <ScrollRestoration />
             <ConditionalScrollToTop />
             <Routes>
               {/* Routes with Layout (navbar + footer) */}

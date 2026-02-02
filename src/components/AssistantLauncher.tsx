@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,  useRef, useEffect } from "react";
 import { Sparkles } from "lucide-react";
 import { ReadmeAnalysis } from "@/components/ReadmeAnalysis";
 import type { ElementType } from "@/types/elements";
@@ -27,6 +27,28 @@ export function AssistantLauncher({
 }: AssistantLauncherProps) {
   const [open, setOpen] = useState(false);
 
+const panelRef = useRef<HTMLDivElement | null>(null);
+useEffect(() => {
+  if (!open) return;
+
+  const handleClickOutside = (event: MouseEvent) => {
+    const target = event.target as HTMLElement | null;
+    if (!target) return;
+    
+    if (panelRef.current?.contains(target)) return;
+    if (target.closest('.radix-portal')) return;
+    if (target.closest('[role="listbox"]')) return;
+
+    setOpen(false);
+  };
+
+  document.addEventListener("mousedown", handleClickOutside);
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, [open]);
+
+
   return (
     <>
       {/* Floating button */}
@@ -41,7 +63,9 @@ export function AssistantLauncher({
 
       {/* Assistant panel */}
       {open && (
-        <div className={`fixed bottom-24 right-6 z-50 w-[28rem] max-h-[80vh] overflow-y-auto rounded-xl border bg-background text-foreground shadow-2xl ring-1 ring-border transition-all duration-300
+        <div 
+        ref={panelRef}
+        className={`fixed bottom-24 right-6 z-50 w-[28rem] max-h-[80vh] overflow-y-auto rounded-xl border bg-background text-foreground shadow-2xl ring-1 ring-border transition-all duration-300
           ${open ? 'animate-in fade-in slide-in-from-bottom-4' : 'animate-out fade-out slide-out-to-bottom-4'}`}>
           <ReadmeAnalysis
             elements={elements}

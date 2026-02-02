@@ -5,8 +5,6 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { TemplatePreview } from './TemplatePreview';
 import { useTemplatePreferences } from '@/hooks/useTemplatePreferences';
 import { sampleTemplates, templateCategories, popularTags } from '@/data/templates';
 import type { Template, TemplateCategory } from '@/types/templates';
@@ -27,12 +25,9 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   
-  // State for the Preview Popup
-  const [previewTemplate, setPreviewTemplate] = useState<Template | null>(null);
-  
   const [activeTab, setActiveTab] = useState('all');
   
-  const { preferences, toggleFavorite: toggleTemplateFavorite, addToRecentlyViewed, addToRecentlyUsed } = useTemplatePreferences();
+  const { preferences, toggleFavorite: toggleTemplateFavorite, addToRecentlyViewed } = useTemplatePreferences();
   
   // Filter templates based on current filters and active tab
   const filteredTemplates = useMemo(() => {
@@ -89,19 +84,6 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
   };
 
   // --- ACTIONS ---
-
-  // Triggered when "Use This Template" is clicked INSIDE the popup
-  const handleConfirmUseTemplate = (template: Template) => {
-    addToRecentlyUsed(template.id);
-    onSelectTemplate(template, username, repo);
-    setPreviewTemplate(null);
-  };
-
-  // Triggered when a card is clicked in the grid
-  const handleCardClick = (template: Template) => {
-    addToRecentlyViewed(template.id);
-    setPreviewTemplate(template); // Opens the popup
-  };
 
   const handleUsernameChange = (newUsername: string) => {
     setUsername(newUsername);
@@ -273,7 +255,10 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
                 key={template.id}
                 template={template}
                 isFavorite={preferences.favorites.includes(template.id)}
-                onSelect={() => handleCardClick(template)} 
+                onSelect={() => {
+                addToRecentlyViewed(template.id);
+                onSelectTemplate(template, username, repo);
+              }} 
                 onToggleFavorite={() => toggleFavorite(template.id)}
               />
             ))}
@@ -285,8 +270,14 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
                 key={template.id}
                 template={template}
                 isFavorite={preferences.favorites.includes(template.id)}
-                onSelect={() => handleCardClick(template)}
-                onPreview={() => handleCardClick(template)}
+                onSelect={() => {
+                addToRecentlyViewed(template.id);
+                onSelectTemplate(template, username, repo);
+              }}
+                onPreview={() => {
+                  addToRecentlyViewed(template.id);
+                  onSelectTemplate(template, username, repo);
+                }}
                 onToggleFavorite={() => toggleFavorite(template.id)}
               />
             ))}
@@ -302,24 +293,6 @@ export function TemplateLibrary({ onSelectTemplate, onStartFromScratch }: Templa
           </div>
         )}
       </div>
-
-      {/* Template Preview Dialog - PERFECT BOX */}
-      <Dialog open={!!previewTemplate} onOpenChange={() => setPreviewTemplate(null)}>
-        {/* max-w-[95vw] and h-[90vh] makes it a big professional window */}
-        <DialogContent className="template-scroll max-w-[95vw] w-[1400px] h-[90vh] overflow-hidden p-0 gap-0 border-none bg-background/95 backdrop-blur-xl">
-          <DialogHeader className="sr-only">
-            <DialogTitle>{previewTemplate?.name}</DialogTitle>
-          </DialogHeader>
-          {previewTemplate && (
-            <div className="h-full overflow-hidden p-6">
-              <TemplatePreview
-                template={previewTemplate}
-                onUseTemplate={() => handleConfirmUseTemplate(previewTemplate)}
-              />
-            </div>
-          )}
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
