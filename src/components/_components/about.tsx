@@ -193,25 +193,55 @@ export default function AboutUs() {
             </section>
 
             {/* Mission Section */}
-            <section className="bg-muted/50 rounded-3xl p-12 mb-20">
-                <div className="max-w-3xl mx-auto text-center">
-                    <BookOpen className="w-10 h-10 mx-auto mb-6 text-primary" />
-                    <h2 className="text-3xl font-bold mb-6">Our Mission</h2>
-                    <p className="text-lg text-muted-foreground mb-8">
-                        We believe that great documentation deserves great design. Our mission is to make it easy for developers to create beautiful, professional README files that showcase their projects in the best possible light.
-                    </p>
-                    <div className="flex flex-wrap justify-center gap-4 mt-8">
-                        <Badge variant="secondary" className="px-4 py-2 text-sm">
-                            <Heart className="w-4 h-4 mr-2 text-red-500" />
-                            Made with love for developers
-                        </Badge>
-                        <Badge variant="secondary" className="px-4 py-2 text-sm">
-                            <Users className="w-4 h-4 mr-2 text-blue-500" />
-                            Community-driven
-                        </Badge>
-                    </div>
-                </div>
-            </section>
+<section className="mb-20">
+  <div
+    className="
+      relative 
+      rounded-2xl 
+      border 
+      border-neutral-200/60 dark:border-neutral-800
+      bg-white/60 dark:bg-neutral-900/60
+      backdrop-blur-sm
+      px-8 py-16
+      transition-all duration-300 ease-out
+      hover:-translate-y-1
+      hover:shadow-xl hover:shadow-primary/10
+      hover:border-primary/40
+      dark:hover:border-primary/50
+    "
+  >
+    {/* top divider */}
+    <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+
+    <div className="max-w-3xl mx-auto text-center">
+      <BookOpen className="w-9 h-9 mx-auto mb-6 text-primary transition-transform duration-300 group-hover:scale-105" />
+
+      <h2 className="text-3xl font-bold mb-5">
+        Our Mission
+      </h2>
+
+      <p className="text-lg text-muted-foreground leading-relaxed">
+        We believe great documentation deserves great design.
+        Our mission is to help developers create clean, professional README files
+        that represent their projects with clarity and confidence.
+      </p>
+
+      <div className="flex flex-wrap justify-center gap-3 mt-10">
+        <Badge variant="secondary" className="px-4 py-2">
+          <Heart className="w-4 h-4 mr-2 text-red-500" />
+          Built for developers
+        </Badge>
+        <Badge variant="secondary" className="px-4 py-2">
+          <Users className="w-4 h-4 mr-2 text-blue-500" />
+          Community driven
+        </Badge>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
 
             {/* Team Section */}
             <section className="mb-20">
