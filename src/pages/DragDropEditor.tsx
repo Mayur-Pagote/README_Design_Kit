@@ -22,8 +22,12 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-
-// Removed unused Sheet and Tabs imports
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
 
 import { ElementPalette } from '@/components/ElementPalette';
 import { EditorCanvas } from '@/components/EditorCanvas';
@@ -57,8 +61,9 @@ export default function DragDropEditor() {
   } = useUndoRedo<ElementType[]>([]);
 
   const [editingElement, setEditingElement] = useState<ElementType | null>(null);
-  const [showPalette, setShowPalette] = useState(true);
-  const [showPreview, setShowPreview] = useState(true);
+  const [showPalette, setShowPalette] = useState(!useIsMobile());
+  const [showPreview, setShowPreview] = useState(!useIsMobile());
+  const [showPaletteSheet, setShowPaletteSheet] = useState(false);
   const [showComparisonModal, setShowComparisonModal] = useState(false);
   const [showAISettings, setShowAISettings] = useState(false);
   const [loadedTemplateName, setLoadedTemplateName] = useState<string | null>(null);
@@ -404,7 +409,65 @@ export default function DragDropEditor() {
       </div>
 
       <div className="flex-1 flex flex-col overflow-hidden">
-        {!isMobile && !isTablet && (
+        {isMobile ? (
+          <>
+            <div className="flex gap-2 px-4 py-2 border-b bg-background/50">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowPaletteSheet(true)}
+                className="flex-1"
+              >
+                <Library className="h-4 w-4 mr-2" />
+                Add Elements
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowPreview(!showPreview)}
+                className="flex-1"
+              >
+                <Eye className="h-4 w-4 mr-2" />
+                {showPreview ? 'Hide' : 'Show'} Preview
+              </Button>
+            </div>
+            
+            <div className="flex-1 overflow-hidden flex flex-col">
+              <div className="flex-1 overflow-auto">
+                <EditorCanvas
+                  elements={elements}
+                  onElementsChange={handleElementsChange}
+                  onEditElement={handleEditElement}
+                  onReorderElement={handleReorderElement}
+                />
+              </div>
+
+              {showPreview && (
+                <div className="border-t flex-1 overflow-auto">
+                  <ReadmePreview
+                    elements={elements}
+                    preset={exportPreset}
+                    onPresetChange={setExportPreset}
+                  />
+                </div>
+              )}
+            </div>
+
+            <Sheet open={showPaletteSheet} onOpenChange={setShowPaletteSheet}>
+              <SheetContent side="bottom" className="max-h-[80vh]">
+                <SheetHeader>
+                  <SheetTitle>Add Elements to README</SheetTitle>
+                </SheetHeader>
+                <div className="mt-4 overflow-y-auto max-h-[calc(80vh-80px)]">
+                  <ElementPalette onAddElement={(element) => {
+                    handleAddElement(element);
+                    setShowPaletteSheet(false);
+                  }} />
+                </div>
+              </SheetContent>
+            </Sheet>
+          </>
+        ) : !isTablet ? (
           <div className="flex-1 flex flex-row overflow-hidden">
             {showPalette && (
               <div className="basis-1/4 min-w-0 max-w-[320px] border-r overflow-y-auto overflow-x-hidden">
@@ -430,6 +493,65 @@ export default function DragDropEditor() {
                 />
               </div>
             )}
+          </div>
+        ) : (
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <div className="flex gap-2 px-4 py-2 border-b bg-background/50">
+              <Button
+                variant={showPalette ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setShowPalette(!showPalette)}
+                className="flex-1"
+              >
+                <Library className="h-4 w-4 mr-2" />
+                Elements
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowPreview(false)}
+                className="flex-1"
+              >
+                <Sparkles className="h-4 w-4 mr-2" />
+                Editor
+              </Button>
+              <Button
+                variant={showPreview ? 'default' : 'outline'}
+                size="sm"
+                onClick={() => setShowPreview(!showPreview)}
+                className="flex-1"
+              >
+                <Eye className="h-4 w-4 mr-2" />
+                Preview
+              </Button>
+            </div>
+
+            <div className="flex-1 flex overflow-hidden">
+              {showPalette && (
+                <div className="basis-1/3 min-w-0 border-r overflow-y-auto overflow-x-hidden">
+                  <ElementPalette onAddElement={handleAddElement} />
+                </div>
+              )}
+
+              <div className="flex-1 overflow-auto">
+                <EditorCanvas
+                  elements={elements}
+                  onElementsChange={handleElementsChange}
+                  onEditElement={handleEditElement}
+                  onReorderElement={handleReorderElement}
+                />
+              </div>
+
+              {showPreview && (
+                <div className="basis-1/2 border-l overflow-auto">
+                  <ReadmePreview
+                    elements={elements}
+                    preset={exportPreset}
+                    onPresetChange={setExportPreset}
+                  />
+                </div>
+              )}
+            </div>
           </div>
         )}
       </div>
