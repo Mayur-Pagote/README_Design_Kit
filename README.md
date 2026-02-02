@@ -178,13 +178,20 @@ Read the [Contributing Guidelines](./CONTRIBUTING.md) for detailed instructions.
 
 
 ## 🌟 Open Source Participation
-
 <table>
   <tr>
     <th>Program</th>
     <th>Program Name</th>
     <th>Start Date</th>
     <th>End Date</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="./public/SSOC.logo.png" alt="SSoC Logo" width="80" height="80">
+    </td>
+    <td><strong>Social Summer of Code (SSoC)</strong></td>
+    <td>25 June 2025</td>
+    <td>25 August 2025</td>
   </tr>
   <tr>
     <td align="center">

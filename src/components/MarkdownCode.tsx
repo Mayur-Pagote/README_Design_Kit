@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { toast } from 'sonner';
 import { Button } from './ui/button';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { a11yDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
+import { cn } from '@/lib/utils';
 
 interface MarkdownCodeProps {
   markdown: string;
@@ -30,16 +31,12 @@ const cleanMarkdown = (markdown: string) => {
 };
 
 const MarkdownCode = ({ markdown }: MarkdownCodeProps) => {
-  const [isCopied, setIsCopied] = useState(false);
 
   const content = cleanMarkdown(markdown);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(content);
-    setIsCopied(true);
-    setTimeout(() => {
-      setIsCopied(false);
-    }, 2000);
+    toast.success("Markdown copied to clipboard");
   };
 
   return (
@@ -49,10 +46,12 @@ const MarkdownCode = ({ markdown }: MarkdownCodeProps) => {
       </SyntaxHighlighter>
       <Button
         onClick={handleCopy}
-        className="absolute top-2 right-2"
+        className={cn(
+          "absolute top-2 right-2"
+        )}
         variant="secondary"
       >
-        {isCopied ? 'Copied!' : 'Copy'}
+        COPY CODE
       </Button>
     </div>
   );

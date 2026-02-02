@@ -25,9 +25,30 @@ export const Header = () => {
   const isDark = theme === "dark"
   const [menuState, setMenuState] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
+  
+  // New state for Smart Navbar visibility
+  const [isVisible, setIsVisible] = React.useState(true)
+  const lastScrollY = React.useRef(0)
 
   React.useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50)
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      
+      // Existing logic for background shrink/blur after 50px
+      setIsScrolled(currentScrollY > 50)
+
+      // Smart Navbar Logic
+      // 1. If scrolling down and past a threshold (100px), hide it.
+      // 2. If scrolling up, show it.
+      if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
+        setIsVisible(false)
+      } else {
+        setIsVisible(true)
+      }
+      
+      lastScrollY.current = currentScrollY
+    }
+
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -42,7 +63,16 @@ export const Header = () => {
 
   return (
     <header>
-      <nav className="fixed z-20 w-full px-2" style={{ zIndex: "100000" }}>
+      {/* Added transition-transform and duration-300.
+          Conditional class handles hiding (-translate-y-full) and showing (translate-y-0).
+      */}
+      <nav 
+        className={cn(
+          "fixed z-20 w-full px-2 transition-transform duration-300 ease-in-out",
+          isVisible ? "translate-y-0" : "-translate-y-full"
+        )} 
+        style={{ zIndex: "100000" }}
+      >
         <div
           className={cn(
             'mx-auto mt-2 max-w-3xl px-6 transition-all duration-300 lg:px-12',
@@ -81,7 +111,7 @@ export const Header = () => {
                 </DropdownMenuTrigger>
 
                 <DropdownMenuContent
-                  className="mt-2 w-48 rounded-lg bg-background shadow-lg p-1"
+                  className="mt-2 w-48 rounded-lg bg-background shadow-lg p-1 border z-50"
                   sideOffset={6}
                 >
                   {moreItems.map((item, index) => (

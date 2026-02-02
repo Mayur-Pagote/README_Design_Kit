@@ -749,6 +749,13 @@ export const componentsData: Record<string, ComponentItem[]> = {
       codeSnippet: `<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=90&section=header" width="100%"/>`,
     },
     {
+      title: "Fading Red Line",
+      description: "A fading red divider line.",
+      imageUrl: 
+      "https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif",
+      codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" />`
+    },
+    {
       title: "Wave Footer",
       description: "A decorative wave for the bottom of your README.",
       imageUrl:

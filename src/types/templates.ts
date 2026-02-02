@@ -22,7 +22,11 @@ export type TemplateCategory =
   | 'minimal'
   | 'professional'
   | 'personal-projects'
-  | 'other';
+  | 'other'
+  | 'academic'    
+  | 'community'   
+  | 'portfolio'
+  | 'open-source';
 
 export interface TemplateFilter {
   category?: TemplateCategory;
