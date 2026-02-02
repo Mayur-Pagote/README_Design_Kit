@@ -8,7 +8,6 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { AITextarea } from '@/components/ui/ai-textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -19,10 +18,9 @@ interface ElementEditorProps {
   isOpen: boolean;
   onClose: () => void;
   onSave: (element: ElementType) => void;
-  globalGithubUsername?: string;
 }
 
-export function ElementEditor({ element, isOpen, onClose, onSave, globalGithubUsername = 'your-username' }: ElementEditorProps) {
+export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEditorProps) {
   const [editedElement, setEditedElement] = useState<ElementType | null>(null);
   // FIX: Local state for the technologies string to allow typing spaces and commas
   const [techString, setTechString] = useState('');
@@ -46,13 +44,6 @@ export function ElementEditor({ element, isOpen, onClose, onSave, globalGithubUs
 
   const updateElement = (updates: Partial<ElementType>) => {
     setEditedElement(prev => prev ? { ...prev, ...updates } as ElementType : null);
-  };
-
-  const updateStyle = (styleUpdates: Record<string, string | number>) => {
-    setEditedElement(prev => prev ? {
-      ...prev,
-      style: { ...prev.style, ...styleUpdates }
-    } as ElementType : null);
   };
 
   const shouldShowAITextarea = (elementType: string) => {
@@ -221,8 +212,6 @@ export function ElementEditor({ element, isOpen, onClose, onSave, globalGithubUs
               )}
             </div>
           )}
-
-          {/* ... [Rest of the fields like Image, Code Block, etc follow same pattern] ... */}
         </div>
 
         <DialogFooter className="border-t pt-4">
