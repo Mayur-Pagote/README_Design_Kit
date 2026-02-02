@@ -221,6 +221,7 @@ export default function Footer() {
               </div>
             </div>
           </div>
+          </footer>
                         {/* Column 4: Newsletter/CTA (New Feature) */}
                         <div className="flex flex-col space-y-4">
                             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Stay Updated</h4>
@@ -276,7 +277,8 @@ export default function Footer() {
                         </div>
                     </div>
                 </div>
-            </footer>
+  
+            </div>
         </div>
       </footer>
     </div>
