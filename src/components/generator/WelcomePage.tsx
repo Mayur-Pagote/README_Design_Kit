@@ -31,15 +31,7 @@ const WelcomePage = ({ state, setState, nextPage }: WelcomePageProps) => {
           transition={{ duration: 0.8 }}
           className="text-center lg:text-left"
         >
-          <motion.div
-            initial={{ scale: 0.9 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="inline-flex items-center gap-2 bg-background/60 backdrop-blur-md text-foreground px-4 py-2 rounded-full mb-6 text-sm font-medium lg:-translate-x-22"
-          >
-            <Sparkles className="w-4 h-4" />
-            Best Profile Generator
-          </motion.div>
+          
 
           <h1 className="leading-none sm:text-[70px] lg:text-[60px] font-bold bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
             <span>Create Your</span>{" "}
