@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Sparkles, Loader2, Settings } from 'lucide-react';
+import { Sparkles, Wand2, Loader2, Settings } from 'lucide-react';
 import { geminiService } from '@/services/geminiService';
 import { toast } from 'sonner';
 
@@ -49,7 +49,6 @@ export function AITextarea({
       const enhancedText = await geminiService.enhanceText(textToEnhance, aiContext);
       onValueChange?.(enhancedText);
       
-      // Create a synthetic event for onChange compatibility
       const syntheticEvent = {
         target: { value: enhancedText },
       } as React.ChangeEvent<HTMLTextAreaElement>;
@@ -75,7 +74,6 @@ export function AITextarea({
       const generatedText = await geminiService.generateDescription(generationType, aiContext, currentText);
       onValueChange?.(generatedText);
       
-      // Create a synthetic event for onChange compatibility
       const syntheticEvent = {
         target: { value: generatedText },
       } as React.ChangeEvent<HTMLTextAreaElement>;
@@ -91,16 +89,16 @@ export function AITextarea({
 
   return (
     <div className="space-y-2">
-      <div className="relative">
+      <div className="relative group">
         <Textarea
           {...props}
           value={value}
           onChange={handleInputChange}
           placeholder={placeholder}
-          className="pr-12"
+          className="pr-20" // Increased padding for the icon tray
         />
         
-        <div className="absolute right-2 top-2 flex gap-1">
+        <div className="absolute right-2 top-2 flex gap-1 bg-background/80 backdrop-blur-sm p-0.5 rounded-md border border-transparent group-hover:border-slate-700 transition-all">
           {showGenerateOption && (
             <Button
               type="button"
@@ -108,13 +106,13 @@ export function AITextarea({
               size="sm"
               onClick={handleGenerateText}
               disabled={isGenerating || isEnhancing}
-              className="h-8 w-8 p-0 hover:bg-green-50 hover:text-green-600"
-              title={value ? "Expand and improve existing text" : "Generate new content with AI"}
+              className="h-7 w-7 p-0 hover:bg-emerald-500/20 hover:text-emerald-500 transition-colors"
+              title={value ? "Expand existing text" : "Auto-generate content"}
             >
               {isGenerating ? (
-                <Loader2 className="h-4 w-4 animate-spin" />
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
               ) : (
-                <Sparkles className="h-4 w-4" />
+                <Wand2 className="h-3.5 w-3.5" /> // Generation now uses Wand2
               )}
             </Button>
           )}
@@ -125,32 +123,31 @@ export function AITextarea({
             size="sm"
             onClick={handleEnhanceText}
             disabled={isEnhancing || isGenerating || !value}
-            className="h-8 w-8 p-0 hover:bg-blue-50 hover:text-blue-600"
-            title="Enhance with AI"
+            className="h-7 w-7 p-0 hover:bg-blue-500/20 hover:text-blue-500 transition-colors"
+            title="Refine and Polish"
           >
             {isEnhancing ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <Loader2 className="h-3.5 w-3.5 animate-spin" />
             ) : (
-              <Sparkles className="h-4 w-4" />
+              <Sparkles className="h-3.5 w-3.5" /> // Enhancement keeps Sparkles
             )}
           </Button>
         </div>
       </div>
       
       {geminiService.isConfigured() && (
-        <p className="text-xs text-muted-foreground flex items-center gap-1">
-          <Sparkles className="h-3 w-3" />
-          AI enhancements enabled
+        <p className="text-[10px] text-muted-foreground flex items-center gap-1.5 px-1">
+          <Wand2 className="h-3 w-3 text-emerald-500" />
+          <span>AI Toolkit Active</span>
           {(() => {
             const settings = geminiService.getSettings();
             return ` (${settings.creativity}, ${settings.style})`;
           })()}
           {showGenerateOption && (
-            <span>
-              • <span className="text-green-600">Green sparkle</span>: expand/generate • <span className="text-blue-600">Blue sparkle</span>: enhance existing
+            <span className="opacity-70">
+              • <span className="text-emerald-500">Wand</span>: generate • <span className="text-blue-500">Sparkle</span>: enhance
             </span>
           )}
-          {!showGenerateOption && ' • Click the sparkle icon to enhance existing text'}
         </p>
       )}
       

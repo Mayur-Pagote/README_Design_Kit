@@ -3,111 +3,79 @@ export const TECH_STACK_CATEGORIES = {
     title: 'LANGUAGES',
     color: 'from-blue-500 to-purple-500',
     items: [
-      'Python',
-      'JavaScript',
-      'TypeScript',
-      'Java',
-      'C++',
-      'Go',
-      'Rust',
-      'HTML5',
-      'CSS3',
+      'Python', 'JavaScript', 'TypeScript', 'Java', 'C++', 'Go', 'Rust', 'HTML5', 'CSS3',
     ],
   },
-
   frameworks: {
     title: 'FRAMEWORKS & LIBRARIES',
     color: 'from-purple-500 to-pink-500',
     items: [
-      'React',
-      'Next.js',
-      'Vue.js',
-      'Angular',
-      'Node.js',
-      'Express',
-      'Django',
-      'Flask',
-      'Tailwind CSS',
-      'Bootstrap',
+      'React', 'Next.js', 'Vue.js', 'Angular', 'Node.js', 'Express', 'Django', 'Flask', 'Tailwind CSS', 'Bootstrap',
     ],
   },
-
   hosting: {
     title: 'HOSTING / SAAS',
     color: 'from-green-500 to-emerald-500',
     items: [
-      'AWS',
-      'Google Cloud',
-      'Azure',
-      'Vercel',
-      'Netlify',
-      'Firebase',
-      'Supabase',
+      'AWS', 'Google Cloud', 'Azure', 'Vercel', 'Netlify', 'Firebase', 'Supabase',
     ],
   },
-
   servers: {
     title: 'SERVERS',
     color: 'from-orange-500 to-red-500',
     items: [
-      'Docker',
-      'Kubernetes',
-      'Nginx',
-      'Apache',
+      'Docker', 'Kubernetes', 'Nginx', 'Apache',
     ],
   },
-
   databases: {
     title: 'DATABASES',
     color: 'from-yellow-500 to-orange-500',
     items: [
-      'MongoDB',
-      'MySQL',
-      'PostgreSQL',
-      'Redis',
-      'SQLite',
+      'MongoDB', 'MySQL', 'PostgreSQL', 'Redis', 'SQLite',
     ],
   },
-
   design: {
     title: 'DESIGN',
     color: 'from-pink-500 to-rose-500',
     items: [
-      'Figma',
-      'Canva',
-      'Adobe XD',
+      'Figma', 'Canva', 'Adobe XD',
     ],
   },
-
   ml: {
     title: 'ML / DL',
     color: 'from-indigo-500 to-blue-500',
     items: [
-      'TensorFlow',
-      'PyTorch',
-      'Scikit-learn',
+      'TensorFlow', 'PyTorch', 'Scikit-learn',
     ],
   },
-
   cicd: {
     title: 'CI / CD',
     color: 'from-slate-500 to-gray-500',
     items: [
-      'GitHub Actions',
-      'GitLab CI',
-      'Jenkins',
+      'GitHub Actions', 'GitLab CI', 'Jenkins',
     ],
   },
-
   other: {
     title: 'OTHER',
     color: 'from-teal-500 to-cyan-500',
     items: [
-      'Linux',
-      'Postman',
-      'VS Code',
-      'Webpack',
-      'Vite',
+      'Linux', 'Postman', 'VS Code', 'Webpack', 'Vite',
     ],
   },
+};
+
+/**
+ * Finds the category key for a given technology name.
+ * Defaults to 'other' if the technology is not found in the predefined lists.
+ */
+export const getCategoryByTech = (techName: string): string => {
+  const normalizedSearch = techName.toLowerCase().trim();
+  
+  for (const [key, category] of Object.entries(TECH_STACK_CATEGORIES)) {
+    if (category.items.some(item => item.toLowerCase() === normalizedSearch)) {
+      return key;
+    }
+  }
+  
+  return 'other';
 };

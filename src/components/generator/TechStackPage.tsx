@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowRight, Code, Search, X } from 'lucide-react';
@@ -7,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import type { GeneratorState } from './Readme-generator';
 import ProgressIndicator from "./ProgressIndicator";
-import { TECH_STACK_CATEGORIES } from '@/constants/techstack';
+import { TECH_STACK_CATEGORIES, getCategoryByTech } from '@/constants/techstack';
 
 interface TechStackPageProps {
   state: GeneratorState;
@@ -21,10 +20,11 @@ interface TechStackPageProps {
 const TechStackPage = ({ state, setState, currentPage, totalPages, nextPage, prevPage }: TechStackPageProps) => {
   const [searchTerm, setSearchTerm] = useState('');
 
-  const techCategories = TECH_STACK_CATEGORIES;
-
-  const toggleTech = (category: keyof typeof state.techStack, tech: string) => {
-    const currentTechs = state.techStack[category];
+  const toggleTech = (tech: string) => {
+    // Automatically find the correct category for this tech
+    const category = getCategoryByTech(tech) as keyof typeof state.techStack;
+    const currentTechs = state.techStack[category] || [];
+    
     const updatedTechs = currentTechs.includes(tech)
       ? currentTechs.filter(t => t !== tech)
       : [...currentTechs, tech];
@@ -38,11 +38,12 @@ const TechStackPage = ({ state, setState, currentPage, totalPages, nextPage, pre
     });
   };
 
-  const isSelected = (category: keyof typeof state.techStack, tech: string) => {
-    return state.techStack[category].includes(tech);
+  const isSelected = (tech: string) => {
+    const category = getCategoryByTech(tech) as keyof typeof state.techStack;
+    return state.techStack[category]?.includes(tech) || false;
   };
 
-  const filteredCategories = Object.entries(techCategories).map(([key, category]) => ({
+  const filteredCategories = Object.entries(TECH_STACK_CATEGORIES).map(([key, category]) => ({
     key: key as keyof typeof state.techStack,
     ...category,
     items: category.items.filter(item => 
@@ -51,7 +52,7 @@ const TechStackPage = ({ state, setState, currentPage, totalPages, nextPage, pre
   })).filter(category => category.items.length > 0);
 
   const getTotalSelected = () => {
-    return Object.values(state.techStack).reduce((total, techs) => total + techs.length, 0);
+    return Object.values(state.techStack).reduce((total, techs) => total + (techs?.length || 0), 0);
   };
 
   return (
@@ -104,7 +105,7 @@ const TechStackPage = ({ state, setState, currentPage, totalPages, nextPage, pre
                   <div className={`w-3 h-3 bg-gradient-to-r ${category.color} rounded-full`}></div>
                   <h3 className="font-bold text-foreground text-lg">{category.title}</h3>
                   <span className="text-sm text-muted-foreground">
-                    ({state.techStack[category.key].length} selected)
+                    ({state.techStack[category.key]?.length || 0} selected)
                   </span>
                 </div>
                 
@@ -112,16 +113,16 @@ const TechStackPage = ({ state, setState, currentPage, totalPages, nextPage, pre
                   {category.items.map((tech) => (
                     <Badge
                       key={tech}
-                      variant={isSelected(category.key, tech) ? "default" : "outline"}
+                      variant={isSelected(tech) ? "default" : "outline"}
                       className={`cursor-pointer transition-all duration-200 hover:scale-105 ${
-                        isSelected(category.key, tech)
+                        isSelected(tech)
                           ? `bg-gradient-to-r ${category.color} hover:opacity-80 text-white border-0`
                           : 'border-slate-600 text-muted-foreground hover:border-slate-500 hover:bg-primary hover:text-white'
                       }`}
-                      onClick={() => toggleTech(category.key, tech)}
+                      onClick={() => toggleTech(tech)}
                     >
                       {tech}
-                      {isSelected(category.key, tech) && (
+                      {isSelected(tech) && (
                         <X className="w-3 h-3 ml-1" />
                       )}
                     </Badge>

@@ -572,7 +572,6 @@ export default function DragDropEditor() {
         isOpen={editingElement !== null}
         onClose={() => setEditingElement(null)}
         onSave={handleSaveElement}
-        globalGithubUsername={githubUsername}
       />
       <PersonaComparisonModal isOpen={showComparisonModal} onClose={() => setShowComparisonModal(false)} />
       <GithubUsernameDialog
