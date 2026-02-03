@@ -207,6 +207,134 @@ export const componentsData: Record<string, ComponentItem[]> = {
       codeSnippet:
         "![Rabbit Happy](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Rabit%20Happy.gif)",
     },
+    {
+      title: "Developer Working Loop",
+      description: "Looped animation of a developer actively working",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/212747657-7a8d59da-69c8-4110-8ea8-f8102fd0b413.gif",
+      codeSnippet:
+        "![Developer Working Loop](https://user-images.githubusercontent.com/74038190/212747657-7a8d59da-69c8-4110-8ea8-f8102fd0b413.gif)",
+    },
+    {
+      title: "Coding in Action",
+      description: "Animated illustration representing active coding",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/226190894-18e959ba-d458-4a94-ac44-790190f2a947.gif",
+      codeSnippet:
+        "![Coding in Action](https://user-images.githubusercontent.com/74038190/226190894-18e959ba-d458-4a94-ac44-790190f2a947.gif)",
+    },
+    {
+      title: "Debugging Mode",
+      description: "Developer debugging workflow animation",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/229223156-0cbdaba9-3128-4d8e-8719-b6b4cf741b67.gif",
+      codeSnippet:
+        "![Debugging Mode](https://user-images.githubusercontent.com/74038190/229223156-0cbdaba9-3128-4d8e-8719-b6b4cf741b67.gif)",
+    },
+    {
+      title: "Focused Developer",
+      description: "Minimal animation showing deep focus while coding",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/213760482-f7fa7b7b-7d6c-4063-bdd7-4483749948ad.gif",
+      codeSnippet:
+        "![Focused Developer](https://user-images.githubusercontent.com/74038190/213760482-f7fa7b7b-7d6c-4063-bdd7-4483749948ad.gif)",
+    },
+    {
+      title: "Late Night Coding",
+      description: "Late-night coding animation loop for READMEs",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/216656934-0dd55b98-a77e-4d26-8865-9147906e0f99.gif",
+      codeSnippet:
+        "![Late Night Coding](https://user-images.githubusercontent.com/74038190/216656934-0dd55b98-a77e-4d26-8865-9147906e0f99.gif)",
+    },
+    {
+      title: "Loading Developer",
+      description: "Developer loading-style animation loop",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/216655825-c639587f-6eb0-4841-b622-9f522f55d40e.gif",
+      codeSnippet:
+        "![Loading Developer](https://user-images.githubusercontent.com/74038190/216655825-c639587f-6eb0-4841-b622-9f522f55d40e.gif)",
+    },
+    {
+      title: "Problem Solving Mode",
+      description: "Animation symbolizing problem-solving mindset",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/216654128-ad1c5827-e18e-43a6-974b-3669cbb082b9.gif",
+      codeSnippet:
+        "![Problem Solving Mode](https://user-images.githubusercontent.com/74038190/216654128-ad1c5827-e18e-43a6-974b-3669cbb082b9.gif)",
+    },
+    {
+      title: "Developer Thinking",
+      description: "Developer thinking and planning animation",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/216654116-d0e8d227-7977-4edc-8d36-63461bda9503.gif",
+      codeSnippet:
+        "![Developer Thinking](https://user-images.githubusercontent.com/74038190/216654116-d0e8d227-7977-4edc-8d36-63461bda9503.gif)",
+    },
+    {
+      title: "Continuous Development Loop",
+      description: "Loop animation representing continuous development",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/216649417-9acc58df-9186-4132-ad43-819a57babb67.gif",
+      codeSnippet:
+        "![Continuous Development Loop](https://user-images.githubusercontent.com/74038190/216649417-9acc58df-9186-4132-ad43-819a57babb67.gif)",
+    },
+    {
+      title: "I'm Coding...",
+      description: "Fun animated indicator showing active coding",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/214375120-7b484054-1907-4c4d-96d9-eb76cd91ee49.gif",
+      codeSnippet:
+        "![I'm Coding](https://user-images.githubusercontent.com/74038190/214375120-7b484054-1907-4c4d-96d9-eb76cd91ee49.gif)",
+    },
+    {
+      title: "Floating Web Tech Stack",
+      description: "Floating animation showcasing web technologies",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/219923809-b86dc415-a0c2-4a38-bc88-ad6cf06395a8.gif",
+      codeSnippet:
+        "![Floating Web Tech Stack](https://user-images.githubusercontent.com/74038190/219923809-b86dc415-a0c2-4a38-bc88-ad6cf06395a8.gif)",
+    },
+    {
+      title: "Brainstorming Developer",
+      description: "Developer brainstorming and ideation animation",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/213910845-af37a709-8995-40d6-be59-724526e3c3d7.gif",
+      codeSnippet:
+        "![Brainstorming Developer](https://user-images.githubusercontent.com/74038190/213910845-af37a709-8995-40d6-be59-724526e3c3d7.gif)",
+    },
+    {
+      title: "Terminal Typing Animation",
+      description: "Terminal-style animated typing text for README headers",
+      imageUrl:
+        "https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&pause=800&color=36BCF7&width=435&lines=console.log(%27Hello%20World%27);npm+run+dev;Build+Successful",
+      codeSnippet:
+        "![Terminal Typing Animation](https://readme-typing-svg.demolab.com/?font=JetBrains+Mono&pause=800&color=36BCF7&width=435&lines=console.log(%27Hello%20World%27);npm+run+dev;Build+Successful)",
+    },
+    {
+      title: "Code the Cool Stuff",
+      description: "Playful developer slogan animation for READMEs",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/212284068-b4ee9a5c-331c-4d18-9481-53dd6b9debd5.gif",
+      codeSnippet:
+        "![Code the Cool Stuff](https://user-images.githubusercontent.com/74038190/212284068-b4ee9a5c-331c-4d18-9481-53dd6b9debd5.gif)",
+    },
+    {
+      title: "Tech Stack Brackets Loop",
+      description: "Minimal looping brackets representing tech stacks",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/212284087-bbe7e430-757e-4901-90bf-4cd2ce3e1852.gif",
+      codeSnippet:
+        "![Tech Stack Brackets Loop](https://user-images.githubusercontent.com/74038190/212284087-bbe7e430-757e-4901-90bf-4cd2ce3e1852.gif)",
+    },
+    {
+      title: "Cool Developer Emoji",
+      description: "Fun developer emoji animation for personality sections",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/212744289-c46f1717-bfc9-4724-8ef3-4b08e3583110.gif",
+      codeSnippet:
+        "![Cool Developer Emoji](https://user-images.githubusercontent.com/74038190/212744289-c46f1717-bfc9-4724-8ef3-4b08e3583110.gif)",
+    },
   ],
   techStack: [
     {
