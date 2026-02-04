@@ -5,9 +5,9 @@ Thank you for your interest in contributing **README Design Kit**. Please follow
 
 ---
 
-# Contribution Workflow ------------------------------
+# Contribution Workflow
 
-## I. Steps to Contribute**
+## I. Steps to Contribute
 
 1. **Fork the repository** - Click the **Fork** button to create your own copy of this repository.
 2. **Clone your fork**
@@ -51,18 +51,18 @@ Thank you for your interest in contributing **README Design Kit**. Please follow
 
 Issues will be labeled based on difficulty. The expected timeline for completion is as follows:
 
-**Easy / Beginner (easy label)**---------------------
+**Easy / Beginner (easy label)**
 
 * Issue resolution: within 3 days
 * PR submission: within 3 days
 * Extension allowed only for valid reasons and with maintainer approval
 
-**Medium / Intermediate (medium label)**------------------------
+**Medium / Intermediate (medium label)**
 
 * Issue resolution: within 7 days
 * PR submission: within 10 days (7 days + 3 additional days)
 
-**Hard / Advanced (hard label)**-----------------------
+**Hard / Advanced (hard label)**
 
 * Issue resolution: within 10 days
 * PR submission: within 15 days (10 days + 5 additional days)
