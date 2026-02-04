@@ -11,7 +11,7 @@
   top: 0;
   left: 0;
   object-fit: cover;
-  transition: transform 1.5s ease-in-out;
+  transition: transform 2.5s ease-in-out;
   will-change: transform;
 }
 
