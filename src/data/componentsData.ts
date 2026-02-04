@@ -207,6 +207,62 @@ export const componentsData: Record<string, ComponentItem[]> = {
       codeSnippet:
         "![Rabbit Happy](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Rabit%20Happy.gif)",
     },
+    {
+      title: "Debugging Mode",
+      description: "Developer debugging workflow animation",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/229223156-0cbdaba9-3128-4d8e-8719-b6b4cf741b67.gif",
+      codeSnippet:
+        "![Debugging Mode](https://user-images.githubusercontent.com/74038190/229223156-0cbdaba9-3128-4d8e-8719-b6b4cf741b67.gif)",
+    },
+    {
+      title: "Late Night Coding",
+      description: "Late-night coding animation loop for READMEs",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/216656934-0dd55b98-a77e-4d26-8865-9147906e0f99.gif",
+      codeSnippet:
+        "![Late Night Coding](https://user-images.githubusercontent.com/74038190/216656934-0dd55b98-a77e-4d26-8865-9147906e0f99.gif)",
+    },
+    {
+      title: "Loading Developer",
+      description: "Developer loading-style animation loop",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/216655825-c639587f-6eb0-4841-b622-9f522f55d40e.gif",
+      codeSnippet:
+        "![Loading Developer](https://user-images.githubusercontent.com/74038190/216655825-c639587f-6eb0-4841-b622-9f522f55d40e.gif)",
+    },
+    {
+      title: "Problem Solving Mode",
+      description: "Animation symbolizing problem-solving mindset",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/216654128-ad1c5827-e18e-43a6-974b-3669cbb082b9.gif",
+      codeSnippet:
+        "![Problem Solving Mode](https://user-images.githubusercontent.com/74038190/216654128-ad1c5827-e18e-43a6-974b-3669cbb082b9.gif)",
+    },
+    {
+      title: "Developer Thinking",
+      description: "Developer thinking and planning animation",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/216654116-d0e8d227-7977-4edc-8d36-63461bda9503.gif",
+      codeSnippet:
+        "![Developer Thinking](https://user-images.githubusercontent.com/74038190/216654116-d0e8d227-7977-4edc-8d36-63461bda9503.gif)",
+    },
+    {
+      title: "Continuous Development Loop",
+      description: "Loop animation representing continuous development",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/216649417-9acc58df-9186-4132-ad43-819a57babb67.gif",
+      codeSnippet:
+        "![Continuous Development Loop](https://user-images.githubusercontent.com/74038190/216649417-9acc58df-9186-4132-ad43-819a57babb67.gif)",
+    },
+    {
+      title: "Floating Web Tech Stack",
+      description: "Floating animation showcasing web technologies",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/219923809-b86dc415-a0c2-4a38-bc88-ad6cf06395a8.gif",
+      codeSnippet:
+        "![Floating Web Tech Stack](https://user-images.githubusercontent.com/74038190/219923809-b86dc415-a0c2-4a38-bc88-ad6cf06395a8.gif)",
+    },
   ],
   techStack: [
     {
