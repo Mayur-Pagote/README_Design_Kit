@@ -26,6 +26,14 @@ README Design Kit is your all-in-one solution for creating professional, accessi
 Stop staring at blank markdown files. Start shipping documentation that developers actually want to read.
 
 
+## 👶 For Beginners
+
+If you are new to GitHub:
+
+1. Fork this repository
+2. (Optional) Download ZIP from GitHub
+3. Open the `awesome-readme-templates` folder
+4. Copy any template into your project
 
 
 
