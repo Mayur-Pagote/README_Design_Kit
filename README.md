@@ -36,7 +36,16 @@ If you are new to GitHub:
 4. Copy any template into your project
 
 
+## ❓ Frequently Asked Questions
 
+Q: Do I need coding knowledge?
+   No, You can use templates without coding. 
+ 
+Q: Is this free?
+   Yes, This project is open-source and free.
+ 
+Q: Can I contribute templates?
+   Absolutely! Check CONTRIBUTING.md.
 
 # 🚀 Quick Start
 
