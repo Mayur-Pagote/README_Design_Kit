@@ -94,17 +94,6 @@ Stop staring at blank markdown files. Start shipping documentation that develope
 </table>
 
 
-## How to Contribute:
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-template`)
-3. Make your changes
-4. Test your template with a real project
-5. Submit a pull request
-
-Read the [Contributing Guidelines](./CONTRIBUTING.md) for detailed instructions.
-
-
-
 ## 🌟 Open Source Participation
 <table>
   <tr>
@@ -133,34 +122,4 @@ Read the [Contributing Guidelines](./CONTRIBUTING.md) for detailed instructions.
 
 
 
-## 📄 License
-
-This project is licensed under the **MIT License**. See [LICENSE](./LICENSE) for details.
-
-
-
-## 👨‍💻 Maintainer
-
-<div align="center">
-  <p>
-    <strong>Mayur Pagote</strong><br>
-    <a href="https://github.com/Mayur-Pagote">GitHub</a> • 
-    <a href="https://www.linkedin.com/in/mayurpagote">LinkedIn</a>
-  </p>
-</div>
-
-
-
-
-## 🙏 Acknowledgments
-
-Special thanks to:
-- All contributors who've shared templates and improvements
-- The open-source community for inspiration and feedback
-
-
-
-<div align="center">
-  <p><strong>Made with ❤️ for developers who care about documentation</strong></p>
-  <p><sub>Because great code deserves great documentation</sub></p>
-</div>
+Want to contribute? Read the [Contributing Guidelines](./CONTRIBUTING.md) for detailed instructions.
