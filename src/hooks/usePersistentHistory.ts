@@ -9,15 +9,18 @@ interface Checkpoint<T> {
 }
 
 interface HistoryState<T> {
-  past: Patch[][]; // Store diffs instead of full states
-  future: Patch[][];
+  // Fix: Patch is already an array of differences (Difference[]), 
+  // so we need an array of Patches, not an array of array of Patches.
+  past: Patch[]; 
+  future: Patch[];
   checkpoints: Checkpoint<T>[];
 }
 
 const MAX_HISTORY = 50; // Limit history depth
 
 export function usePersistentHistory<T extends object>(key: string, initialState: T) {
-  // 1. Lazy Initialization: Load from storage immediately during initialization
+  // 1. Lazy Initialization: Load from storage immediately during state creation
+  // This prevents the empty initialState from overwriting localStorage on the first render.
   const [present, setPresent] = useState<T>(() => {
     const stored = loadFromStorage<T>(`${key}-present`);
     return stored !== null ? stored : initialState;
@@ -33,7 +36,6 @@ export function usePersistentHistory<T extends object>(key: string, initialState
   });
 
   // Ref to track if we've done the initial load to prevent saving defaults over storage
-  // (Extra safety, though lazy init usually handles this)
   const isMounted = useRef(false);
 
   // 2. Persist state changes
@@ -59,6 +61,7 @@ export function usePersistentHistory<T extends object>(key: string, initialState
       }
 
       // Calculate diff from New -> Current (Undo Patch)
+      // We store the patch needed to go BACK to the previous state
       const undoPatch = getDiff(resolvedState, currPresent);
 
       setHistory((currHistory) => ({
@@ -75,16 +78,19 @@ export function usePersistentHistory<T extends object>(key: string, initialState
     if (!canUndo) return;
 
     setHistory((curr) => {
+      // Get the last patch from the past
       const lastPatch = curr.past[curr.past.length - 1];
       const newPast = curr.past.slice(0, -1);
 
       setPresent((currPresent) => {
-        // Apply patch to revert state
+        // Apply patch to revert state (undo)
         const prevPresent = applyPatch(currPresent, lastPatch);
         
-        // Calculate redo patch (Old -> New)
+        // Calculate redo patch (Old -> New) before we lose the "New" state
+        // This is needed so we can Redo later
         const redoPatch = getDiff(prevPresent, currPresent);
         
+        // Push the redo patch to future
         curr.future = [redoPatch, ...curr.future]; 
         
         return prevPresent;
@@ -102,11 +108,13 @@ export function usePersistentHistory<T extends object>(key: string, initialState
       const newFuture = curr.future.slice(1);
 
       setPresent((currPresent) => {
+        // Apply patch to advance state (redo)
         const nextPresent = applyPatch(currPresent, nextPatch);
         
-        // Calculate undo patch (New -> Old)
+        // Calculate undo patch (New -> Old) so we can go back again
         const undoPatch = getDiff(nextPresent, currPresent);
         
+        // Push the new undo patch to past
         curr.past = [...curr.past, undoPatch];
         
         return nextPresent;
@@ -118,28 +126,34 @@ export function usePersistentHistory<T extends object>(key: string, initialState
 
   // Checkpoint Management
   const saveCheckpoint = useCallback((name: string) => {
+    // Generate ID safely (handling potential TypeScript strictness on crypto)
+    const id = typeof crypto.randomUUID === 'function' 
+      ? crypto.randomUUID() 
+      : (crypto as any).randomUUID();
+
     const newCheckpoint: Checkpoint<T> = {
-      id: crypto.randomUUID(),
+      id,
       name,
       timestamp: Date.now(),
-      data: present,
+      data: present, // Checkpoints store the full state snapshot
     };
 
-    setHistory((curr) => ({
-      ...curr,
-      checkpoints: [...curr.checkpoints, newCheckpoint],
-    }));
-    
-    // Force immediate save for checkpoints
-    saveToStorage(`${key}-history`, {
-      ...history,
-      checkpoints: [...history.checkpoints, newCheckpoint]
+    setHistory((curr) => {
+      const updatedHistory = {
+        ...curr,
+        checkpoints: [...curr.checkpoints, newCheckpoint],
+      };
+      // Force immediate save for checkpoints so they persist even if the user crashes immediately
+      saveToStorage(`${key}-history`, updatedHistory);
+      return updatedHistory;
     });
-  }, [present, history, key]);
+  }, [present, key]);
 
   const restoreCheckpoint = useCallback((id: string) => {
     const checkpoint = history.checkpoints.find((cp) => cp.id === id);
     if (checkpoint) {
+      // restoring a checkpoint is treated as a new state change
+      // so you can "Undo" the restoration if it was a mistake
       setState(checkpoint.data);
     }
   }, [history.checkpoints, setState]);
