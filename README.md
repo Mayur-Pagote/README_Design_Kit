@@ -94,44 +94,6 @@ Stop staring at blank markdown files. Start shipping documentation that develope
 </table>
 
 
-
-## 📁 Project Folder Structure
-
-```mermaid
-graph TD
-    Root[README_Design-Kit/]
-    
-    Root --> SRC[SRC/]
-    Root --> Public[public/]
-    Root --> Docs[docs/]
-    Root --> Templates[awesome-readme-templates/]
-    Root --> Github[.github/]
-    Root --> RM[README.md]
-    Root --> CONT[CONTRIBUTING.md]
-    Root --> COC[CODE_OF_CONDUCT.md]
-    Root --> SEC[SECURITY.md]
-    Root --> LIC[LICENSE]
-
-    SRC --> SRC_Comment[# Application source code]
-    style SRC_Comment fill:none,stroke:none,font-style:italic
-
-    Public --> Assets[assets/]
-    Assets --> Assets_Comment[# Static assets]
-    style Assets_Comment fill:none,stroke:none,font-style:italic
-
-    Docs --> Docs_Comment[# Project documentation]
-    style Docs_Comment fill:none,stroke:none,font-style:italic
-
-    Templates --> Temp_Comment[# README templates collection]
-    style Temp_Comment fill:none,stroke:none,font-style:italic
-
-    Github --> Github_Comment[# GitHub workflows and issue templates]
-    style Github_Comment fill:none,stroke:none,font-style:italic
-```
-
-
-
-
 ## How to Contribute:
 1. Fork the repository
 2. Create a feature branch (`git checkout -b feature/amazing-template`)
