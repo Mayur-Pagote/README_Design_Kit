@@ -48,27 +48,6 @@ Then: Replace placeholders with your project details and you're done!
 
 
 
-# 🔄 How It Works
-
-```mermaid
-graph LR
-    A[Start] --> B{Choose Method}
-    B -->|Online| C[Visit Web App]
-    B -->|Local| D[Clone Templates]
-    C --> E[Drag & Drop Elements]
-    C --> F[Use AI Enhancement]
-    E --> G[Preview in Real-time]
-    F --> G
-    G --> H[Export Markdown]
-    D --> I[Customize Template]
-    I --> H
-    H --> J[Use in Your Project]
-    style A fill:#2ea44f
-    style J fill:#2ea44f
-    style C fill:#4285F4
-    style F fill:#FF6B6B
-```
-
 
 # 🛠️ Tech Stack
 
