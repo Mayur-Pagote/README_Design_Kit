@@ -17,31 +17,31 @@ interface HistoryState<T> {
 const MAX_HISTORY = 50; // Limit history depth
 
 export function usePersistentHistory<T extends object>(key: string, initialState: T) {
-  // Main state (Present)
-  const [present, setPresent] = useState<T>(initialState);
+  // 1. Lazy Initialization: Load from storage immediately during initialization
+  const [present, setPresent] = useState<T>(() => {
+    const stored = loadFromStorage<T>(`${key}-present`);
+    return stored !== null ? stored : initialState;
+  });
   
-  // History state (Past/Future/Checkpoints)
-  const [history, setHistory] = useState<HistoryState<T>>({
-    past: [],
-    future: [],
-    checkpoints: [],
+  const [history, setHistory] = useState<HistoryState<T>>(() => {
+    const stored = loadFromStorage<HistoryState<T>>(`${key}-history`);
+    return stored !== null ? stored : {
+      past: [],
+      future: [],
+      checkpoints: [],
+    };
   });
 
-  // Load from storage on mount
-  useEffect(() => {
-    const storedHistory = loadFromStorage<HistoryState<T>>(`${key}-history`);
-    const storedPresent = loadFromStorage<T>(`${key}-present`);
+  // Ref to track if we've done the initial load to prevent saving defaults over storage
+  // (Extra safety, though lazy init usually handles this)
+  const isMounted = useRef(false);
 
-    if (storedPresent) {
-      setPresent(storedPresent);
-    }
-    if (storedHistory) {
-      setHistory(storedHistory);
-    }
-  }, [key]);
-
-  // Persist state changes (Debounced ideally, but direct for now)
+  // 2. Persist state changes
   useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true;
+      return;
+    }
     saveToStorage(`${key}-present`, present);
     saveToStorage(`${key}-history`, history);
   }, [present, history, key]);
@@ -53,12 +53,12 @@ export function usePersistentHistory<T extends object>(key: string, initialState
     setPresent((currPresent) => {
       const resolvedState = newState instanceof Function ? newState(currPresent) : newState;
 
+      // Equality check to prevent useless history entries
       if (JSON.stringify(resolvedState) === JSON.stringify(currPresent)) {
         return currPresent;
       }
 
-      // Calculate diff from Current -> New (to store in Past? No, we need New -> Current to undo)
-      // To Undo: We need a patch that turns New -> Old.
+      // Calculate diff from New -> Current (Undo Patch)
       const undoPatch = getDiff(resolvedState, currPresent);
 
       setHistory((currHistory) => ({
@@ -79,13 +79,12 @@ export function usePersistentHistory<T extends object>(key: string, initialState
       const newPast = curr.past.slice(0, -1);
 
       setPresent((currPresent) => {
-        // Apply the undo patch to get back to previous state
+        // Apply patch to revert state
         const prevPresent = applyPatch(currPresent, lastPatch);
         
-        // Calculate redo patch (Old -> Current) before switching
+        // Calculate redo patch (Old -> New)
         const redoPatch = getDiff(prevPresent, currPresent);
         
-        // Update future with the reverse patch
         curr.future = [redoPatch, ...curr.future]; 
         
         return prevPresent;
@@ -105,7 +104,7 @@ export function usePersistentHistory<T extends object>(key: string, initialState
       setPresent((currPresent) => {
         const nextPresent = applyPatch(currPresent, nextPatch);
         
-        // Calculate undo patch (New -> Old) to put back in past
+        // Calculate undo patch (New -> Old)
         const undoPatch = getDiff(nextPresent, currPresent);
         
         curr.past = [...curr.past, undoPatch];
@@ -123,19 +122,24 @@ export function usePersistentHistory<T extends object>(key: string, initialState
       id: crypto.randomUUID(),
       name,
       timestamp: Date.now(),
-      data: present, // Store full state for checkpoints
+      data: present,
     };
 
     setHistory((curr) => ({
       ...curr,
       checkpoints: [...curr.checkpoints, newCheckpoint],
     }));
-  }, [present]);
+    
+    // Force immediate save for checkpoints
+    saveToStorage(`${key}-history`, {
+      ...history,
+      checkpoints: [...history.checkpoints, newCheckpoint]
+    });
+  }, [present, history, key]);
 
   const restoreCheckpoint = useCallback((id: string) => {
     const checkpoint = history.checkpoints.find((cp) => cp.id === id);
     if (checkpoint) {
-      // Treating a checkpoint restore like a new action (so you can undo it)
       setState(checkpoint.data);
     }
   }, [history.checkpoints, setState]);
