@@ -76,10 +76,6 @@ Stop staring at blank markdown files. Start shipping documentation that develope
     <td>Detailed catalog of all available README elements and examples</td>
   </tr>
   <tr>
-    <td><strong>🌟 <a href="./docs/showcase.md">Project Showcase</a></strong></td>
-    <td>Real-world examples and featured READMEs built with this kit</td>
-  </tr>
-  <tr>
     <td><strong>🤝 <a href="./CONTRIBUTING.md">Contributing Guide</a></strong></td>
     <td>How to contribute templates, components, and improvements</td>
   </tr>
