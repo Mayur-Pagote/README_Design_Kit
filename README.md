@@ -30,20 +30,7 @@ Stop staring at blank markdown files. Start shipping documentation that develope
 
 
 
-# 🚀 Quick Start
 
-Use a Complete Template
-```bash
-# Clone the repository
-git clone https://github.com/Mayur-Pagote/README_Design_Kit.git
-
-# Navigate to templates
-cd README_Design_Kit/templates
-
-# Copy your preferred template
-cp web-app-template.md ../your-project/README.md
-```
-Then: Replace placeholders with your project details and you're done!
 
 
 
