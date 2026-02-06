@@ -15,6 +15,9 @@ import {
   Settings,
   Undo,
   Redo,
+  History, // Added
+  Save,    // Added
+  Trash2,  // Added
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -41,7 +44,8 @@ import { GithubUsernameDialog } from '@/components/GithubUsernameDialog';
 import { ReadmeQualityDialog } from '@/components/ReadmeQualityDialog';
 import ScrollToTop from '@/components/ScrollToTop';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useUndoRedo } from '@/hooks/useUndoRedo'; 
+// CHANGED: Replaced useUndoRedo with usePersistentHistory
+import { usePersistentHistory } from '@/hooks/usePersistentHistory'; 
 import { demoElements } from '@/data/demo';
 import { TemplateUtils } from '@/utils/templateUtils';
 import { analyzeReadmeQuality, type ReadmeQualityResult } from '@/utils/readmeQualityAnalyzer';
@@ -51,14 +55,19 @@ import type { ReadmeExportPreset } from '@/config/readmeExportPresets';
 import { toast } from 'sonner';
 
 export default function DragDropEditor() {
+  // CHANGED: Initialize persistent history hook
   const { 
-    elements, 
-    setElements, 
+    state: elements, 
+    setState: setElements, 
     undo, 
     redo, 
     canUndo, 
-    canRedo 
-  } = useUndoRedo<ElementType[]>([]);
+    canRedo,
+    checkpoints,
+    saveCheckpoint,
+    restoreCheckpoint,
+    deleteCheckpoint
+  } = usePersistentHistory<ElementType[]>('readme-editor-v1', []);
 
   const [editingElement, setEditingElement] = useState<ElementType | null>(null);
   const [showPalette, setShowPalette] = useState(!useIsMobile());
@@ -71,7 +80,8 @@ export default function DragDropEditor() {
   const [githubUsername, setGithubUsername] = useState<string>('your-username');
   const [showGithubUsernameInput, setShowGithubUsernameInput] = useState(false);
   
-  // Removed: mobileMenuOpen, paletteSheetOpen, previewSheetOpen, activeTab
+  // NEW: State for checkpoint naming
+  const [newCheckpointName, setNewCheckpointName] = useState('');
   
   const [exportPreset, setExportPreset] = useState<ReadmeExportPreset>('default');
   const [isTablet, setIsTablet] = useState(false);
@@ -285,7 +295,7 @@ export default function DragDropEditor() {
 
   const validateElementForEditor = (element: any): ElementType | null => {
     if (!element || !element.type || !element.id) return null;
-    return element as ElementType; // Simplified for brevity, keep your original switch logic if needed
+    return element as ElementType; 
   };
 
   return (
@@ -335,6 +345,86 @@ export default function DragDropEditor() {
                 <Redo className="h-4 w-4" />
               </Button>
             </div>
+
+            {/* NEW: History / Checkpoints Menu */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" size="sm" className="flex items-center gap-2 mr-2">
+                  <History className="h-4 w-4" />
+                  History
+                  <ChevronDown className="h-4 w-4 opacity-50" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-64">
+                <div className="p-2 border-b">
+                  <div className="font-semibold mb-2 text-xs text-muted-foreground">Save Checkpoint</div>
+                  <div className="flex gap-2">
+                    <input 
+                      className="flex h-8 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
+                      placeholder="Version Name..."
+                      value={newCheckpointName}
+                      onChange={(e) => setNewCheckpointName(e.target.value)}
+                      onKeyDown={(e) => {
+                        if(e.key === 'Enter' && newCheckpointName) {
+                          saveCheckpoint(newCheckpointName);
+                          setNewCheckpointName('');
+                          toast.success("Checkpoint saved");
+                        }
+                      }}
+                    />
+                    <Button 
+                      size="icon" 
+                      variant="ghost" 
+                      className="h-8 w-8"
+                      onClick={() => {
+                        if(newCheckpointName) {
+                          saveCheckpoint(newCheckpointName);
+                          setNewCheckpointName('');
+                          toast.success("Checkpoint saved");
+                        }
+                      }}
+                    >
+                      <Save className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+                
+                <div className="max-h-60 overflow-y-auto">
+                  {checkpoints.length === 0 && (
+                    <div className="p-4 text-center text-sm text-muted-foreground">
+                      No saved checkpoints
+                    </div>
+                  )}
+                  {checkpoints.map((cp) => (
+                    <div key={cp.id} className="flex items-center justify-between p-2 hover:bg-muted/50 group">
+                      <div 
+                        className="flex-1 cursor-pointer" 
+                        onClick={() => {
+                          restoreCheckpoint(cp.id);
+                          toast.success(`Restored "${cp.name}"`);
+                        }}
+                      >
+                        <div className="text-sm font-medium">{cp.name}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {new Date(cp.timestamp).toLocaleTimeString()}
+                        </div>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="h-6 w-6 opacity-0 group-hover:opacity-100 text-destructive"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          deleteCheckpoint(cp.id);
+                        }}
+                      >
+                        <Trash2 className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
