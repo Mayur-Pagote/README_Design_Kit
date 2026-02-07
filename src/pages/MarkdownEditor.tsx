@@ -51,24 +51,24 @@ const MarkdownEditor = () => {
 
   return (
     <>
-      <div className="space-y-4">
+      <div className="space-y-4 mx-8">
         <div className="space-y-2">
-          <Badge variant="outline" className="w-fit mb-2">
+          <Badge variant="outline" className="w-fit mb-2 border-primary/30 text-primary">
               {categoryLabel}
           </Badge>
           <h2 className="text-3xl font-bold leading-tight">{template.name}</h2>
           <div className="flex items-center gap-3 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1"><User className="h-3 w-3" /> {template.author}</span>
+              <span className="flex items-center gap-1"><User className="h-3 w-3 text-primary/70" /> {template.author}</span>
               <span className="flex items-center gap-1">•</span>
-              <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {template.updated.toLocaleDateString()}</span>
+              <span className="flex items-center gap-1"><Calendar className="h-3 w-3 text-primary/70" /> {template.updated.toLocaleDateString()}</span>
           </div>
         </div>
-        <p className="text-sm text-muted-foreground leading-relaxed">
+        <p className="text-sm text-muted-foreground leading-relaxed my-4">
           {template.description}
         </p>
       </div>
       <Separator />
-      <div className="space-y-4 flex-1 m-2">
+      <div className="space-y-4 flex-1 m-2 mx-8">
           <div className="flex items-center gap-2 text-sm font-semibold text-primary/80 uppercase tracking-wider">
             <Settings2 className="h-4 w-4" />
             <span>Configuration</span>
