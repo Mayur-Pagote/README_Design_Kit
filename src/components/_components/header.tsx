@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger
 } from '@radix-ui/react-dropdown-menu'
 
+// Feature Request link has been removed from this array as per maintainer request
 const moreItems = [
   { name: 'Templates', to: '/templates' },
   { name: 'Drag & Drop Editor', to: '/drag-drop' },
@@ -26,7 +27,7 @@ export const Header = () => {
   const [menuState, setMenuState] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
   
-  // New state for Smart Navbar visibility
+  // Smart Navbar state
   const [isVisible, setIsVisible] = React.useState(true)
   const lastScrollY = React.useRef(0)
 
@@ -34,12 +35,11 @@ export const Header = () => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
       
-      // Existing logic for background shrink/blur after 50px
+      // Handle background transition (shrink/blur)
       setIsScrolled(currentScrollY > 50)
 
-      // Smart Navbar Logic
-      // 1. If scrolling down and past a threshold (100px), hide it.
-      // 2. If scrolling up, show it.
+      // Smart Navbar Logic: Hide on scroll down, show on scroll up
+      // We only hide if we are past a 100px threshold to prevent jitter at the top
       if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
         setIsVisible(false)
       } else {
@@ -58,17 +58,15 @@ export const Header = () => {
   const navItemClass = cn(
     "relative flex items-center gap-1 text-[15px] font-medium " +
       "transition-all duration-200 ease-out hover:-translate-y-[2px]",
-    isDark ? "text-white/85 hover:text-white" :"text-black hover:text-black" 
+    isDark ? "text-white/85 hover:text-white" : "text-black hover:text-black" 
   )
 
   return (
     <header>
-      {/* Added transition-transform and duration-300.
-          Conditional class handles hiding (-translate-y-full) and showing (translate-y-0).
-      */}
+      {/* Smart Navbar Wrapper with translate animation */}
       <nav 
         className={cn(
-          "fixed z-20 w-full px-2 transition-transform duration-300 ease-in-out",
+          "fixed z-20 w-full px-2 transition-transform duration-500 ease-in-out",
           isVisible ? "translate-y-0" : "-translate-y-full"
         )} 
         style={{ zIndex: "100000" }}
@@ -82,7 +80,7 @@ export const Header = () => {
         >
           <div className="relative flex flex-wrap items-center justify-between py-3 lg:py-4">
 
-            {/* Logo (unchanged) */}
+            {/* Logo */}
             <Link to="/" aria-label="home" className="flex items-center">
               <img
                 src={loggd}
@@ -121,7 +119,7 @@ export const Header = () => {
                         className={cn(
                           "block w-full px-3 py-2 rounded-md text-sm hover:bg-accent/10",
                           isDark
-                            ? "text-muted-foreground hover:text-accent-foreground" :"text-black hover:text-black"
+                            ? "text-muted-foreground hover:text-accent-foreground" : "text-black hover:text-black"
                         )}
                       >
                         {item.name}
@@ -146,7 +144,6 @@ export const Header = () => {
                 )}
               </button>
 
-              {/* GitHub button visually demoted */}
               <div className="opacity-75 hover:opacity-100 transition-opacity scale-95">
                 <GitHubStarsButton
                   username="Mayur-Pagote"
@@ -156,7 +153,7 @@ export const Header = () => {
               </div>
             </div>
 
-            {/* Mobile toggle (unchanged) */}
+            {/* Mobile toggle */}
             <button
               onClick={() => setMenuState(!menuState)}
               className="relative z-20 -m-2.5 -mr-4 block p-2.5 lg:hidden"
@@ -168,10 +165,9 @@ export const Header = () => {
 
           </div>
 
-          {/* Mobile Navigation Menu */}
+          {/* Mobile Navigation Menu - Cleaned of Feature Request */}
           {menuState && (
             <div className="lg:hidden pb-4 mt-4 space-y-2 border-t border-white/10 animate-in fade-in slide-in-from-top-2 bg-background/95 backdrop-blur-md rounded-xl">
-              {/* Navigation Links */}
               {[
                 { name: "Elements", to: "/elements" },
                 { name: "Templates", to: "/templates" },
@@ -185,16 +181,14 @@ export const Header = () => {
                   onClick={closeMenu}
                   className={cn(
                     "block px-4 py-2.5 rounded-md text-sm font-medium hover:bg-accent/10 transition-colors",
-                    isDark ?  "text-white/85 hover:text-white" :"text-black hover:text-black" 
+                    isDark ? "text-white/85 hover:text-white" : "text-black hover:text-black" 
                   )}
                 >
                   {item.name}
                 </Link>
               ))}
 
-              {/* Divider + Extra Controls */}
               <div className="mt-3 pt-3 space-y-2 border-t border-white/10">
-                {/* Theme Toggle */}
                 <button
                   onClick={() => {
                     setTheme(isDark ? "light" : "dark");
@@ -202,7 +196,7 @@ export const Header = () => {
                   }}
                   className={cn(
                     "w-full flex items-center gap-3 px-4 py-2.5 rounded-md text-sm font-medium hover:bg-accent/10 transition-colors",
-                    isDark ? "text-white/85 hover:text-white" :"text-black hover:text-black" 
+                    isDark ? "text-white/85 hover:text-white" : "text-black hover:text-black" 
                   )}
                 >
                   {isDark ? (
@@ -218,7 +212,6 @@ export const Header = () => {
                   )}
                 </button>
 
-                {/* GitHub Stars Button */}
                 <div className="px-4 py-2">
                   <GitHubStarsButton
                     username="Mayur-Pagote"

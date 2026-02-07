@@ -12,7 +12,7 @@ import SubmitSection from "./components/SubmitSection";
 import DragDropEditor from "./pages/DragDropEditor";
 import TemplateLibraryPage from "./pages/TemplateLibraryPage";
 import ComingSoon from "./pages/ComingSoon";
-import FeatureRequestsPage from "./pages/FeatureRequestsPage"; 
+// FeatureRequestsPage import removed as per maintainer request
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -24,9 +24,6 @@ import ReadmeEditor from "./components/readme-editor/ReadmeEditor";
 import MarkdownEditor from "./pages/MarkdownEditor";
 import AIEditorIntro from "./pages/AIEditorIntro";
 import Cursortrail from "./Cursortrail";
-
-
-
 
 const queryClient = new QueryClient();
 
@@ -59,7 +56,7 @@ export default function App() {
               <Route path="/submit" element={<Layout><SubmitSection /></Layout>} />
               <Route path="/drag-drop" element={<Layout><DragDropEditor /></Layout>} />
               <Route path="/coming-soon" element={<Layout><ComingSoon /></Layout>} />
-              <Route path="/feature-requests" element={<Layout><FeatureRequestsPage /></Layout>} /> {/* ✅ Added Route */}
+             
               <Route path="/about" element={<Layout><AboutUs /></Layout>} />
               <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
               <Route path="/terms" element={<Layout><TermsOfService /></Layout>} />
