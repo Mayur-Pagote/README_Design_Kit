@@ -188,7 +188,7 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="container mx-auto px-4 py-8 flex-1">
+      <div className="container mx-auto px-4 py-16 flex-1">
         <div className="max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
