@@ -379,12 +379,12 @@ export const componentsData: Record<string, ComponentItem[]> = {
       imageUrl: "https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/398b19b1-9aae-4c1f-8bc0-d172a2c08d68",
       codeSnippet: `<img src="https://github.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/assets/74038190/398b19b1-9aae-4c1f-8bc0-d172a2c08d68" width="100">`,
     },
-{
-  title: "Animated AWS",
-  description: "Animated Amazon Web Services Logo",
-  imageUrl: "https://private-user-images.githubusercontent.com/74038190/238200437-de038172-e903-4951-926c-755878deb0b4.gif",
-  codeSnippet: `<img src="https://raw.githubusercontent.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/main/assets/aws.gif" width="100">`,
-},
+    {
+      title: "Animated AWS",
+      description: "Animated Amazon Web Services Logo",
+      imageUrl: "https://private-user-images.githubusercontent.com/74038190/238200437-de038172-e903-4951-926c-755878deb0b4.gif",
+      codeSnippet: `<img src="https://raw.githubusercontent.com/Anmol-Baranwal/Cool-GIFs-For-GitHub/main/assets/aws.gif" width="100">`,
+    },
 
 
   ],
@@ -807,8 +807,8 @@ export const componentsData: Record<string, ComponentItem[]> = {
     {
       title: "Fading Red Line",
       description: "A fading red divider line.",
-      imageUrl: 
-      "https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif",
+      imageUrl:
+        "https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif",
       codeSnippet: `<img src="https://user-images.githubusercontent.com/74038190/212284100-561aa473-3905-4a80-b561-0d28506553ee.gif" width="100%" />`
     },
     {
@@ -968,7 +968,7 @@ export const componentsData: Record<string, ComponentItem[]> = {
       codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook-1.png" width="100">`,
     },
   ],
-    achievements: [
+  achievements: [
     {
       title: "GitHub Trophies",
       description:
@@ -977,6 +977,108 @@ export const componentsData: Record<string, ComponentItem[]> = {
         "https://github-trophies.vercel.app/?username={username}",
       codeSnippet:
         "![](https://github-trophies.vercel.app/?username={username})",
+    },
+  ],
+  projectStructure: [
+    {
+      title: "Basic Project Structure",
+      description: "A simple and clean project structure suitable for small projects.",
+      imageUrl: "",
+      codeSnippet: `\`\`\`bash
+├── 📂 src
+│   ├── 📄 index.html
+│   ├── 📜 main.js
+│   └── 🎨 style.css
+├── 🚫 .gitignore
+├── 📦 package.json
+└── 📝 README.md
+\`\`\``
+    },
+    {
+      title: "React Project Structure",
+      description: "Standard structure for React applications with Vite or CRA.",
+      imageUrl: "",
+      codeSnippet: `\`\`\`bash
+├── 📂 src
+│   ├── 📂 assets
+│   ├── 📂 components
+│   │   ├── ⚛️ Button.tsx
+│   │   └── ⚛️ Header.tsx
+│   ├── 📂 hooks
+│   ├── 📂 pages
+│   ├── 🚀 App.tsx
+│   └── ⚡ main.tsx
+├── 📂 public
+├── 🚫 .gitignore
+├── 📦 package.json
+└── 📝 README.md
+\`\`\``
+    },
+    {
+      title: "Node.js API Structure",
+      description: "Scalable structure for Node.js/Express backend services.",
+      imageUrl: "",
+      codeSnippet: `\`\`\`bash
+├── 📂 src
+│   ├── ⚙️ config
+│   ├── 🎮 controllers
+│   ├── 🗄️ models
+│   ├── 🛣️ routes
+│   ├── 🔧 services
+│   ├── 🛠️ utils
+│   └── 🚀 app.js
+├── 🧪 tests
+├── 🔒 .env
+├── 🚫 .gitignore
+├── 📦 package.json
+└── 📝 README.md
+\`\`\``
+    },
+    {
+      title: "Python/Django Structure",
+      description: "Typical structure for Python Django web applications.",
+      imageUrl: "",
+      codeSnippet: `\`\`\`bash
+├── 📂 project_name
+│   ├── 🐍 __init__.py
+│   ├── ⚙️ settings.py
+│   ├── 🔗 urls.py
+│   └── 🚀 wsgi.py
+├── 📂 app_name
+│   ├── 📂 migrations
+│   ├── 🐍 __init__.py
+│   ├── 👮 admin.py
+│   ├── 📱 apps.py
+│   ├── 🗄️ models.py
+│   ├── 🧪 tests.py
+│   ├── 🔗 urls.py
+│   └── 👁️ views.py
+├── ⚡ manage.py
+├── 📋 requirements.txt
+└── 📝 README.md
+\`\`\``
+    },
+    {
+      title: "Flutter App Structure",
+      description: "Recommended folder structure for Flutter mobile apps.",
+      imageUrl: "",
+      codeSnippet: `\`\`\`bash
+├── 📂 lib
+│   ├── 📂 common
+│   │   ├── 🧱 constants.dart
+│   │   └── 🧩 widgets
+│   ├── 📂 features
+│   │   ├── 🔐 auth
+│   │   └── 🏠 home
+│   ├── 🗄️ models
+│   ├── 🔧 services
+│   └── 🚀 main.dart
+├── 📂 assets
+│   ├── 🖼️ images
+│   └── 🔤 fonts
+├── 📦 pubspec.yaml
+└── 📝 README.md
+\`\`\``
     },
   ],
   discontinued: [
