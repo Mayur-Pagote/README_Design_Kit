@@ -8,9 +8,12 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { AITextarea } from '@/components/ui/ai-textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { parseTreeAndAddIcons } from '@/utils/treeParser';
+import { Wand2 } from 'lucide-react';
 import type { ElementType } from '@/types/elements';
 
 interface ElementEditorProps {
@@ -65,7 +68,7 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
         {/* Inner scroll container prevents portaled Select menus from being clipped */}
         <div className="space-y-4 max-h-[60vh] overflow-y-auto px-1 py-2 custom-scrollbar">
           {/* Common Fields */}
-          {editedElement.type !== 'divider' && editedElement.type !== 'git-contribution' && editedElement.type !== 'image' && (
+          {editedElement.type !== 'divider' && editedElement.type !== 'git-contribution' && editedElement.type !== 'image' && editedElement.type !== 'code-block' && (
             <div className="space-y-2">
               <Label htmlFor="content">Content</Label>
               {shouldShowAITextarea(editedElement.type) && (
@@ -78,9 +81,9 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
                   showGenerateOption={['text', 'description', 'title', 'header', 'banner'].includes(editedElement.type)}
                   generationType={
                     editedElement.type === 'description' ? 'about' :
-                    editedElement.type === 'title' ? 'summary' :
-                    editedElement.type === 'text' ? 'custom' :
-                    'project'
+                      editedElement.type === 'title' ? 'summary' :
+                        editedElement.type === 'text' ? 'custom' :
+                          'project'
                   }
                 />
               )}
@@ -110,6 +113,109 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
             </div>
           )}
 
+          {/* Git Contribution fields */}
+          {editedElement.type === 'git-contribution' && (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="username">GitHub Username</Label>
+                <Input
+                  id="username"
+                  value={editedElement.username || ''}
+                  onChange={(e) => updateElement({ username: e.target.value })}
+                  placeholder="your-username"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="repository">GitHub Repository</Label>
+                <Input
+                  id="repository"
+                  value={editedElement.repository || ''}
+                  onChange={(e) => updateElement({ repository: e.target.value })}
+                  placeholder="your-repo"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Image fields */}
+          {editedElement.type === 'image' && (
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="src">Image URL / Template</Label>
+                <AITextarea
+                  id="src"
+                  value={editedElement.src || ''}
+                  onValueChange={(val) => updateElement({ src: val })}
+                  placeholder="https://example.com/image.png or {template}"
+                  aiContext="image source URL or GitHub API template"
+                />
+                <p className="text-xs text-muted-foreground">
+                  Use {'{username}'} and {'{repo}'} for dynamic replacement.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="alt">Alt Text</Label>
+                  <Input
+                    id="alt"
+                    value={editedElement.alt || ''}
+                    onChange={(e) => updateElement({ alt: e.target.value })}
+                    placeholder="Image description"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Code Block specific fields */}
+          {editedElement.type === 'code-block' && (
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <Label htmlFor="content">Code Content</Label>
+                {/* Special "Smart Enhance Tree" button if it looks like a project tree */}
+                {(editedElement.content?.includes('──') || editedElement.content?.includes('|--') || editedElement.content?.includes('├') || editedElement.content?.includes('└')) && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => updateElement({ content: parseTreeAndAddIcons(editedElement.content || '') })}
+                    className="text-xs h-8 gap-1.5 border-purple-500/30 bg-purple-500/5 hover:bg-purple-500/10 transition-colors"
+                  >
+                    <Wand2 className="w-3.5 h-3.5" />
+                    Smart Enhance Tree ✨
+                  </Button>
+                )}
+              </div>
+              <AITextarea
+                id="content"
+                value={editedElement.content || ''}
+                onValueChange={(value) => updateElement({ content: value })}
+                placeholder="Enter your code or project tree structure here..."
+                aiContext="code block content"
+                showGenerateOption={true}
+              />
+              <div className="space-y-2">
+                <Label htmlFor="language">Language</Label>
+                <Select
+                  value={editedElement.language || 'bash'}
+                  onValueChange={(value) => updateElement({ language: value })}
+                >
+                  <SelectTrigger id="language">
+                    <SelectValue placeholder="Select language" />
+                  </SelectTrigger>
+                  <SelectContent className="z-[210]">
+                    <SelectItem value="bash">Bash / Shell (Best for Trees)</SelectItem>
+                    <SelectItem value="javascript">JavaScript</SelectItem>
+                    <SelectItem value="typescript">TypeScript</SelectItem>
+                    <SelectItem value="python">Python</SelectItem>
+                    <SelectItem value="html">HTML</SelectItem>
+                    <SelectItem value="css">CSS</SelectItem>
+                    <SelectItem value="markdown">Markdown</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          )}
+
           {/* Tech Stack fields */}
           {editedElement.type === 'tech-stack' && (
             <div className="space-y-4">
@@ -121,7 +227,7 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
                   value={techString}
                   onValueChange={(val) => {
                     setTechString(val);
-                    updateElement({ 
+                    updateElement({
                       technologies: val.split(',').map(tech => tech.trim()).filter(Boolean)
                     });
                   }}
@@ -131,13 +237,13 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
                   generationType="custom"
                 />
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="layout">Layout</Label>
                   <Select
                     value={editedElement.layout}
-                    onValueChange={(value) => updateElement({ 
+                    onValueChange={(value) => updateElement({
                       layout: value as 'grid' | 'list' | 'badges' | 'inline' | 'grouped'
                     })}
                   >
@@ -153,7 +259,7 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
                     </SelectContent>
                   </Select>
                 </div>
-                
+
                 <div className="space-y-2">
                   <Label htmlFor="badgeStyle">Badge Style</Label>
                   <Select
@@ -188,7 +294,7 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
                   </Select>
                 </div>
               </div>
-              
+
               {(editedElement.badgeStyle || editedElement.layout === 'grid' || editedElement.layout === 'grouped') && (
                 <div className="space-y-2">
                   <Label htmlFor="theme">Color Theme</Label>

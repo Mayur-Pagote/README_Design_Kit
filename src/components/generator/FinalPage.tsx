@@ -7,6 +7,7 @@ import { toast } from 'sonner';
 import { Card, CardContent } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { SaveToGitHubDialog } from '@/components/github/SaveToGitHubDialog';
+import { parseTreeAndAddIcons } from '@/utils/treeParser';
 import type { GeneratorState } from './Readme-generator';
 
 interface FinalPageProps {
@@ -129,6 +130,12 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
       md += `![Top Langs](https://github-readme-stats-fast.vercel.app/api/top-langs/?username=${state.username}&theme=${state.githubStats.theme}&hide_border=${!state.githubStats.showBorder}&layout=compact)\n\n`;
     }
 
+    // Project Structure Section
+    if (state.projectTree) {
+      md += `## 📂 Project Structure\n\n`;
+      md += `\`\`\`bash\n${parseTreeAndAddIcons(state.projectTree)}\n\`\`\`\n\n`;
+    }
+
     // Additional Components
     if (state.additional.trophies.enabled && state.username) {
       md += `## 🏆 GitHub Trophies\n`;
@@ -178,6 +185,8 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
       .replace(/^### (.*$)/gm, '<h3 class="text-lg font-bold my-2">$1</h3>')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
+      // Improved code block rendering: match the triple backticks and their content
+      .replace(/```bash\n([\s\S]*?)\n```/g, '<pre class="bg-slate-900 p-4 rounded-md font-mono text-xs overflow-auto my-4">$1</pre>')
       .replace(/!\[(.*?)\]\((.*?)\)/g, '<img src="$2" alt="$1" class="my-2 max-w-full h-auto" />')
       .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-400 hover:underline">$1</a>')
       .replace(/`([^`]+)`/g, '<code class="bg-gray-700 px-1 rounded">$1</code>')
@@ -243,8 +252,8 @@ const FinalPage = ({ state, goToPage }: FinalPageProps) => {
                     onClick={handleCopy}
                     size="sm"
                     className={`${copied
-                        ? 'bg-green-500 hover:bg-green-600'
-                        : 'bg-blue-500 hover:bg-blue-600'
+                      ? 'bg-green-500 hover:bg-green-600'
+                      : 'bg-blue-500 hover:bg-blue-600'
                       } transition-colors`}
                   >
                     {copied ? <CheckCircle className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}

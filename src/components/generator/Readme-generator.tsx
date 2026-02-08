@@ -5,6 +5,7 @@ import AboutMePage from '@/components/generator/AboutMePage';
 import GitHubStatsPage from '@/components/generator/GitHubStatsPage';
 import SocialLinksPage from '@/components/generator/SocialLinksPage';
 import TechStackPage from '@/components/generator/TechStackPage';
+import ProjectStructurePage from '@/components/generator/ProjectStructurePage';
 import AdditionalStuffPage from '@/components/generator/AdditionalStuffPage';
 import FinalPage from '@/components/generator/FinalPage';
 import LiquidChrome from '../LandingComponents/LiquidChrome';
@@ -16,13 +17,13 @@ const Background = memo(({ height }: { height: string }) => {
   const { theme } = useTheme();
   const isDark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
   return (
-    <div 
+    <div
       className="absolute top-0 left-0 w-full -z-10 rounded-b-4xl overflow-hidden opacity-90"
       style={{ height }}
     >
       {isDark ? (
         <Aurora
-          colorStops={["#4338ca", "#6366f1", "#8b5cf6"]} 
+          colorStops={["#4338ca", "#6366f1", "#8b5cf6"]}
           amplitude={1.5}
           speed={1.0}
         />
@@ -40,6 +41,7 @@ const Background = memo(({ height }: { height: string }) => {
 
 export interface GeneratorState {
   username: string;
+  projectTree: string; // NEW: Project structure tree
   aboutMe: {
     currentlyWorking: string;
     lookingToCollaborate: string;
@@ -109,6 +111,7 @@ const Index = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [generatorState, setGeneratorState] = useState<GeneratorState>({
     username: '',
+    projectTree: '', // NEW: Initialize projectTree
     aboutMe: {
       currentlyWorking: '',
       lookingToCollaborate: '',
@@ -178,6 +181,7 @@ const Index = () => {
     GitHubStatsPage,
     SocialLinksPage,
     TechStackPage,
+    ProjectStructurePage, // NEW: Added page
     AdditionalStuffPage,
     FinalPage,
   ];
@@ -242,13 +246,13 @@ const Index = () => {
 
       updateHeight();
       window.addEventListener('resize', updateHeight);
-      
+
       // Use MutationObserver to detect content changes
       const observer = new MutationObserver(updateHeight);
-      observer.observe(containerRef.current, { 
-        childList: true, 
-        subtree: true, 
-        attributes: true 
+      observer.observe(containerRef.current, {
+        childList: true,
+        subtree: true,
+        attributes: true
       });
 
       return () => {
@@ -271,7 +275,7 @@ const Index = () => {
           transition={{ duration: 0.5, ease: "easeInOut" }}
           className="h-full flex-1"
         >
-            {/* @ts-ignore */}
+          {/* @ts-ignore */}
           <CurrentPageComponent {...getPageProps()} />
         </motion.div>
       </AnimatePresence>

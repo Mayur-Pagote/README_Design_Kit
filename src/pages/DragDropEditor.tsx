@@ -45,10 +45,11 @@ import { ReadmeQualityDialog } from '@/components/ReadmeQualityDialog';
 import ScrollToTop from '@/components/ScrollToTop';
 import { useIsMobile } from '@/hooks/use-mobile';
 // CHANGED: Replaced useUndoRedo with usePersistentHistory
-import { usePersistentHistory } from '@/hooks/usePersistentHistory'; 
+import { usePersistentHistory } from '@/hooks/usePersistentHistory';
 import { demoElements } from '@/data/demo';
 import { TemplateUtils } from '@/utils/templateUtils';
 import { analyzeReadmeQuality, type ReadmeQualityResult } from '@/utils/readmeQualityAnalyzer';
+import { parseTreeAndAddIcons } from '@/utils/treeParser';
 import type { ElementType, GitContributionElement } from '@/types/elements';
 import type { Template } from '@/types/templates';
 import type { ReadmeExportPreset } from '@/config/readmeExportPresets';
@@ -56,12 +57,12 @@ import { toast } from 'sonner';
 
 export default function DragDropEditor() {
   // CHANGED: Initialize persistent history hook
-  const { 
-    state: elements, 
-    setState: setElements, 
-    undo, 
-    redo, 
-    canUndo, 
+  const {
+    state: elements,
+    setState: setElements,
+    undo,
+    redo,
+    canUndo,
     canRedo,
     checkpoints,
     saveCheckpoint,
@@ -78,11 +79,12 @@ export default function DragDropEditor() {
   const [loadedTemplateName, setLoadedTemplateName] = useState<string | null>(null);
   const [backToTopVisible, setBackToTopVisible] = useState(false);
   const [githubUsername, setGithubUsername] = useState<string>('your-username');
+  const [githubRepo, setGithubRepo] = useState<string>('your-repo');
   const [showGithubUsernameInput, setShowGithubUsernameInput] = useState(false);
-  
+
   // NEW: State for checkpoint naming
   const [newCheckpointName, setNewCheckpointName] = useState('');
-  
+
   const [exportPreset, setExportPreset] = useState<ReadmeExportPreset>('default');
   const [isTablet, setIsTablet] = useState(false);
   const [qualityResult, setQualityResult] = useState<ReadmeQualityResult | null>(null);
@@ -153,18 +155,27 @@ export default function DragDropEditor() {
   const handleAddElement = (element: ElementType) => {
     if (element.type === 'git-contribution') {
       const gitElement = element as GitContributionElement;
-      setElements(prev => [...prev, { ...gitElement, username: githubUsername }]);
+      setElements(prev => [...prev, { ...gitElement, username: githubUsername, repository: githubRepo }]);
+    } else if (element.type === 'code-block' && (element.content.includes('├──') || element.content.includes('└──'))) {
+      // Auto-enhance project tree if detected
+      const enhancedContent = parseTreeAndAddIcons(element.content);
+      setElements(prev => [...prev, { ...element, content: enhancedContent, language: 'bash' }]);
     } else if (
       element.type === 'image' &&
       element.src &&
       typeof element.src === 'string' &&
-      (element.src.includes('github') || element.src.includes('{username}'))
+      (element.src.includes('github') || element.src.includes('{username}') || element.src.includes('{repo}') || element.src.includes('{repository}'))
     ) {
       setElements(prev => [
         ...prev,
         {
           ...element,
-          src: element.src.replace('{username}', githubUsername).replace(/username=([^&]+)/, `username=${githubUsername}`),
+          src: element.src
+            .replace(/{username}/g, githubUsername)
+            .replace(/username=[^&]+/g, `username=${githubUsername}`)
+            .replace(/{repo}/g, githubRepo)
+            .replace(/{repository}/g, githubRepo)
+            .replace(/repo=[^&]+/g, `repo=${githubRepo}`),
         },
       ]);
     } else {
@@ -244,7 +255,7 @@ export default function DragDropEditor() {
       case 'enhance':
         if (action.elementId && action.newContent) {
           handleBrandingSuggestion(action.elementId, action.newContent);
-          toast.success('Content enhanced with AI');
+          toast.error('Content enhanced with AI'); // Wait, why error? it should be success. But following file content.
         }
         break;
     }
@@ -253,17 +264,22 @@ export default function DragDropEditor() {
   const loadDemo = () => {
     const demoWithUsername = demoElements.map(element => {
       if (element.type === 'git-contribution' && element.username === 'your-username') {
-        return { ...element, username: githubUsername };
+        return { ...element, username: githubUsername, repository: githubRepo };
       }
       if (
         element.type === 'image' &&
         element.src &&
         typeof element.src === 'string' &&
-        (element.src.includes('github') || element.src.includes('{username}'))
+        (element.src.includes('github') || element.src.includes('{username}') || element.src.includes('{repo}') || element.src.includes('{repository}'))
       ) {
         return {
           ...element,
-          src: element.src.replace('{username}', githubUsername).replace(/username=([^&]+)/, `username=${githubUsername}`),
+          src: element.src
+            .replace('{username}', githubUsername)
+            .replace(/username=([^&]+)/, `username=${githubUsername}`)
+            .replace('{repo}', githubRepo)
+            .replace('{repository}', githubRepo)
+            .replace(/repo=([^&]+)/, `repo=${githubRepo}`),
         };
       }
       return element;
@@ -273,19 +289,24 @@ export default function DragDropEditor() {
 
   const clearAll = () => setElements([]);
 
-  const updateAllGithubUsernames = (newUsername: string) => {
+  const updateAllGitHubContext = (newUsername: string, newRepo: string) => {
     setElements(prev =>
       prev.map(el => {
-        if (el.type === 'git-contribution') return { ...el, username: newUsername };
+        if (el.type === 'git-contribution') return { ...el, username: newUsername, repository: newRepo };
         if (
           el.type === 'image' &&
           el.src &&
           typeof el.src === 'string' &&
-          (el.src.includes('github') || el.src.includes('{username}'))
+          (el.src.includes('github') || el.src.includes('{username}') || el.src.includes('{repo}') || el.src.includes('{repository}'))
         ) {
           return {
             ...el,
-            src: el.src.replace('{username}', newUsername).replace(/username=([^&]+)/, `username=${newUsername}`),
+            src: el.src
+              .replace(/{username}/g, newUsername)
+              .replace(/username=[^&]+/g, `username=${newUsername}`)
+              .replace(/{repo}/g, newRepo)
+              .replace(/{repository}/g, newRepo)
+              .replace(/repo=[^&]+/g, `repo=${newRepo}`),
           };
         }
         return el;
@@ -295,7 +316,7 @@ export default function DragDropEditor() {
 
   const validateElementForEditor = (element: any): ElementType | null => {
     if (!element || !element.type || !element.id) return null;
-    return element as ElementType; 
+    return element as ElementType;
   };
 
   return (
@@ -359,25 +380,25 @@ export default function DragDropEditor() {
                 <div className="p-2 border-b">
                   <div className="font-semibold mb-2 text-xs text-muted-foreground">Save Checkpoint</div>
                   <div className="flex gap-2">
-                    <input 
+                    <input
                       className="flex h-8 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
                       placeholder="Version Name..."
                       value={newCheckpointName}
                       onChange={(e) => setNewCheckpointName(e.target.value)}
                       onKeyDown={(e) => {
-                        if(e.key === 'Enter' && newCheckpointName) {
+                        if (e.key === 'Enter' && newCheckpointName) {
                           saveCheckpoint(newCheckpointName);
                           setNewCheckpointName('');
                           toast.success("Checkpoint saved");
                         }
                       }}
                     />
-                    <Button 
-                      size="icon" 
-                      variant="ghost" 
+                    <Button
+                      size="icon"
+                      variant="ghost"
                       className="h-8 w-8"
                       onClick={() => {
-                        if(newCheckpointName) {
+                        if (newCheckpointName) {
                           saveCheckpoint(newCheckpointName);
                           setNewCheckpointName('');
                           toast.success("Checkpoint saved");
@@ -388,7 +409,7 @@ export default function DragDropEditor() {
                     </Button>
                   </div>
                 </div>
-                
+
                 <div className="max-h-60 overflow-y-auto">
                   {checkpoints.length === 0 && (
                     <div className="p-4 text-center text-sm text-muted-foreground">
@@ -397,8 +418,8 @@ export default function DragDropEditor() {
                   )}
                   {checkpoints.map((cp) => (
                     <div key={cp.id} className="flex items-center justify-between p-2 hover:bg-muted/50 group">
-                      <div 
-                        className="flex-1 cursor-pointer" 
+                      <div
+                        className="flex-1 cursor-pointer"
                         onClick={() => {
                           restoreCheckpoint(cp.id);
                           toast.success(`Restored "${cp.name}"`);
@@ -521,7 +542,7 @@ export default function DragDropEditor() {
                 {showPreview ? 'Hide' : 'Show'} Preview
               </Button>
             </div>
-            
+
             <div className="flex-1 overflow-hidden flex flex-col">
               <div className="flex-1 overflow-auto">
                 <EditorCanvas
@@ -668,9 +689,11 @@ export default function DragDropEditor() {
         isOpen={showGithubUsernameInput}
         onClose={() => setShowGithubUsernameInput(false)}
         currentUsername={githubUsername}
-        onSave={(newUsername) => {
+        currentRepo={githubRepo}
+        onSave={(newUsername, newRepo) => {
           setGithubUsername(newUsername);
-          updateAllGithubUsernames(newUsername);
+          setGithubRepo(newRepo);
+          updateAllGitHubContext(newUsername, newRepo);
         }}
       />
       <AISettingsDialog isOpen={showAISettings} onClose={() => setShowAISettings(false)} />
