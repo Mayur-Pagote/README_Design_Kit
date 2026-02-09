@@ -13,6 +13,11 @@
     "moduleDetection": "force",
     "noEmit": true,
 
+    /* Node support */
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "types": ["node"],
+
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
@@ -21,5 +26,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["vite.config.ts"]
+  "include": ["vite.config.ts", "scripts/**/*.ts"]
 }
