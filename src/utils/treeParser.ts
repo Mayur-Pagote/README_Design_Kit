@@ -1,14 +1,6 @@
 /**
  * Utility to parse directory structures and add icons
  */
-
-interface FileNode {
-  name: string;
-  type: 'file' | 'folder';
-  children?: FileNode[];
-  depth: number;
-}
-
 const FILE_ICONS: Record<string, string> = {
   // Languages
   'ts': '📄',
@@ -116,16 +108,7 @@ export const smartParseTree = (input: string): string => {
 
   const lines = input.split('\n');
   const processedLines = lines.map(line => {
-    // 1. Identify indentation/depth
-    const indentMatch = line.match(/^(\s*)/);
-    const indent = indentMatch ? indentMatch[1] : '';
 
-    // 2. Extract tree symbols (├──, └──, │, etc) to preserve them
-    // We want to separate the "tree structure" from the "filename"
-
-    // Regex to find the start of the actual filename
-    // Looks for the first alphanumeric char that isn't part of the tree drawing
-    // Common tree chars: │ ├ ─ └ 
     const treeCharsRegex = /^([│├─└\s]*)(.*)$/;
     const match = line.match(treeCharsRegex);
 
