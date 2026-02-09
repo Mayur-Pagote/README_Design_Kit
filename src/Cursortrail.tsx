@@ -19,7 +19,7 @@ function Cursortrail() {
     document.addEventListener("mousemove", handleMouseMove);
 
     const animate = () => {
-      // store latest mouse position
+      
       history.unshift({ x: mouseX.current, y: mouseY.current });
       history.pop();
 
@@ -29,7 +29,7 @@ function Cursortrail() {
         const target = history[index];
         const current = positions[index];
 
-        // smoothing (lower = slower)
+        
         current.x += (target.x - current.x) * 0.18;
         current.y += (target.y - current.y) * 0.18;
 

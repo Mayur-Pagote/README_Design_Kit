@@ -1,22 +1,22 @@
 import type { ElementType } from '@/types/elements';
 
 export const generateMarkdown = (elements: ElementType[], theme: string = 'system'): string => {
-  // Helper function to create badge URL
+  
   const getBadgeUrl = (tech: string, badgeStyle: string = ''): string => {
-    // Get theme color based on theme setting
-    let themeColor = '05122A'; // default dark color
+    
+    let themeColor = '05122A'; 
     if (theme === 'light') themeColor = 'f8f8f8';
     if (theme === 'blue') themeColor = '0366D6';
     if (theme === 'purple') themeColor = '6F42C1';
     if (theme === 'green') themeColor = '2EA44F';
     if (theme === 'orange') themeColor = 'F97316';
     
-    // Process the technology name
+    
     const cleanTechName = tech.toLowerCase().replace(/\s+/g, '-');
     
-    // Handle various badge styles
+    
     if (badgeStyle === 'simple-icons') {
-      // Simple Icons style - uses shields.io with logo parameter
+      
       return `https://img.shields.io/badge/${tech}-${themeColor}?style=flat&logo=${cleanTechName}`;
     } 
     else if (badgeStyle === 'for-the-badge-colored') {
@@ -32,35 +32,35 @@ export const generateMarkdown = (elements: ElementType[], theme: string = 'syste
       return `https://img.shields.io/badge/${tech}-${themeColor}?style=for-the-badge&logoColor=white&labelColor=${themeColor}`;
     }
     else if (badgeStyle === 'skill-icons') {
-      // Skill Icons - uses skillicons.dev
+      
       return `https://skillicons.dev/icons?i=${cleanTechName}`;
     }
     else if (badgeStyle === 'flat-icons') {
-      // Flat Icons - uses flaticon.com with common technology mappings
+      
       const flatIconMappings: { [key: string]: string } = {
         'javascript': '5968292', 'typescript': '5968381', 'python': '5968350',
         'react': '1183672', 'node.js': '5968322', 'java': '5968282',
         'html': '1051277', 'css': '732190', 'git': '2111288'
       };
-      const iconId = flatIconMappings[cleanTechName] || '4248443'; // Default icon if not found
+      const iconId = flatIconMappings[cleanTechName] || '4248443'; 
       return `https://cdn-icons-png.flaticon.com/128/${iconId.slice(0, -3)}/${iconId}.png`;
     }
     else if (badgeStyle === 'material-icons') {
-      // Material Design Icons - uses Google's Material Icons
+      
       const materialIconMappings: { [key: string]: string } = {
         'javascript': 'code', 'typescript': 'code', 'python': 'code',
         'react': 'web', 'node.js': 'dns', 'java': 'code',
         'html': 'html', 'css': 'css', 'git': 'merge_type'
       };
-      const iconName = materialIconMappings[cleanTechName] || 'code'; // Default to code icon
+      const iconName = materialIconMappings[cleanTechName] || 'code'; 
       return `https://fonts.gstatic.com/s/i/materialicons/${iconName}/v12/24px.svg`;
     }
     else if (badgeStyle === 'github-icons') {
-      // GitHub File Icons - uses GitHub's repository explore icons
+      
       return `https://github.com/github/explore/raw/main/topics/${cleanTechName}/${cleanTechName}.png`;
     }
     else if (badgeStyle === 'icons8') {
-      // Icons8 - uses Icons8 service with color icons
+      
       const icon8Mappings: { [key: string]: string } = {
         'javascript': 'javascript', 'typescript': 'typescript', 'python': 'python',
         'react': 'react', 'node.js': 'nodejs', 'java': 'java',
@@ -70,23 +70,21 @@ export const generateMarkdown = (elements: ElementType[], theme: string = 'syste
       return `https://img.icons8.com/color/48/000000/${iconName}.png`;
     }
     else if (badgeStyle === 'svg-badges') {
-      // Custom SVG Badges - inline SVG with dynamic technology name
-      // Use a data URI to embed the SVG directly
+      
       const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="120" height="30"><rect width="120" height="30" rx="15" fill="#${themeColor}"/><text x="60" y="20" font-family="Arial" font-size="14" fill="white" text-anchor="middle">${tech}</text></svg>`;
       const encodedSvg = encodeURIComponent(svgContent);
       return `data:image/svg+xml;utf8,${encodedSvg}`;
     }
     else if (badgeStyle === 'animated-badges') {
-      // Animated Badges - uses readme-typing-svg for simple animation
+      
       return `https://readme-typing-svg.herokuapp.com?font=Fira+Code&duration=1000&pause=500&color=${themeColor}&center=true&vCenter=true&width=100&height=30&lines=${tech}`;
     }
     else if (badgeStyle === 'devto-badges') {
-      // Dev.to style badges
+      
       return `https://img.shields.io/badge/${tech}-0A0A0A?style=for-the-badge&logo=${cleanTechName}&logoColor=white`;
     }
     else if (badgeStyle === 'edge-icons') {
-      // Edge Icons - modern icon style
-      // This would typically require a real service, using devicon as fallback
+      
       const savedStyle = badgeStyle;
       badgeStyle = 'devicon';
       const fallbackIcon = getBadgeUrl(tech, badgeStyle);
@@ -94,8 +92,7 @@ export const generateMarkdown = (elements: ElementType[], theme: string = 'syste
       return fallbackIcon;
     }
     else if (badgeStyle === 'devicon-with-text') {
-      // For devicon-with-text, we need the devicon URL
-      // Use a temporary different style to avoid infinite recursion
+      
       const tempStyle = badgeStyle;
       badgeStyle = 'devicon';
       const iconPath = getBadgeUrl(tech, badgeStyle);
@@ -103,7 +100,7 @@ export const generateMarkdown = (elements: ElementType[], theme: string = 'syste
       return iconPath;
     }
     else if (badgeStyle === 'devicon') {
-      // Map of special cases for technologies that need custom handling
+      
       const techMappings: { [key: string]: string } = {
         // Languages
         'javascript': 'javascript/javascript',
@@ -123,13 +120,13 @@ export const generateMarkdown = (elements: ElementType[], theme: string = 'syste
         'html5': 'html5/html5',
         'css': 'css3/css3',
         'css3': 'css3/css3',
-        'sql': 'postgresql/postgresql', // Placeholder for general SQL
+        'sql': 'postgresql/postgresql', 
         'bash': 'bash/bash',
         'scala': 'scala/scala',
         'haskell': 'haskell/haskell',
         'r': 'r/r',
         
-        // Frameworks & Libraries
+        
         'react': 'react/react',
         'angular': 'angularjs/angularjs',
         'vue': 'vuejs/vuejs',
