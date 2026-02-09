@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger
 } from '@radix-ui/react-dropdown-menu'
 
-// Feature Request link has been removed from this array as per maintainer request
+
 const moreItems = [
   { name: 'Templates', to: '/templates' },
   { name: 'Drag & Drop Editor', to: '/drag-drop' },

@@ -1,10 +1,10 @@
 import { Button } from '@/components/ui/button';
 import { Clock, Rocket, Star, ArrowRight } from 'lucide-react';
-import { useNavigate } from 'react-router-dom'; // ✅ Added navigation
+import { useNavigate } from 'react-router-dom'; 
 import { motion } from 'framer-motion';
 
 export default function ComingSoon() {
-  const navigate = useNavigate(); // ✅ Enable page transitions
+  const navigate = useNavigate(); 
 
 
   const upcomingFeatures = [
@@ -41,7 +41,7 @@ export default function ComingSoon() {
               <Star className="mr-2 h-5 w-5" />
               Follow Progress
             </Button>
-            {/* ✅ Navigation Button to Feature Requests */}
+            
             <Button 
               onClick={() => navigate('/feature-requests')} 
               size="lg" 

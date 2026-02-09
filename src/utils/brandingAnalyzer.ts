@@ -38,7 +38,7 @@ async function analyzeWithAI(readmeContent: string, targetTone: BrandingTone): P
   detectedTone: BrandingTone;
 }> {
   if (!geminiService.isConfigured()) {
-    // Fallback to basic analysis if AI is not configured
+    
     return {
       suggestions: [{
         section: 'AI Analysis',
@@ -139,7 +139,7 @@ Provide specific, actionable feedback with implementable fixes where possible.`;
     const response = await result.response;
     const text = response.text().trim();
 
-    // Clean up the response and extract JSON
+    
     let jsonStr = text;
     if (jsonStr.includes('```json')) {
       jsonStr = jsonStr.split('```json')[1].split('```')[0];
@@ -149,7 +149,7 @@ Provide specific, actionable feedback with implementable fixes where possible.`;
 
     const analysisResult = JSON.parse(jsonStr);
     
-    // Helper function to validate and sanitize element objects
+    
     const validateElement = (elementToAdd: any): any => {
       if (!elementToAdd || !elementToAdd.type) return null;
       
@@ -160,7 +160,7 @@ Provide specific, actionable feedback with implementable fixes where possible.`;
       
       if (!validTypes.includes(elementToAdd.type)) return null;
       
-      // Apply default required properties based on element type
+      
       switch (elementToAdd.type) {
         case 'text':
           return {
@@ -222,7 +222,7 @@ Provide specific, actionable feedback with implementable fixes where possible.`;
       }
     };
     
-    // Validate and sanitize the response
+    
     return {
       suggestions: (analysisResult.suggestions || []).slice(0, 8).map((s: any, index: number) => ({
         id: `ai-suggestion-${index}`,
@@ -254,7 +254,7 @@ Provide specific, actionable feedback with implementable fixes where possible.`;
   } catch (error) {
     console.error('Error in AI analysis:', error);
     
-    // Fallback analysis
+    
     return {
       suggestions: [{
         section: 'AI Analysis',
@@ -274,7 +274,7 @@ Provide specific, actionable feedback with implementable fixes where possible.`;
 function performBasicAnalysis(elements: ElementType[]): BrandingSuggestion[] {
   const suggestions: BrandingSuggestion[] = [];
 
-  // Check for essential sections
+  
   const hasTitle = elements.some((el) => el.type === 'title' || el.type === 'header');
   const hasDescription = elements.some((el) => el.type === 'description' || el.type === 'text');
   const hasInstallation = elements.some((el) => el.type === 'installation');
@@ -365,9 +365,9 @@ function performBasicAnalysis(elements: ElementType[]): BrandingSuggestion[] {
     });
   }
 
-  // Check for content quality issues
+  
   elements.forEach((element) => {
-    // Check for empty content
+    
     if (element.type === 'text' && element.content && element.content.length < 10) {
       suggestions.push({
         section: 'Content Quality',
@@ -385,7 +385,7 @@ function performBasicAnalysis(elements: ElementType[]): BrandingSuggestion[] {
       });
     }
 
-    // Check for very long content that might need breaking up
+    
     if (element.type === 'text' && element.content && element.content.length > 500) {
       suggestions.push({
         section: 'Content Structure',
@@ -406,13 +406,13 @@ export async function analyzeBranding(elements: ElementType[], tone: BrandingTon
   const readmeContent = buildReadmeContent(elements);
   
   try {
-    // Perform AI analysis
+    
     const aiAnalysis = await analyzeWithAI(readmeContent, tone);
     
-    // Combine with basic structural analysis
+    
     const basicSuggestions = performBasicAnalysis(elements);
     
-    // Merge suggestions, prioritizing AI suggestions
+    
     const allSuggestions = [
       ...aiAnalysis.suggestions,
       ...basicSuggestions.filter(basic => 
@@ -431,7 +431,7 @@ export async function analyzeBranding(elements: ElementType[], tone: BrandingTon
   } catch (error) {
     console.error('Error in branding analysis:', error);
     
-    // Fallback to basic analysis only
+    
     const basicSuggestions = performBasicAnalysis(elements);
     
     return {

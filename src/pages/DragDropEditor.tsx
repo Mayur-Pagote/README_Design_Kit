@@ -15,9 +15,9 @@ import {
   Settings,
   Undo,
   Redo,
-  History, // Added
-  Save,    // Added
-  Trash2,  // Added
+  History, 
+  Save,    
+  Trash2,  
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -44,7 +44,6 @@ import { GithubUsernameDialog } from '@/components/GithubUsernameDialog';
 import { ReadmeQualityDialog } from '@/components/ReadmeQualityDialog';
 import ScrollToTop from '@/components/ScrollToTop';
 import { useIsMobile } from '@/hooks/use-mobile';
-// CHANGED: Replaced useUndoRedo with usePersistentHistory
 import { usePersistentHistory } from '@/hooks/usePersistentHistory'; 
 import { demoElements } from '@/data/demo';
 import { TemplateUtils } from '@/utils/templateUtils';
@@ -55,7 +54,6 @@ import type { ReadmeExportPreset } from '@/config/readmeExportPresets';
 import { toast } from 'sonner';
 
 export default function DragDropEditor() {
-  // CHANGED: Initialize persistent history hook
   const { 
     state: elements, 
     setState: setElements, 
@@ -80,7 +78,7 @@ export default function DragDropEditor() {
   const [githubUsername, setGithubUsername] = useState<string>('your-username');
   const [showGithubUsernameInput, setShowGithubUsernameInput] = useState(false);
   
-  // NEW: State for checkpoint naming
+ 
   const [newCheckpointName, setNewCheckpointName] = useState('');
   
   const [exportPreset, setExportPreset] = useState<ReadmeExportPreset>('default');
@@ -346,7 +344,7 @@ export default function DragDropEditor() {
               </Button>
             </div>
 
-            {/* NEW: History / Checkpoints Menu */}
+            
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="flex items-center gap-2 mr-2">

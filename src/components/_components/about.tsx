@@ -24,7 +24,7 @@ export default function AboutUs() {
         const loadContributors = async () => {
             try {
                 setIsLoading(true);
-                // Replace 'owner/repo' with your GitHub repository path
+                
                 const data = await fetchContributors('Code-writter/README_Design_Kit');
                 setContributors(data);
             } catch (err) {
@@ -138,11 +138,11 @@ export default function AboutUs() {
 }
     ];
 
-    // Team section now uses the renderContributors function to display GitHub contributors
+    
 
     return (
         <div className="container mx-auto px-4 py-12 md:py-20">
-            {/* Hero Section */}
+            
             <section className="text-center mb-20">
                 <Badge variant="outline" className="mb-4 text-sm font-medium">
                     About README Design Kit
@@ -170,7 +170,7 @@ export default function AboutUs() {
 
             <Separator className="my-12" />
 
-            {/* Features Section */}
+           
             <section className="mb-24">
                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
                     Features That Make a Difference
@@ -187,9 +187,9 @@ export default function AboutUs() {
                         className="group relative rounded-xl border border-border bg-white dark:bg-neutral-900 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:border-purple-400/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500  focus-visible:ring-offset-2 focus-visible:ring-offset-background "
                         >
                         <CardHeader>
-                            {/* Icon Container */}
+                            
                             <div className=" relative p-3 rounded-lg w-fit mb-5 bg-purple-100 text-purple-600 dark:bg-neutral-800 dark:text-purple-400 transition-all duration-300 ease-out group-hover:scale-110 group-hover:-rotate-2">
-                            {/* Icon-only glow */}
+                            
                             <span className="pointer-events-none absolute inset-0 rounded-lg opacity-0 blur-xl bg-purple-400/30 transition-opacity duration-300 group-hover:opacity-100" />
                             <span className="relative z-10">
                                 {feature.icon}
@@ -211,7 +211,7 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            {/* Mission Section */}
+            
             <section className="bg-muted/50 rounded-3xl p-12 mb-20">
                 <div className="max-w-3xl mx-auto text-center">
                     <BookOpen className="w-10 h-10 mx-auto mb-6 text-primary" />
@@ -232,7 +232,7 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            {/* Team Section */}
+            
             <section className="mb-20">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold mb-4">Our Amazing Contributors</h2>
@@ -253,7 +253,7 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            {/* CTA Section */}
+            
             <section className="text-center">
                 <h2 className="text-3xl font-bold mb-6">Ready to Elevate Your Documentation?</h2>
                 <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">

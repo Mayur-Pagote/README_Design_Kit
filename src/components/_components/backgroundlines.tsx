@@ -124,7 +124,7 @@ const SVG = ({
         />
       ))}
 
-      {/* duplicate for more paths */}
+      
       {paths.map((path, idx) => (
         <motion.path
           d={path}
