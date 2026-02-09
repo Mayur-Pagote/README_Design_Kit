@@ -108,10 +108,18 @@ Stop staring at blank markdown files. Start shipping documentation that develope
   </tr>
   <tr>
     <td align="center">
-      <img src="./logo.png" alt="SWoC Logo" width="80" height="80">
+      <img src="./public/SWOC.logo.png" alt="SWoC Logo" width="80" height="80">
     </td>
     <td><strong>Social Winter of Code (SWoC)</strong></td>
     <td>1 Jan 2026</td>
+    <td>1 March 2026</td>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="./public/Apertre.logo.png" alt="Apertre3.0 Logo" width="180">
+    </td>
+    <td><strong>Apertre 3.0</strong></td>
+    <td>1 Feb 2026</td>
     <td>1 March 2026</td>
   </tr>
 </table>
