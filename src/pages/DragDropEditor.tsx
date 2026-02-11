@@ -344,7 +344,7 @@ export default function DragDropEditor() {
               </Button>
             </div>
 
-            
+            {/* NEW: History / Checkpoints Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="flex items-center gap-2 mr-2">

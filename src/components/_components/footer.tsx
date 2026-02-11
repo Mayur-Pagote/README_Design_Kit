@@ -18,6 +18,8 @@ export default function Footer() {
     return (
         <div className="relative w-full overflow-hidden border-t border-neutral-300 dark:border-neutral-800/50 bg-white/50 dark:bg-[#0b1020]/60 backdrop-blur-lg">
             
+            {/* Background Decoration: Animated lines layer */}
+
             <div className="absolute inset-0 -z-20 h-full min-h-[500px]">
                 <BackgroundLines className="h-1/2 w-full">
                     <div className="absolute inset-0 " />
@@ -33,7 +35,7 @@ export default function Footer() {
                     
                     <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
                         
-                        
+                        {/* Column 1: Brand / Logo and Description */}
                         <div className="flex flex-col space-y-4">
                             <Link to="/" aria-label="go home" className="block size-fit">
                                 <img
@@ -52,7 +54,7 @@ export default function Footer() {
                             </p>
                         </div>
 
-
+                        {/* Column 2: Product Links (Templates and Elements) */}
                         
                         <div className="flex flex-col space-y-4">
                             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Product</h4>
@@ -70,7 +72,7 @@ export default function Footer() {
                             </ul>
                         </div>
 
-
+                        {/* Column 3: Tools Links (Drag & Drop Editor, Readme Generator) */}
                         
                         <div className="flex flex-col space-y-4">
                             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Tools</h4>
@@ -88,7 +90,7 @@ export default function Footer() {
                             </ul>
                         </div>
 
-
+                        {/* Column 4: Newsletter Signup */}
                         
                         <div className="flex flex-col space-y-4">
                             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Stay Updated</h4>

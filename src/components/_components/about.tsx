@@ -16,15 +16,17 @@ interface Contributor {
 }
 
 export default function AboutUs() {
+    /* State Management: Storing data and UI status */
     const [contributors, setContributors] = useState<Contributor[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    /* Data Fetching: Runs once when the component loads */
     useEffect(() => {
         const loadContributors = async () => {
             try {
                 setIsLoading(true);
-                
+                // Fetching contributor data from the GitHub API helper
                 const data = await fetchContributors('Code-writter/README_Design_Kit');
                 setContributors(data);
             } catch (err) {
@@ -38,7 +40,9 @@ export default function AboutUs() {
         loadContributors();
     }, []);
 
+    /* Sub-component: Handles the rendering of the contributor list/grid */
     const renderContributors = () => {
+        // Show loading spinner while fetching
         if (isLoading) {
             return (
                 <div className="flex justify-center items-center py-12">
@@ -47,6 +51,7 @@ export default function AboutUs() {
             );
         }
 
+        // Show error message if fetch fails
         if (error) {
             return (
                 <div className="text-center py-8">
@@ -56,6 +61,7 @@ export default function AboutUs() {
             );
         }
 
+        // Show empty state if no data is returned
         if (contributors.length === 0) {
             return (
                 <div className="text-center py-8">
@@ -64,6 +70,7 @@ export default function AboutUs() {
             );
         }
 
+        // Main Contributor Grid
         return (
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 {contributors.map((contributor) => (
@@ -95,6 +102,8 @@ export default function AboutUs() {
             </div>
         );
     };
+
+    /* Static Data: List of features to display in the UI */
     const features = [
         {
             icon: <Code2 className="w-6 h-6" />,
@@ -127,22 +136,21 @@ export default function AboutUs() {
             description: "Pre-built components for badges, tables, code blocks, and more"
         },
         {
-  icon: <Zap className="w-6 h-6" />,
-  title: "Live Preview",
-  description: "Instantly preview your README as it will appear on GitHub"
-},
-{
-  icon: <Code className="w-6 h-6" />,
-  title: "Export & Download",
-  description: "Export README files in Markdown format with a single click"
-}
+            icon: <Zap className="w-6 h-6" />,
+            title: "Live Preview",
+            description: "Instantly preview your README as it will appear on GitHub"
+        },
+        {
+            icon: <Code className="w-6 h-6" />,
+            title: "Export & Download",
+            description: "Export README files in Markdown format with a single click"
+        }
     ];
-
-    
 
     return (
         <div className="container mx-auto px-4 py-12 md:py-20">
             
+            {/* Hero Section: Main introduction and branding */}
             <section className="text-center mb-20">
                 <Badge variant="outline" className="mb-4 text-sm font-medium">
                     About README Design Kit
@@ -154,23 +162,22 @@ export default function AboutUs() {
                     Create beautiful, professional README files in minutes with our open-source design system and editor.
                 </p>
                 <div className="flex justify-center gap-4">
-                    <Button asChild size="lg" className="gap-2 ">
+                    <Button asChild size="lg" className="gap-2">
                         <Link to="/elements">
                             <Zap className="w-4 h-4" /> Get Started
                         </Link>
                     </Button>
                     <Button asChild variant="outline" size="lg" className="gap-2">
-                        <a href="https://github.com/Mayur-Pagote/README_Design_Kit" target="_blank">
+                        <a href="https://github.com/Mayur-Pagote/README_Design_Kit" target="_blank" rel="noreferrer">
                             <Github className="w-4 h-4" /> GitHub
                         </a>
-                            
                     </Button>
                </div>
             </section>
 
             <Separator className="my-12" />
 
-           
+            {/* Features Section: Grid of what the tool offers */}
             <section className="mb-24">
                 <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
                     Features That Make a Difference
@@ -182,36 +189,32 @@ export default function AboutUs() {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     {features.map((feature, index) => (
                         <Card
-                        key={index}
-                        tabIndex={0}
-                        className="group relative rounded-xl border border-border bg-white dark:bg-neutral-900 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:border-purple-400/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500  focus-visible:ring-offset-2 focus-visible:ring-offset-background "
+                            key={index}
+                            tabIndex={0}
+                            className="group relative rounded-xl border border-border bg-white dark:bg-neutral-900 transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-lg hover:border-purple-400/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
                         >
-                        <CardHeader>
-                            
-                            <div className=" relative p-3 rounded-lg w-fit mb-5 bg-purple-100 text-purple-600 dark:bg-neutral-800 dark:text-purple-400 transition-all duration-300 ease-out group-hover:scale-110 group-hover:-rotate-2">
-                            
-                            <span className="pointer-events-none absolute inset-0 rounded-lg opacity-0 blur-xl bg-purple-400/30 transition-opacity duration-300 group-hover:opacity-100" />
-                            <span className="relative z-10">
-                                {feature.icon}
-                            </span>
-                            </div>
-
-                            <CardTitle className="text-xl text-foreground transition-colors duration-300 group-hover:text-purple-600 dark:group-hover:text-purple-400">
-                            {feature.title}
-                            </CardTitle>
-                        </CardHeader>
-
-                        <CardContent>
-                            <p className="text-muted-foreground leading-relaxed">
-                            {feature.description}
-                            </p>
-                        </CardContent>
+                            <CardHeader>
+                                <div className="relative p-3 rounded-lg w-fit mb-5 bg-purple-100 text-purple-600 dark:bg-neutral-800 dark:text-purple-400 transition-all duration-300 ease-out group-hover:scale-110 group-hover:-rotate-2">
+                                    <span className="pointer-events-none absolute inset-0 rounded-lg opacity-0 blur-xl bg-purple-400/30 transition-opacity duration-300 group-hover:opacity-100" />
+                                    <span className="relative z-10">
+                                        {feature.icon}
+                                    </span>
+                                </div>
+                                <CardTitle className="text-xl text-foreground transition-colors duration-300 group-hover:text-purple-600 dark:group-hover:text-purple-400">
+                                    {feature.title}
+                                </CardTitle>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground leading-relaxed">
+                                    {feature.description}
+                                </p>
+                            </CardContent>
                         </Card>
                     ))}
                 </div>
             </section>
 
-            
+            {/* Mission Section: The 'Why' behind the project */}
             <section className="bg-muted/50 rounded-3xl p-12 mb-20">
                 <div className="max-w-3xl mx-auto text-center">
                     <BookOpen className="w-10 h-10 mx-auto mb-6 text-primary" />
@@ -232,7 +235,7 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            
+            {/* Contributors Section: Visual list of community contributors */}
             <section className="mb-20">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-bold mb-4">Our Amazing Contributors</h2>
@@ -246,14 +249,14 @@ export default function AboutUs() {
                         Want to see your face here? Contribute to our project on GitHub!
                     </p>
                     <Button asChild variant="outline" className="gap-2">
-                        <a href="https://github.com/Mayur-Pagote/README_Design_Kit" target="_blank">
+                        <a href="https://github.com/Mayur-Pagote/README_Design_Kit" target="_blank" rel="noreferrer">
                             <Github className="w-4 h-4" /> Contribute Now
                         </a>
                     </Button>
                 </div>
             </section>
 
-            
+            {/* Final Call to Action: Encouraging users to try the tool */}
             <section className="text-center">
                 <h2 className="text-3xl font-bold mb-6">Ready to Elevate Your Documentation?</h2>
                 <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -266,7 +269,7 @@ export default function AboutUs() {
                         </Link>
                     </Button>
                     <Button asChild variant="outline" size="lg" className="gap-2">
-                        <a href="https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/README.md" target="_blank">
+                        <a href="https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/README.md" target="_blank" rel="noreferrer">
                             <BookOpen className="w-4 h-4" /> View Documentation
                         </a>   
                     </Button>
