@@ -36,7 +36,7 @@ Stop staring at blank markdown files. Start shipping documentation that develope
 
 
 
-# 🛠️ Tech Stack
+## Tech Stack
 
 <div align="center">
 
@@ -60,7 +60,7 @@ Stop staring at blank markdown files. Start shipping documentation that develope
 
 
 
-## 📚 Complete Documentation
+## Complete Documentation
 
 <table>
   <tr>
