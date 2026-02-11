@@ -2,7 +2,9 @@ import type { Template } from '@/types/templates';
 import type { ElementType } from '@/types/elements';
 
 export class TemplateUtils {
-
+  /**
+   * Clone template elements with new IDs to avoid conflicts
+   */
   static cloneTemplateElements(template: Template): ElementType[] {
     return (template.elements || []).map((element, index) => ({
       ...element,
@@ -10,12 +12,16 @@ export class TemplateUtils {
     }));
   }
 
-
+  /**
+   * Generate unique element ID
+   */
   static generateElementId(type: string): string {
     return `${type}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
 
-
+  /**
+   * Update element IDs in a template to ensure uniqueness
+   */
   static refreshElementIds(elements: ElementType[]): ElementType[] {
     return elements.map(element => ({
       ...element,
@@ -23,7 +29,9 @@ export class TemplateUtils {
     }));
   }
 
-
+  /**
+   * Validate template structure
+   */
   static validateTemplate(template: Template): { isValid: boolean; errors: string[] } {
     const errors: string[] = [];
 
@@ -45,18 +53,24 @@ export class TemplateUtils {
     };
   }
 
-
+  /**
+   * Merge template elements with existing elements
+   */
   static mergeElements(existingElements: ElementType[], templateElements: ElementType[]): ElementType[] {
     const clonedTemplateElements = this.refreshElementIds(templateElements);
     return [...existingElements, ...clonedTemplateElements];
   }
 
-
+  /**
+   * Replace all elements with template elements
+   */
   static replaceElements(templateElements: ElementType[]): ElementType[] {
     return this.refreshElementIds(templateElements);
   }
 
- 
+  /**
+   * Insert template elements at specific position
+   */
   static insertElementsAt(
     existingElements: ElementType[], 
     templateElements: ElementType[], 
@@ -68,7 +82,9 @@ export class TemplateUtils {
     return result;
   }
 
- 
+  /**
+   * Extract template data from elements (for saving as template)
+   */
   static elementsToTemplate(
     elements: ElementType[],
     templateData: Partial<Template>
@@ -87,7 +103,9 @@ export class TemplateUtils {
     };
   }
 
-
+  /**
+   * Get template statistics
+   */
   static getTemplateStats(template: Template) {
     const elements = template.elements || []; // Ensure elements is an array
 
@@ -99,12 +117,15 @@ export class TemplateUtils {
     return {
       totalElements: elements.length,
       elementTypes,
-      estimatedReadTime: Math.ceil(elements.length * 0.5), 
+      estimatedReadTime: Math.ceil(elements.length * 0.5), // rough estimate in minutes
       complexity:
         elements.length > 10 ? 'complex' : elements.length > 5 ? 'medium' : 'simple',
     };
   }
-
+  /**
+   * 1. DYNAMIC RENDERING:
+   * Replaces placeholders like {{NAME}} with actual user input in real-time.
+   */
   static renderDynamicElements(
     elements: ElementType[], 
     variables: Record<string, string>
@@ -125,7 +146,10 @@ export class TemplateUtils {
   }
   
 
- 
+  /**
+   * 2. ONE-CLICK COPY:
+   * Flattens the structured JSON elements into a raw Markdown string for the clipboard.
+   */
   static elementsToMarkdown(elements: ElementType[]): string {
     return elements
       .map((el) => {

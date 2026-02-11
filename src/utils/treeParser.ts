@@ -1,4 +1,6 @@
-
+/**
+ * Utility to parse directory structures and add icons
+ */
 const FILE_ICONS: Record<string, string> = {
   // Languages
   'ts': '📄',
@@ -81,11 +83,11 @@ const FOLDER_ICONS: Record<string, string> = {
 export const getIconForFile = (filename: string): string => {
   const lowerName = filename.toLowerCase();
 
-  
+  // Check exact matches first (for dotfiles like .gitignore)
   if (FILE_ICONS[lowerName]) return FILE_ICONS[lowerName];
   if (FILE_ICONS[lowerName.replace('.', '')]) return FILE_ICONS[lowerName.replace('.', '')];
 
-  
+  // Extension check
   const ext = lowerName.split('.').pop();
   if (ext && FILE_ICONS[ext]) return FILE_ICONS[ext];
 
@@ -98,7 +100,9 @@ export const getIconForFolder = (dirname: string): string => {
   return '📂';
 };
 
-
+/**
+ * Parses a plain text tree or just a list of files into a structured tree with icons
+ */
 export const smartParseTree = (input: string): string => {
   if (!input.trim()) return '';
 
@@ -115,18 +119,20 @@ export const smartParseTree = (input: string): string => {
 
     if (!trimmedContent) return line;
 
-
+    // 3. Determine if it's a file or folder
+    // Heuristic: If it doesn't have an extension and matches known folder names, OR ends with /, it's a folder
     const isFolder =
       trimmedContent.endsWith('/') ||
       !trimmedContent.includes('.') ||
       Object.keys(FOLDER_ICONS).includes(trimmedContent.toLowerCase());
 
-    
+    // 4. Get appropriate icon
     const icon = isFolder
       ? getIconForFolder(trimmedContent.replace('/', ''))
       : getIconForFile(trimmedContent);
 
-
+    // 5. Reconstruct the line
+    // Don't add icon if one already exists
     const hasIcon = /[\u{1F300}-\u{1F9FF}]/u.test(trimmedContent);
     const finalContent = hasIcon ? trimmedContent : `${icon} ${trimmedContent}`;
 
