@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/tooltip";
 import { useIsMobile } from '@/hooks/use-mobile';
 import { TechStackDialog } from './TechStackDialog';
+import { CustomBadgeDialog } from './CustomBadgeDialog';
 import type { ElementType } from '@/types/elements';
 
 interface ElementPaletteProps {
@@ -24,27 +25,28 @@ interface ElementPaletteProps {
 export function ElementPalette({ onAddElement }: ElementPaletteProps) {
   const [activeTab, setActiveTab] = useState("basic");
   const [showTechStackDialog, setShowTechStackDialog] = useState(false);
+  const [showCustomBadgeDialog, setShowCustomBadgeDialog] = useState(false);
   const isMobile = useIsMobile();
-  
+
   // Basic element types
   const basicElementTypes: {
     type: ElementType['type'];
     label: string;
     icon: React.ReactNode;
   }[] = [
-    { type: 'header', label: 'Project Header', icon: '📝' },
-    { type: 'text', label: 'Description', icon: '📄' },
-    { type: 'badge', label: 'Badge', icon: '🏷️' },
-    { type: 'installation', label: 'Installation', icon: '⚙️' },
-    { type: 'code-block', label: 'Code Block', icon: '💻' },
-    { type: 'table', label: 'Feature Table', icon: '📊' },
-    { type: 'tech-stack', label: 'Tech Stack', icon: '🔧' },
-    { type: 'git-contribution', label: 'Git Contribution', icon: '🐙' },
-    { type: 'divider', label: 'Divider', icon: '➖' },
-    { type: 'banner', label: 'Banner', icon: '📢' },
-    { type: 'image', label: 'Image', icon: '🖼️' },
-  ];
-  
+      { type: 'header', label: 'Project Header', icon: '📝' },
+      { type: 'text', label: 'Description', icon: '📄' },
+      { type: 'badge', label: 'Badge', icon: '🏷️' },
+      { type: 'installation', label: 'Installation', icon: '⚙️' },
+      { type: 'code-block', label: 'Code Block', icon: '💻' },
+      { type: 'table', label: 'Feature Table', icon: '📊' },
+      { type: 'tech-stack', label: 'Tech Stack', icon: '🔧' },
+      { type: 'git-contribution', label: 'Git Contribution', icon: '🐙' },
+      { type: 'divider', label: 'Divider', icon: '➖' },
+      { type: 'banner', label: 'Banner', icon: '📢' },
+      { type: 'image', label: 'Image', icon: '🖼️' },
+    ];
+
   // Advanced element types (GitHub API elements)
   const advancedElementTypes: {
     type: string;
@@ -53,49 +55,49 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
     category: string;
     template: string;
   }[] = [
-    { 
-      type: 'github-contribution-graph', 
-      label: 'Contribution Graph', 
-      icon: '📊', 
-      category: 'graphs',
-      template: 'https://github-readme-activity-graph.vercel.app/graph?username={username}&theme=react-dark&hide_border=false'
-    },
-    { 
-      type: 'github-profile-summary', 
-      label: 'Profile Summary', 
-      icon: '📋', 
-      category: 'graphs',
-      template: 'https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username={username}&theme=radical'
-    },
-    { 
-      type: 'github-stats-card', 
-      label: 'Stats Card', 
-      icon: '🎴', 
-      category: 'stats',
-      template: 'https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&locale=en&theme=tokyonight'
-    },
-    { 
-      type: 'github-language-stats', 
-      label: 'Language Stats', 
-      icon: '🌐', 
-      category: 'languages',
-      template: 'https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact&theme=radical'
-    },
-    { 
-      type: 'github-streak-stats', 
-      label: 'Streak Stats', 
-      icon: '🔥', 
-      category: 'stats',
-      template: 'https://github-readme-streak-stats.herokuapp.com/?user={username}&theme=dark&hide_border=true'
-    },
-    { 
-      type: 'github-trophy', 
-      label: 'GitHub Trophy', 
-      icon: '🏆', 
-      category: 'stats',
-      template: 'https://github-profile-trophy.vercel.app/?username={username}&theme=onedark'
-    },
-  ];
+      {
+        type: 'github-contribution-graph',
+        label: 'Contribution Graph',
+        icon: '📊',
+        category: 'graphs',
+        template: 'https://github-readme-activity-graph.vercel.app/graph?username={username}&theme=react-dark&hide_border=false'
+      },
+      {
+        type: 'github-profile-summary',
+        label: 'Profile Summary',
+        icon: '📋',
+        category: 'graphs',
+        template: 'https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username={username}&theme=radical'
+      },
+      {
+        type: 'github-stats-card',
+        label: 'Stats Card',
+        icon: '🎴',
+        category: 'stats',
+        template: 'https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&locale=en&theme=tokyonight'
+      },
+      {
+        type: 'github-language-stats',
+        label: 'Language Stats',
+        icon: '🌐',
+        category: 'languages',
+        template: 'https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact&theme=radical'
+      },
+      {
+        type: 'github-streak-stats',
+        label: 'Streak Stats',
+        icon: '🔥',
+        category: 'stats',
+        template: 'https://github-readme-streak-stats.herokuapp.com/?user={username}&theme=dark&hide_border=true'
+      },
+      {
+        type: 'github-trophy',
+        label: 'GitHub Trophy',
+        icon: '🏆',
+        category: 'stats',
+        template: 'https://github-profile-trophy.vercel.app/?username={username}&theme=onedark'
+      },
+    ];
 
   // The handleAddElement function stays mostly the same
   const handleAddElement = (type: ElementType['type'], label: string) => {
@@ -216,11 +218,11 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
 
     onAddElement(newElement);
   };
-  
+
   // Handler for advanced GitHub elements
   const handleAddAdvancedElement = (type: string, label: string, template: string) => {
     const baseId = `${type}-${Date.now()}`;
-    
+
     // For advanced elements, we'll create them as image elements with GitHub API URLs
     const newElement: ElementType = {
       id: baseId,
@@ -231,7 +233,7 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
       height: 'auto',
       hiddenFor: [],
     };
-    
+
     onAddElement(newElement);
   };
 
@@ -244,142 +246,184 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
             Tap elements to add to your README
           </p>
         </div>
-      
-      {/* Tech Stack Dialog */}
-      <TechStackDialog 
-        isOpen={showTechStackDialog}
-        onClose={() => setShowTechStackDialog(false)}
-        onAddElement={onAddElement}
-      />
 
-      <Tabs defaultValue="basic" value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="grid grid-cols-2 w-full mb-4 gap-1">
-          <TabsTrigger value="basic" className="text-sm">Basic</TabsTrigger>
-          <TabsTrigger value="advanced" className="text-sm">Advanced</TabsTrigger>
-        </TabsList>
-        
-        {/* Basic Elements Tab */}
-        <TabsContent value="basic" className="space-y-2">
-          {basicElementTypes.map(({ type, label, icon }) => {
-            const button = (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleAddElement(type, label)}
-                className={`w-full justify-start gap-2 md:gap-3 h-auto py-3 touch-manipulation ${
-                  type === 'tech-stack' ? 'ring-2 ring-primary/50 bg-primary/5' : ''
-                }`}
-              >
-                <span className="text-base md:text-lg">{icon}</span>
-                <div className="flex-1 text-left">
-                  <div className="font-medium text-sm md:text-base">{label}</div>
-                  <div className="text-xs text-muted-foreground capitalize">{type}</div>
-                </div>
-                <Plus className="h-4 w-4 opacity-50" />
-              </Button>
-            );
+        {/* Tech Stack Dialog */}
+        <TechStackDialog
+          isOpen={showTechStackDialog}
+          onClose={() => setShowTechStackDialog(false)}
+          onAddElement={onAddElement}
+        />
 
-            // Disable tooltips on mobile to prevent overlapping
-            if (isMobile) {
-              return <div key={type}>{button}</div>;
-            }
+        <CustomBadgeDialog
+          isOpen={showCustomBadgeDialog}
+          onClose={() => setShowCustomBadgeDialog(false)}
+          onAddElement={onAddElement}
+        />
 
-            return (
-              <Tooltip key={type}>
-                <TooltipTrigger asChild>
-                  {button}
-                </TooltipTrigger>
-                <TooltipContent>
-                  <div className="text-sm">
-                    {type === 'tech-stack' 
-                      ? 'Add a basic tech stack list - for advanced features use the Advanced tab' 
-                      : `Click to add a ${label.toLowerCase()} element`}
+        <Tabs defaultValue="basic" value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid grid-cols-2 w-full mb-4 gap-1">
+            <TabsTrigger value="basic" className="text-sm">Basic</TabsTrigger>
+            <TabsTrigger value="advanced" className="text-sm">Advanced</TabsTrigger>
+          </TabsList>
+
+          {/* Basic Elements Tab */}
+          <TabsContent value="basic" className="space-y-2">
+            {basicElementTypes.map(({ type, label, icon }) => {
+              const button = (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleAddElement(type, label)}
+                  className={`w-full justify-start gap-2 md:gap-3 h-auto py-3 touch-manipulation ${type === 'tech-stack' ? 'ring-2 ring-primary/50 bg-primary/5' : ''
+                    }`}
+                >
+                  <span className="text-base md:text-lg">{icon}</span>
+                  <div className="flex-1 text-left">
+                    <div className="font-medium text-sm md:text-base">{label}</div>
+                    <div className="text-xs text-muted-foreground capitalize">{type}</div>
                   </div>
-                </TooltipContent>
-              </Tooltip>
-            );
-          })}
-        </TabsContent>
-        
-        {/* Advanced Elements Tab */}
-        <TabsContent value="advanced" className="space-y-2">
-          {/* Advanced Tech Stack Creator */}
-          {(() => {
-            const button = (
-              <Button
-                variant="default"
-                size="sm"
-                onClick={() => setShowTechStackDialog(true)}
-                className="w-full justify-start gap-2 md:gap-3 h-auto py-3 mb-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 touch-manipulation"
-              >
-                <span className="text-base md:text-lg">⚡</span>
-                <div className="flex-1 text-left">
-                  <div className="font-medium text-sm md:text-base">Advanced Tech Stack</div>
-                  <div className="text-xs text-white/80">Custom tech badges & styles</div>
-                </div>
-                <Code2 className="h-4 w-4 opacity-80" />
-              </Button>
-            );
+                  <Plus className="h-4 w-4 opacity-50" />
+                </Button>
+              );
 
-            if (isMobile) {
-              return <div>{button}</div>;
-            }
+              // Disable tooltips on mobile to prevent overlapping
+              if (isMobile) {
+                return <div key={type}>{button}</div>;
+              }
 
-            return (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  {button}
-                </TooltipTrigger>
-                <TooltipContent>
-                  <div className="text-sm">
-                    Create a tech stack with custom badge styles, themes, and layouts
+              return (
+                <Tooltip key={type}>
+                  <TooltipTrigger asChild>
+                    {button}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <div className="text-sm">
+                      {type === 'tech-stack'
+                        ? 'Add a basic tech stack list - for advanced features use the Advanced tab'
+                        : `Click to add a ${label.toLowerCase()} element`}
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              );
+            })}
+
+            {/* Custom Badge Creator - Moved to Basic Tab */}
+            {(() => {
+              const button = (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowCustomBadgeDialog(true)}
+                  className="w-full justify-start gap-2 md:gap-3 h-auto py-3 mt-2 border-dashed border-primary/30 hover:border-primary/60 bg-primary/5 hover:bg-primary/10 transition-all touch-manipulation"
+                >
+                  <span className="text-base md:text-lg">🏷️</span>
+                  <div className="flex-1 text-left">
+                    <div className="font-medium text-sm md:text-base">Custom Badge</div>
+                    <div className="text-xs text-muted-foreground">DIY shields.io badges</div>
                   </div>
-                </TooltipContent>
-              </Tooltip>
-            );
-          })()}
+                  <Plus className="h-4 w-4 opacity-50" />
+                </Button>
+              );
 
-          <div className="text-sm font-medium text-muted-foreground my-2 pt-2 border-t">
-            GitHub Elements
-          </div>
-          
-          {advancedElementTypes.map(({ type, label, icon, template }) => {
-            const button = (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => handleAddAdvancedElement(type, label, template)}
-                className="w-full justify-start gap-2 md:gap-3 h-auto py-3 touch-manipulation"
-              >
-                <span className="text-base md:text-lg">{icon}</span>
-                <div className="flex-1 text-left">
-                  <div className="font-medium text-sm md:text-base">{label}</div>
-                  <div className="text-xs text-muted-foreground">GitHub API Element</div>
-                </div>
-                <Plus className="h-4 w-4 opacity-50" />
-              </Button>
-            );
+              if (isMobile) {
+                return <div>{button}</div>;
+              }
 
-            if (isMobile) {
-              return <div key={type}>{button}</div>;
-            }
+              return (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    {button}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <div className="text-sm">
+                      Create a custom metadata badge with live preview
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              );
+            })()}
+          </TabsContent>
 
-            return (
-              <Tooltip key={type}>
-                <TooltipTrigger asChild>
-                  {button}
-                </TooltipTrigger>
-                <TooltipContent>
-                  <div className="text-sm">
-                    Click to add a {label.toLowerCase()} element (GitHub API)
+          {/* Advanced Elements Tab */}
+          <TabsContent value="advanced" className="space-y-2">
+            {/* Advanced Tech Stack Creator */}
+            {(() => {
+              const button = (
+                <Button
+                  variant="default"
+                  size="sm"
+                  onClick={() => setShowTechStackDialog(true)}
+                  className="w-full justify-start gap-2 md:gap-3 h-auto py-3 mb-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 touch-manipulation"
+                >
+                  <span className="text-base md:text-lg">⚡</span>
+                  <div className="flex-1 text-left">
+                    <div className="font-medium text-sm md:text-base">Advanced Tech Stack</div>
+                    <div className="text-xs text-white/80">Custom tech badges & styles</div>
                   </div>
-                </TooltipContent>
-              </Tooltip>
-            );
-          })}
-        </TabsContent>
-      </Tabs>
-    </div>
-    </TooltipProvider>
+                  <Code2 className="h-4 w-4 opacity-80" />
+                </Button>
+              );
+
+              if (isMobile) {
+                return <div>{button}</div>;
+              }
+
+              return (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    {button}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <div className="text-sm">
+                      Create a tech stack with custom badge styles, themes, and layouts
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              );
+            })()}
+
+
+            <div className="text-sm font-medium text-muted-foreground my-2 pt-2 border-t">
+              GitHub Elements
+            </div>
+
+            {advancedElementTypes.map(({ type, label, icon, template }) => {
+              const button = (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => handleAddAdvancedElement(type, label, template)}
+                  className="w-full justify-start gap-2 md:gap-3 h-auto py-3 touch-manipulation"
+                >
+                  <span className="text-base md:text-lg">{icon}</span>
+                  <div className="flex-1 text-left">
+                    <div className="font-medium text-sm md:text-base">{label}</div>
+                    <div className="text-xs text-muted-foreground">GitHub API Element</div>
+                  </div>
+                  <Plus className="h-4 w-4 opacity-50" />
+                </Button>
+              );
+
+              if (isMobile) {
+                return <div key={type}>{button}</div>;
+              }
+
+              return (
+                <Tooltip key={type}>
+                  <TooltipTrigger asChild>
+                    {button}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <div className="text-sm">
+                      Click to add a {label.toLowerCase()} element (GitHub API)
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              );
+            })}
+          </TabsContent>
+        </Tabs>
+      </div>
+    </TooltipProvider >
   );
 }
