@@ -6,13 +6,13 @@ import Layout from "./components/Layout";
 import ScrollToTop from "./components/ScrollToTop";
 import ScrollRestoration from "./components/ScrollRestoration";
 import Elements from "./pages/Elements";
-// import Hero from "./pages/Hero";
+
 import ProjectsSection from "./components/ProjectsSection";
 import SubmitSection from "./components/SubmitSection";
 import DragDropEditor from "./pages/DragDropEditor";
 import TemplateLibraryPage from "./pages/TemplateLibraryPage";
 import ComingSoon from "./pages/ComingSoon";
-// FeatureRequestsPage import removed as per maintainer request
+
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
@@ -27,10 +27,10 @@ import Cursortrail from "./Cursortrail";
 
 const queryClient = new QueryClient();
 
-// A new component to conditionally render ScrollToTop
+
 const ConditionalScrollToTop = () => {
   const location = useLocation();
-  // Don't render on the drag-drop editor page
+  
   if (location.pathname === '/drag-drop') {
     return null;
   }
@@ -47,11 +47,11 @@ export default function App() {
             <ScrollRestoration />
             <ConditionalScrollToTop />
             <Routes>
-              {/* Routes with Layout (navbar + footer) */}
+              
               <Route path="/" element={<Layout><Home /></Layout>} />
               <Route path="/elements" element={<Layout><Elements /></Layout>} />
               <Route path="/templates" element={<Layout><TemplateLibraryPage /></Layout>} />
-              {/* <Route path="/showcase" element={<Layout><Hero /></Layout>} /> */}
+              
               <Route path="/projects" element={<Layout><ProjectsSection /></Layout>} />
               <Route path="/submit" element={<Layout><SubmitSection /></Layout>} />
               <Route path="/drag-drop" element={<Layout><DragDropEditor /></Layout>} />

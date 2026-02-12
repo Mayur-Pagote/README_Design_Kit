@@ -1,7 +1,7 @@
-// src/components/Editor/Sidebar.tsx
+
 import React from 'react';
 
-// Export props to fix "Cannot find name 'SidebarProps'" error
+
 export interface SidebarProps {
   variables: { NAME: string; GITHUB_USER: string };
   onVariableChange: (key: string, value: string) => void;

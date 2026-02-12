@@ -7,11 +7,11 @@ import type { Template } from '@/types/templates';
 
 export const EditorPage = () => {
   const [variables, setVariables] = useState({ NAME: '', GITHUB_USER: '' });
-  
   // 1. Fixes initialElements error: Elements state starts empty
+  
   const [elements, setElements] = useState<ElementType[]>([]); 
-
-  // 2. Fixes setElements warning: Load selected template from library on mount
+// 2. Fixes setElements warning: Load selected template from library on mount
+  
   useEffect(() => {
     const savedTemplate = sessionStorage.getItem('selectedTemplate');
     if (savedTemplate) {
@@ -21,8 +21,8 @@ export const EditorPage = () => {
     }
   }, []);
 
-
   // 3. Process placeholders like {{NAME}} in real-time as user types
+  
   const dynamicElements = useMemo(() => {
     return TemplateUtils.renderDynamicElements(elements, variables);
   }, [elements, variables]);
