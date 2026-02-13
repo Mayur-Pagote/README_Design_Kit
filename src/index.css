@@ -114,6 +114,43 @@
   --sidebar-ring: oklch(0.541 0.281 293.009);
 }
 
+/* GitHub Preview Themes - Scoped to the preview container */
+.github-light {
+  --background: 0 0% 100%;
+  --foreground: 210 18% 14%;
+  --muted: 210 18% 97%;
+  --muted-foreground: 210 18% 45%;
+  --border: 210 18% 87%;
+  --card: 0 0% 100%;
+  --card-foreground: 210 18% 14%;
+  background-color: #ffffff !important;
+  color: #1f2328 !important;
+}
+
+.github-dark {
+  --background: 212 32% 7%;
+  --foreground: 210 40% 93%;
+  --muted: 212 32% 11%;
+  --muted-foreground: 210 40% 65%;
+  --border: 212 32% 21%;
+  --card: 212 32% 9%;
+  --card-foreground: 210 40% 93%;
+  background-color: #0d1117 !important;
+  color: #e6edf3 !important;
+}
+
+.github-dimmed {
+  --background: 213 16% 16%;
+  --foreground: 210 17% 82%;
+  --muted: 213 16% 20%;
+  --muted-foreground: 210 17% 60%;
+  --border: 213 16% 30%;
+  --card: 213 16% 18%;
+  --card-foreground: 210 17% 82%;
+  background-color: #22272e !important;
+  color: #adbac7 !important;
+}
+
 @layer base {
   :root {
     --background: 220 13% 10%;
