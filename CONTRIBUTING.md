@@ -43,6 +43,7 @@ Thank you for your interest in contributing **README Design Kit**. Please follow
 
 * No PR should be created without an assigned issue.
 * One issue → one PR.
+* If you are participating in the Open Source Program, make sure to open only one issue at a time.
 * Follow the repository’s existing structure and coding style.
 
 ---
