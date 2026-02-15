@@ -16,6 +16,7 @@ import {
 import { useIsMobile } from '@/hooks/use-mobile';
 import { TechStackDialog } from './TechStackDialog';
 import { CustomBadgeDialog } from './CustomBadgeDialog';
+import { HeroHeaderDialog } from './HeroHeaderDialog';
 import type { ElementType } from '@/types/elements';
 
 interface ElementPaletteProps {
@@ -26,6 +27,7 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
   const [activeTab, setActiveTab] = useState("basic");
   const [showTechStackDialog, setShowTechStackDialog] = useState(false);
   const [showCustomBadgeDialog, setShowCustomBadgeDialog] = useState(false);
+  const [showHeroHeaderDialog, setShowHeroHeaderDialog] = useState(false);
   const isMobile = useIsMobile();
 
   // Basic element types
@@ -260,6 +262,12 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
           onAddElement={onAddElement}
         />
 
+        <HeroHeaderDialog
+          isOpen={showHeroHeaderDialog}
+          onClose={() => setShowHeroHeaderDialog(false)}
+          onAddElement={onAddElement}
+        />
+
         <Tabs defaultValue="basic" value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid grid-cols-2 w-full mb-4 gap-1">
             <TabsTrigger value="basic" className="text-sm">Basic</TabsTrigger>
@@ -346,6 +354,7 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
 
           {/* Advanced Elements Tab */}
           <TabsContent value="advanced" className="space-y-2">
+
             {/* Advanced Tech Stack Creator */}
             {(() => {
               const button = (
@@ -386,6 +395,42 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
             <div className="text-sm font-medium text-muted-foreground my-2 pt-2 border-t">
               GitHub Elements
             </div>
+
+            {/* Hero Header Studio Button */}
+            {(() => {
+              const button = (
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowHeroHeaderDialog(true)}
+                  className="w-full justify-start gap-2 md:gap-3 h-auto py-3 mb-4 border-dashed border-blue-500/30 hover:border-blue-500/60 bg-blue-500/5 hover:bg-blue-500/10 transition-all touch-manipulation"
+                >
+                  <span className="text-base md:text-lg">🌊</span>
+                  <div className="flex-1 text-left">
+                    <div className="font-medium text-sm md:text-base">Hero Header Studio</div>
+                    <div className="text-xs text-muted-foreground">Dynamic SVG banners</div>
+                  </div>
+                  <Plus className="h-4 w-4 opacity-50" />
+                </Button>
+              );
+
+              if (isMobile) {
+                return <div className="mb-4">{button}</div>;
+              }
+
+              return (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    {button}
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <div className="text-sm">
+                      Design a personalized SVG hero banner with waves & animations
+                    </div>
+                  </TooltipContent>
+                </Tooltip>
+              );
+            })()}
 
             {advancedElementTypes.map(({ type, label, icon, template }) => {
               const button = (
