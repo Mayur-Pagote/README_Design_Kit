@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select";
-import { Check, Copy, ExternalLink, Wand2, Type, Palette, Layout, Sparkles } from 'lucide-react';
+import { Copy, ExternalLink, Wand2, Type, Palette, Layout, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface HeroHeaderMakerProps {
@@ -79,6 +79,7 @@ export default function HeroHeaderMaker({ onAddHeader }: HeroHeaderMakerProps) {
   }, [text, type, color, animation, fontSize, fontColor]);
 
   const handleCopy = () => {
+    if (!previewUrl) return;
     const markdown = `![Header](${previewUrl})`;
     navigator.clipboard.writeText(markdown);
     toast.success('Markdown copied to clipboard!');
@@ -267,7 +268,9 @@ export default function HeroHeaderMaker({ onAddHeader }: HeroHeaderMakerProps) {
                   title={c.name}
                 >
                   {color === c.value && (
-                    <Check className="h-3 w-3 text-white absolute inset-0 m-auto drop-shadow-sm" />
+                    <div className="h-3 w-3 text-white absolute inset-0 m-auto drop-shadow-sm flex items-center justify-center">
+                      <div className="w-1.5 h-1.5 bg-white rounded-full" />
+                    </div>
                   )}
                 </button>
               ))}
@@ -282,6 +285,7 @@ export default function HeroHeaderMaker({ onAddHeader }: HeroHeaderMakerProps) {
           variant="secondary"
           className="flex-1 gap-2 border border-border/50 text-foreground"
           onClick={handleCopy}
+          disabled={!previewUrl}
         >
           <Copy className="h-4 w-4" />
           Copy Markdown
@@ -290,6 +294,7 @@ export default function HeroHeaderMaker({ onAddHeader }: HeroHeaderMakerProps) {
           type="button"
           className="flex-1 gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white border-0 shadow-lg"
           onClick={() => previewUrl && onAddHeader(previewUrl, text)}
+          disabled={!previewUrl}
         >
           <Wand2 className="h-4 w-4" />
           Add to README
