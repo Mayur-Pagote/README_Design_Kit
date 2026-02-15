@@ -8,7 +8,6 @@ import {
   PanelRight,
   Sparkles,
   ChevronDown,
-  Info,
   Library,
   Github,
   Eye,
@@ -17,7 +16,7 @@ import {
   History, 
   Save,    
   Trash2,  
-} from 'lucide-react';
+} from 'lucide-react'; // "Info" removed from here
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -178,10 +177,7 @@ export default function DragDropEditor() {
 
   const handleElementsChange = (newElements: ElementType[]) => setElements(newElements);
 
-  const handleRemoveElement = (elementId: string) => {
-    setElements(prev => prev.filter(el => el.id !== elementId));
-    toast.success('Element removed successfully');
-  };
+  // handleRemoveElement function was removed from here as it was unused
 
   const handleReorderElement = (elementId: string, direction: 'up' | 'down') => {
     setElements(prev => {
