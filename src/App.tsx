@@ -7,8 +7,6 @@ import ScrollToTop from "./components/ScrollToTop";
 import ScrollRestoration from "./components/ScrollRestoration";
 import Elements from "./pages/Elements";
 
-import ProjectsSection from "./components/ProjectsSection";
-import SubmitSection from "./components/SubmitSection";
 import DragDropEditor from "./pages/DragDropEditor";
 import TemplateLibraryPage from "./pages/TemplateLibraryPage";
 import ComingSoon from "./pages/ComingSoon";
@@ -19,10 +17,8 @@ import TermsOfService from "./pages/TermsOfService";
 import AboutUs from "./components/_components/about";
 import { ThemeProvider } from "./components/theme-provider";
 import { Toaster } from "./components/ui/sonner";
-import ReadmeGenerator from "./components/generator/Readme-generator";
 import ReadmeEditor from "./components/readme-editor/ReadmeEditor";
 import MarkdownEditor from "./pages/MarkdownEditor";
-import AIEditorIntro from "./pages/AIEditorIntro";
 import Cursortrail from "./Cursortrail";
 
 const queryClient = new QueryClient();
@@ -52,18 +48,14 @@ export default function App() {
               <Route path="/elements" element={<Layout><Elements /></Layout>} />
               <Route path="/templates" element={<Layout><TemplateLibraryPage /></Layout>} />
               
-              <Route path="/projects" element={<Layout><ProjectsSection /></Layout>} />
-              <Route path="/submit" element={<Layout><SubmitSection /></Layout>} />
               <Route path="/drag-drop" element={<Layout><DragDropEditor /></Layout>} />
               <Route path="/coming-soon" element={<Layout><ComingSoon /></Layout>} />
              
               <Route path="/about" element={<Layout><AboutUs /></Layout>} />
               <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
               <Route path="/terms" element={<Layout><TermsOfService /></Layout>} />
-              <Route path="/readme-generator" element={<Layout><ReadmeGenerator /></Layout>} />
               <Route path="/readme-editor" element={<ReadmeEditor />} />
               <Route path="/markdown-editor" element={<Layout><MarkdownEditor /></Layout>} />
-              <Route path="/ai-editor-intro" element={<Layout><AIEditorIntro /></Layout>} />
               <Route path="*" element={<Layout><NotFound /></Layout>} />
             </Routes>
           </BrowserRouter>

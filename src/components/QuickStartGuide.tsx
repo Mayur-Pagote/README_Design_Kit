@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { LayoutDashboard, FileCode, Component, Info, Box, GitBranch, Text, GithubIcon } from 'lucide-react';
+import { LayoutDashboard, FileCode, Component, Info, Box, Text, GithubIcon } from 'lucide-react'; // Removed GitBranch
 import {
   CommandDialog,
   CommandInput,
@@ -53,10 +53,7 @@ export function QuickStartGuide({ onStartFromScratch }: QuickStartGuideProps) {
               <Component className="mr-3 h-5 w-5" />
               <span className="text-base">Components Library</span>
             </CommandItem>
-            <CommandItem onSelect={() => handleNavigation('/projects')}>
-              <GitBranch className="mr-3 h-5 w-5" />
-              <span className="text-base">Projects</span>
-            </CommandItem>
+            {/* Removed Projects CommandItem */}
           </CommandGroup>
 
           <CommandGroup heading="Help">

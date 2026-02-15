@@ -9,7 +9,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
-import { AITextarea } from '@/components/ui/ai-textarea';
+import { Textarea } from '@/components/ui/textarea'; // Changed from AITextarea to standard Textarea
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import type { ElementType } from '@/types/elements';
 
@@ -22,7 +22,7 @@ interface ElementEditorProps {
 
 export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEditorProps) {
   const [editedElement, setEditedElement] = useState<ElementType | null>(null);
-  // FIX: Local state for the technologies string to allow typing spaces and commas
+  // Local state for the technologies string to allow typing spaces and commas
   const [techString, setTechString] = useState('');
 
   useEffect(() => {
@@ -46,14 +46,14 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
     setEditedElement(prev => prev ? { ...prev, ...updates } as ElementType : null);
   };
 
-  const shouldShowAITextarea = (elementType: string) => {
+  // Logic to determine if a content input should be shown
+  const shouldShowContentInput = (elementType: string) => {
     const excludedTypes = ['git-contribution', 'divider', 'image'];
     return !excludedTypes.includes(elementType);
   };
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      {/* z-[200] ensures it is above the DialogOverlay (z-150) */}
       <DialogContent className="max-w-2xl z-[200] outline-none">
         <DialogHeader>
           <DialogTitle>Edit {editedElement.type} Element</DialogTitle>
@@ -62,28 +62,17 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
           </DialogDescription>
         </DialogHeader>
 
-        {/* Inner scroll container prevents portaled Select menus from being clipped */}
         <div className="space-y-4 max-h-[60vh] overflow-y-auto px-1 py-2 custom-scrollbar">
           {/* Common Fields */}
-          {editedElement.type !== 'divider' && editedElement.type !== 'git-contribution' && editedElement.type !== 'image' && (
+          {shouldShowContentInput(editedElement.type) && (
             <div className="space-y-2">
               <Label htmlFor="content">Content</Label>
-              {shouldShowAITextarea(editedElement.type) && (
-                <AITextarea
-                  id="content"
-                  value={editedElement.content || ''}
-                  onValueChange={(value) => updateElement({ content: value })}
-                  placeholder="Enter content..."
-                  aiContext={`${editedElement.type} element`}
-                  showGenerateOption={['text', 'description', 'title', 'header', 'banner'].includes(editedElement.type)}
-                  generationType={
-                    editedElement.type === 'description' ? 'about' :
-                    editedElement.type === 'title' ? 'summary' :
-                    editedElement.type === 'text' ? 'custom' :
-                    'project'
-                  }
-                />
-              )}
+              <Textarea
+                id="content"
+                value={editedElement.content || ''}
+                onChange={(e) => updateElement({ content: e.target.value })}
+                placeholder="Enter content..."
+              />
             </div>
           )}
 
@@ -115,20 +104,17 @@ export function ElementEditor({ element, isOpen, onClose, onSave }: ElementEdito
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="technologies">Technologies (comma-separated)</Label>
-                <AITextarea
+                <Textarea
                   id="technologies"
-                  // FIX: Use techString state so spaces and commas are preserved while typing
                   value={techString}
-                  onValueChange={(val) => {
+                  onChange={(e) => {
+                    const val = e.target.value;
                     setTechString(val);
                     updateElement({ 
                       technologies: val.split(',').map(tech => tech.trim()).filter(Boolean)
                     });
                   }}
                   placeholder="React, TypeScript, Node.js, Tailwind CSS"
-                  aiContext="technology stack for a software project"
-                  showGenerateOption={true}
-                  generationType="custom"
                 />
               </div>
               

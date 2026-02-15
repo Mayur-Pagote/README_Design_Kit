@@ -1,7 +1,7 @@
 "use client";
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, Layout, Bot } from 'lucide-react';
+import { ArrowRight, Layout } from 'lucide-react'; // Removed Bot icon import
 import { QuickStartGuide } from '@/components/QuickStartGuide';
 
 import { motion } from "motion/react";
@@ -37,62 +37,66 @@ export default function Home() {
               />
             )}
           </div>
-<Link to="Elements" className="inline-block mt-[60px] sm:mt-0">
-  <div className="group cursor-pointer pt-5 pb-6">
-    <div className="relative rounded-xl bg-background/60 backdrop-blur-md border border-border px-5 py-2.5 transition-all duration-300 hover:bg-background/80 hover:border-primary/50 hover:scale-105 shadow-lg hover:shadow-xl">
-      <div className="flex items-center gap-2.5">
-        <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-        <span className="text-xs md:text-sm font-medium text-foreground">
-          Get Beautiful README Components
-        </span>
-        <div className="w-2 h-2 bg-primary rounded-full opacity-100 animate-pulse"></div>
-      </div>
-    </div>
-  </div>
-</Link>
+          
+          <Link to="Elements" className="inline-block mt-[60px] sm:mt-0">
+            <div className="group cursor-pointer pt-5 pb-6">
+              <div className="relative rounded-xl bg-background/60 backdrop-blur-md border border-border px-5 py-2.5 transition-all duration-300 hover:bg-background/80 hover:border-primary/50 hover:scale-105 shadow-lg hover:shadow-xl">
+                <div className="flex items-center gap-2.5">
+                  <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+                  <span className="text-xs md:text-sm font-medium text-foreground">
+                    Get Beautiful README Components
+                  </span>
+                  <div className="w-2 h-2 bg-primary rounded-full opacity-100 animate-pulse"></div>
+                </div>
+              </div>
+            </div>
+          </Link>
 
-<motion.div 
-  initial={{ opacity: 0, y: 30 }} 
-  animate={{ opacity: 1, y: 0 }} 
-  transition={{ delay: 0.2, duration: 0.8 }} 
-  className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto"
->  <h1
-  className="
-    text-center text-[50px] leading-none sm:text-[80px] lg:text-[70px]
-    font-bold
-    bg-gradient-to-r from-foreground via-primary to-primary
-    bg-clip-text text-transparent
-    select-text
-    [&::selection]:bg-transparent
-    [&::selection]:text-current
-    [&_*::selection]:bg-transparent
-    [&_*::selection]:text-current
-  "
->
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            transition={{ delay: 0.2, duration: 0.8 }} 
+            className="flex flex-col items-center justify-center w-full max-w-4xl mx-auto"
+          >  
+            <h1
+              className="
+                text-center text-[50px] leading-none sm:text-[80px] lg:text-[70px]
+                font-bold
+                bg-gradient-to-r from-foreground via-primary to-primary
+                bg-clip-text text-transparent
+                select-text
+                [&::selection]:bg-transparent
+                [&::selection]:text-current
+                [&_*::selection]:bg-transparent
+                [&_*::selection]:text-current
+              "
+            >
+              <span className="inline-block bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
+                Create,
+              </span>{" "}
+              <span className="inline-block bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
+                Design, and
+              </span>{" "}
+              <span className="inline-block text-primary drop-shadow-sm">
+                Share
+              </span>{" "}
+              <span className="inline-block bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
+                in Seconds!
+              </span>
+            </h1>
+          </motion.div>
 
-  <span className="inline-block bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
-    Create,
-  </span>{" "}
-  <span className="inline-block bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
-    Generate, and
-  </span>{" "}
-  <span className="inline-block text-primary drop-shadow-sm">
-    Share
-  </span>{" "}
-  <span className="inline-block bg-gradient-to-r from-foreground via-primary to-primary bg-clip-text text-transparent">
-    in Seconds!
-  </span>
-</h1>
-
-</motion.div>          <motion.h2
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-center px-4 text-lg md:text-xl text-muted-foreground my-10 max-w-2xl"
           >
-            Effortlessly generate beautiful README components, badges, and graphics for your projects{" "}
-            <span className="text-primary font-semibold">—all at once.</span>
-          </motion.h2>          <motion.div
+            Effortlessly build professional README components, badges, and graphics for your projects{" "}
+            <span className="text-primary font-semibold">—all in one place.</span>
+          </motion.h2>
+
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -104,18 +108,13 @@ export default function Home() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
-              <Button asChild variant="outline" size="lg" className="flex items-center gap-2">
+            <Button asChild variant="outline" size="lg" className="flex items-center gap-2">
               <Link to="/drag-drop">
                 <Layout className="h-5 w-5" />
                 Start from Scratch
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg" className="flex items-center gap-2">
-              <Link to="/ai-editor-intro">
-                <Bot className="h-5 w-5" />
-                AI README Editor
-              </Link>
-            </Button>
+            {/* AI Editor Button Removed */}
           </motion.div>
 
           {/* Quick Start Guide */}
