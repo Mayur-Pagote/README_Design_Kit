@@ -362,6 +362,7 @@ export function ElementPalette({ onAddElement }: ElementPaletteProps) {
 
           {/* Advanced Elements Tab */}
           <TabsContent value="advanced" className="space-y-2">
+
             {/* Advanced Tech Stack Creator */}
             {(() => {
               const button = (
