@@ -13,11 +13,9 @@ import {
   Github,
   Eye,
   Settings,
-  Undo,
-  Redo,
-  History, 
-  Save,    
-  Trash2,  
+  History,
+  Save,
+  Trash2,
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -44,7 +42,7 @@ import { GithubUsernameDialog } from '@/components/GithubUsernameDialog';
 import { ReadmeQualityDialog } from '@/components/ReadmeQualityDialog';
 import ScrollToTop from '@/components/ScrollToTop';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { usePersistentHistory } from '@/hooks/usePersistentHistory'; 
+import { useHistory } from '@/contexts/HistoryContext';
 import { demoElements } from '@/data/demo';
 import { TemplateUtils } from '@/utils/templateUtils';
 import { analyzeReadmeQuality, type ReadmeQualityResult } from '@/utils/readmeQualityAnalyzer';
@@ -54,18 +52,16 @@ import type { ReadmeExportPreset } from '@/config/readmeExportPresets';
 import { toast } from 'sonner';
 
 export default function DragDropEditor() {
-  const { 
-    state: elements, 
-    setState: setElements, 
-    undo, 
-    redo, 
-    canUndo, 
-    canRedo,
+  const {
+    elements,
+    setElements,
+    undo,
+    redo,
     checkpoints,
     saveCheckpoint,
     restoreCheckpoint,
     deleteCheckpoint
-  } = usePersistentHistory<ElementType[]>('readme-editor-v1', []);
+  } = useHistory();
 
   const [editingElement, setEditingElement] = useState<ElementType | null>(null);
   const [showPalette, setShowPalette] = useState(!useIsMobile());
@@ -77,10 +73,10 @@ export default function DragDropEditor() {
   const [backToTopVisible, setBackToTopVisible] = useState(false);
   const [githubUsername, setGithubUsername] = useState<string>('your-username');
   const [showGithubUsernameInput, setShowGithubUsernameInput] = useState(false);
-  
- 
+
+
   const [newCheckpointName, setNewCheckpointName] = useState('');
-  
+
   const [exportPreset, setExportPreset] = useState<ReadmeExportPreset>('default');
   const [isTablet, setIsTablet] = useState(false);
   const [qualityResult, setQualityResult] = useState<ReadmeQualityResult | null>(null);
@@ -293,7 +289,7 @@ export default function DragDropEditor() {
 
   const validateElementForEditor = (element: any): ElementType | null => {
     if (!element || !element.type || !element.id) return null;
-    return element as ElementType; 
+    return element as ElementType;
   };
 
   return (
@@ -321,28 +317,6 @@ export default function DragDropEditor() {
           </div>
 
           <div className="hidden md:flex items-center gap-2">
-            <div className="flex items-center gap-1 mr-2 border-r pr-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={undo}
-                disabled={!canUndo}
-                className="h-8 w-8 p-0"
-                title="Undo (Ctrl+Z)"
-              >
-                <Undo className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={redo}
-                disabled={!canRedo}
-                className="h-8 w-8 p-0"
-                title="Redo (Ctrl+Shift+Z)"
-              >
-                <Redo className="h-4 w-4" />
-              </Button>
-            </div>
 
             {/* NEW: History / Checkpoints Menu */}
             <DropdownMenu>
@@ -357,25 +331,25 @@ export default function DragDropEditor() {
                 <div className="p-2 border-b">
                   <div className="font-semibold mb-2 text-xs text-muted-foreground">Save Checkpoint</div>
                   <div className="flex gap-2">
-                    <input 
+                    <input
                       className="flex h-8 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
                       placeholder="Version Name..."
                       value={newCheckpointName}
                       onChange={(e) => setNewCheckpointName(e.target.value)}
                       onKeyDown={(e) => {
-                        if(e.key === 'Enter' && newCheckpointName) {
+                        if (e.key === 'Enter' && newCheckpointName) {
                           saveCheckpoint(newCheckpointName);
                           setNewCheckpointName('');
                           toast.success("Checkpoint saved");
                         }
                       }}
                     />
-                    <Button 
-                      size="icon" 
-                      variant="ghost" 
+                    <Button
+                      size="icon"
+                      variant="ghost"
                       className="h-8 w-8"
                       onClick={() => {
-                        if(newCheckpointName) {
+                        if (newCheckpointName) {
                           saveCheckpoint(newCheckpointName);
                           setNewCheckpointName('');
                           toast.success("Checkpoint saved");
@@ -386,7 +360,7 @@ export default function DragDropEditor() {
                     </Button>
                   </div>
                 </div>
-                
+
                 <div className="max-h-60 overflow-y-auto">
                   {checkpoints.length === 0 && (
                     <div className="p-4 text-center text-sm text-muted-foreground">
@@ -395,8 +369,8 @@ export default function DragDropEditor() {
                   )}
                   {checkpoints.map((cp) => (
                     <div key={cp.id} className="flex items-center justify-between p-2 hover:bg-muted/50 group">
-                      <div 
-                        className="flex-1 cursor-pointer" 
+                      <div
+                        className="flex-1 cursor-pointer"
                         onClick={() => {
                           restoreCheckpoint(cp.id);
                           toast.success(`Restored "${cp.name}"`);
@@ -519,7 +493,7 @@ export default function DragDropEditor() {
                 {showPreview ? 'Hide' : 'Show'} Preview
               </Button>
             </div>
-            
+
             <div className="flex-1 overflow-hidden flex flex-col">
               <div className="flex-1 overflow-auto">
                 <EditorCanvas

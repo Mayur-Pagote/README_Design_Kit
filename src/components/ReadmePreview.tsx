@@ -4,7 +4,7 @@ import {
 } from '@/config/readmeExportPresets';
 import { generateMarkdown as generateMarkdownUtil } from '@/utils/markdownGenerator';
 import { useRef, useState, useEffect } from 'react';
-import { Download, Copy, Share2, Sun, Moon, Eclipse } from 'lucide-react';
+import { Download, Copy, Share2, Sun, Moon, Eclipse, Undo, Redo } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ElementRenderer } from '@/components/ElementRenderer';
 import type { ElementType } from '@/types/elements';
@@ -13,6 +13,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { createGist } from '@/services/githubService';
 import { toast } from 'sonner';
+import { useHistory } from '@/contexts/HistoryContext';
 
 interface ReadmePreviewProps {
   elements: ElementType[];
@@ -25,6 +26,7 @@ export function ReadmePreview({
   preset,
   onPresetChange,
 }: ReadmePreviewProps) {
+  const { undo, redo, canUndo, canRedo } = useHistory();
   const [copied, setCopied] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
   const { theme: globalTheme } = useTheme();
@@ -199,10 +201,36 @@ export function ReadmePreview({
       </div>
 
       <Tabs defaultValue="preview" className="flex-1 flex flex-col">
-        <TabsList className="mx-4 mt-4 w-fit">
-          <TabsTrigger value="preview">Visual Preview</TabsTrigger>
-          <TabsTrigger value="markdown">Markdown Code</TabsTrigger>
-        </TabsList>
+        <div className="flex items-center gap-4 mx-4 mt-4">
+          <TabsList className="w-fit">
+            <TabsTrigger value="preview">Visual Preview</TabsTrigger>
+            <TabsTrigger value="markdown">Markdown Code</TabsTrigger>
+          </TabsList>
+
+          <div className="flex items-center gap-1 bg-muted/50 border border-border p-1 rounded-md shadow-inner">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-sm hover:bg-background hover:shadow-sm transition-all"
+              onClick={undo}
+              disabled={!canUndo}
+              title="Undo (Ctrl+Z)"
+            >
+              <Undo className="h-3.5 w-3.5" />
+            </Button>
+            <div className="w-px h-4 bg-border/50 mx-0.5" />
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-8 w-8 rounded-sm hover:bg-background hover:shadow-sm transition-all"
+              onClick={redo}
+              disabled={!canRedo}
+              title="Redo (Ctrl+Shift+Z)"
+            >
+              <Redo className="h-3.5 w-3.5" />
+            </Button>
+          </div>
+        </div>
 
         <TabsContent value="preview" className="flex-1 overflow-auto p-4">
           <div
