@@ -8,7 +8,6 @@ import {
   PanelRight,
   Sparkles,
   ChevronDown,
-  Info,
   Library,
   Github,
   Eye,
@@ -35,9 +34,6 @@ import { EditorCanvas } from '@/components/EditorCanvas';
 import { ReadmePreview } from '@/components/ReadmePreview';
 import { ElementEditor } from '@/components/ElementEditor';
 import { SaveTemplateDialog } from '@/components/SaveTemplateDialog';
-import { AssistantLauncher } from '@/components/AssistantLauncher';
-import { PersonaComparisonModal } from '@/components/PersonaComparisonModal';
-import { AISettingsDialog } from '@/components/AISettingsDialog';
 import { GithubUsernameDialog } from '@/components/GithubUsernameDialog';
 import { ReadmeQualityDialog } from '@/components/ReadmeQualityDialog';
 import ScrollToTop from '@/components/ScrollToTop';
@@ -67,8 +63,6 @@ export default function DragDropEditor() {
   const [showPalette, setShowPalette] = useState(!useIsMobile());
   const [showPreview, setShowPreview] = useState(!useIsMobile());
   const [showPaletteSheet, setShowPaletteSheet] = useState(false);
-  const [showComparisonModal, setShowComparisonModal] = useState(false);
-  const [showAISettings, setShowAISettings] = useState(false);
   const [loadedTemplateName, setLoadedTemplateName] = useState<string | null>(null);
   const [backToTopVisible, setBackToTopVisible] = useState(false);
   const [githubUsername, setGithubUsername] = useState<string>('your-username');
@@ -181,14 +175,7 @@ export default function DragDropEditor() {
 
   const handleElementsChange = (newElements: ElementType[]) => setElements(newElements);
 
-  const handleBrandingSuggestion = (id: string, newContent: string) => {
-    setElements(prev => prev.map(el => (el.id === id ? { ...el, content: newContent } : el)));
-  };
-
-  const handleRemoveElement = (elementId: string) => {
-    setElements(prev => prev.filter(el => el.id !== elementId));
-    toast.success('Element removed successfully');
-  };
+  // handleRemoveElement function was removed from here as it was unused
 
   const handleReorderElement = (elementId: string, direction: 'up' | 'down') => {
     setElements(prev => {
@@ -203,45 +190,6 @@ export default function DragDropEditor() {
       toast.success(`Element moved ${direction}`);
       return newElements;
     });
-  };
-
-  const handleEnhancedAction = (action: import('@/types/branding').SuggestionAction) => {
-    switch (action.type) {
-      case 'edit':
-        if (action.elementId && action.newContent) {
-          handleBrandingSuggestion(action.elementId, action.newContent);
-          toast.success('Content updated successfully');
-        }
-        break;
-      case 'add':
-        if (action.elementToAdd) {
-          const validatedElement = validateElementForEditor(action.elementToAdd);
-          if (validatedElement) {
-            handleAddElement(validatedElement);
-            toast.success('New element added to README');
-          } else {
-            toast.error('Invalid element - could not add to README');
-            console.error('Failed to validate element:', action.elementToAdd);
-          }
-        }
-        break;
-      case 'remove':
-        if (action.elementId) {
-          handleRemoveElement(action.elementId);
-        }
-        break;
-      case 'reorder':
-        if (action.elementId && action.direction) {
-          handleReorderElement(action.elementId, action.direction);
-        }
-        break;
-      case 'enhance':
-        if (action.elementId && action.newContent) {
-          handleBrandingSuggestion(action.elementId, action.newContent);
-          toast.success('Content enhanced with AI');
-        }
-        break;
-    }
   };
 
   const loadDemo = () => {
@@ -318,7 +266,6 @@ export default function DragDropEditor() {
 
           <div className="hidden md:flex items-center gap-2">
 
-            {/* NEW: History / Checkpoints Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="sm" className="flex items-center gap-2 mr-2">
@@ -419,10 +366,6 @@ export default function DragDropEditor() {
                   <Github className="h-4 w-4" />
                   Set GitHub: {githubUsername}
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setShowAISettings(true)} className="flex items-center gap-2">
-                  <Settings className="h-4 w-4" />
-                  AI Settings
-                </DropdownMenuItem>
                 <DropdownMenuItem
                   onClick={handleCheckReadmeQuality}
                   disabled={elements.length === 0}
@@ -459,10 +402,6 @@ export default function DragDropEditor() {
                 <DropdownMenuItem onClick={() => setShowPreview(!showPreview)} className="flex items-center gap-2">
                   <PanelRight className="h-4 w-4" />
                   {showPreview ? 'Hide' : 'Show'} Preview
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setShowComparisonModal(true)} className="flex items-center gap-2">
-                  <Info className="h-4 w-4" />
-                  Compare Views
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
@@ -618,16 +557,6 @@ export default function DragDropEditor() {
         )}
       </div>
 
-      <AssistantLauncher
-        elements={elements}
-        isEditorActive={elements.length > 0}
-        onApplySuggestion={handleBrandingSuggestion}
-        onApplyAction={handleEnhancedAction}
-        onAddElement={handleAddElement}
-        onRemoveElement={handleRemoveElement}
-        onReorderElement={handleReorderElement}
-        backToTopVisible={backToTopVisible}
-      />
       <ScrollToTop isVisible={backToTopVisible} />
       <ElementEditor
         element={editingElement}
@@ -635,7 +564,6 @@ export default function DragDropEditor() {
         onClose={() => setEditingElement(null)}
         onSave={handleSaveElement}
       />
-      <PersonaComparisonModal isOpen={showComparisonModal} onClose={() => setShowComparisonModal(false)} />
       <GithubUsernameDialog
         isOpen={showGithubUsernameInput}
         onClose={() => setShowGithubUsernameInput(false)}
@@ -645,7 +573,6 @@ export default function DragDropEditor() {
           updateAllGithubUsernames(newUsername);
         }}
       />
-      <AISettingsDialog isOpen={showAISettings} onClose={() => setShowAISettings(false)} />
       <ReadmeQualityDialog open={showQualityDialog} onClose={() => setShowQualityDialog(false)} result={qualityResult} />
     </div>
   );
