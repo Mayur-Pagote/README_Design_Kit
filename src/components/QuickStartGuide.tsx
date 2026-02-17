@@ -64,7 +64,9 @@ export function QuickStartGuide({ onStartFromScratch }: QuickStartGuideProps) {
               <Text className="mr-3 h-5 w-5" />
               <span className="text-base">Documentation</span>
             </CommandItem>
-            <CommandItem onSelect={() => handleNavigation('/about')}>
+            <CommandItem onSelect={() => window.open(
+                  'https://github.com/Mayur-Pagote/README_Design_Kit','_blank'
+                )}>
               <GithubIcon className="mr-3 h-5 w-5" />
               <span className="text-base">Github</span>
             </CommandItem>
