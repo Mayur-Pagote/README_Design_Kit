@@ -23,7 +23,8 @@ const moreItems = [
 
 export const Header = () => {
   const { theme, setTheme } = useTheme()
-  const isDark = theme === "dark"
+  const [isSystemDark, setIsSystemDark] = React.useState(false)
+  const isDark = theme === "dark" || (theme === "system" && isSystemDark)
   const [menuState, setMenuState] = React.useState(false)
   const [isScrolled, setIsScrolled] = React.useState(false)
   
@@ -51,6 +52,16 @@ export const Header = () => {
 
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  React.useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const syncSystemTheme = () => setIsSystemDark(mediaQuery.matches)
+
+    syncSystemTheme()
+    mediaQuery.addEventListener('change', syncSystemTheme)
+
+    return () => mediaQuery.removeEventListener('change', syncSystemTheme)
   }, [])
 
   const closeMenu = () => setMenuState(false)
@@ -181,7 +192,7 @@ export const Header = () => {
                   onClick={closeMenu}
                   className={cn(
                     "block px-4 py-2.5 rounded-md text-sm font-medium hover:bg-accent/10 transition-colors",
-                    isDark ? "text-white/85 hover:text-white" : "text-black hover:text-black" 
+                    isDark ? "text-gray-300 hover:text-white" : "text-black hover:text-black" 
                   )}
                 >
                   {item.name}
@@ -196,7 +207,7 @@ export const Header = () => {
                   }}
                   className={cn(
                     "w-full flex items-center gap-3 px-4 py-2.5 rounded-md text-sm font-medium hover:bg-accent/10 transition-colors",
-                    isDark ? "text-white/85 hover:text-white" : "text-black hover:text-black" 
+                    isDark ? "text-gray-300 hover:text-white" : "text-black hover:text-black" 
                   )}
                 >
                   {isDark ? (
