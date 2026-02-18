@@ -20,8 +20,9 @@ export function applyPatch<T>(state: T, patch: Patch): T {
 
   patch.forEach((change) => {
     const path = change.path;
-    let current: any = newState;
-    
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let current = newState as any;
+
     // Navigate to the parent of the target property
     for (let i = 0; i < path.length - 1; i++) {
       current = current[path[i]];
@@ -45,13 +46,13 @@ export function applyPatch<T>(state: T, patch: Patch): T {
 }
 
 /**
- * Compress/Decompress helpers (Optional: Add LZ-String here if needed later)
+ * Storage helpers
  */
-export const saveToStorage = (key: string, data: any) => {
+export const saveToStorage = (key: string, data: unknown) => {
   try {
     localStorage.setItem(key, JSON.stringify(data));
-  } catch (e) {
-    console.error("Storage quota exceeded", e);
+  } catch (_e) {
+    console.error("Storage quota exceeded", _e);
   }
 };
 
@@ -59,7 +60,7 @@ export const loadFromStorage = <T>(key: string): T | null => {
   try {
     const item = localStorage.getItem(key);
     return item ? JSON.parse(item) : null;
-  } catch (e) {
+  } catch {
     return null;
   }
 };

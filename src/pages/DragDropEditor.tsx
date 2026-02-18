@@ -11,12 +11,7 @@ import {
   Library,
   Github,
   Eye,
-  Undo,
-  Redo,
-  History, 
-  Save,    
-  Trash2,  
-} from 'lucide-react'; // "Info" removed from here
+} from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -39,7 +34,7 @@ import { GithubUsernameDialog } from '@/components/GithubUsernameDialog';
 import { ReadmeQualityDialog } from '@/components/ReadmeQualityDialog';
 import ScrollToTop from '@/components/ScrollToTop';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { usePersistentHistory } from '@/hooks/usePersistentHistory'; 
+import { useHistory } from '@/contexts/HistoryContext';
 import { demoElements } from '@/data/demo';
 import { TemplateUtils } from '@/utils/templateUtils';
 import { analyzeReadmeQuality, type ReadmeQualityResult } from '@/utils/readmeQualityAnalyzer';
@@ -49,18 +44,19 @@ import type { ReadmeExportPreset } from '@/config/readmeExportPresets';
 import { toast } from 'sonner';
 
 export default function DragDropEditor() {
-  const { 
-    state: elements, 
-    setState: setElements, 
-    undo, 
-    redo, 
-    canUndo, 
-    canRedo,
-    checkpoints,
-    saveCheckpoint,
-    restoreCheckpoint,
-    deleteCheckpoint
-  } = usePersistentHistory<ElementType[]>('readme-editor-v1', []);
+  const {
+    state: elements,
+    commit
+  } = useHistory();
+
+  // Helper to update elements with history tracking
+  const setElements = (newElements: ElementType[] | ((prev: ElementType[]) => ElementType[])) => {
+    if (typeof newElements === 'function') {
+      commit(newElements(elements));
+    } else {
+      commit(newElements);
+    }
+  };
 
   const [editingElement, setEditingElement] = useState<ElementType | null>(null);
   const [showPalette, setShowPalette] = useState(!useIsMobile());
@@ -70,9 +66,8 @@ export default function DragDropEditor() {
   const [backToTopVisible, setBackToTopVisible] = useState(false);
   const [githubUsername, setGithubUsername] = useState<string>('your-username');
   const [showGithubUsernameInput, setShowGithubUsernameInput] = useState(false);
-  
-  const [newCheckpointName, setNewCheckpointName] = useState('');
-  
+
+
   const [exportPreset, setExportPreset] = useState<ReadmeExportPreset>('default');
   const [isTablet, setIsTablet] = useState(false);
   const [qualityResult, setQualityResult] = useState<ReadmeQualityResult | null>(null);
@@ -81,22 +76,6 @@ export default function DragDropEditor() {
   const isMobile = useIsMobile();
   const location = useLocation();
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
-        if (e.shiftKey) {
-          redo();
-        } else {
-          undo();
-        }
-      } else if ((e.ctrlKey || e.metaKey) && e.key === 'y') {
-        redo();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [undo, redo]);
 
   useEffect(() => {
     const checkTablet = () => {
@@ -262,107 +241,6 @@ export default function DragDropEditor() {
           </div>
 
           <div className="hidden md:flex items-center gap-2">
-            <div className="flex items-center gap-1 mr-2 border-r pr-2">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={undo}
-                disabled={!canUndo}
-                className="h-8 w-8 p-0"
-                title="Undo (Ctrl+Z)"
-              >
-                <Undo className="h-4 w-4" />
-              </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={redo}
-                disabled={!canRedo}
-                className="h-8 w-8 p-0"
-                title="Redo (Ctrl+Shift+Z)"
-              >
-                <Redo className="h-4 w-4" />
-              </Button>
-            </div>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="flex items-center gap-2 mr-2">
-                  <History className="h-4 w-4" />
-                  History
-                  <ChevronDown className="h-4 w-4 opacity-50" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-64">
-                <div className="p-2 border-b">
-                  <div className="font-semibold mb-2 text-xs text-muted-foreground">Save Checkpoint</div>
-                  <div className="flex gap-2">
-                    <input 
-                      className="flex h-8 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"
-                      placeholder="Version Name..."
-                      value={newCheckpointName}
-                      onChange={(e) => setNewCheckpointName(e.target.value)}
-                      onKeyDown={(e) => {
-                        if(e.key === 'Enter' && newCheckpointName) {
-                          saveCheckpoint(newCheckpointName);
-                          setNewCheckpointName('');
-                          toast.success("Checkpoint saved");
-                        }
-                      }}
-                    />
-                    <Button 
-                      size="icon" 
-                      variant="ghost" 
-                      className="h-8 w-8"
-                      onClick={() => {
-                        if(newCheckpointName) {
-                          saveCheckpoint(newCheckpointName);
-                          setNewCheckpointName('');
-                          toast.success("Checkpoint saved");
-                        }
-                      }}
-                    >
-                      <Save className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-                
-                <div className="max-h-60 overflow-y-auto">
-                  {checkpoints.length === 0 && (
-                    <div className="p-4 text-center text-sm text-muted-foreground">
-                      No saved checkpoints
-                    </div>
-                  )}
-                  {checkpoints.map((cp) => (
-                    <div key={cp.id} className="flex items-center justify-between p-2 hover:bg-muted/50 group">
-                      <div 
-                        className="flex-1 cursor-pointer" 
-                        onClick={() => {
-                          restoreCheckpoint(cp.id);
-                          toast.success(`Restored "${cp.name}"`);
-                        }}
-                      >
-                        <div className="text-sm font-medium">{cp.name}</div>
-                        <div className="text-xs text-muted-foreground">
-                          {new Date(cp.timestamp).toLocaleTimeString()}
-                        </div>
-                      </div>
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="h-6 w-6 opacity-0 group-hover:opacity-100 text-destructive"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          deleteCheckpoint(cp.id);
-                        }}
-                      >
-                        <Trash2 className="h-3 w-3" />
-                      </Button>
-                    </div>
-                  ))}
-                </div>
-              </DropdownMenuContent>
-            </DropdownMenu>
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -451,7 +329,7 @@ export default function DragDropEditor() {
                 {showPreview ? 'Hide' : 'Show'} Preview
               </Button>
             </div>
-            
+
             <div className="flex-1 overflow-hidden flex flex-col">
               <div className="flex-1 overflow-auto">
                 <EditorCanvas
@@ -465,7 +343,6 @@ export default function DragDropEditor() {
               {showPreview && (
                 <div className="border-t flex-1 overflow-auto">
                   <ReadmePreview
-                    elements={elements}
                     preset={exportPreset}
                     onPresetChange={setExportPreset}
                   />
@@ -507,7 +384,6 @@ export default function DragDropEditor() {
             {showPreview && (
               <div className="basis-1/2 max-w-[600px] border-l overflow-auto">
                 <ReadmePreview
-                  elements={elements}
                   preset={exportPreset}
                   onPresetChange={setExportPreset}
                 />
@@ -565,7 +441,6 @@ export default function DragDropEditor() {
               {showPreview && (
                 <div className="basis-1/2 border-l overflow-auto">
                   <ReadmePreview
-                    elements={elements}
                     preset={exportPreset}
                     onPresetChange={setExportPreset}
                   />

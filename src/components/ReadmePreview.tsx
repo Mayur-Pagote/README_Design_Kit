@@ -4,7 +4,7 @@ import {
 } from '@/config/readmeExportPresets';
 import { generateMarkdown as generateMarkdownUtil } from '@/utils/markdownGenerator';
 import { useRef, useState, useEffect } from 'react';
-import { Download, Copy, Share2, Sun, Moon, Eclipse } from 'lucide-react';
+import { Download, Copy, Share2, Sun, Moon, Eclipse, Undo, Redo } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ElementRenderer } from '@/components/ElementRenderer';
 import type { ElementType } from '@/types/elements';
@@ -13,18 +13,21 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { createGist } from '@/services/githubService';
 import { toast } from 'sonner';
+import { useHistory } from '@/contexts/HistoryContext';
 
 interface ReadmePreviewProps {
-  elements: ElementType[];
+  elements?: ElementType[];
   preset: ReadmeExportPreset;
   onPresetChange: (preset: ReadmeExportPreset) => void;
 }
 
 export function ReadmePreview({
-  elements,
+  elements: propsElements,
   preset,
   onPresetChange,
 }: ReadmePreviewProps) {
+  const { state: contextElements, undo, redo, canUndo, canRedo } = useHistory();
+  const elements = propsElements || contextElements;
   const [copied, setCopied] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
   const { theme: globalTheme } = useTheme();
@@ -199,10 +202,37 @@ export function ReadmePreview({
       </div>
 
       <Tabs defaultValue="preview" className="flex-1 flex flex-col">
-        <TabsList className="mx-4 mt-4 w-fit">
-          <TabsTrigger value="preview">Visual Preview</TabsTrigger>
-          <TabsTrigger value="markdown">Markdown Code</TabsTrigger>
-        </TabsList>
+        <div className="flex items-center gap-4 mx-4 mt-4">
+          <TabsList className="w-fit">
+            <TabsTrigger value="preview">Visual Preview</TabsTrigger>
+            <TabsTrigger value="markdown">Markdown Code</TabsTrigger>
+          </TabsList>
+
+          {undo && redo && (
+            <div className="flex items-center gap-1 bg-background/50 p-1 rounded-lg border border-border shadow-sm">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={undo}
+                disabled={!canUndo}
+                className={`h-8 w-8 p-0 transition-all duration-200 ${canUndo ? 'text-emerald-500 hover:text-emerald-400 hover:bg-emerald-500/10' : 'text-muted-foreground'}`}
+                title="Undo (Ctrl+Z)"
+              >
+                <Undo className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={redo}
+                disabled={!canRedo}
+                className={`h-8 w-8 p-0 transition-all duration-200 ${canRedo ? 'text-emerald-500 hover:text-emerald-400 hover:bg-emerald-500/10' : 'text-muted-foreground'}`}
+                title="Redo (Ctrl+Shift+Z)"
+              >
+                <Redo className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+        </div>
 
         <TabsContent value="preview" className="flex-1 overflow-auto p-4">
           <div
