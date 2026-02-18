@@ -28,7 +28,6 @@ const queryClient = new QueryClient();
 // Placeholder components for missing routes to prevent app crash
 const ProjectsSection = () => <div className="p-20 text-center text-muted-foreground">Projects Section Coming Soon</div>;
 const SubmitSection = () => <div className="p-20 text-center text-muted-foreground">Submit Section Coming Soon</div>;
-const ReadmeGenerator = () => <div className="p-20 text-center text-muted-foreground">README Generator Coming Soon</div>;
 const AIEditorIntro = () => <div className="p-20 text-center text-muted-foreground">AI Editor Intro Coming Soon</div>;
 
 
@@ -37,26 +36,6 @@ export default function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <ThemeProvider defaultTheme="system" storageKey="readme-design-kit-theme">
-<<<<<<< HEAD
-          <Cursortrail />
-          <BrowserRouter>
-            <ScrollRestoration />
-            <ConditionalScrollToTop />
-              
-              <Route path="/" element={<Layout><Home /></Layout>} />
-              <Route path="/elements" element={<Layout><Elements /></Layout>} />
-              <Route path="/templates" element={<Layout><TemplateLibraryPage /></Layout>} />
-              
-              <Route path="/drag-drop" element={<Layout><DragDropEditor /></Layout>} />
-              <Route path="/coming-soon" element={<Layout><ComingSoon /></Layout>} />
-             
-              <Route path="/about" element={<Layout><AboutUs /></Layout>} />
-              <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
-export default function App() {
-              <Route path="/readme-editor" element={<ReadmeEditor />} />
-              <Route path="/markdown-editor" element={<Layout><MarkdownEditor /></Layout>} />
-              <Route path="/github-integration" element={<Layout><GitHubIntegration /></Layout>} />
-              <Route path="/readme-generator" element={<Layout><ReadmeGenerator /></Layout>} />
           <HistoryProvider>
             <Cursortrail />
             <BrowserRouter>
@@ -72,6 +51,7 @@ export default function App() {
                 <Route path="/about" element={<Layout><AboutUs /></Layout>} />
                 <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
                 <Route path="/terms" element={<Layout><TermsOfService /></Layout>} />
+                <Route path="/readme-generator" element={<Layout><ReadmeGenerator /></Layout>} />
                 <Route path="/readme-editor" element={<ReadmeEditor />} />
                 <Route path="/markdown-editor" element={<Layout><MarkdownEditor /></Layout>} />
                 <Route path="/ai-editor-intro" element={<Layout><AIEditorIntro /></Layout>} />
@@ -81,16 +61,8 @@ export default function App() {
             </BrowserRouter>
             <Toaster richColors />
           </HistoryProvider>
-                <Route path="/markdown-editor" element={<Layout><MarkdownEditor /></Layout>} />
-                <Route path="/ai-editor-intro" element={<Layout><AIEditorIntro /></Layout>} />
-                <Route path="*" element={<Layout><NotFound /></Layout>} />
-              </Routes>
-            </BrowserRouter>
-            <Toaster richColors />
-          </HistoryProvider>
->>>>>>> cf95863d368c4f0bf5064f60eddfb2362f57a168
         </ThemeProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
-};
+}
