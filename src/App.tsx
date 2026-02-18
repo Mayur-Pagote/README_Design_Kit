@@ -19,6 +19,8 @@ import { ThemeProvider } from "./components/theme-provider";
 import { Toaster } from "./components/ui/sonner";
 import ReadmeEditor from "./components/readme-editor/ReadmeEditor";
 import MarkdownEditor from "./pages/MarkdownEditor";
+import GitHubIntegration from "./pages/GitHubIntegration";
+import ReadmeGenerator from "./pages/ReadmeGenerator";
 import Cursortrail from "./Cursortrail";
 
 const queryClient = new QueryClient();
@@ -56,6 +58,8 @@ export default function App() {
               <Route path="/terms" element={<Layout><TermsOfService /></Layout>} />
               <Route path="/readme-editor" element={<ReadmeEditor />} />
               <Route path="/markdown-editor" element={<Layout><MarkdownEditor /></Layout>} />
+              <Route path="/github-integration" element={<Layout><GitHubIntegration /></Layout>} />
+              <Route path="/readme-generator" element={<Layout><ReadmeGenerator /></Layout>} />
               <Route path="*" element={<Layout><NotFound /></Layout>} />
             </Routes>
           </BrowserRouter>
