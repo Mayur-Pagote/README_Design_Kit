@@ -95,11 +95,6 @@ export default function Footer() {
                         <div className="flex flex-col space-y-4">
                             <h4 className="text-sm font-semibold text-foreground uppercase tracking-wider">Stay Updated</h4>
                             <p className="text-xs text-muted-foreground">Join our community to get the latest README templates and UI tips.</p>
-                            <div className="flex w-full items-center space-x-2">
-                                <div className="h-9 w-full rounded-md border border-neutral-300 dark:border-neutral-800 bg-neutral-100 dark:bg-neutral-900/50 px-3 py-1 text-xs flex items-center text-muted-foreground transition-all duration-200 hover:bg-neutral-200/70 dark:hover:bg-neutral-800/60">
-                                    Coming soon...
-                                </div>
-                            </div>
                         </div>
                     </div>
 
