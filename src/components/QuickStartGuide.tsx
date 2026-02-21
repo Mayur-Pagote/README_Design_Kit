@@ -30,51 +30,61 @@ export function QuickStartGuide({ onStartFromScratch }: QuickStartGuideProps) {
         Need help getting started?
       </Button>
       
-      <CommandDialog open={isOpen} onOpenChange={setIsOpen} className="min-w-[600px] min-h-[400px]">
-        <CommandInput placeholder="Search" />
-        <CommandList>
-          <CommandGroup heading="Getting Started">
-            <CommandItem onSelect={() => handleNavigation('/templates')}>
-              <LayoutDashboard className="mr-3 h-5 w-5" />
-              <span className="text-base">Browse Templates</span>
+      <CommandDialog open={isOpen} onOpenChange={setIsOpen} className="w-[75%] max-w-2xl rounded-2xl border border-border/50 bg-background/80 backdrop-blur-xl shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+
+        <CommandInput placeholder="Search commands..." className="h-12 text-base px-4 border-b border-border/50 bg-transparent focus:outline-none focus:ring-0" />
+
+        <CommandList className="max-h-[420px] overflow-y-auto">
+
+          <CommandGroup heading="Getting Started" className="px-3 pt-5 pb-2 text-xs uppercase tracking-wider text-muted-foreground">
+
+            <CommandItem onSelect={() => handleNavigation('/templates')} className="group flex items-center rounded-xl px-4 py-3 transition-all duration-200 cursor-pointer hover:bg-primary/10 data-[selected=true]:bg-primary/10">
+              <LayoutDashboard className="mr-3 h-5 w-5 text-muted-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary" />
+              <span className="text-base text-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary">Browse Templates</span>
             </CommandItem>
-            <CommandItem onSelect={onStartFromScratch}>
-              <FileCode className="mr-3 h-5 w-5" />
-              <span className="text-base">Start from Scratch</span>
+
+            <CommandItem onSelect={onStartFromScratch} className="group flex items-center rounded-xl px-4 py-3 transition-all duration-200 cursor-pointer hover:bg-primary/10 data-[selected=true]:bg-primary/10">
+              <FileCode className="mr-3 h-5 w-5 text-muted-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary" />
+              <span className="text-base text-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary">Start from Scratch</span>
             </CommandItem>
+
           </CommandGroup>
 
-          <CommandGroup heading="Features">
-            <CommandItem onSelect={() => handleNavigation('/drag-drop')}>
-              <Box className="mr-3 h-5 w-5" />
-              <span className="text-base">Drag and Drop Builder</span>
+
+          <CommandGroup heading="Features" className="px-3 pt-6 pb-2 text-xs uppercase tracking-wider text-muted-foreground">
+
+            <CommandItem onSelect={() => handleNavigation('/drag-drop')} className="group flex items-center rounded-xl px-4 py-3 transition-all duration-200 cursor-pointer hover:bg-primary/10 data-[selected=true]:bg-primary/10">
+              <Box className="mr-3 h-5 w-5 text-muted-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary" />
+              <span className="text-base text-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary">Drag and Drop Builder</span>
             </CommandItem>
-            <CommandItem onSelect={() => handleNavigation('/elements')}>
-              <Component className="mr-3 h-5 w-5" />
-              <span className="text-base">Components Library</span>
+
+            <CommandItem onSelect={() => handleNavigation('/elements')} className="group flex items-center rounded-xl px-4 py-3 transition-all duration-200 cursor-pointer hover:bg-primary/10 data-[selected=true]:bg-primary/10">
+              <Component className="mr-3 h-5 w-5 text-muted-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary" />
+              <span className="text-base text-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary">Components Library</span>
             </CommandItem>
-            {/* Removed Projects CommandItem */}
+
           </CommandGroup>
 
-          <CommandGroup heading="Help">
-            <CommandItem onSelect={() => 
-               window.open(
-                  'https://github.com/Mayur-Pagote/README_Design_Kit/tree/main/docs','_blank'
-                )}>
-              <Text className="mr-3 h-5 w-5" />
-              <span className="text-base">Documentation</span>
+
+          <CommandGroup heading="Help" className="px-3 pt-6 pb-2 text-xs uppercase tracking-wider text-muted-foreground">
+
+            <CommandItem onSelect={() => window.open('https://github.com/Mayur-Pagote/README_Design_Kit/tree/main/docs','_blank')} className="group flex items-center rounded-xl px-4 py-3 transition-all duration-200 cursor-pointer hover:bg-primary/10 data-[selected=true]:bg-primary/10">
+              <Text className="mr-3 h-5 w-5 text-muted-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary" />
+              <span className="text-base text-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary">Documentation</span>
             </CommandItem>
-            <CommandItem onSelect={() => window.open(
-                  'https://github.com/Mayur-Pagote/README_Design_Kit','_blank'
-                )}>
-              <GithubIcon className="mr-3 h-5 w-5" />
-              <span className="text-base">Github</span>
+
+            <CommandItem onSelect={() => window.open('https://github.com/Mayur-Pagote/README_Design_Kit','_blank')} className="group flex items-center rounded-xl px-4 py-3 transition-all duration-200 cursor-pointer hover:bg-primary/10 data-[selected=true]:bg-primary/10">
+              <GithubIcon className="mr-3 h-5 w-5 text-muted-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary" />
+              <span className="text-base text-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary">Github</span>
             </CommandItem>
-            <CommandItem onSelect={() => handleNavigation('/about')}>
-              <Info className="mr-3 h-5 w-5" />
-              <span className="text-base">About Us</span>
+
+            <CommandItem onSelect={() => handleNavigation('/about')} className="group flex items-center rounded-xl px-4 py-3 transition-all duration-200 cursor-pointer hover:bg-primary/10 data-[selected=true]:bg-primary/10">
+              <Info className="mr-3 h-5 w-5 text-muted-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary" />
+              <span className="text-base text-foreground transition-colors duration-200 group-hover:text-primary group-data-[selected=true]:text-primary">About Us</span>
             </CommandItem>
+
           </CommandGroup>
+
         </CommandList>
       </CommandDialog>
     </>
