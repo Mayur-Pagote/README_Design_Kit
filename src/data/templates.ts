@@ -22,6 +22,7 @@ import retroDesk from '../templates/markdown/retro-desk.md?raw';
 import digitalArchitect from '../templates/markdown/digital-architect.md?raw';
 import gitFlow from '../templates/markdown/git-flow.md?raw';
 import devChronicle from '../templates/markdown/dev-chronicle.md?raw';
+import neonpulse from '../templates/markdown/neonpulse.md?raw';
 
 // Sample template data - this would typically come from an API
 export const sampleTemplates: Template[] = [
@@ -206,6 +207,21 @@ export const sampleTemplates: Template[] = [
     updated: new Date('2026-01-22'),
     featured: true,
   },
+    {
+  id: 'neonpulse',
+  name: 'Neon Pulse',
+  markdown: neonpulse,
+  description: 'Modern Animated Template',
+  category: 'modern',
+  tags: ['animated', 'portfolio', 'colorful', 'modern'],
+  author: 'README Design Kit',
+  version: '1.0.0',
+  popularity: 180,
+  thumbnail: '/neonpulse.png',
+  created: new Date('2026-01-25'),
+  updated: new Date('2026-01-25'),
+  featured: false,
+},
   {
     id: 'kanban-portfolio',
     name: 'Kanban Portfolio',
