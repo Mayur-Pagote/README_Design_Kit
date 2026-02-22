@@ -1,6 +1,7 @@
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useState } from "react";
 import Home from "./pages/Home";
 import Layout from "./components/Layout";
 import ScrollRestoration from "./components/ScrollRestoration";
@@ -31,12 +32,23 @@ const AIEditorIntro = () => <div className="p-20 text-center text-muted-foregrou
 
 
 export default function App() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <ThemeProvider defaultTheme="system" storageKey="readme-design-kit-theme">
           <HistoryProvider>
-            <Cursortrail />
+            {!isMobile && <Cursortrail />}
             <BrowserRouter>
               <ScrollRestoration />
               <Routes>
