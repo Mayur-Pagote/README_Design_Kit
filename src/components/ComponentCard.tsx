@@ -52,7 +52,7 @@ export default function ComponentCard({ title, description, imageUrl, codeSnippe
       </div>
       <div className="p-4 flex flex-col flex-grow">
         <h3 className="font-semibold text-foreground mb-2">{title}</h3>
-        <p className="text-sm text-muted-foreground mb-4 flex-grow">{description}</p>
+        <p className="text-sm text-gray-800 dark:text-gray-400 mb-4 flex-grow">{description}</p>
         <Button
           onClick={handleCopyLink}
           className="w-full bg-primary hover:bg-primary/60 text-primary-foreground transform-gpu transition-transform duration-200 ease-out delay-75 hover:-translate-y-0.5 hover:scale-[1.03]"
