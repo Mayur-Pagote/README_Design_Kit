@@ -10,7 +10,7 @@ const links = [
     
     { title: 'Drag & Drop Editor', to: '/drag-drop' },
     { title: 'Readme Generator', to: '/readme-generator' },
-    { title: 'Coming Soon', to: '/coming-soon' },
+    
 ]
 
 

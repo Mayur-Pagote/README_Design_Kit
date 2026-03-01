@@ -9,7 +9,7 @@ import Elements from "./pages/Elements";
 
 import DragDropEditor from "./pages/DragDropEditor";
 import TemplateLibraryPage from "./pages/TemplateLibraryPage";
-import ComingSoon from "./pages/ComingSoon";
+
 
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -59,7 +59,7 @@ export default function App() {
                 <Route path="/projects" element={<Layout><ProjectsSection /></Layout>} />
                 <Route path="/submit" element={<Layout><SubmitSection /></Layout>} />
                 <Route path="/drag-drop" element={<Layout><DragDropEditor /></Layout>} />
-                <Route path="/coming-soon" element={<Layout><ComingSoon /></Layout>} />
+                
 
                 <Route path="/about" element={<Layout><AboutUs /></Layout>} />
                 <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
