@@ -18,7 +18,7 @@ const moreItems = [
   { name: 'Templates', to: '/templates' },
   { name: 'Drag & Drop Editor', to: '/drag-drop' },
   { name: 'Readme Generator', to: '/readme-generator' },
-  { name: 'Coming Soon', to: '/coming-soon' },
+  
 ]
 
 export const Header = () => {
