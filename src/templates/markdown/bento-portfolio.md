@@ -62,10 +62,10 @@
     <table width="100%" border="0">
       <tr>
         <td align="center" width="50%">
-          <img src="https://github-readme-stats.vercel.app/api/top-langs/?username={username}&layout=compact&theme=dracula&hide_border=true" />
+          <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username={username}&theme=transparent" />
         </td>
         <td align="center" width="50%">
-          <img height="180em" src="https://github-readme-stats.vercel.app/api?username={username}&show_icons=true&theme=transparent&title_color=00b4d8&icon_color=00b4d8&text_color=777&hide_border=true" />
+          <img height="180em" src="https://github-profile-summary-cards.vercel.app/api/cards/productive-time?username={username}&theme=transparent" />
         </td>
       </tr>
     </table>
