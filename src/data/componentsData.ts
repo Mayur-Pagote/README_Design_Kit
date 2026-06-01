@@ -115,6 +115,15 @@ export const componentsData: Record<string, ComponentItem[]> = {
         "![Stats Card 10](https://github-profile-summary-cards.vercel.app/api/cards/stats?username={username}&theme=2077)",
     },
     {
+      title: "Terminal Dashboard Card",
+      description:
+        "Terminal-inspired GitHub activity dashboard featuring commits, pull requests, issues, stars, contribution score, and contributor status.",
+      imageUrl:
+        "https://github-terminal-stats-card.vercel.app/api/card?username={username}",
+      codeSnippet:
+        "![Terminal Dashboard](https://github-terminal-stats-card.vercel.app/api/card?username={username})",
+    },
+    {
       title: "Stats Bar Card",
       description:
         "A horizontal bar-style GitHub widget showing followers, repositories, stars, and commits",
