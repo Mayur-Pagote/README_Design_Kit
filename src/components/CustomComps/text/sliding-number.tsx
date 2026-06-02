@@ -9,7 +9,7 @@ import {
   type MotionValue,
   type SpringOptions,
   type UseInViewOptions,
-} from 'motion/react';
+} from 'framer-motion';
 import useMeasure from 'react-use-measure';
 
 import { cn } from '@/lib/utils';

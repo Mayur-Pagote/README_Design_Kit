@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { ArrowRight, Layout } from 'lucide-react'; // Removed Bot icon import
 import { QuickStartGuide } from '@/components/QuickStartGuide';
 
-import { motion } from "motion/react";
+import { motion } from "framer-motion";
 import Aurora from "@/components/LandingComponents/Aurora";
 import LiquidChrome from "@/components/LandingComponents/LiquidChrome";
 import { useTheme } from "@/components/theme-provider";

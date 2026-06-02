@@ -14,7 +14,7 @@ import {
   type UseInViewOptions,
   easeInOut,
   easeOut,
-} from 'motion/react';
+} from 'framer-motion';
 
 import { cn } from '@/lib/utils';
 import { SlidingNumber } from '@/components/CustomComps/text/sliding-number';

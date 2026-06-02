@@ -4,13 +4,14 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Separator } from '@/components/ui/separator';
-import { Monitor, Smartphone, User, Calendar, Copy, Github, Rocket, Brain, FileCode, Settings2, Code2 } from 'lucide-react';
+import { Monitor, Smartphone, User, Calendar, Copy, Github, Rocket, Brain, FileCode, Settings2, Code2, Check } from 'lucide-react';
 import { useTheme } from '@/components/theme-provider';
 import { toast } from "sonner";
 import { generateMarkdown } from "@/utils/markdownGenerator";
 import { ElementRenderer } from '@/components/ElementRenderer';
 import { templateCategories } from '@/data/templates';
 import type { Template } from '@/types/templates';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface TemplatePreviewProps {
   template: Template;
@@ -24,6 +25,7 @@ export function TemplatePreview({ template }: TemplatePreviewProps) {
   const [projectTitle, setProjectTitle] = useState('Portfolio Dashboard'); 
   const [learningTech, setLearningTech] = useState('System Design');
   const [activeTab, setActiveTab] = useState('preview');
+  const [isCopied, setIsCopied] = useState(false);
 
   const { theme } = useTheme();
   const categoryLabel = templateCategories.find(c => c.value === template.category)?.label;
@@ -47,8 +49,10 @@ export function TemplatePreview({ template }: TemplatePreviewProps) {
       const contentToCopy = template.markdown 
         ? processedMarkdown 
         : generateMarkdown(template.elements || [], theme);
-
+      
       await navigator.clipboard.writeText(contentToCopy);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 2000);
       toast.success("Markdown copied to clipboard");
     } catch (err) {
       toast.error("Failed to copy markdown");
@@ -148,11 +152,42 @@ export function TemplatePreview({ template }: TemplatePreviewProps) {
         <div className="flex flex-col gap-3 mt-auto pb-4 lg:pb-0">
           <Button 
             onClick={handleCopyMarkdown} 
-            className="w-full font-semibold h-11 shadow-lg shadow-primary/20 hover:scale-100 cursor-pointer" 
+            className={`w-full font-semibold h-11 shadow-lg shadow-primary/20 cursor-pointer relative overflow-hidden transition-all duration-300 ${
+              isCopied ? 'bg-green-500 hover:bg-green-600 text-white' : ''
+            }`} 
             size="lg"
           >
-            <Copy className="h-4 w-4 mr-2" />
-            Copy Markdown Code
+            <AnimatePresence mode="wait" initial={false}>
+              {isCopied ? (
+                <motion.div
+                  key="copied"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center justify-center absolute inset-0"
+                >
+                  <Check className="h-4 w-4 mr-2" />
+                  Copied
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="copy"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -15 }}
+                  transition={{ duration: 0.2 }}
+                  className="flex items-center justify-center absolute inset-0"
+                >
+                  <Copy className="h-4 w-4 mr-2" />
+                  Copy Markdown Code
+                </motion.div>
+              )}
+            </AnimatePresence>
+            <div className="flex items-center justify-center invisible">
+              <Copy className="h-4 w-4 mr-2" />
+              Copy Markdown Code
+            </div>
           </Button>
         </div>
       </div>
@@ -197,8 +232,40 @@ export function TemplatePreview({ template }: TemplatePreviewProps) {
             )}
             
             {activeTab === 'markdown' && (
-               <Button size="sm" variant="ghost" className="h-8 text-xs" onClick={handleCopyMarkdown}>
-                  <Copy className="h-3.5 w-3.5 mr-2" /> Copy Code
+               <Button 
+                 size="sm" 
+                 variant="ghost" 
+                 className={`h-8 text-xs relative overflow-hidden transition-all duration-300 ${isCopied ? 'text-green-500 hover:text-green-600' : ''}`} 
+                 onClick={handleCopyMarkdown}
+               >
+                  <AnimatePresence mode="wait" initial={false}>
+                    {isCopied ? (
+                      <motion.div
+                        key="copied"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex items-center justify-center absolute inset-0"
+                      >
+                        <Check className="h-3.5 w-3.5 mr-2" /> Copied
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="copy"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.2 }}
+                        className="flex items-center justify-center absolute inset-0"
+                      >
+                        <Copy className="h-3.5 w-3.5 mr-2" /> Copy Code
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                  <div className="flex items-center justify-center invisible">
+                    <Copy className="h-3.5 w-3.5 mr-2" /> Copy Code
+                  </div>
                </Button>
             )}
           </div>
