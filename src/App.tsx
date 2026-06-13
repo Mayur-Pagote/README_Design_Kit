@@ -22,6 +22,8 @@ import MarkdownEditor from "./pages/MarkdownEditor";
 import Cursortrail from "./Cursortrail";
 import { HistoryProvider } from "./contexts/HistoryContext";
 
+import TypingSvgGeneratorPage from "./pages/TypingSvgGeneratorPage";
+
 const queryClient = new QueryClient();
 
 // Placeholder components for missing routes to prevent app crash
@@ -59,7 +61,8 @@ export default function App() {
                 <Route path="/projects" element={<Layout><ProjectsSection /></Layout>} />
                 <Route path="/submit" element={<Layout><SubmitSection /></Layout>} />
                 <Route path="/drag-drop" element={<Layout><DragDropEditor /></Layout>} />
-                
+
+                <Route path="/typing-svg" element={<Layout><TypingSvgGeneratorPage /></Layout>} /> 
 
                 <Route path="/about" element={<Layout><AboutUs /></Layout>} />
                 <Route path="/privacy" element={<Layout><PrivacyPolicy /></Layout>} />
