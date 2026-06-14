@@ -18,8 +18,7 @@ import {
   GripVertical,
   Copy,
   RefreshCw,
-  // Eye
-  // FileText removed - not being used
+
 } from "lucide-react";
 import { toast } from "sonner"; // Changed from useToast to sonner toast
 
@@ -191,7 +190,6 @@ export function TypingSvgGenerator() {
 
   useEffect(() => {
     generateMarkdown();
-    setPreviewError(false);
   }, [config, generateMarkdown]);
 
   // Handle preview image error
