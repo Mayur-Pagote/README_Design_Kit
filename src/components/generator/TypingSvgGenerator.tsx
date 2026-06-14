@@ -18,7 +18,7 @@ import {
   GripVertical,
   Copy,
   RefreshCw,
-  // Eye,
+  
   // FileText removed - not being used
 } from "lucide-react";
 import { toast } from "sonner"; // Changed from useToast to sonner toast
