@@ -18,7 +18,7 @@ import {
   GripVertical,
   Copy,
   RefreshCw,
-  Eye,
+  // Eye,
   // FileText removed - not being used
 } from "lucide-react";
 import { toast } from "sonner"; // Changed from useToast to sonner toast
@@ -66,11 +66,11 @@ const PRESET_COLORS = [
 ];
 
 const FONT_FAMILIES = [
-  { label: "Fira Code", value: "Fira Code, monospace" },
-  { label: "Courier New", value: "Courier New, monospace" },
-  { label: "Consolas", value: "Consolas, monospace" },
-  { label: "Menlo", value: "Menlo, monospace" },
-  { label: "SF Mono", value: "SF Mono, monospace" },
+  { label: "Fira Code", value: "Fira Code" },
+  { label: "Courier New", value: "Courier New" },
+  { label: "Consolas", value: "Consolas" },
+  { label: "Menlo", value: "Menlo" },
+  { label: "SF Mono", value: "SF Mono" },
 ];
 
 const SPEED_PRESETS = {
@@ -84,28 +84,35 @@ const SPEED_PRESETS = {
 export function TypingSvgGenerator() {
   const [config, setConfig] = useState<TypingSvgConfig>(DEFAULT_CONFIG);
   const [markdownCode, setMarkdownCode] = useState<string>("");
-  const [previewError, setPreviewError] = useState<boolean>(false);
+  // const [previewError, setPreviewError] = useState<boolean>(false);
 
   const generateSvgUrl = useCallback(() => {
-    // Encode lines properly for URL
-    const linesParam = config.lines.map(line => encodeURIComponent(line.text)).join('\n');
-    
-    // Build params for readme-typing-svg service
-    const params = new URLSearchParams({
-      lines: linesParam,
-      color: config.color.replace('#', ''),
-      size: config.fontSize.toString(),
-      speed: config.typingSpeed.toString(),
-      pause: config.pauseDuration.toString(),
-      loop: config.loop ? "true" : "false",
-      cursor: config.showCursor ? "█" : "",
-      center: config.center ? "true" : "false",
-      width: config.width.toString(),
-      height: config.height.toString(),
-      font: config.fontFamily,
-    });
+  const validLines = config.lines
+    .map((line) => line.text.trim())
+    .filter(Boolean);
 
-    return `https://readme-typing-svg.demolab.com?${params.toString()}`;
+  const customEncode = (str: string) =>
+    encodeURIComponent(str)
+      .replace(/%3B/g, ";")
+      .replace(/%20/g, "+");
+
+  const separator = ";";
+
+  const query = [
+    `font=${customEncode(config.fontFamily)}`,
+    `size=${config.fontSize}`,
+    `pause=${config.pauseDuration}`,
+    `color=${config.color.replace("#", "")}`,
+    `center=${config.center}`,
+    `vCenter=true`,
+    `width=${config.width}`,
+    `height=${config.height}`,
+    `repeat=${config.loop}`,
+    `separator=${separator}`,
+    `lines=${customEncode(validLines.join(separator))}`,
+  ].join("&");
+    
+    return `https://readme-typing-svg.demolab.com?$query)}`;
   }, [config]);
 
   const generateMarkdown = useCallback(() => {
@@ -188,9 +195,9 @@ export function TypingSvgGenerator() {
   }, [config, generateMarkdown]);
 
   // Handle preview image error
-  const handlePreviewError = () => {
-    setPreviewError(true);
-  };
+  //const handlePreviewError = () => {
+  //setPreviewError(true);
+  //};
 
   return (
     <div className="container mx-auto p-6 space-y-6 max-w-7xl">
@@ -464,21 +471,16 @@ export function TypingSvgGenerator() {
               <CardDescription>See your typing SVG in action</CardDescription>
             </CardHeader>
             <CardContent>
+              
               <div className="flex items-center justify-center min-h-[200px] border rounded-lg p-6 bg-muted/20">
-                {previewError ? (
-                  <div className="text-center text-muted-foreground">
-                    <Eye className="h-12 w-12 mx-auto mb-2 opacity-50" />
-                    <p>Preview temporarily unavailable</p>
-                    <p className="text-sm">Try adjusting the settings</p>
-                  </div>
-                ) : (
+                
                   <img
+                    key={generateSvgUrl()}
                     src={generateSvgUrl()}
                     alt="Typing SVG Preview"
-                    className="max-w-full"
-                    onError={handlePreviewError}
+                    className="max-w-full bg-transparent"
                   />
-                )}
+                
               </div>
             </CardContent>
           </Card>
