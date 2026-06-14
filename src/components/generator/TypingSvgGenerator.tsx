@@ -112,7 +112,7 @@ export function TypingSvgGenerator() {
     `lines=${customEncode(validLines.join(separator))}`,
   ].join("&");
     
-    return `https://readme-typing-svg.demolab.com?$query)}`;
+    return `https://readme-typing-svg.demolab.com?${query}`;
   }, [config]);
 
   const generateMarkdown = useCallback(() => {
