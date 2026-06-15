@@ -38,7 +38,7 @@ const navigate = useNavigate();
             return (
               <button
                 key={category.id}
-                onClick={() => handleCategorySelect(category.id)}
+                onClick={() => handleCategoryClick(category.id)}
                 className={cn(
                   "w-full flex items-center gap-3 px-3 py-2 text-left rounded-lg transition-all duration-200",
                   "hover:bg-accent hover:text-accent-foreground",
