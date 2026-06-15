@@ -17,8 +17,8 @@ import {
   Trash2,
   GripVertical,
   Copy,
-  RefreshCw,
-
+  //Eye,
+  // FileText removed - not being used
 } from "lucide-react";
 import { toast } from "sonner"; // Changed from useToast to sonner toast
 
@@ -43,7 +43,7 @@ interface TypingSvgConfig {
 
 const DEFAULT_CONFIG: TypingSvgConfig = {
   lines: [
-    { id: "1", text: "Front-End Developer" },
+    { id: "1", text: "Full Stack Developer" },
     { id: "2", text: "UI/UX Enthusiast" },
     { id: "3", text: "Open Source Contributor" },
   ],
@@ -56,7 +56,7 @@ const DEFAULT_CONFIG: TypingSvgConfig = {
   center: true,
   width: 500,
   height: 60,
-  fontFamily: "Fira Code, monospace",
+  fontFamily: "Fira Code",
 };
 
 const PRESET_COLORS = [
@@ -83,7 +83,7 @@ const SPEED_PRESETS = {
 export function TypingSvgGenerator() {
   const [config, setConfig] = useState<TypingSvgConfig>(DEFAULT_CONFIG);
   const [markdownCode, setMarkdownCode] = useState<string>("");
-  // const [previewError, setPreviewError] = useState<boolean>(false);
+  //const [previewError, setPreviewError] = useState<boolean>(false);
 
   const generateSvgUrl = useCallback(() => {
   const validLines = config.lines
@@ -110,9 +110,9 @@ export function TypingSvgGenerator() {
     `separator=${separator}`,
     `lines=${customEncode(validLines.join(separator))}`,
   ].join("&");
-    
-    return `https://readme-typing-svg.demolab.com?${query}`;
-  }, [config]);
+
+  return `https://readme-typing-svg.demolab.com?${query}`;
+}, [config]);
 
   const generateMarkdown = useCallback(() => {
     const svgUrl = generateSvgUrl();
@@ -174,10 +174,10 @@ export function TypingSvgGenerator() {
       toast.success("Copied!", {
         description: "Markdown code copied to clipboard",
       });
-    } catch (err) {
-      toast.error("Error", {
-        description: "Failed to copy to clipboard",
-      });
+    } catch {
+          toast.error("Error", {
+             description: "Failed to copy to clipboard",
+       });
     }
   };
 
@@ -190,13 +190,11 @@ export function TypingSvgGenerator() {
 
   useEffect(() => {
     generateMarkdown();
+    //setPreviewError(false);
   }, [config, generateMarkdown]);
 
   // Handle preview image error
-  //const handlePreviewError = () => {
-  //setPreviewError(true);
-  //};
-
+  
   return (
     <div className="container mx-auto p-6 space-y-6 max-w-7xl">
       <div className="space-y-2">
@@ -456,27 +454,19 @@ export function TypingSvgGenerator() {
                   >
                     Reset
                   </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => generateMarkdown()}
-                  >
-                    <RefreshCw className="h-4 w-4 mr-1" />
-                    Refresh
-                  </Button>
                 </div>
               </CardTitle>
               <CardDescription>See your typing SVG in action</CardDescription>
             </CardHeader>
             <CardContent>
-              
+            
               <div className="flex items-center justify-center min-h-[200px] border rounded-lg p-6 bg-muted/20">
-                
+              
                   <img
-                    key={generateSvgUrl()}
-                    src={generateSvgUrl()}
-                    alt="Typing SVG Preview"
-                    className="max-w-full bg-transparent"
+                       key={generateSvgUrl()}
+                       src={generateSvgUrl()}
+                       alt="Typing SVG Preview"
+                       className="max-w-full bg-transparent"
                   />
                 
               </div>
