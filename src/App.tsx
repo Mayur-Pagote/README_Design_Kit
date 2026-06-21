@@ -9,7 +9,7 @@ import Elements from "./pages/Elements";
 
 import DragDropEditor from "./pages/DragDropEditor";
 import TemplateLibraryPage from "./pages/TemplateLibraryPage";
-
+import ScrollToTopButton from "./components/_components/ScrollToTopButton";
 
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -73,6 +73,7 @@ export default function App() {
                 <Route path="/ai-editor-intro" element={<Layout><AIEditorIntro /></Layout>} />
                 <Route path="*" element={<Layout><NotFound /></Layout>} />
               </Routes>
+              <ScrollToTopButton/>
             </BrowserRouter>
             <Toaster richColors />
           </HistoryProvider>
