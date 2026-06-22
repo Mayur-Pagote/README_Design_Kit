@@ -21,13 +21,13 @@ import ReadmeEditor from "./components/readme-editor/ReadmeEditor";
 import MarkdownEditor from "./pages/MarkdownEditor";
 import Cursortrail from "./Cursortrail";
 import { HistoryProvider } from "./contexts/HistoryContext";
+import ReadmeGenerator from "./components/generator/Readme-generator";
 
 const queryClient = new QueryClient();
 
 // Placeholder components for missing routes to prevent app crash
 const ProjectsSection = () => <div className="p-20 text-center text-muted-foreground">Projects Section Coming Soon</div>;
 const SubmitSection = () => <div className="p-20 text-center text-muted-foreground">Submit Section Coming Soon</div>;
-const ReadmeGenerator = () => <div className="p-20 text-center text-muted-foreground">README Generator Coming Soon</div>;
 const AIEditorIntro = () => <div className="p-20 text-center text-muted-foreground">AI Editor Intro Coming Soon</div>;
 
 
