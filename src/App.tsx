@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Layout from "./components/Layout";
 import ScrollRestoration from "./components/ScrollRestoration";
 import Elements from "./pages/Elements";
+import ThemePacks from "./pages/ThemePacks";
 
 import DragDropEditor from "./pages/DragDropEditor";
 import TemplateLibraryPage from "./pages/TemplateLibraryPage";
@@ -55,6 +56,7 @@ export default function App() {
 
                 <Route path="/" element={<Layout><Home /></Layout>} />
                 <Route path="/elements" element={<Layout><Elements /></Layout>} />
+                <Route path="/theme-packs" element={<Layout><ThemePacks /></Layout>} />
                 <Route path="/templates" element={<Layout><TemplateLibraryPage /></Layout>} />
                 <Route path="/projects" element={<Layout><ProjectsSection /></Layout>} />
                 <Route path="/submit" element={<Layout><SubmitSection /></Layout>} />
