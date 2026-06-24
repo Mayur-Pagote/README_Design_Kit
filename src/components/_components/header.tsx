@@ -15,10 +15,11 @@ import {
 
 
 const moreItems = [
+  { name: 'Theme Packs', to: '/theme-packs' },
   { name: 'Templates', to: '/templates' },
   { name: 'Drag & Drop Editor', to: '/drag-drop' },
   { name: 'Readme Generator', to: '/readme-generator' },
-  
+
 ]
 
 export const Header = () => {
@@ -181,6 +182,7 @@ export const Header = () => {
             <div className="lg:hidden pb-4 mt-4 space-y-2 border-t border-white/10 animate-in fade-in slide-in-from-top-2 bg-background/95 backdrop-blur-md rounded-xl">
               {[
                 { name: "Elements", to: "/elements" },
+                { name: "Theme Packs", to: "/theme-packs" },
                 { name: "Templates", to: "/templates" },
                 { name: "Drag & Drop Editor", to: "/drag-drop" },
                 { name: "Readme Generator", to: "/readme-generator" },
