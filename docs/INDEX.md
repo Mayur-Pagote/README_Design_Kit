@@ -31,6 +31,15 @@ Detailed documentation of every file and directory in the project, explaining th
 - Configuration files
 - Asset organization
 
+### 🎨 [Theme Packs](./theme-packs.md)
+Curated bundles of matching banners, badges, and dividers that share one visual language.
+
+**Topics Covered:**
+- The available packs (Neon, Minimal, Retro)
+- Using and copying packs
+- Mixing packs without breaking consistency
+- Authoring and extending your own pack
+
 ## 🔗 Additional Resources
 
 ### 🎨 [README Elements Library](../READMEelements.md)
