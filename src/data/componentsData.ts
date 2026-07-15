@@ -827,6 +827,18 @@ export const componentsData: Record<string, ComponentItem[]> = {
         "https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer",
       codeSnippet: `<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" width="100%"/>`,
     },
+    {
+      title: "Aurora Glow Line (SVG)",
+      description: "An elegant, fading gradient line divider with a subtle neon aura.",
+      imageUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 6' width='100%' height='6'><defs><linearGradient id='aurora-grad' x1='0%' y1='0%' x2='100%' y2='0%'><stop offset='0%' stop-color='%234f46e5' stop-opacity='0'/><stop offset='15%' stop-color='%234f46e5' stop-opacity='1'/><stop offset='50%' stop-color='%23ec4899' stop-opacity='1'/><stop offset='85%' stop-color='%23f43f5e' stop-opacity='1'/><stop offset='100%' stop-color='%23f43f5e' stop-opacity='0'/></linearGradient></defs><rect width='1200' height='3' rx='1.5' fill='url(%23aurora-grad)' y='1.5'/></svg>",
+      codeSnippet: `<p align="center">\n  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 6" width="100%" height="6">\n    <defs>\n      <linearGradient id="aurora-grad" x1="0%" y1="0%" x2="100%" y2="0%">\n        <stop offset="0%" stop-color="#4f46e5" stop-opacity="0" />\n        <stop offset="15%" stop-color="#4f46e5" stop-opacity="1" />\n        <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />\n        <stop offset="85%" stop-color="#f43f5e" stop-opacity="1" />\n        <stop offset="100%" stop-color="#f43f5e" stop-opacity="0" />\n      </linearGradient>\n    </defs>\n    <rect width="1200" height="3" rx="1.5" fill="url(#aurora-grad)" y="1.5" />\n  </svg>\n</p>`,
+    },
+    {
+      title: "Tech Pulse Dotted Line (SVG)",
+      description: "A cyberpunk-themed dotted separator with a central pulsing diamond indicator.",
+      imageUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 24' width='100%' height='24'><defs><linearGradient id='dots-grad' x1='0%' y1='0%' x2='100%' y2='0%'><stop offset='0%' stop-color='%2314b8a6' stop-opacity='0.15'/><stop offset='50%' stop-color='%2306b6d4' stop-opacity='1'/><stop offset='100%' stop-color='%2314b8a6' stop-opacity='0.15'/></linearGradient></defs><line x1='50' y1='12' x2='950' y2='12' stroke='url(%23dots-grad)' stroke-width='2' stroke-dasharray='1 8' stroke-linecap='round'/><g transform='translate(500, 12)'><rect x='-6' y='-6' width='12' height='12' rx='2' fill='%2306b6d4' transform='rotate(45)'/></g></svg>",
+      codeSnippet: `<p align="center">\n  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 24" width="100%" height="24">\n    <defs>\n      <linearGradient id="dots-grad" x1="0%" y1="0%" x2="100%" y2="0%">\n        <stop offset="0%" stop-color="#14b8a6" stop-opacity="0.15" />\n        <stop offset="50%" stop-color="#06b6d4" stop-opacity="1" />\n        <stop offset="100%" stop-color="#14b8a6" stop-opacity="0.15" />\n      </linearGradient>\n    </defs>\n    <line x1="50" y1="12" x2="950" y2="12" stroke="url(#dots-grad)" stroke-width="2" stroke-dasharray="1 8" stroke-linecap="round" />\n    <g transform="translate(500, 12)">\n      <rect x="-6" y="-6" width="12" height="12" rx="2" fill="#06b6d4" transform="rotate(45)" />\n      <rect x="-6" y="-6" width="12" height="12" rx="2" fill="none" stroke="#22d3ee" stroke-width="2" transform="rotate(45)">\n        <animate attributeName="scale" values="1;1.8;1" dur="2.5s" repeatCount="indefinite" />\n        <animate attributeName="opacity" values="1;0;1" dur="2.5s" repeatCount="indefinite" />\n      </rect>\n    </g>\n  </svg>\n</p>`,
+    },
   ],
   coding: [
     {
