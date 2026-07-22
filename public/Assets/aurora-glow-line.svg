@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 16" width="100%" height="16">
+  <defs>
+    <linearGradient id="aurora-glow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4f46e5" stop-opacity="0" />
+      <stop offset="15%" stop-color="#4f46e5" stop-opacity="0.85" />
+      <stop offset="35%" stop-color="#8b5cf6" stop-opacity="1" />
+      <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+      <stop offset="65%" stop-color="#f43f5e" stop-opacity="1" />
+      <stop offset="85%" stop-color="#f43f5e" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#f43f5e" stop-opacity="0" />
+    </linearGradient>
+    <filter id="aurora-glow-filter" x="-20%" y="-100%" width="140%" height="300%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+  </defs>
+  <!-- Outer Glow Aura Line -->
+  <line x1="20" y1="8" x2="1180" y2="8" stroke="url(#aurora-glow-grad)" stroke-width="10" stroke-linecap="round" opacity="0.5" filter="url(#aurora-glow-filter)" />
+  <!-- Core Crisp Gradient Line -->
+  <line x1="20" y1="8" x2="1180" y2="8" stroke="url(#aurora-glow-grad)" stroke-width="3" stroke-linecap="round" />
+</svg>
