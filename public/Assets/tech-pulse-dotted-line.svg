@@ -7,20 +7,13 @@
       <stop offset="65%" stop-color="#06b6d4" stop-opacity="0.8" />
       <stop offset="100%" stop-color="#14b8a6" stop-opacity="0.15" />
     </linearGradient>
-    <filter id="cyan-glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="2.5" result="blur" />
-      <feMerge>
-        <feMergeNode in="blur" />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
   </defs>
   <!-- Cyberpunk Dotted Line -->
   <line x1="40" y1="16" x2="960" y2="16" stroke="url(#tech-dots-grad)" stroke-width="3" stroke-dasharray="2 10" stroke-linecap="round" />
   <!-- Central Diamond Badge -->
   <g transform="translate(500, 16)">
-    <!-- Outer Glow Diamond -->
-    <polygon points="0,-12 12,0 0,12 -12,0" fill="none" stroke="#22d3ee" stroke-width="2" opacity="0.7" filter="url(#cyan-glow)" />
+    <!-- Outer Diamond Layer -->
+    <polygon points="0,-12 12,0 0,12 -12,0" fill="none" stroke="#22d3ee" stroke-width="2" opacity="0.7" />
     <!-- Solid Inner Diamond -->
     <polygon points="0,-7 7,0 0,7 -7,0" fill="#06b6d4" />
     <!-- Center Core Dot -->

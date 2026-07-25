@@ -828,16 +828,10 @@ export const componentsData: Record<string, ComponentItem[]> = {
       codeSnippet: `<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" width="100%"/>`,
     },
     {
-      title: "Aurora Glow Line",
-      description: "An elegant, fading gradient line divider with a subtle neon aura.",
-      imageUrl: "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/aurora-glow-line.svg",
-      codeSnippet: `<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/aurora-glow-line.svg" width="100%" />`,
-    },
-    {
       title: "Tech Pulse Dotted Line",
       description: "A cyberpunk-themed dotted separator with a central pulsing diamond indicator.",
-      imageUrl: "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/tech-pulse-dotted-line.gif",
-      codeSnippet: `<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/tech-pulse-dotted-line.gif" width="100%" />`,
+      imageUrl: "https://raw.githubusercontent.com/{username}/{repo}/main/public/Assets/tech-pulse-dotted-line.gif",
+      codeSnippet: `<img src="https://raw.githubusercontent.com/{username}/{repo}/main/public/Assets/tech-pulse-dotted-line.gif" width="100%" />`,
     },
   ],
   coding: [
