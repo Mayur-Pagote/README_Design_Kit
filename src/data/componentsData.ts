@@ -164,57 +164,57 @@ export const componentsData: Record<string, ComponentItem[]> = {
       title: "Hand Waving",
       description: "Animated waving hand GIF",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Hand%20Waving.gif?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Hand%20Waving.gif",
       codeSnippet:
-        "![Hand Waving](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Hand%20Waving.gif)",
+        "![Hand Waving](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Hand%20Waving.gif)",
     },
     {
       title: "Gmail Thug",
       description: "Cool animated Gmail character",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Gmail%20Thug.gif?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Gmail%20Thug.gif",
       codeSnippet:
-        "![Gmail Thug](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Gmail%20Thug.gif)",
+        "![Gmail Thug](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Gmail%20Thug.gif)",
     },
     {
       title: "Kyubey",
       description: "Cute animated character",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Kyubey.gif?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Kyubey.gif",
       codeSnippet:
-        "![Kyubey](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Kyubey.gif)",
+        "![Kyubey](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Kyubey.gif)",
     },
     {
       title: "Pixel Cat",
       description: "Retro pixel art cat animation",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Pixel%20Cat.gif?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Pixel%20Cat.gif",
       codeSnippet:
-        "![Pixel Cat](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Pixel%20Cat.gif)",
+        "![Pixel Cat](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Pixel%20Cat.gif)",
     },
     {
       title: "Plumber",
       description: "Animated plumber character",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Plumber.gif?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Plumber.gif",
       codeSnippet:
-        "![Plumber](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Plumber.gif)",
+        "![Plumber](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Plumber.gif)",
     },
     {
       title: "Professional Handshake",
       description: "Professional handshake animation",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Professional%20Handshake.gif?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Professional%20Handshake.gif",
       codeSnippet:
-        "![Professional Handshake](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Professional%20Handshake.gif)",
+        "![Professional Handshake](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Professional%20Handshake.gif)",
     },
     {
       title: "Rabbit Happy",
       description: "Happy rabbit animation",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Rabit%20Happy.gif?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Rabit%20Happy.gif",
       codeSnippet:
-        "![Rabbit Happy](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Rabit%20Happy.gif)",
+        "![Rabbit Happy](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Rabit%20Happy.gif)",
     },
     {
       title: "Debugging Mode",
@@ -447,193 +447,193 @@ export const componentsData: Record<string, ComponentItem[]> = {
       title: "Alien Monster",
       description: "Cute alien monster emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Alien%20Monster.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Alien%20Monster.png",
       codeSnippet:
-        "![Alien Monster](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Alien%20Monster.png)",
+        "![Alien Monster](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Alien%20Monster.png)",
     },
     {
       title: "Brain",
       description: "Brain emoji for intelligence",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Brain.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Brain.png",
       codeSnippet:
-        "![Brain](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Brain.png)",
+        "![Brain](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Brain.png)",
     },
     {
       title: "Bug",
       description: "Bug emoji for debugging",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Bug.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Bug.png",
       codeSnippet:
-        "![Bug](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Bug.png)",
+        "![Bug](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Bug.png)",
     },
     {
       title: "Comet",
       description: "Shooting star comet",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Comet.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Comet.png",
       codeSnippet:
-        "![Comet](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Comet.png)",
+        "![Comet](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Comet.png)",
     },
     {
       title: "Confused Face",
       description: "Confused expression emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Confused%20Face.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Confused%20Face.png",
       codeSnippet:
-        "![Confused Face](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Confused%20Face.png)",
+        "![Confused Face](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Confused%20Face.png)",
     },
     {
       title: "Eyes",
       description: "Watching eyes emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Eyes.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Eyes.png",
       codeSnippet:
-        "![Eyes](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Eyes.png)",
+        "![Eyes](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Eyes.png)",
     },
     {
       title: "Firm Hand Waving",
       description: "Hand waving gesture",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Firm%20Hand%20Waving.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Firm%20Hand%20Waving.png",
       codeSnippet:
-        "![Firm Hand Waving](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Firm%20Hand%20Waving.png)",
+        "![Firm Hand Waving](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Firm%20Hand%20Waving.png)",
     },
     {
       title: "Firm Handshake",
       description: "Professional handshake emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Firm%20Handshake.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Firm%20Handshake.png",
       codeSnippet:
-        "![Firm Handshake](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Firm%20Handshake.png)",
+        "![Firm Handshake](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Firm%20Handshake.png)",
     },
     {
       title: "Flame",
       description: "Fire flame emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Flame.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Flame.png",
       codeSnippet:
-        "![Flame](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Flame.png)",
+        "![Flame](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Flame.png)",
     },
     {
       title: "Flexed Biceps",
       description: "Strong arm emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Flexed%20Biceps.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Flexed%20Biceps.png",
       codeSnippet:
-        "![Flexed Biceps](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Flexed%20Biceps.png)",
+        "![Flexed Biceps](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Flexed%20Biceps.png)",
     },
     {
       title: "Heart and Fire",
       description: "Passionate heart with fire",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Heart%20and%20Fire.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Heart%20and%20Fire.png",
       codeSnippet:
-        "![Heart and Fire](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Heart%20and%20Fire.png)",
+        "![Heart and Fire](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Heart%20and%20Fire.png)",
     },
     {
       title: "Hot Cup",
       description: "Hot coffee cup emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Hot%20Cup.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Hot%20Cup.png",
       codeSnippet:
-        "![Hot Cup](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Hot%20Cup.png)",
+        "![Hot Cup](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Hot%20Cup.png)",
     },
     {
       title: "Hourglass",
       description: "Time hourglass emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Hourglass.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Hourglass.png",
       codeSnippet:
-        "![Hourglass](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Hourglass.png)",
+        "![Hourglass](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Hourglass.png)",
     },
     {
       title: "Man Technologist",
       description: "Male developer emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Man%20Technologist.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Man%20Technologist.png",
       codeSnippet:
-        "![Man Technologist](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Man%20Technologist.png)",
+        "![Man Technologist](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Man%20Technologist.png)",
     },
     {
       title: "Musical Notes",
       description: "Music notes emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Musical%20Notes.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Musical%20Notes.png",
       codeSnippet:
-        "![Musical Notes](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Musical%20Notes.png)",
+        "![Musical Notes](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Musical%20Notes.png)",
     },
     {
       title: "Nerd Face",
       description: "Geeky nerd face emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Nerd%20Face.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Nerd%20Face.png",
       codeSnippet:
-        "![Nerd Face](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Nerd%20Face.png)",
+        "![Nerd Face](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Nerd%20Face.png)",
     },
     {
       title: "Robot",
       description: "Robot face emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Roboto.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Roboto.png",
       codeSnippet:
-        "![Robot](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Roboto.png)",
+        "![Robot](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Roboto.png)",
     },
     {
       title: "Rocket",
       description: "Rocket launch emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Rocket.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Rocket.png",
       codeSnippet:
-        "![Rocket](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Rocket.png)",
+        "![Rocket](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Rocket.png)",
     },
     {
       title: "Spiral",
       description: "Spiral design element",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Spiral.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Spiral.png",
       codeSnippet:
-        "![Spiral](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Spiral.png)",
+        "![Spiral](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Spiral.png)",
     },
     {
       title: "Star",
       description: "Shining star emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Star.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Star.png",
       codeSnippet:
-        "![Star](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Star.png)",
+        "![Star](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Star.png)",
     },
     {
       title: "Thinking Face",
       description: "Thoughtful thinking emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Thinking%20Face.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Thinking%20Face.png",
       codeSnippet:
-        "![Thinking Face](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Thinking%20Face.png)",
+        "![Thinking Face](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Thinking%20Face.png)",
     },
     {
       title: "Wing Left",
       description: "Left wing design element",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Wing%20Left.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Wing%20Left.png",
       codeSnippet:
-        "![Wing Left](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Wing%20Left.png)",
+        "![Wing Left](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Wing%20Left.png)",
     },
     {
       title: "Wing Right",
       description: "Right wing design element",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Wing%20Right.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Wing%20Right.png",
       codeSnippet:
-        "![Wing Right](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Wing%20Right.png)",
+        "![Wing Right](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Wing%20Right.png)",
     },
     {
       title: "Writing",
       description: "Writing hand emoji",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Writing.png?raw=true",
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Writing.png",
       codeSnippet:
-        "![Writing](https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Writing.png)",
+        "![Writing](https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Writing.png)",
     },
   ],
   quotes: [
@@ -747,64 +747,64 @@ export const componentsData: Record<string, ComponentItem[]> = {
       title: "RGB Line Thin",
       description: "A thin animated RGB divider line.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/ff67bec3b85c96bfeb4406e7d9d4b593147d16c5/Assets/RGB%20Line%20Thin.gif?raw=true",
-      codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/ff67bec3b85c96bfeb4406e7d9d4b593147d16c5/Assets/RGB%20Line%20Thin.gif" width="1000" height="2" />`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Thin.gif",
+      codeSnippet: `<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Thin.gif" width="1000" height="2" />`,
     },
     {
       title: "RGB Line Medium",
       description: "A medium-thick animated RGB divider line.",
       imageUrl:
-        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/aa28326300247d989c9f7c2eeb177f59577d785b/Assets/RGB%20Line%20Medium.gif?raw=true",
-      codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/aa28326300247d989c9f7c2eeb177f59577d785b/Assets/RGB%20Line%20Medium.gif?raw=true" width="100%">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Medium.gif",
+      codeSnippet: `<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Medium.gif" width="100%">`,
     },
     {
       title: "RGB Line Thick",
       description: "A thick animated RGB divider line.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/730d340c8008758ac291ebc555f818f851feda0f/Assets/RGB%20Line%20Thick.gif?raw=true",
-      codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/730d340c8008758ac291ebc555f818f851feda0f/Assets/RGB%20Line%20Thick.gif" width="100%" />`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Thick.gif",
+      codeSnippet: `<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Thick.gif" width="100%" />`,
     },
     {
       title: "Blue Line",
       description: "A thin animated blue divider line.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/ddf2e61e40a672d5148927e186f409efbda38ef5/Assets/Blue%20Line.gif?raw=true",
-      codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/ddf2e61e40a672d5148927e186f409efbda38ef5/Assets/Blue%20Line.gif" width="100%" height="2px" />`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Blue%20Line.gif",
+      codeSnippet: `<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Blue%20Line.gif" width="100%" height="2px" />`,
     },
     {
       title: "Blue Line Thick",
       description: "A thick blue line for dividing sections.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/ddf2e61e40a672d5148927e186f409efbda38ef5/Assets/Blue%20Line.gif?raw=true",
-      codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/ddf2e61e40a672d5148927e186f409efbda38ef5/Assets/Blue%20Line.gif" width="100%">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Blue%20Line.gif",
+      codeSnippet: `<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Blue%20Line.gif" width="100%">`,
     },
     {
       title: "Blue Pink Line",
       description: "A colorful line combining blue and pink hues.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/4c8a729bb53e68ad274c9a854060a273949a6d35/Assets/Blue%20Pink%20Line.gif?raw=true",
-      codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/4c8a729bb53e68ad274c9a854060a273949a6d35/Assets/Blue%20Pink%20Line.gif" width="100%">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Blue%20Pink%20Line.gif",
+      codeSnippet: `<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Blue%20Pink%20Line.gif" width="100%">`,
     },
     {
       title: "Starlight Line",
       description: "A shimmering starlight line to add visual flair.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/45123f007c79aa8d0c8d9b11b3ff72d6bf4744c7/Assets/Star%20Light%20Line.gif?raw=true",
-      codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/45123f007c79aa8d0c8d9b11b3ff72d6bf4744c7/Assets/Star%20Light%20Line.gif" width="100%">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Star%20Light%20Line.gif",
+      codeSnippet: `<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Star%20Light%20Line.gif" width="100%">`,
     },
     {
       title: "Multicolor Static Line",
       description: "A colorful static line divider.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/1bb0f2254d2034e5769544f497e47f01b3b9b571/Assets/Multicolor%20Static%20Line.png?raw=true",
-      codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/1bb0f2254d2034e5769544f497e47f01b3b9b571/Assets/Multicolor%20Static%20Line.png" width="100%">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Multicolor%20Static%20Line.png",
+      codeSnippet: `<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Multicolor%20Static%20Line.png" width="100%">`,
     },
     {
       title: "Multicolor Segregated Line",
       description: "A colorful segmented static divider line.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/1bb0f2254d2034e5769544f497e47f01b3b9b571/Assets/Multicolor%20Segregated%20Line.png?raw=true",
-      codeSnippet: `<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/1bb0f2254d2034e5769544f497e47f01b3b9b571/Assets/Multicolor%20Segregated%20Line.png" width="100%">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Multicolor%20Segregated%20Line.png",
+      codeSnippet: `<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Multicolor%20Segregated%20Line.png" width="100%">`,
     },
     {
       title: "Wave Header",
@@ -826,6 +826,12 @@ export const componentsData: Record<string, ComponentItem[]> = {
       imageUrl:
         "https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer",
       codeSnippet: `<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&height=100&section=footer" width="100%"/>`,
+    },
+    {
+      title: "Tech Pulse Dotted Line",
+      description: "A cyberpunk-themed dotted separator with a central pulsing diamond indicator.",
+      imageUrl: "https://raw.githubusercontent.com/{username}/{repo}/main/public/Assets/tech-pulse-dotted-line.gif",
+      codeSnippet: `<img src="https://raw.githubusercontent.com/{username}/{repo}/main/public/Assets/tech-pulse-dotted-line.gif" width="100%" />`,
     },
   ],
   coding: [
@@ -908,15 +914,15 @@ export const componentsData: Record<string, ComponentItem[]> = {
       title: "Wing Left",
       description: "A decorative left wing image for aesthetic enhancement.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/04381e30cf956503e49302a2b1feff0abe3066ec/Assets/Wing%20Left.png?raw=true",
-      codeSnippet: `<img height="150" width="150" src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/04381e30cf956503e49302a2b1feff0abe3066ec/Assets/Wing%20Left.png">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Wing%20Left.png",
+      codeSnippet: `<img height="150" width="150" src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Wing%20Left.png">`,
     },
     {
       title: "Wing Right",
       description: "A decorative right wing image to pair with the left wing.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/04381e30cf956503e49302a2b1feff0abe3066ec/Assets/Wing%20Right.png?raw=true",
-      codeSnippet: `<img height="150" width="150" src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/04381e30cf956503e49302a2b1feff0abe3066ec/Assets/Wing%20Right.png">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Wing%20Right.png",
+      codeSnippet: `<img height="150" width="150" src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Wing%20Right.png">`,
     },
   ],
   socials: [
@@ -924,57 +930,57 @@ export const componentsData: Record<string, ComponentItem[]> = {
       title: "Animated LinkedIn",
       description: "Animated LinkedIn icon for profile headers or footers.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/linkedin.gif?raw=true",
-      codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/linkedin.gif" width="100">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/linkedin.gif",
+      codeSnippet: `<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/linkedin.gif" width="100">`,
     },
     {
       title: "Animated Instagram",
       description: "Animated Instagram icon for social sections.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/instagram.gif?raw=true",
-      codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/instagram.gif" width="100">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/instagram.gif",
+      codeSnippet: `<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/instagram.gif" width="100">`,
     },
     {
       title: "Animated Discord",
       description: "Animated Discord icon for gaming and community links.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/discord.gif?raw=true",
-      codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/discord.gif" width="100">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/discord.gif",
+      codeSnippet: `<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/discord.gif" width="100">`,
     },
     {
       title: "Animated Facebook",
       description: "Animated Facebook icon for classic social media presence.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook.gif?raw=true",
-      codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook.gif" width="100">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/facebook.gif",
+      codeSnippet: `<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/facebook.gif" width="100">`,
     },
     {
       title: "LinkedIn",
       description: "Static LinkedIn logo.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/linkedin-1.png?raw=true",
-      codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/linkedin-1.png" width="100">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/linkedin-1.png",
+      codeSnippet: `<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/linkedin-1.png" width="100">`,
     },
     {
       title: "Instagram",
       description: "Static Instagram logo.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/instagram-1.webp?raw=true",
-      codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/instagram-1.webp" width="100">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/instagram-1.webp",
+      codeSnippet: `<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/instagram-1.webp" width="100">`,
     },
     {
       title: "Discord",
       description: "Static Discord logo.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/discord-1.png?raw=true",
-      codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/discord-1.png" width="100">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/discord-1.png",
+      codeSnippet: `<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/discord-1.png" width="100">`,
     },
     {
       title: "Facebook",
       description: "Static Facebook logo.",
       imageUrl:
-        "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook-1.png?raw=true",
-      codeSnippet: `<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook-1.png" width="100">`,
+        "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/facebook-1.png",
+      codeSnippet: `<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/facebook-1.png" width="100">`,
     },
   ],
   achievements: [

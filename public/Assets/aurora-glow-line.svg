@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 24" width="100%" height="24">
+  <defs>
+    <linearGradient id="aurora-glow-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4f46e5" stop-opacity="0" />
+      <stop offset="15%" stop-color="#6366f1" stop-opacity="0.85" />
+      <stop offset="35%" stop-color="#a855f7" stop-opacity="1" />
+      <stop offset="50%" stop-color="#ec4899" stop-opacity="1" />
+      <stop offset="65%" stop-color="#f43f5e" stop-opacity="1" />
+      <stop offset="85%" stop-color="#f43f5e" stop-opacity="0.85" />
+      <stop offset="100%" stop-color="#f43f5e" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+  <!-- Outer Glow Aura Layers -->
+  <line x1="20" y1="12" x2="1180" y2="12" stroke="url(#aurora-glow-grad)" stroke-width="20" stroke-linecap="round" opacity="0.08" />
+  <line x1="20" y1="12" x2="1180" y2="12" stroke="url(#aurora-glow-grad)" stroke-width="16" stroke-linecap="round" opacity="0.15" />
+  <line x1="20" y1="12" x2="1180" y2="12" stroke="url(#aurora-glow-grad)" stroke-width="12" stroke-linecap="round" opacity="0.25" />
+  <line x1="20" y1="12" x2="1180" y2="12" stroke="url(#aurora-glow-grad)" stroke-width="8" stroke-linecap="round" opacity="0.45" />
+  <line x1="20" y1="12" x2="1180" y2="12" stroke="url(#aurora-glow-grad)" stroke-width="5" stroke-linecap="round" opacity="0.75" />
+  <!-- Core Crisp Gradient Line -->
+  <line x1="20" y1="12" x2="1180" y2="12" stroke="url(#aurora-glow-grad)" stroke-width="2.5" stroke-linecap="round" opacity="1.0" />
+</svg>

@@ -63,9 +63,9 @@ export const themePacks: ThemePack[] = [
         title: "Divider",
         description: "Animated RGB line that matches the neon glow.",
         imageUrl:
-          "https://github.com/Mayur-Pagote/README_Design_Kit/blob/730d340c8008758ac291ebc555f818f851feda0f/Assets/RGB%20Line%20Thick.gif?raw=true",
+          "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Thick.gif",
         codeSnippet:
-          '<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/730d340c8008758ac291ebc555f818f851feda0f/Assets/RGB%20Line%20Thick.gif?raw=true" width="100%" />',
+          '<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Thick.gif" width="100%" />',
       },
     },
   },

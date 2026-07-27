@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Copy, Check } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -38,14 +38,36 @@ export default function ComponentCard({ title, description, imageUrl, codeSnippe
   const finalImageUrl = imageUrl.replace(/\{username\}/g, username).replace(/\{repo\}/g, repo);
   const cleanCode = codeSnippet.replace(/^```[a-z]*\n/, '').replace(/\n```$/, '');
 
+  const getInitialSrc = (url: string) => {
+    const assetMatch = url.match(/(?:public\/)?Assets\/([^?#]+)/i);
+    if (assetMatch && assetMatch[1] && (url.includes('githubusercontent.com') || url.startsWith('/Assets/'))) {
+      return `/Assets/${decodeURIComponent(assetMatch[1])}`;
+    }
+    return url;
+  };
+
+  const [imgSrc, setImgSrc] = useState(() => getInitialSrc(finalImageUrl));
+
+  useEffect(() => {
+    setImgSrc(getInitialSrc(finalImageUrl));
+  }, [finalImageUrl]);
+
+  const handleImageError = () => {
+    // If local asset fails to load, fall back to finalImageUrl
+    if (imgSrc !== finalImageUrl) {
+      setImgSrc(finalImageUrl);
+    }
+  };
+
   return (
     <div className="relative bg-slate-800/40 border border-slate-700/50 rounded-2xl overflow-hidden backdrop-blur-lg opacity-90 group transform-gpu transition-all duration-200 ease-out delay-100 hover:-translate-y-2 hover:scale-[1.04] shadow-md hover:shadow-2xl hover:shadow-purple-500/40 hover:opacity-100 hover:border-purple-600 cursor-pointer max-w-sm flex flex-col h-full">
       <div className="aspect-video bg-muted flex items-start justify-start p-0 overflow-hidden flex-col flex-grow relative group-hover:bg-slate-900/50 transition-colors">
-        {finalImageUrl ? (
+        {imgSrc ? (
           <div className="w-full h-full flex items-center justify-center p-4">
             <img
-              src={finalImageUrl}
+              src={imgSrc}
               alt={title}
+              onError={handleImageError}
               className="max-w-full max-h-full object-contain rounded"
             />
           </div>

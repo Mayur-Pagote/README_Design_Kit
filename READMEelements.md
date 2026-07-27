@@ -710,10 +710,10 @@ Note: To own a pet or learn more about this, please refer to this link https://g
 <summary><h2>Lines and Waves</h2></summary>
 
 <h3>RGB Line Thin</h3> 
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/ff67bec3b85c96bfeb4406e7d9d4b593147d16c5/Assets/RGB%20Line%20Thin.gif" width="1000" height="2" /> 
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Thin.gif" width="1000" height="2" /> 
 
 ```bash
- <img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/ff67bec3b85c96bfeb4406e7d9d4b593147d16c5/Assets/RGB%20Line%20Thin.gif" width="1000" height="2" />
+ <img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Thin.gif" width="1000" height="2" />
 ```
 
 <br>
@@ -722,10 +722,10 @@ Note: To own a pet or learn more about this, please refer to this link https://g
 
 
 <h3>RGB Line Medium</h3> 
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/aa28326300247d989c9f7c2eeb177f59577d785b/Assets/RGB%20Line%20Medium.gif" width="100%"> 
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Medium.gif" width="100%"> 
  
 ```bash
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/aa28326300247d989c9f7c2eeb177f59577d785b/Assets/RGB%20Line%20Medium.gif" width="100%"> 
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Medium.gif" width="100%"> 
 ```
 <br>
 
@@ -733,10 +733,10 @@ Note: To own a pet or learn more about this, please refer to this link https://g
 
 
 <h3>RGB Line Thick</h3> 
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/730d340c8008758ac291ebc555f818f851feda0f/Assets/RGB%20Line%20Thick.gif" width="100%" />
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Thick.gif" width="100%" />
 
 ```bash
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/730d340c8008758ac291ebc555f818f851feda0f/Assets/RGB%20Line%20Thick.gif" width="100%" />
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/RGB%20Line%20Thick.gif" width="100%" />
 ```
 <br>
 
@@ -744,10 +744,10 @@ Note: To own a pet or learn more about this, please refer to this link https://g
 
 
 <h3>Blue Line</h3> 
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/ddf2e61e40a672d5148927e186f409efbda38ef5/Assets/Blue%20Line.gif" width="100%" height="2px" /> 
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Blue%20Line.gif" width="100%" height="2px" /> 
 
 ```bash
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/ddf2e61e40a672d5148927e186f409efbda38ef5/Assets/Blue%20Line.gif" width="100%" height="2px" />
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Blue%20Line.gif" width="100%" height="2px" />
 ```
 <br>
 
@@ -755,10 +755,10 @@ Note: To own a pet or learn more about this, please refer to this link https://g
 
 
 <h3>Blue Line Thick</h3> 
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/ddf2e61e40a672d5148927e186f409efbda38ef5/Assets/Blue%20Line.gif" width="100%"> 
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Blue%20Line.gif" width="100%"> 
 
 ```bash
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/ddf2e61e40a672d5148927e186f409efbda38ef5/Assets/Blue%20Line.gif" width="100%"> 
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Blue%20Line.gif" width="100%"> 
 ```
 <br>
 
@@ -766,10 +766,10 @@ Note: To own a pet or learn more about this, please refer to this link https://g
 
 
 <h3>Blue Pink Line</h3> 
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/4c8a729bb53e68ad274c9a854060a273949a6d35/Assets/Blue%20Pink%20Line.gif" width="100%"> 
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Blue%20Pink%20Line.gif" width="100%"> 
 
 ```bash
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/4c8a729bb53e68ad274c9a854060a273949a6d35/Assets/Blue%20Pink%20Line.gif" width="100%">
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Blue%20Pink%20Line.gif" width="100%">
 ```
 <br>
 
@@ -777,10 +777,10 @@ Note: To own a pet or learn more about this, please refer to this link https://g
 
 
 <h3>Starlight Line</h3> 
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/45123f007c79aa8d0c8d9b11b3ff72d6bf4744c7/Assets/Star%20Light%20Line.gif" width="100%"> 
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Star%20Light%20Line.gif" width="100%"> 
 
 ```bash
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/45123f007c79aa8d0c8d9b11b3ff72d6bf4744c7/Assets/Star%20Light%20Line.gif" width="100%">
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Star%20Light%20Line.gif" width="100%">
 ```
 <br>
 
@@ -788,10 +788,10 @@ Note: To own a pet or learn more about this, please refer to this link https://g
 
 
 <h3>Multicolor Static Line</h3> 
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/1bb0f2254d2034e5769544f497e47f01b3b9b571/Assets/Multicolor%20Static%20Line.png" width="100%"> 
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Multicolor%20Static%20Line.png" width="100%"> 
 
 ```bash
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/1bb0f2254d2034e5769544f497e47f01b3b9b571/Assets/Multicolor%20Static%20Line.png" width="100%"> 
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Multicolor%20Static%20Line.png" width="100%"> 
 ```
 <br>
 
@@ -799,10 +799,10 @@ Note: To own a pet or learn more about this, please refer to this link https://g
 
 
 <h3>Multicolor Segregated Line</h3> 
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/1bb0f2254d2034e5769544f497e47f01b3b9b571/Assets/Multicolor%20Segregated%20Line.png" width="100%"> 
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Multicolor%20Segregated%20Line.png" width="100%"> 
 
 ```bash
-<img src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/1bb0f2254d2034e5769544f497e47f01b3b9b571/Assets/Multicolor%20Segregated%20Line.png" width="100%"> 
+<img src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Multicolor%20Segregated%20Line.png" width="100%"> 
 ```
 <br>
 
@@ -837,10 +837,10 @@ Note: To own a pet or learn more about this, please refer to this link https://g
 <summary><h2>Decorations</h2></summary>
 
 <h3>Wing Left</h3> 
-<img height="150" width="150" src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/04381e30cf956503e49302a2b1feff0abe3066ec/Assets/Wing%20Left.png">
+<img height="150" width="150" src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Wing%20Left.png">
 
 ```bash
-<img height="150" width="150" src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/04381e30cf956503e49302a2b1feff0abe3066ec/Assets/Wing%20Left.png">
+<img height="150" width="150" src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Wing%20Left.png">
 ```
 
 <br>
@@ -849,10 +849,10 @@ Note: To own a pet or learn more about this, please refer to this link https://g
 
 
 <h3>Wing Right</h3> 
-<img height="150" width="150" src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/04381e30cf956503e49302a2b1feff0abe3066ec/Assets/Wing%20Right.png"> 
+<img height="150" width="150" src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Wing%20Right.png"> 
 
 ```bash
- <img height="150" width="150" src="https://github.com/Mayur-Pagote/README_Design_Kit/blob/04381e30cf956503e49302a2b1feff0abe3066ec/Assets/Wing%20Right.png"> 
+ <img height="150" width="150" src="https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Wing%20Right.png"> 
 ```
 
 <br>
@@ -876,10 +876,10 @@ https://readme-typing-svg.demolab.com/demo/
 ---
 
 <h3>Gmail Thug</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/4bd65340f9697f050c2b121dcf6adad5b1faf419/Assets/Gmail%20Thug.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Gmail%20Thug.gif" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/4bd65340f9697f050c2b121dcf6adad5b1faf419/Assets/Gmail%20Thug.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Gmail%20Thug.gif" width="75px" height="75">
 ```
 <br>
 
@@ -887,10 +887,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Plumber</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/db72bcb2057105d8f0df1171c30e27ad5acb5084/Assets/Plumber.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Plumber.gif" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/db72bcb2057105d8f0df1171c30e27ad5acb5084/Assets/Plumber.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Plumber.gif" width="75px" height="75">
 ```
 <br>
 
@@ -898,10 +898,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Pixel Cat</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/db72bcb2057105d8f0df1171c30e27ad5acb5084/Assets/Pixel%20Cat.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Pixel%20Cat.gif" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/db72bcb2057105d8f0df1171c30e27ad5acb5084/Assets/Pixel%20Cat.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Pixel%20Cat.gif" width="75px" height="75">
 ```
 <br>
 
@@ -909,10 +909,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Kyubey</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/db72bcb2057105d8f0df1171c30e27ad5acb5084/Assets/Kyubey.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Kyubey.gif" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/db72bcb2057105d8f0df1171c30e27ad5acb5084/Assets/Kyubey.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Kyubey.gif" width="75px" height="75">
 ```
 <br>
 
@@ -920,10 +920,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Rabit Happy</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/7425c4548ea3e506d3c671fb5098d3cd6d7ca43a/Assets/Rabit%20Happy.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Rabit%20Happy.gif" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/7425c4548ea3e506d3c671fb5098d3cd6d7ca43a/Assets/Rabit%20Happy.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Rabit%20Happy.gif" width="75px" height="75">
 ```
 <br>
 
@@ -931,10 +931,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Professional Handshake</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/726b586734064d91ba689f63041b3f87a7c1a36d/Assets/Professional%20Handshake.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Professional%20Handshake.gif" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/726b586734064d91ba689f63041b3f87a7c1a36d/Assets/Professional%20Handshake.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Professional%20Handshake.gif" width="75px" height="75">
 ```
 <br>
 
@@ -942,10 +942,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Hand Waving</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/726b586734064d91ba689f63041b3f87a7c1a36d/Assets/Hand%20Waving.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Hand%20Waving.gif" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/726b586734064d91ba689f63041b3f87a7c1a36d/Assets/Hand%20Waving.gif" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Hand%20Waving.gif" width="75px" height="75">
 ```
 <br>
 
@@ -958,10 +958,10 @@ https://readme-typing-svg.demolab.com/demo/
 <summary><h2>Emoji</h2></summary>
 
 <h3>Thinking Face</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/beb70163ec5b93d0acf865b4a58851b753844366/Assets/Thinking%20Face.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Thinking%20Face.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/beb70163ec5b93d0acf865b4a58851b753844366/Assets/Thinking%20Face.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Thinking%20Face.png" width="75px" height="75">
 ```
 <br>
 
@@ -969,10 +969,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Nerd Face</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/beb70163ec5b93d0acf865b4a58851b753844366/Assets/Nerd%20Face.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Nerd%20Face.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/beb70163ec5b93d0acf865b4a58851b753844366/Assets/Nerd%20Face.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Nerd%20Face.png" width="75px" height="75">
 ```
 <br>
 
@@ -980,10 +980,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Confused Face</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/beb70163ec5b93d0acf865b4a58851b753844366/Assets/Confused%20Face.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Confused%20Face.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/beb70163ec5b93d0acf865b4a58851b753844366/Assets/Confused%20Face.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Confused%20Face.png" width="75px" height="75">
 ```
 <br>
 
@@ -994,7 +994,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/sleeping.png" width="75px" height="75">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/sleeping.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/sleeping.png" width="75px" height="75">
 ```
 <br>
 
@@ -1005,7 +1005,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/Yawn.png" width="75px" height="75">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Yawn.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Yawn.png" width="75px" height="75">
 ```
 <br>
 
@@ -1016,7 +1016,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/Shocked.png" width="75px" height="75">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Shocked.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Shocked.png" width="75px" height="75">
 ```
 <br>
 
@@ -1027,7 +1027,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/upsidedown.png" width="75px" height="75">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/upsidedown.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/upsidedown.png" width="75px" height="75">
 ```
 <br>
 
@@ -1038,7 +1038,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/smart.png" width="75px" height="75">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/smart.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/smart.png" width="75px" height="75">
 ```
 <br>
 
@@ -1049,7 +1049,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/Smiling.png" width="75px" height="75">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/Smiling.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Smiling.png" width="75px" height="75">
 ```
 <br>
 
@@ -1060,17 +1060,17 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/notinterested.png" width="75px" height="75">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/notinterested.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/notinterested.png" width="75px" height="75">
 ```
 <br>
 
 ---
 
 <h3>Firm Hand Waving</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/664b912c007df30986846e67f4b42c9439fc8737/Assets/Firm%20Hand%20Waving.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Firm%20Hand%20Waving.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/664b912c007df30986846e67f4b42c9439fc8737/Assets/Firm%20Hand%20Waving.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Firm%20Hand%20Waving.png" width="75px" height="75">
 ```
 <br>
 
@@ -1078,10 +1078,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Firm Handshake</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/664b912c007df30986846e67f4b42c9439fc8737/Assets/Firm%20Handshake.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Firm%20Handshake.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/664b912c007df30986846e67f4b42c9439fc8737/Assets/Firm%20Handshake.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Firm%20Handshake.png" width="75px" height="75">
 ```
 <br>
 
@@ -1089,10 +1089,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Writing</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/d9992ffc7f730e9a7f52f28e29cbc4262ba36345/Assets/Writing.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Writing.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/d9992ffc7f730e9a7f52f28e29cbc4262ba36345/Assets/Writing.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Writing.png" width="75px" height="75">
 ```
 <br>
 
@@ -1100,10 +1100,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Musical Notes</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/7425c4548ea3e506d3c671fb5098d3cd6d7ca43a/Assets/Musical%20Notes.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Musical%20Notes.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/7425c4548ea3e506d3c671fb5098d3cd6d7ca43a/Assets/Musical%20Notes.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Musical%20Notes.png" width="75px" height="75">
 ```
 <br>
 
@@ -1111,10 +1111,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Roboto</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/7425c4548ea3e506d3c671fb5098d3cd6d7ca43a/Assets/Roboto.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Roboto.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/7425c4548ea3e506d3c671fb5098d3cd6d7ca43a/Assets/Roboto.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Roboto.png" width="75px" height="75">
 ```
 <br>
 
@@ -1122,10 +1122,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Rocket</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/d9992ffc7f730e9a7f52f28e29cbc4262ba36345/Assets/Rocket.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Rocket.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/d9992ffc7f730e9a7f52f28e29cbc4262ba36345/Assets/Rocket.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Rocket.png" width="75px" height="75">
 ```
 <br>
 
@@ -1133,10 +1133,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Spiral</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/d9992ffc7f730e9a7f52f28e29cbc4262ba36345/Assets/Spiral.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Spiral.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/d9992ffc7f730e9a7f52f28e29cbc4262ba36345/Assets/Spiral.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Spiral.png" width="75px" height="75">
 ```
 <br>
 
@@ -1144,10 +1144,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Star</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/d9992ffc7f730e9a7f52f28e29cbc4262ba36345/Assets/Star.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Star.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/d9992ffc7f730e9a7f52f28e29cbc4262ba36345/Assets/Star.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Star.png" width="75px" height="75">
 ```
 <br>
 
@@ -1155,10 +1155,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Heart and Fire</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/3892af4a12972ede602e19b35c01fa209d8bfd9f/Assets/Heart%20and%20Fire.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Heart%20and%20Fire.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/3892af4a12972ede602e19b35c01fa209d8bfd9f/Assets/Heart%20and%20Fire.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Heart%20and%20Fire.png" width="75px" height="75">
 ```
 <br>
 
@@ -1166,10 +1166,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Hot Cup</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/3892af4a12972ede602e19b35c01fa209d8bfd9f/Assets/Hot%20Cup.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Hot%20Cup.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/3892af4a12972ede602e19b35c01fa209d8bfd9f/Assets/Hot%20Cup.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Hot%20Cup.png" width="75px" height="75">
 ```
 <br>
 
@@ -1177,10 +1177,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Hourglass</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/3892af4a12972ede602e19b35c01fa209d8bfd9f/Assets/Hourglass.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Hourglass.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/3892af4a12972ede602e19b35c01fa209d8bfd9f/Assets/Hourglass.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Hourglass.png" width="75px" height="75">
 ```
 <br>
 
@@ -1188,10 +1188,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Man Technologist</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/3892af4a12972ede602e19b35c01fa209d8bfd9f/Assets/Man%20Technologist.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Man%20Technologist.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/3892af4a12972ede602e19b35c01fa209d8bfd9f/Assets/Man%20Technologist.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Man%20Technologist.png" width="75px" height="75">
 ```
 <br>
 
@@ -1199,10 +1199,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Comet</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/1e8184a44321696d525db21948edc79a2426b27d/Assets/Comet.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Comet.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/1e8184a44321696d525db21948edc79a2426b27d/Assets/Comet.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Comet.png" width="75px" height="75">
 ```
 <br>
 
@@ -1210,10 +1210,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Eyes</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/1e8184a44321696d525db21948edc79a2426b27d/Assets/Eyes.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Eyes.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/1e8184a44321696d525db21948edc79a2426b27d/Assets/Eyes.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Eyes.png" width="75px" height="75">
 ```
 <br>
 
@@ -1221,10 +1221,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Flame</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/1e8184a44321696d525db21948edc79a2426b27d/Assets/Flame.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Flame.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/1e8184a44321696d525db21948edc79a2426b27d/Assets/Flame.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Flame.png" width="75px" height="75">
 ```
 <br>
 
@@ -1232,10 +1232,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Flexed Biceps</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/1e8184a44321696d525db21948edc79a2426b27d/Assets/Flexed%20Biceps.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Flexed%20Biceps.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/1e8184a44321696d525db21948edc79a2426b27d/Assets/Flexed%20Biceps.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Flexed%20Biceps.png" width="75px" height="75">
 ```
 <br>
 
@@ -1243,10 +1243,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Alien Monster</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/8bd29cfac721558293f4a9f446d88a4b45c46223/Assets/Alien%20Monster.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Alien%20Monster.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/8bd29cfac721558293f4a9f446d88a4b45c46223/Assets/Alien%20Monster.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Alien%20Monster.png" width="75px" height="75">
 ```
 <br>
 
@@ -1254,10 +1254,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Brain</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/8bd29cfac721558293f4a9f446d88a4b45c46223/Assets/Brain.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Brain.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/8bd29cfac721558293f4a9f446d88a4b45c46223/Assets/Brain.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Brain.png" width="75px" height="75">
 ```
 <br>
 
@@ -1265,10 +1265,10 @@ https://readme-typing-svg.demolab.com/demo/
 
 
 <h3>Bug</h3> 
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/8bd29cfac721558293f4a9f446d88a4b45c46223/Assets/Bug.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Bug.png" width="75px" height="75">
  
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/8bd29cfac721558293f4a9f446d88a4b45c46223/Assets/Bug.png" width="75px" height="75">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/Bug.png" width="75px" height="75">
 ```
 <br>
 
@@ -1285,7 +1285,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/linkedin.gif" width="100">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/linkedin.gif" width="100">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/linkedin.gif" width="100">
 ```
 <br>
 
@@ -1296,7 +1296,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/instagram.gif" width="100">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/instagram.gif" width="100">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/instagram.gif" width="100">
 ```
 <br>
 
@@ -1307,7 +1307,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/discord.gif" width="100">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/discord.gif" width="100">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/discord.gif" width="100">
 ```
 <br>
 
@@ -1318,7 +1318,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/facebook.gif" width="100">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook.gif" width="100">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/facebook.gif" width="100">
 ```
 <br>
 
@@ -1329,7 +1329,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/linkedin-1.png" width="100">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/linkedin-1.png" width="100">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/linkedin-1.png" width="100">
 ```
 <br>
 
@@ -1340,7 +1340,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/instagram-1.webp" width="100">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/instagram-1.webp" width="100">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/instagram-1.webp" width="100">
 ```
 <br>
 
@@ -1351,7 +1351,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/discord-1.png" width="100">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/discord-1.png" width="100">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/discord-1.png" width="100">
 ```
 <br>
 
@@ -1362,7 +1362,7 @@ https://readme-typing-svg.demolab.com/demo/
 <img src="./public/Assets/facebook-1.png" width="100">
 
 ```bash
-<img src = "https://github.com/Mayur-Pagote/README_Design_Kit/blob/main/public/Assets/facebook-1.png" width="100">
+<img src = "https://raw.githubusercontent.com/Mayur-Pagote/README_Design_Kit/main/public/Assets/facebook-1.png" width="100">
 ```
 <br>
 
