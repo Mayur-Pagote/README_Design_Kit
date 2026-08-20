@@ -16,7 +16,12 @@ export default defineConfig({
       output: {
         manualChunks(id) {
           if (id.includes("node_modules")) {
-            return "vendor"; // ✅ Splits heavy dependencies into a separate chunk
+            const split = id.toString().split("node_modules/");
+            const pathAfterNodeModules = split[split.length - 1];
+            const packageName = pathAfterNodeModules.split("/")[0].startsWith("@")
+              ? pathAfterNodeModules.split("/")[0] + "/" + pathAfterNodeModules.split("/")[1]
+              : pathAfterNodeModules.split("/")[0];
+            return packageName;
           }
         },
       },
